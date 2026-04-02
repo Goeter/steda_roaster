@@ -47,7 +47,16 @@ export function Product() {
   };
 
   return (
-    <section id="product" className="py-20 bg-product relative">
+    <section 
+      id="product" 
+      className="py-20 bg-product relative overflow-hidden" 
+      style={{
+        backgroundImage: "url('/path/to/light-batik-texture.jpg')", // path/to/light-batik-texture.jpg should point to the light-batik-texture.jpg texture
+        backgroundSize: '400px', // or cover, contain, as you see fit
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Header */}
         <div className="text-center mb-16 w-full">
