@@ -6,28 +6,29 @@ export function AboutUs() {
   return (
     <section
       id="about"
-      className="py-20 relative overflow-hidden"
+      className="py-20 relative overflow-hidden text-gray-800"
     >
-      {/* 🎨 Base Soft Elegant Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#f8f3ed] via-[#fdfaf6] to-[#f5efe6]" />
+      {/* 🌿 Soft Elegant Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#fdfaf6] via-[#f7f1e8] to-[#f3ece2]" />
 
-      {/* 🧵 Batik Jogja Pattern (Parang Style - Super Halus) */}
+      {/* ✨ Soft Gold Glow */}
+      <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-amber-200/40 blur-[100px] rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-yellow-300/30 blur-[90px] rounded-full" />
+
+      {/* 🧵 Batik Jogja Pattern (Kawung Style - Elegant & Symmetrical) */}
       <div
         className="absolute inset-0 opacity-[0.07] bg-repeat"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6f47' stroke-width='1.2'%3E%3Cpath d='M0 80 Q40 40 80 80 T160 80'/%3E%3Cpath d='M0 120 Q40 80 80 120 T160 120'/%3E%3Cpath d='M0 40 Q40 0 80 40 T160 40'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1.5'%3E%3Cellipse cx='80' cy='40' rx='20' ry='30'/%3E%3Cellipse cx='80' cy='120' rx='20' ry='30'/%3E%3Cellipse cx='40' cy='80' rx='30' ry='20'/%3E%3Cellipse cx='120' cy='80' rx='30' ry='20'/%3E%3Ccircle cx='80' cy='80' r='6' fill='%23a67c52'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
-
-      {/* ✨ Gold Soft Accent */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-amber-300/20 blur-[120px] rounded-full" />
 
       {/* 📦 Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
           {/* 🎥 Video */}
-          <div className="aspect-video rounded-xl overflow-hidden bg-black shadow-xl border border-amber-200">
+          <div className="aspect-video rounded-xl overflow-hidden bg-black shadow-xl border border-black/10">
             <iframe
               width="100%"
               height="100%"
@@ -42,20 +43,20 @@ export function AboutUs() {
           {/* 📝 Content */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-4xl font-bold text-[#3e2f25] mb-3 leading-tight">
+              <h2 className="text-4xl font-bold mb-3 leading-tight text-gray-900">
                 Kenapa Harus Memilih Steda Roaster?
               </h2>
-              <p className="text-[#5c4634]/80 text-lg leading-relaxed">
+              <p className="text-gray-600 text-lg leading-relaxed">
                 Sudah lebih dari 5 tahun, kami terus melakukan inovasi dan bekerja sama dengan para ahli roaster kopi terbaik di industri ini.
               </p>
             </div>
 
-            <p className="text-[#5c4634]/80 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed">
               Semua produk kami dibuat dengan standar internasional dan didesain khusus untuk memenuhi kebutuhan dan kualitas dari para profesional seperti Anda.
             </p>
 
             <Button
-              className="bg-[#8b6f47] text-white hover:bg-[#6f5638] px-8 py-3 font-semibold transition-all duration-300 hover:-translate-y-1 shadow-md"
+              className="bg-amber-600 text-white hover:bg-amber-500 px-8 py-3 font-semibold transition-all duration-300 hover:-translate-y-1 shadow-md"
               onClick={() =>
                 document
                   .getElementById('product')
