@@ -11,27 +11,26 @@ export function Testimonies() {
       id: 1,
       name: 'Santi Minato',
       rating: 5,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      text: 'Pelayanan sangat memuaskan, kualitas produk benar-benar premium. Saya pasti akan kembali lagi.',
     },
     {
       id: 2,
       name: 'Heru Jaya',
       rating: 5,
-      text: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.',
+      text: 'Pengalaman luar biasa, desain elegan dan pelayanan cepat. Sangat direkomendasikan.',
     },
     {
       id: 3,
       name: 'Jaya Wijaya',
       rating: 5,
-      text: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.',
+      text: 'Sangat profesional dan detail. Ini adalah pilihan terbaik untuk kualitas dan kenyamanan.',
     },
   ];
 
-  // Auto-advance carousel every 15 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonies.length);
-    }, 15000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [testimonies.length]);
 
@@ -55,53 +54,62 @@ export function Testimonies() {
   const visibleTestimonies = getVisibleTestimonies();
 
   return (
-    <section id="testimonies" className="py-20 bg-testimonies relative">
+    <section
+      id="testimonies"
+      className="py-24 relative bg-gradient-to-br from-neutral-100 via-white to-neutral-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-black text-white mb-6 text-balance">
-            TESTIMONIALS
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-bold text-neutral-900 mb-6 tracking-tight">
+            What Our Customers Say
           </h2>
-          <p className="text-black text-lg max-w-2xl mx-auto">
-            Listen directly from our customers about their experiences with our outstanding service. These are real stories from people who have chosen us.
+          <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
+            Real experiences from our valued customers who trust our quality and service.
           </p>
         </div>
 
         {/* Carousel */}
-        <div className="relative px-16">
-          <div className="flex justify-center items-center gap-6 min-h-80">
+        <div className="relative px-10">
+          <div className="flex justify-center items-center gap-8 min-h-[320px]">
             {visibleTestimonies.map((testimony) => {
               const isCenter = testimony.position === 1;
-              const opacity = isCenter ? 'opacity-100 shadow-xl' : 'opacity-60 shadow-lg';
 
               return (
                 <div
                   key={`${testimony.id}-${testimony.position}`}
-                  className={`flex-shrink-0 w-80 bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 transition-all duration-500 ${opacity}`}
+                  className={`
+                    w-80 p-8 rounded-3xl border transition-all duration-700 ease-in-out
+                    bg-white/70 backdrop-blur-md
+                    ${isCenter 
+                      ? 'scale-105 opacity-100 shadow-2xl border-neutral-200 z-10' 
+                      : 'scale-90 opacity-60 shadow-md border-neutral-100'}
+                  `}
                 >
                   {/* Stars */}
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: testimony.rating }).map((_, i) => (
                       <Star
                         key={i}
-                        size={16}
-                        className="fill-primary text-primary"
+                        size={18}
+                        className="fill-yellow-400 text-yellow-400"
                       />
                     ))}
                   </div>
 
-                  {/* Review Text */}
-                  <p className="text-white/90 text-sm mb-6 leading-relaxed">
-                    {testimony.text}
+                  {/* Text */}
+                  <p className="text-neutral-700 text-sm leading-relaxed mb-6">
+                    "{testimony.text}"
                   </p>
 
                   {/* Name */}
                   <div>
-                    <p className="font-semibold text-white text-sm">
+                    <p className="font-semibold text-neutral-900">
                       {testimony.name}
                     </p>
-                    <p className="text-primary text-xs font-medium">
-                      {testimony.rating}/5
+                    <p className="text-sm text-neutral-500">
+                      {testimony.rating}/5 Rating
                     </p>
                   </div>
                 </div>
@@ -109,20 +117,19 @@ export function Testimonies() {
             })}
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Buttons */}
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors z-10"
-            aria-label="Previous testimony"
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow-md hover:scale-110 transition"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft className="text-neutral-700" />
           </button>
+
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors z-10"
-            aria-label="Next testimony"
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow-md hover:scale-110 transition"
           >
-            <ChevronRight size={24} />
+            <ChevronRight className="text-neutral-700" />
           </button>
         </div>
       </div>
