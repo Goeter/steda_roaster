@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 export function Testimonies() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,107 +29,132 @@ export function Testimonies() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonies.length);
+      handleNext();
     }, 6000);
     return () => clearInterval(interval);
-  }, [testimonies.length]);
-
-  const getVisibleTestimonies = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentIndex + i) % testimonies.length;
-      visible.push({ ...testimonies[index], position: i });
-    }
-    return visible;
-  };
+  }, []);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonies.length) % testimonies.length);
+    setCurrentIndex((prev) =>
+      prev === 0 ? testimonies.length - 1 : prev - 1
+    );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonies.length);
+    setCurrentIndex((prev) =>
+      prev === testimonies.length - 1 ? 0 : prev + 1
+    );
   };
-
-  const visibleTestimonies = getVisibleTestimonies();
 
   return (
     <section
       id="testimonies"
-      className="py-24 relative bg-gradient-to-br from-neutral-100 via-white to-neutral-200"
+      className="py-28 relative overflow-hidden
+      bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      {/* Glow background */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute w-[500px] h-[500px] bg-amber-400 blur-[120px] top-[-100px] left-[-100px]" />
+        <div className="absolute w-[400px] h-[400px] bg-yellow-300 blur-[120px] bottom-[-100px] right-[-100px]" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl font-bold text-neutral-900 mb-6 tracking-tight">
+          <h2 className="text-5xl font-bold text-white mb-6 tracking-tight">
             What Our Customers Say
           </h2>
-          <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
+          <p className="text-neutral-300 text-lg max-w-2xl mx-auto">
             Real experiences from our valued customers who trust our quality and service.
           </p>
         </div>
 
         {/* Carousel */}
-        <div className="relative px-10">
-          <div className="flex justify-center items-center gap-8 min-h-[320px]">
-            {visibleTestimonies.map((testimony) => {
-              const isCenter = testimony.position === 1;
-
-              return (
+        <div className="relative">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}
+            >
+              {testimonies.map((testimony, index) => (
                 <div
-                  key={`${testimony.id}-${testimony.position}`}
-                  className={`
-                    w-80 p-8 rounded-3xl border transition-all duration-700 ease-in-out
-                    bg-white/70 backdrop-blur-md
-                    ${isCenter 
-                      ? 'scale-105 opacity-100 shadow-2xl border-neutral-200 z-10' 
-                      : 'scale-90 opacity-60 shadow-md border-neutral-100'}
-                  `}
+                  key={testimony.id}
+                  className="min-w-full flex justify-center px-4"
                 >
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: testimony.rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        size={18}
-                        className="fill-yellow-400 text-yellow-400"
-                      />
-                    ))}
-                  </div>
+                  <div
+                    className={`
+                      w-[380px] p-10 rounded-3xl relative
+                      backdrop-blur-xl border
+                      transition-all duration-700
+                      bg-white/10 border-white/20
+                      shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+                      ${index === currentIndex
+                        ? 'scale-100 opacity-100'
+                        : 'scale-90 opacity-50'}
+                    `}
+                  >
+                    {/* Quote icon */}
+                    <Quote className="absolute top-6 right-6 text-amber-400 opacity-30" size={40} />
 
-                  {/* Text */}
-                  <p className="text-neutral-700 text-sm leading-relaxed mb-6">
-                    "{testimony.text}"
-                  </p>
+                    {/* Stars */}
+                    <div className="flex gap-1 mb-4">
+                      {Array.from({ length: testimony.rating }).map((_, i) => (
+                        <Star
+                          key={i}
+                          size={18}
+                          className="fill-amber-400 text-amber-400"
+                        />
+                      ))}
+                    </div>
 
-                  {/* Name */}
-                  <div>
-                    <p className="font-semibold text-neutral-900">
-                      {testimony.name}
+                    {/* Text */}
+                    <p className="text-neutral-200 leading-relaxed mb-6">
+                      "{testimony.text}"
                     </p>
-                    <p className="text-sm text-neutral-500">
-                      {testimony.rating}/5 Rating
-                    </p>
+
+                    {/* Name */}
+                    <div>
+                      <p className="font-semibold text-white text-lg">
+                        {testimony.name}
+                      </p>
+                      <p className="text-sm text-neutral-400">
+                        {testimony.rating}/5 Rating
+                      </p>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
           {/* Buttons */}
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow-md hover:scale-110 transition"
+            className="absolute left-2 top-1/2 -translate-y-1/2
+            p-3 rounded-full
+            bg-white/10 backdrop-blur-md
+            border border-white/20
+            text-white
+            hover:scale-110 hover:bg-white/20
+            transition"
           >
-            <ChevronLeft className="text-neutral-700" />
+            <ChevronLeft />
           </button>
 
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow-md hover:scale-110 transition"
+            className="absolute right-2 top-1/2 -translate-y-1/2
+            p-3 rounded-full
+            bg-white/10 backdrop-blur-md
+            border border-white/20
+            text-white
+            hover:scale-110 hover:bg-white/20
+            transition"
           >
-            <ChevronRight className="text-neutral-700" />
+            <ChevronRight />
           </button>
         </div>
       </div>
