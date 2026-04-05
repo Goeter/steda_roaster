@@ -39,7 +39,7 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-start">
         <div className="max-w-2xl text-left">
-          <h1 className="text-5xl sm:text-6xl font-bold text-primary mb-6 leading-tight text-balance">
+          <h1 className="text-5xl sm:text-6xl font-bold text-orange-500 mb-6 leading-tight text-balance">
             MESIN ROASTING KOPI BERKUALITAS UNTUK BISNIS ANDA
           </h1>
           <p className="text-lg text-white mb-8 leading-relaxed">
