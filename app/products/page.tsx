@@ -10,7 +10,7 @@ import { Footer } from '@/components/sections/footer';
 import { Button } from '@/components/ui/button';
 import { products } from '@/lib/cms-data';
 
-const filterOptions = ['All Products', 'Home Roastery', 'Small Roastery', 'Medium Roastery', 'Best Seller'];
+const filterOptions = ['All Products', 'Home Roastery', 'Industrial Roastery', 'Best Seller'];
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
