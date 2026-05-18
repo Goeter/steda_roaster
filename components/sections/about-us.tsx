@@ -46,7 +46,7 @@ export function AboutUs() {
           <div className="space-y-6">
             <div>
               <h2 className="text-4xl font-bold leading-tight text-gray-900">
-                Why Choose Steda Roaster?
+                Who We Are
               </h2>
               <p className="mt-3 text-lg leading-relaxed text-gray-600">
                 Sudah lebih dari 6 tahun, kami terus melakukan inovasi dan bekerja sama dengan para ahli roaster kopi terbaik di industri ini. 
