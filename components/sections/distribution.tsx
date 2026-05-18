@@ -8,7 +8,7 @@ export function Distribution() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-amber-100 bg-amber-50 shadow-lg">
-            <Image src="/map.jpg" alt="Distribution map Steda Roaster" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+            <Image src="/gambar_peta.png" alt="Distribution map Steda Roaster" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
           </div>
 
           <div>
