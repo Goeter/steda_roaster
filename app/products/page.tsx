@@ -47,6 +47,7 @@ export default function ProductsPage() {
             sizes="100vw"
             className="object-cover"
           />
+
           <div className="absolute inset-0 bg-black/60" />
 
           <div className="relative z-10 max-w-3xl px-6 text-white">
@@ -165,8 +166,8 @@ export default function ProductsPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
           <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-              <div className="text-center lg:text-left">
+            <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left">
+              <div className="max-w-3xl">
                 <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-amber-200 ring-1 ring-white/15 backdrop-blur lg:mx-0">
                   <MessageCircle size={28} />
                 </div>
@@ -175,7 +176,7 @@ export default function ProductsPage() {
                   Need Consultation?
                 </p>
 
-                <h3 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                <h3 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
                   Want to buy Steda Roaster products?
                 </h3>
 
@@ -185,22 +186,10 @@ export default function ProductsPage() {
                 </p>
               </div>
 
-              <div className="rounded-[2rem] border border-white/10 bg-white/10 p-6 text-center shadow-2xl shadow-black/20 backdrop-blur-md sm:p-8 lg:text-left">
-                <p className="text-sm font-medium text-amber-100">
-                  Free consultation via WhatsApp
-                </p>
-
-                <h4 className="mt-3 text-2xl font-bold text-white">
-                  Get the right roaster recommendation
-                </h4>
-
-                <p className="mt-3 text-sm leading-6 text-white/70">
-                  Ceritakan kebutuhan produksi Anda, lalu kami bantu rekomendasikan tipe mesin yang tepat.
-                </p>
-
+              <div className="flex w-full flex-col items-center gap-4 lg:w-auto lg:items-end">
                 <Button
                   asChild
-                  className="mt-7 w-full rounded-full bg-[#25D366] px-8 py-6 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] sm:w-auto"
+                  className="w-full rounded-full bg-[#25D366] px-8 py-6 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] sm:w-auto"
                 >
                   <a
                     href="https://wa.me/6281225171359?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Steda%20Roaster"
@@ -212,7 +201,7 @@ export default function ProductsPage() {
                   </a>
                 </Button>
 
-                <p className="mt-4 text-xs text-white/50">
+                <p className="text-xs font-medium text-white/60">
                   Fast response during business hours
                 </p>
               </div>
