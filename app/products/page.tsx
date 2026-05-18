@@ -160,33 +160,33 @@ export default function ProductsPage() {
           )}
         </section>
 
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-16 text-white sm:py-20">
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-8 text-white sm:py-12">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_25%,rgba(245,158,11,0.28),transparent_30%),radial-gradient(circle_at_85%_75%,rgba(120,53,15,0.45),transparent_35%)]" />
           <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(135deg,#ffffff_1px,transparent_1px),linear-gradient(45deg,#ffffff_1px,transparent_1px)] bg-[length:30px_30px]" />
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
           <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
-            <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left">
+            <div className="flex flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
               <div className="max-w-3xl">
-                <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-amber-200 ring-1 ring-white/15 backdrop-blur lg:mx-0">
-                  <MessageCircle size={28} />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-amber-200 ring-1 ring-white/15 backdrop-blur lg:mx-0">
+                  <MessageCircle size={24} />
                 </div>
 
-                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-200 sm:text-sm">
                   Need Consultation?
                 </p>
 
-                <h3 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                <h3 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
                   Want to buy Steda Roaster products?
                 </h3>
 
-                <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/75 sm:text-base lg:mx-0">
+                <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/75 sm:text-base lg:mx-0">
                   Konsultasikan kapasitas, kebutuhan produksi, dan tipe mesin terbaik untuk bisnis kopi Anda.
                   Tim kami siap membantu memilih produk Steda Roaster yang paling sesuai untuk skala usaha Anda.
                 </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-4 lg:w-auto lg:items-end">
+              <div className="flex w-full flex-col items-center gap-3 lg:w-auto lg:items-end">
                 <Button
                   asChild
                   className="w-full rounded-full bg-[#25D366] px-8 py-6 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] sm:w-auto"
