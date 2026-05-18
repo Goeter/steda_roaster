@@ -35,21 +35,6 @@ export function Distribution() {
           </div>
         </div>
       </div>
-
-      <div className="mt-20 bg-gradient-to-r from-[#3a2115] via-[#5a351f] to-[#2b1b12] py-16 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 text-center sm:px-6 lg:flex-row lg:text-left lg:px-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-200">Need Consultation?</p>
-            <h3 className="mt-3 text-3xl font-bold">Want to buy Steda Roaster products?</h3>
-            <p className="mt-3 max-w-2xl text-white/75">Konsultasikan kapasitas, kebutuhan produksi, dan tipe mesin terbaik untuk bisnis kopi Anda.</p>
-          </div>
-          <Button asChild className="rounded-full bg-amber-500 px-8 py-6 font-semibold text-white hover:bg-amber-400">
-            <a href="https://wa.me/6281225171359?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Steda%20Roaster" target="_blank" rel="noopener noreferrer">
-              Contact via WhatsApp
-            </a>
-          </Button>
-        </div>
-      </div>
     </section>
   );
 }
