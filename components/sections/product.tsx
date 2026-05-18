@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { products } from '@/lib/cms-data';
@@ -10,10 +10,22 @@ import { products } from '@/lib/cms-data';
 export function Product() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  const homeProducts = useMemo(() => {
+    return products.filter((product) => {
+      const productCategory = product.category?.toLowerCase() || '';
+
+      return (
+        productCategory === 'home roastery'.toLowerCase() ||
+        productCategory === 'industrial roastery'.toLowerCase()
+      );
+    });
+  }, []);
+
   const scrollCarousel = (direction: 'prev' | 'next') => {
     if (!carouselRef.current) return;
 
     const scrollAmount = carouselRef.current.clientWidth * 0.9;
+
     carouselRef.current.scrollBy({
       left: direction === 'next' ? scrollAmount : -scrollAmount,
       behavior: 'smooth',
@@ -21,27 +33,33 @@ export function Product() {
   };
 
   return (
-    <section id="product" className="relative overflow-hidden py-20">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#fffaf5] via-[#fdf6ec] to-[#f7efe5]" />
-      <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(circle_at_20%_20%,rgba(180,120,45,0.20),transparent_32%),radial-gradient(circle_at_80%_70%,rgba(92,55,25,0.14),transparent_34%)]" />
-      <div className="absolute inset-0 -z-10 opacity-20 bg-[linear-gradient(45deg,rgba(120,90,40,0.08)_25%,transparent_25%,transparent_50%,rgba(120,90,40,0.08)_50%,rgba(120,90,40,0.08)_75%,transparent_75%,transparent)] bg-[length:28px_28px]" />
-
-      <div className="mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
+    <section id="product" className="relative overflow-hidden bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7] py-20">
+      <div className="mx-auto flex max-w-7xl flex-col items-center px-6">
         <div className="mb-14 w-full text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">Our Products</p>
-          <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">Explore Our Coffee Machine</h2>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
+            Our Products
+          </p>
+
+          <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
+            Explore Our Coffee Machine
+          </h2>
+
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-neutral-600">
-            Kami menawarkan berbagai jenis mesin roasting kopi untuk kebutuhan home roastery, coffee shop, sampai produksi profesional.
+            Kami menawarkan berbagai jenis mesin roasting kopi untuk kebutuhan home roastery,
+            coffee shop, sampai produksi profesional.
           </p>
         </div>
 
         <div className="relative w-full">
           <div
             ref={carouselRef}
-            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {products.map((product) => (
-              <div key={product.id} className="min-w-[86%] snap-start sm:min-w-[48%] lg:min-w-[31.8%]">
+            {homeProducts.map((product) => (
+              <div
+                key={product.id}
+                className="min-w-[86%] snap-start sm:min-w-[48%] lg:min-w-[31.8%]"
+              >
                 <Link
                   href={`/products/${product.slug}`}
                   aria-label={`Lihat detail ${product.name}`}
@@ -69,11 +87,11 @@ export function Product() {
                         {product.category}
                       </span>
 
-                      <h3 className="mt-4 text-xl font-bold text-neutral-900">
+                      <h2 className="mt-4 text-xl font-bold text-neutral-900">
                         {product.name}
-                      </h3>
+                      </h2>
 
-                      <p className="mt-3 line-clamp-3 text-sm leading-6 text-neutral-600">
+                      <p className="mt-3 text-sm leading-6 text-neutral-600">
                         {product.description}
                       </p>
 
@@ -127,7 +145,7 @@ export function Product() {
         <div className="mt-10">
           <Button
             asChild
-            className="group rounded-full bg-gradient-to-r from-orange-600 to-amber-500 px-8 py-6 text-base font-semibold text-white shadow-lg shadow-orange-900/15 transition hover:-translate-y-0.5 hover:from-orange-700 hover:to-amber-600 hover:shadow-xl"
+            className="group rounded-full bg-orange-600 px-8 py-6 text-base font-semibold text-white shadow-lg shadow-orange-900/15 transition hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-xl"
           >
             <Link href="/products">
               See More Products
