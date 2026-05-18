@@ -1,4 +1,4 @@
-import type { FAQItem, HeroSlide, NewsItem, Product, SiteSettings, Testimony } from './cms-types';
+import type { AboutSection, FAQCategory, FAQItem, HeroSlide, NewsItem, Product, SiteSettings, Testimony } from './cms-types';
 
 export const siteSettings: SiteSettings = {
   siteName: 'Steda Roaster',
@@ -12,6 +12,19 @@ export const siteSettings: SiteSettings = {
     facebook: '#',
     tiktok: '#',
   },
+};
+
+
+export const aboutSection: AboutSection = {
+  videoUrl: 'https://www.youtube.com/embed/IWxF0VOYymI',
+  videoTitle: 'Steda Roaster Introduction',
+  heading: 'Who We Are',
+  description: [
+    'Sudah lebih dari 6 tahun, kami terus melakukan inovasi dan bekerja sama dengan para ahli roaster kopi terbaik di industri ini.',
+    'Baik usaha besar maupun kecil, kami tahu persis apa yang Anda butuhkan dan mengutamakan keinginan Anda.',
+  ],
+  ctaLabel: 'View Details',
+  ctaHref: '/about',
 };
 
 export const heroSlides: HeroSlide[] = [
@@ -121,32 +134,94 @@ export const testimonies: Testimony[] = [
   },
 ];
 
-export const faqs: FAQItem[] = [
+export const faqCategories: FAQCategory[] = [
   {
-    id: 1,
-    question: 'Apa itu mesin roasting kopi?',
-    answer:
-      'Mesin roasting kopi adalah mesin untuk memanggang green beans hingga mencapai profil rasa, aroma, dan warna yang diinginkan.',
+    title: 'About Steda Machine Roaster',
+    icon: 'coffee',
+    faqs: [
+      {
+        id: 1,
+        question: 'Apa itu mesin roasting kopi Steda?',
+        answer:
+          'Mesin roasting kopi Steda adalah peralatan premium yang dirancang untuk memanggang biji kopi mentah dengan presisi tinggi guna menghasilkan aroma dan cita rasa terbaik.',
+      },
+      {
+        id: 2,
+        question: 'Siapa yang cocok menggunakan mesin Steda?',
+        answer:
+          'Mesin ini cocok untuk home roaster, kafe, roastery profesional, hingga industri kopi skala menengah dan besar.',
+      },
+      {
+        id: 3,
+        question: 'Apa keunggulan utama mesin roasting Steda?',
+        answer:
+          'Keunggulan utamanya meliputi kontrol suhu presisi, desain modern, efisiensi energi, serta daya tahan tinggi.',
+      },
+    ],
   },
   {
-    id: 2,
-    question: 'Berapa kapasitas mesin roasting Steda?',
-    answer:
-      'Steda menyediakan kapasitas mulai dari 200 gram untuk home roastery hingga 20 kg untuk kebutuhan produksi medium roastery.',
+    title: 'Features and Specifications',
+    icon: 'settings',
+    faqs: [
+      {
+        id: 4,
+        question: 'Berapa kapasitas mesin roasting Steda?',
+        answer:
+          'Kapasitas mesin tersedia mulai dari 200 gram hingga 20 kilogram untuk memenuhi kebutuhan skala kecil hingga industri.',
+      },
+      {
+        id: 5,
+        question: 'Apakah mesin dilengkapi dengan kontrol digital?',
+        answer:
+          'Ya, mesin Steda dilengkapi dengan sistem kontrol digital untuk memastikan konsistensi dan akurasi dalam proses roasting.',
+      },
+      {
+        id: 6,
+        question: 'Apa sumber energi yang digunakan?',
+        answer:
+          'Mesin roasting Steda menggunakan gas LPG atau natural gas yang efisien dan ramah lingkungan.',
+      },
+      {
+        id: 7,
+        question: 'Apakah tersedia garansi?',
+        answer:
+          'Semua produk Steda Roaster dilengkapi dengan garansi resmi selama 1 tahun serta dukungan teknis profesional.',
+      },
+    ],
   },
   {
-    id: 3,
-    question: 'Apakah tersedia dukungan teknis?',
-    answer:
-      'Ya. Tim Steda membantu konsultasi produk, penggunaan mesin, dan dukungan teknis setelah pembelian.',
-  },
-  {
-    id: 4,
-    question: 'Bagaimana cara membeli produk Steda Roaster?',
-    answer:
-      'Anda dapat menghubungi tim kami melalui WhatsApp atau email untuk konsultasi kebutuhan dan informasi pemesanan.',
+    title: 'How to Use the Machine',
+    icon: 'bookOpen',
+    faqs: [
+      {
+        id: 8,
+        question: 'Bagaimana cara mengoperasikan mesin roasting Steda?',
+        answer:
+          'Nyalakan mesin, atur suhu dan waktu roasting, masukkan biji kopi, lalu pantau proses hingga mencapai tingkat kematangan yang diinginkan.',
+      },
+      {
+        id: 9,
+        question: 'Apakah tersedia pelatihan penggunaan mesin?',
+        answer:
+          'Ya, Steda Roaster menyediakan pelatihan penggunaan mesin bagi pelanggan untuk memastikan pengoperasian yang optimal.',
+      },
+      {
+        id: 10,
+        question: 'Bagaimana cara merawat mesin roasting?',
+        answer:
+          'Lakukan pembersihan rutin pada drum dan chaff collector serta lakukan perawatan berkala untuk menjaga performa mesin.',
+      },
+      {
+        id: 11,
+        question: 'Bagaimana cara menghubungi layanan pelanggan?',
+        answer:
+          'Anda dapat menghubungi tim Steda Roaster melalui WhatsApp atau email resmi untuk dukungan teknis dan konsultasi.',
+      },
+    ],
   },
 ];
+
+export const faqs: FAQItem[] = faqCategories.flatMap((category) => category.faqs);
 
 export const newsCategories = ['All News', 'Education', 'Coffee', 'Roaster Machine', 'Our Partner'];
 

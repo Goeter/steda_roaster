@@ -6,6 +6,7 @@ import { ChevronDown, Coffee, Settings, BookOpen, MessageCircle } from 'lucide-r
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
+import { faqCategories } from '@/lib/cms-data';
 
 type FAQItem = {
   question: string;
@@ -16,81 +17,13 @@ export default function FAQsPage() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const categories = [
-    {
-      title: 'About Steda Machine Roaster',
-      icon: Coffee,
-      faqs: [
-        {
-          question: 'Apa itu mesin roasting kopi Steda?',
-          answer:
-            'Mesin roasting kopi Steda adalah peralatan premium yang dirancang untuk memanggang biji kopi mentah dengan presisi tinggi guna menghasilkan aroma dan cita rasa terbaik.',
-        },
-        {
-          question: 'Siapa yang cocok menggunakan mesin Steda?',
-          answer:
-            'Mesin ini cocok untuk home roaster, kafe, roastery profesional, hingga industri kopi skala menengah dan besar.',
-        },
-        {
-          question: 'Apa keunggulan utama mesin roasting Steda?',
-          answer:
-            'Keunggulan utamanya meliputi kontrol suhu presisi, desain modern, efisiensi energi, serta daya tahan tinggi.',
-        },
-      ],
-    },
-    {
-      title: 'Features and Specifications',
-      icon: Settings,
-      faqs: [
-        {
-          question: 'Berapa kapasitas mesin roasting Steda?',
-          answer:
-            'Kapasitas mesin tersedia mulai dari 200 gram hingga 20 kilogram untuk memenuhi kebutuhan skala kecil hingga industri.',
-        },
-        {
-          question: 'Apakah mesin dilengkapi dengan kontrol digital?',
-          answer:
-            'Ya, mesin Steda dilengkapi dengan sistem kontrol digital untuk memastikan konsistensi dan akurasi dalam proses roasting.',
-        },
-        {
-          question: 'Apa sumber energi yang digunakan?',
-          answer:
-            'Mesin roasting Steda menggunakan gas LPG atau natural gas yang efisien dan ramah lingkungan.',
-        },
-        {
-          question: 'Apakah tersedia garansi?',
-          answer:
-            'Semua produk Steda Roaster dilengkapi dengan garansi resmi selama 1 tahun serta dukungan teknis profesional.',
-        },
-      ],
-    },
-    {
-      title: 'How to Use the Machine',
-      icon: BookOpen,
-      faqs: [
-        {
-          question: 'Bagaimana cara mengoperasikan mesin roasting Steda?',
-          answer:
-            'Nyalakan mesin, atur suhu dan waktu roasting, masukkan biji kopi, lalu pantau proses hingga mencapai tingkat kematangan yang diinginkan.',
-        },
-        {
-          question: 'Apakah tersedia pelatihan penggunaan mesin?',
-          answer:
-            'Ya, Steda Roaster menyediakan pelatihan penggunaan mesin bagi pelanggan untuk memastikan pengoperasian yang optimal.',
-        },
-        {
-          question: 'Bagaimana cara merawat mesin roasting?',
-          answer:
-            'Lakukan pembersihan rutin pada drum dan chaff collector serta lakukan perawatan berkala untuk menjaga performa mesin.',
-        },
-        {
-          question: 'Bagaimana cara menghubungi layanan pelanggan?',
-          answer:
-            'Anda dapat menghubungi tim Steda Roaster melalui WhatsApp atau email resmi untuk dukungan teknis dan konsultasi.',
-        },
-      ],
-    },
-  ];
+  const iconMap = {
+    coffee: Coffee,
+    settings: Settings,
+    bookOpen: BookOpen,
+  };
+
+  const categories = faqCategories;
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -119,7 +52,7 @@ export default function FAQsPage() {
           {/* Category Tabs */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
             {categories.map((category, index) => {
-              const Icon = category.icon;
+              const Icon = iconMap[category.icon];
               return (
                 <button
                   key={index}

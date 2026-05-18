@@ -3,36 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
+import { faqs } from '@/lib/cms-data';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const faqs = [
-    {
-      id: 1,
-      question: 'Apa itu mesin roasting kopi?',
-      answer:
-        'Mesin roasting kopi adalah peralatan yang digunakan untuk memanggang biji kopi mentah (green beans) hingga mencapai tingkat kematangan yang diinginkan, mengubah warna dan cita rasa kopi.',
-    },
-    {
-      id: 2,
-      question: 'Berapa kapasitas mesin roasting Steda?',
-      answer:
-        'Steda menawarkan berbagai kapasitas mulai dari 200 gram untuk home roaster hingga 20 kg untuk medium roastery, sesuai dengan kebutuhan bisnis Anda.',
-    },
-    {
-      id: 3,
-      question: 'Apa garansi yang diberikan?',
-      answer:
-        'Semua produk Steda Roaster dilengkapi dengan garansi 1 tahun dan dukungan teknis penuh untuk memastikan mesin Anda berfungsi optimal.',
-    },
-    {
-      id: 4,
-      question: 'Bagaimana cara menghubungi customer service?',
-      answer:
-        'Anda dapat menghubungi kami melalui WhatsApp di +62 812 2517 1359 atau email ke info@stedaroaster.com untuk pertanyaan dan dukungan teknis.',
-    },
-  ];
+  const homeFaqs = faqs.slice(0, 4);
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -55,7 +30,7 @@ export function FAQ() {
 
             {/* ACCORDION */}
             <div className="space-y-4">
-              {faqs.map((faq, index) => (
+              {homeFaqs.map((faq, index) => (
                 <div
                   key={faq.id}
                   className="border border-primary rounded-lg overflow-hidden bg-white shadow-sm"

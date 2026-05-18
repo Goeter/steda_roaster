@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
+import { AboutUs } from '@/components/sections/about-us';
 import { Benefits } from '@/components/sections/benefits';
 import { Testimonies } from '@/components/sections/testimonies';
 import { Button } from '@/components/ui/button';
@@ -43,69 +44,7 @@ export default function AboutPage() {
         </section>
 
         {/* ================= ABOUT US ================= */}
-        <section className="relative py-24 overflow-hidden bg-[#fdfaf6]">
-          {/* Batik Kawung Pattern */}
-          <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
-            <svg
-              className="w-full h-full"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <pattern
-                  id="batikKawung"
-                  x="0"
-                  y="0"
-                  width="120"
-                  height="120"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <g fill="none" stroke="#6d4c41" strokeWidth="1.2">
-                    <ellipse cx="60" cy="30" rx="18" ry="30" />
-                    <ellipse cx="90" cy="60" rx="30" ry="18" />
-                    <ellipse cx="60" cy="90" rx="18" ry="30" />
-                    <ellipse cx="30" cy="60" rx="30" ry="18" />
-                  </g>
-                  <circle cx="60" cy="60" r="4" fill="#6d4c41" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#batikKawung)" />
-            </svg>
-          </div>
-
-          {/* Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            {/* YouTube Video */}
-            <div className="aspect-video rounded-2xl overflow-hidden bg-black shadow-xl border border-black/10">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/IWxF0VOYymI"
-                title="Steda Roaster Introduction"
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-
-            {/* About Text */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#3e2723] mb-4">
-                Who We Are
-              </h2>
-              <div className="w-20 h-1 bg-[#6d4c41] mb-6 rounded-full"></div>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Sudah lebih dari 6 tahun, kami terus melakukan inovasi dan bekerja sama
-                dengan para ahli roaster kopi terbaik di industri ini.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Baik usaha besar maupun kecil, kami memahami kebutuhan Anda dan
-                mengutamakan kualitas, presisi, serta kepuasan pelanggan dalam setiap
-                produk yang kami ciptakan.
-              </p>
-            </div>
-          </div>
-        </section>
+        <AboutUs showCta={false} />
 
         {/* ================= VISION & MISSION ================= */}
         <section className="py-24 bg-gradient-to-b from-[#fdfaf6] to-[#f5efe6]">

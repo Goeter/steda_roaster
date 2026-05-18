@@ -33,6 +33,12 @@ export type FAQItem = {
   answer: string;
 };
 
+export type FAQCategory = {
+  title: string;
+  icon: 'coffee' | 'settings' | 'bookOpen';
+  faqs: FAQItem[];
+};
+
 export type NewsItem = {
   id: number;
   slug: string;
@@ -43,6 +49,15 @@ export type NewsItem = {
   publishedAt: string;
   author: string;
   images: ImageItem[];
+};
+
+export type AboutSection = {
+  videoUrl: string;
+  videoTitle: string;
+  heading: string;
+  description: string[];
+  ctaLabel: string;
+  ctaHref: string;
 };
 
 export type SiteSettings = {
