@@ -91,7 +91,7 @@ export function Testimonies() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-12 flex h-[430px] max-w-[920px] items-center justify-center overflow-visible sm:mt-14">
+        <div className="relative mx-auto mt-12 flex h-[430px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-14 sm:overflow-visible">
           <button
             type="button"
             onClick={() => paginate(-1)}
@@ -107,23 +107,23 @@ export function Testimonies() {
 
               return (
                 <button
-                  key={`${item.id}-${position}-${index}`}
+                  key={item.id}
                   type="button"
                   onClick={() => setIndex(itemIndex)}
                   aria-label={`View testimony from ${item.name}`}
                   className={[
                     'absolute left-1/2 top-1/2 text-left',
                     'rounded-[1.75rem] border backdrop-blur-xl',
-                    'transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                    'transition-[transform,opacity,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     'will-change-transform',
                     'before:pointer-events-none before:absolute before:inset-0 before:rounded-[1.75rem]',
                     'before:bg-gradient-to-br before:from-white/75 before:via-white/35 before:to-amber-50/80',
                     'hover:border-amber-300/80 hover:bg-white/90',
                     isCenter
-                      ? 'z-20 w-[min(76vw,430px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-200/90 bg-white/90 p-6 opacity-100 shadow-2xl shadow-amber-950/10 sm:w-[430px] sm:p-7'
-                      : 'z-10 w-[min(56vw,285px)] -translate-y-1/2 scale-[0.84] border-white/80 bg-white/55 p-5 opacity-70 shadow-xl shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[285px]',
-                    position === 'left' && '-translate-x-[94%] sm:-translate-x-[122%]',
-                    position === 'right' && '-translate-x-[6%] sm:translate-x-[22%]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-200/90 bg-white/90 p-6 opacity-100 shadow-2xl shadow-amber-950/10 sm:w-[420px] sm:p-7'
+                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-white/80 bg-white/55 p-5 opacity-70 shadow-xl shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
+                    position === 'left' && '-translate-x-[96%] sm:-translate-x-[122%]',
+                    position === 'right' && '-translate-x-[4%] sm:translate-x-[22%]',
                     position === 'center' && 'translate-x-[-50%]',
                   ].join(' ')}
                 >
