@@ -10,51 +10,103 @@ type ProductGalleryProps = {
 };
 
 export function ProductGallery({ images, productName }: ProductGalleryProps) {
-  const [index, setIndex] = useState(0);
-  const safeImages = images.length > 0 ? images : ['/product-1.jpg'];
+  const validImages = images?.filter(Boolean) ?? [];
+  const [selectedImage, setSelectedImage] = useState(validImages[0] ?? '');
 
-  const next = () => setIndex((value) => (value + 1) % safeImages.length);
-  const prev = () => setIndex((value) => (value - 1 + safeImages.length) % safeImages.length);
+  const currentIndex = validImages.findIndex((image) => image === selectedImage);
+
+  const handlePrevious = () => {
+    if (validImages.length <= 1) return;
+
+    const previousIndex =
+      currentIndex <= 0 ? validImages.length - 1 : currentIndex - 1;
+
+    setSelectedImage(validImages[previousIndex]);
+  };
+
+  const handleNext = () => {
+    if (validImages.length <= 1) return;
+
+    const nextIndex =
+      currentIndex >= validImages.length - 1 ? 0 : currentIndex + 1;
+
+    setSelectedImage(validImages[nextIndex]);
+  };
+
+  if (!selectedImage) {
+    return (
+      <div className="flex aspect-square items-center justify-center rounded-[24px] bg-neutral-100 text-sm text-neutral-500">
+        No product image available
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full">
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-white">
-        <Image
-          src={safeImages[index]}
-          alt={`${productName} image ${index + 1}`}
-          fill
-          priority={index === 0}
-          sizes="(min-width:1024px) 50vw, 100vw"
-          className="object-contain transition duration-300"
-        />
+    <div className="w-full space-y-4">
+      <div className="group relative overflow-hidden rounded-[24px] bg-[#f7f5f0]">
+        <div className="relative aspect-square w-full">
+          <Image
+            src={selectedImage}
+            alt={productName}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-contain p-4 transition-transform duration-500 group-hover:scale-105 sm:p-6"
+          />
+        </div>
 
-        {safeImages.length > 1 && (
+        {validImages.length > 1 && (
           <>
-            <button onClick={prev} className="absolute left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white sm:flex" aria-label="Previous image">
-              <ChevronLeft size={18} />
+            <button
+              type="button"
+              onClick={handlePrevious}
+              aria-label="Previous product image"
+              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition hover:bg-white hover:text-amber-700"
+            >
+              <ChevronLeft className="h-5 w-5" />
             </button>
-            <button onClick={next} className="absolute right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white sm:flex" aria-label="Next image">
-              <ChevronRight size={18} />
+
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next product image"
+              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition hover:bg-white hover:text-amber-700"
+            >
+              <ChevronRight className="h-5 w-5" />
             </button>
-            <div className="absolute bottom-3 right-3 rounded-full bg-black/60 px-2 py-1 text-xs text-white">
-              {index + 1}/{safeImages.length}
-            </div>
           </>
         )}
       </div>
 
-      {safeImages.length > 1 && (
-        <div className="mt-4 flex gap-3 overflow-x-auto pb-2">
-          {safeImages.map((img, itemIndex) => (
-            <button
-              key={`${img}-${itemIndex}`}
-              onClick={() => setIndex(itemIndex)}
-              className={`relative h-[70px] min-w-[70px] overflow-hidden rounded-xl border ${itemIndex === index ? 'border-black opacity-100' : 'border-transparent opacity-70'}`}
-              aria-label={`Open ${productName} image ${itemIndex + 1}`}
-            >
-              <Image src={img} alt={`${productName} thumbnail ${itemIndex + 1}`} fill sizes="70px" className="object-cover" />
-            </button>
-          ))}
+      {validImages.length > 1 && (
+        <div className="relative">
+          <div className="flex gap-3 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {validImages.map((image, index) => {
+              const isActive = selectedImage === image;
+
+              return (
+                <button
+                  key={`${image}-${index}`}
+                  type="button"
+                  onClick={() => setSelectedImage(image)}
+                  aria-label={`View ${productName} image ${index + 1}`}
+                  className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-[#f7f5f0] transition sm:h-24 sm:w-24 ${
+                    isActive
+                      ? 'border-amber-700 ring-2 ring-amber-700/20'
+                      : 'border-neutral-200 hover:border-amber-500'
+                  }`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${productName} ${index + 1}`}
+                    fill
+                    sizes="96px"
+                    className="object-contain p-2"
+                  />
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
