@@ -10,7 +10,12 @@ import { Footer } from '@/components/sections/footer';
 import { Button } from '@/components/ui/button';
 import { products } from '@/lib/cms-data';
 
-const filterOptions = ['All Products', 'Home Roastery', 'Industrial Roastery', 'Best Seller'];
+const filterOptions = [
+  'All Products',
+  'Best Seller',
+  'Home Roastery',
+  'Industrial Roastery',
+];
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,16 +25,25 @@ export default function ProductsPage() {
     const normalizedQuery = searchQuery.toLowerCase().trim();
 
     return products.filter((product) => {
+      const productCategory = product.category?.toLowerCase() || '';
+      const productTag = product.tag?.toLowerCase() || '';
+
       const matchesSearch =
         !normalizedQuery ||
-        `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(normalizedQuery);
+        `${product.name} ${product.category} ${product.description} ${product.tag || ''}`
+          .toLowerCase()
+          .includes(normalizedQuery);
 
       const matchesFilter =
         selectedFilter === 'All Products' ||
         product.category === selectedFilter ||
         product.tag === selectedFilter;
 
-      return matchesSearch && matchesFilter;
+      const isAllowedCategory =
+        productCategory === 'home roastery'.toLowerCase() ||
+        productCategory === 'industrial roastery'.toLowerCase();
+
+      return matchesSearch && matchesFilter && isAllowedCategory;
     });
   }, [searchQuery, selectedFilter]);
 
@@ -123,9 +137,9 @@ export default function ProductsPage() {
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
-                      {product.tag && (
-                        <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow">
-                          {product.tag}
+                      {product.tag === 'Best Seller' && (
+                        <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                          Best Seller
                         </span>
                       )}
                     </div>
