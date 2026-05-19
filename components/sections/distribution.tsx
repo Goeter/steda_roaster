@@ -84,55 +84,61 @@ const cities = [
 
 export function Distribution() {
   return (
-    <section id="distribution" className="bg-white py-20">
+    <section id="distribution" className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-12">
-          <div className="text-center">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          {/* LEFT: MAP IMAGE */}
+          <div className="order-1">
+            <div className="relative w-full overflow-hidden rounded-3xl border border-amber-100 bg-neutral-50 shadow-lg">
+              <div className="relative aspect-[16/10] w-full sm:aspect-[16/9] lg:aspect-[4/3]">
+                <Image
+                  src="/gambar_peta.png"
+                  alt="Distribution map Steda Roaster"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-contain p-3 sm:p-5"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: CONTENT */}
+          <div className="order-2">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
               Distribution
             </p>
 
-            <h2 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl">
+            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl lg:text-5xl">
               Mesin <span className="text-amber-700">Steda Roaster</span> sudah tersebar di seluruh Nusantara.
             </h2>
 
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-neutral-600">
+            <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-600 sm:text-lg">
               Percayakan kebutuhan mesin roasting kopi Anda kepada tim yang memahami kebutuhan home roastery hingga produksi profesional.
             </p>
-          </div>
 
-          <div className="relative w-full overflow-hidden rounded-3xl border border-amber-100 bg-neutral-50 shadow-lg">
-            <div className="relative aspect-[1920/768] w-full">
-              <Image
-                src="/gambar_peta.png"
-                alt="Distribution map Steda Roaster"
-                fill
-                sizes="100vw"
-                className="object-contain"
-                priority
-              />
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {cities.map((city) => (
+                <div
+                  key={city.name}
+                  className={`flex items-center gap-3 rounded-full border px-4 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${city.border} ${city.bg}`}
+                >
+                  <span className={`h-3 w-3 shrink-0 rounded-full ${city.color}`} />
+                  <span className={`text-sm font-semibold ${city.text}`}>
+                    {city.name}
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3 lg:grid-cols-4">
-            {cities.map((city) => (
-              <div
-                key={city.name}
-                className={`flex items-center gap-3 rounded-full border px-4 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${city.border} ${city.bg}`}
+            <div className="mt-9">
+              <Button
+                asChild
+                className="rounded-full bg-amber-600 px-7 py-6 text-white hover:bg-amber-700"
               >
-                <span className={`h-3 w-3 shrink-0 rounded-full ${city.color}`} />
-                <span className={`font-semibold ${city.text}`}>{city.name}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button
-              asChild
-              className="rounded-full bg-amber-600 px-7 py-6 text-white hover:bg-amber-700"
-            >
-              <Link href="/products">Explore Products</Link>
-            </Button>
+                <Link href="/products">Explore Products</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
