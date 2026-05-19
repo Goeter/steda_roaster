@@ -21,7 +21,7 @@ export function Distribution() {
   return (
     <section id="distribution" className="bg-[#eef8ff] py-8 sm:py-10 lg:py-12">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.35fr_0.65fr] lg:gap-12">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           {/* LEFT: MAP + LEGEND */}
           <div className="w-full">
             {/* MAP IMAGE - NO BORDER */}
@@ -30,7 +30,7 @@ export function Distribution() {
                 src="/gambar_peta.png"
                 alt="Distribution map Steda Roaster"
                 fill
-                sizes="(min-width: 1024px) 65vw, 100vw"
+                sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-contain object-center"
                 priority
               />
@@ -42,7 +42,7 @@ export function Distribution() {
                 Keterangan
               </h3>
 
-              <div className="grid grid-cols-2 gap-x-5 gap-y-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-5 gap-y-2.5 sm:grid-cols-3 lg:grid-cols-4">
                 {cities.map((city) => (
                   <div key={city.name} className="flex items-center gap-2.5">
                     <span
@@ -65,7 +65,7 @@ export function Distribution() {
               </p>
 
               <h2 className="text-3xl font-black leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
-                Mesin <span className="text-orange-600">Steda</span> Roaster
+                Mesin <span className="text-yellow-500">Steda</span> Roaster
                 sudah tersebar diseluruh Nusantara.
               </h2>
 
