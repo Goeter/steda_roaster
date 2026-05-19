@@ -53,10 +53,10 @@ export function Product() {
           </p>
         </div>
 
-        <div className="relative w-full">
+        <div className="relative w-full px-10 sm:px-12 lg:px-10">
           <div
             ref={carouselRef}
-            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-2 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {homeProducts.map((product) => (
               <div
@@ -112,7 +112,7 @@ export function Product() {
 
           <button
             onClick={() => scrollCarousel('prev')}
-            className="absolute left-2 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:left-0 sm:-translate-x-1/2 sm:p-3"
+            className="absolute left-0 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:p-3"
             aria-label="Previous product"
           >
             <ChevronLeft size={20} />
@@ -120,7 +120,7 @@ export function Product() {
 
           <button
             onClick={() => scrollCarousel('next')}
-            className="absolute right-2 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:right-0 sm:translate-x-1/2 sm:p-3"
+            className="absolute right-0 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:p-3"
             aria-label="Next product"
           >
             <ChevronRight size={20} />
