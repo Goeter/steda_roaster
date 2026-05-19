@@ -4,19 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { footerSection } from '@/lib/cms-data';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  const menuItems = [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Products', href: '/products' },
-    { label: 'News', href: '/news' },
-    { label: 'FAQs', href: '/faqs' },
-  ];
+  const menuItems = footerSection.navigationItems;
 
   useEffect(() => {
     const handleScroll = () => {

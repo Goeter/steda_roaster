@@ -1,4 +1,24 @@
-import type { AboutSection, FAQCategory, FAQItem, HeroSlide, NewsItem, Product, SiteSettings, Testimony } from './cms-types';
+import type { AboutPageSection, AboutSection, BenefitsSection, DistributionSection, FAQCategory, FAQHomeSection, FAQItem, FAQPageSection, FooterSection, HeroSection, HeroSlide, NewsDetailSection, NewsItem, NewsPageSection, Product, ProductDetailSection, ProductPageSection, ProductSection, SiteMetadata, SiteSettings, TestimoniesSection, Testimony } from './cms-types';
+
+
+export const siteMetadata: SiteMetadata = {
+  metadataBase: 'https://stedaroaster.com',
+  defaultTitle: 'Steda Roaster | Mesin Roasting Kopi Berkualitas',
+  titleTemplate: '%s | Steda Roaster',
+  description:
+    'Produsen mesin roasting kopi berkualitas untuk home roastery, coffee shop, dan kebutuhan industri.',
+  keywords: ['mesin roasting kopi', 'coffee roaster', 'home roastery', 'roaster machine', 'Steda Roaster'],
+  authorName: 'Steda Roaster',
+  openGraphTitle: 'Steda Roaster',
+  openGraphDescription: 'Mesin roasting kopi berkualitas untuk bisnis kopi Anda.',
+  openGraphUrl: 'https://stedaroaster.com',
+  openGraphSiteName: 'Steda Roaster',
+  openGraphImage: { src: '/hero-1.jpg', width: 1200, height: 630, alt: 'Steda Roaster' },
+  locale: 'id_ID',
+  type: 'website',
+  language: 'id',
+  themeColor: '#2b1b12',
+};
 
 export const siteSettings: SiteSettings = {
   siteName: 'Steda Roaster',
@@ -7,10 +27,12 @@ export const siteSettings: SiteSettings = {
   whatsappNumber: '6281225171359',
   whatsappMessage: 'Halo, saya ingin bertanya tentang produk Steda Roaster',
   email: 'info@stedaroaster.com',
-  address: 'Indonesia',
+  address: 'Sidoarjo, Indonesia',
+  mapUrl: 'https://maps.app.goo.gl/TwcEPir1WrDrryfAA',
   socials: {
-    facebook: '#',
-    tiktok: '#',
+    instagram: 'https://www.instagram.com/coffeeroaster_steda/',
+    facebook: 'https://www.facebook.com/share/1AyEXiREzL/?mibextid=wwXIfr',
+    tiktok: 'https://www.tiktok.com/@stedaroaster?_r=1&_t=ZS-95Y6Wmj912D',
   },
 };
 
@@ -27,11 +49,193 @@ export const aboutSection: AboutSection = {
   ctaHref: '/about',
 };
 
+
+export const aboutPageSection: AboutPageSection = {
+  hero: {
+    heading: 'About Steda Roaster',
+    description: 'Crafting Precision Coffee Roasting Machines for Professionals Around the World.',
+    image: { src: '/company-roaster.png', alt: 'Steda Roaster Company' },
+  },
+  visionMission: {
+    heading: 'Vision & Mission',
+    description:
+      'Our guiding principles that drive innovation, quality, and excellence in every coffee roasting machine we produce.',
+    visionTitle: 'Our Vision',
+    visionDescription:
+      'Menjadi pemimpin global dalam industri mesin roasting kopi melalui inovasi, kualitas, dan teknologi berstandar internasional.',
+    missionTitle: 'Our Mission',
+    missionItems: [
+      'Menghadirkan mesin roasting berkualitas tinggi.',
+      'Mendukung pertumbuhan industri kopi global.',
+      'Menyediakan layanan profesional dan terpercaya.',
+      'Mengembangkan inovasi berbasis teknologi modern.',
+    ],
+  },
+  cta: {
+    heading: 'Discover Our Premium Coffee Roasters',
+    description:
+      'Explore our range of precision-engineered roasting machines designed to elevate your coffee business to the next level.',
+    ctaLabel: 'View Our Products',
+    ctaHref: '/products',
+  },
+};
+
 export const heroSlides: HeroSlide[] = [
   { id: 'hero-1', src: '/hero-1.jpg', alt: 'Mesin roasting kopi Steda Roaster' },
   { id: 'hero-2', src: '/hero-2.jpg', alt: 'Proses roasting kopi profesional' },
   { id: 'hero-3', src: '/hero-3.jpg', alt: 'Coffee roaster untuk bisnis kopi' },
 ];
+
+export const heroSection: HeroSection = {
+  eyebrow: 'Premium Coffee Roasting Machine',
+  heading: 'Mesin Roasting Kopi Berkualitas untuk Bisnis Anda',
+  description:
+    'Produsen mesin roasting kopi untuk kebutuhan skala kecil hingga industri, dirancang presisi untuk mendukung pertumbuhan bisnis kopi Anda.',
+  ctaLabel: 'See Products',
+  slides: heroSlides,
+  slideAriaLabelPrefix: 'Go to slide',
+};
+
+export const productSection: ProductSection = {
+  eyebrow: 'Our Products',
+  heading: 'Explore Our Coffee Machine',
+  description:
+    'Kami menawarkan berbagai jenis mesin roasting kopi untuk kebutuhan home roastery, coffee shop, sampai produksi profesional.',
+  ctaLabel: 'See More Products',
+  ctaHref: '/products',
+  allowedCategories: ['Home Roastery', 'Industrial Roastery'],
+  filters: ['All Products', 'Best Seller', 'Home Roastery', 'Industrial Roastery'],
+  emptyMessage: 'Produk tidak ditemukan.',
+  consultation: {
+    eyebrow: 'Need Consultation?',
+    heading: 'Want to buy Steda Roaster products?',
+    description:
+      'Konsultasikan kapasitas, kebutuhan produksi, dan tipe mesin terbaik untuk bisnis kopi Anda. Tim kami siap membantu memilih produk Steda Roaster yang paling sesuai untuk skala usaha Anda.',
+    ctaLabel: 'Contact via WhatsApp',
+    note: 'Fast response during business hours',
+  },
+  previousProductAriaLabel: 'Previous product',
+  nextProductAriaLabel: 'Next product',
+};
+
+
+export const productPageSection: ProductPageSection = {
+  hero: {
+    eyebrow: 'Products',
+    heading: 'Our Products',
+    description: 'Temukan mesin roasting kopi berkualitas tinggi untuk kebutuhan bisnis Anda.',
+    image: { src: '/banner-products.png', alt: 'Coffee roasting machines' },
+  },
+  searchPlaceholder: 'Search products...',
+  searchAriaLabel: 'Search products',
+  detailButtonLabel: 'See Detail',
+  bestSellerLabel: 'Best Seller',
+  detailAriaLabelPrefix: 'Lihat detail',
+  productImageAltPrefix: 'Mesin roasting kopi',
+};
+
+export const productDetailSection: ProductDetailSection = {
+  notFoundTitle: 'Product Not Found',
+  metadataTitleSuffix: 'Steda Roaster',
+  technicalParametersHeading: 'Technical Parameters',
+  specificationsHeading: 'Specifications',
+  noImageMessage: 'No product image available',
+  previousImageAriaLabel: 'Previous product image',
+  nextImageAriaLabel: 'Next product image',
+  thumbnailAriaLabelPrefix: 'View product image',
+  shareCopiedMessage: 'Link copied',
+  backAriaLabel: 'Back to previous page',
+  shareAriaLabel: 'Share product',
+};
+
+export const benefitsSection: BenefitsSection = {
+  image: { src: '/benefits-product.jpg', alt: 'Coffee Machine' },
+  heading: 'BENEFITS OF BUYING\nFROM OUR SHOP',
+  description: 'Discover the Advantages: Why Choose Us for Your Next Purchase?',
+  items: [
+    {
+      id: 1,
+      title: 'Layanan & Dukungan Terbaik',
+      description:
+        'We only supply coffee machines with the highest European quality standards, ensuring reliable and long-lasting performance.',
+    },
+    {
+      id: 2,
+      title: 'Ketahanan Mesin Maksimal',
+      description:
+        'All purchases are covered by a warranty, giving our customers peace of mind in the face of technical issues.',
+    },
+    {
+      id: 3,
+      title: 'Mudah Dalam Penggunaan',
+      description:
+        'We always update our collection with the latest coffee machine designs that combine aesthetic beauty with extraordinary functionality.',
+    },
+    {
+      id: 4,
+      title: 'Garansi 1 Tahun',
+      description:
+        'We offer free shipping on all our products, providing added value to customers by saving on shipping costs.',
+    },
+    {
+      id: 5,
+      title: 'Drum Stainless Food Grade',
+      description:
+        'We offer free shipping on all our products, providing added value to customers by saving on shipping costs.',
+    },
+  ],
+};
+
+export const distributionSection: DistributionSection = {
+  eyebrow: 'Distribution',
+  heading: 'Mesin Steda Roaster sudah tersebar diseluruh Nusantara.',
+  highlightedWord: 'Steda',
+  description:
+    'Percayakan kepada kami dalam solusi mesin roasting kopi profesional. Mesin Steda Roaster telah digunakan di berbagai wilayah Indonesia untuk mendukung kebutuhan roasting kopi.',
+  ctaLabel: 'Explore Products',
+  ctaHref: '/products',
+  map: { src: '/gambar_peta.png', alt: 'Distribution map Steda Roaster' },
+  legendTitle: 'Keterangan',
+  cities: [
+    { name: 'Aceh', color: 'bg-red-500' },
+    { name: 'Jabodetabek', color: 'bg-yellow-400' },
+    { name: 'Solo', color: 'bg-green-600' },
+    { name: 'Surabaya', color: 'bg-blue-900' },
+    { name: 'Madura', color: 'bg-rose-600' },
+    { name: 'Malang', color: 'bg-lime-500' },
+    { name: 'Bondowoso', color: 'bg-purple-600' },
+    { name: 'Bali', color: 'bg-orange-500' },
+    { name: 'Kalimantan Tengah', color: 'bg-pink-600' },
+    { name: 'Kalimantan Timur', color: 'bg-amber-800' },
+    { name: 'NTT', color: 'bg-black' },
+    { name: 'Jayapura', color: 'bg-neutral-700' },
+  ],
+};
+
+export const testimoniesSection: TestimoniesSection = {
+  eyebrow: 'Testimonies',
+  heading: 'What Our Customers Say',
+  description:
+    'Cerita pelanggan yang menggunakan Steda Roaster untuk mendukung operasional bisnis kopi mereka.',
+  previousAriaLabel: 'Previous testimony',
+  nextAriaLabel: 'Next testimony',
+  itemAriaLabelPrefix: 'View testimony from',
+};
+
+export const footerSection: FooterSection = {
+  description: 'Precision Coffee Roasting Machine for Modern Businesses.',
+  copyright: 'All rights reserved.',
+  navigationTitle: 'Navigation',
+  contactTitle: 'Contact Us',
+  socialTitle: 'Follow Us',
+  navigationItems: [
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Products', href: '/products' },
+    { label: 'News', href: '/news' },
+    { label: 'FAQs', href: '/faqs' },
+  ],
+};
 
 export const products: Product[] = [
   {
@@ -134,6 +338,25 @@ export const testimonies: Testimony[] = [
   },
 ];
 
+
+export const faqHomeSection: FAQHomeSection = {
+  heading: 'Frequently Asked Questions',
+  description: 'Temukan jawaban untuk pertanyaan umum tentang produk dan layanan Steda Roaster.',
+  image: { src: '/product-faq.jpg', alt: 'Coffee Machine' },
+  ctaLabel: 'See Details FAQs',
+  ctaHref: '/faqs',
+  previewLimit: 4,
+};
+
+export const faqPageSection: FAQPageSection = {
+  heading: 'Frequently Asked Questions',
+  description: 'Temukan jawaban lengkap mengenai produk dan layanan Steda Roaster.',
+  contactText: 'Ingin bertanya lebih lanjut?',
+  contactCtaLabel: 'Hubungi Kami',
+  backLabel: '← Back to Home',
+  backHref: '/',
+};
+
 export const faqCategories: FAQCategory[] = [
   {
     title: 'About Steda Machine Roaster',
@@ -222,6 +445,28 @@ export const faqCategories: FAQCategory[] = [
 ];
 
 export const faqs: FAQItem[] = faqCategories.flatMap((category) => category.faqs);
+
+
+export const newsPageSection: NewsPageSection = {
+  eyebrow: 'News',
+  heading: 'Latest News',
+  description: 'Temukan berita terbaru, edukasi, dan informasi menarik seputar kopi dan dunia roasting.',
+  defaultCategory: 'All News',
+  searchPlaceholder: 'Search news...',
+  emptyMessage: 'Tidak ada berita yang ditemukan.',
+  readMoreLabel: 'Read More →',
+};
+
+export const newsDetailSection: NewsDetailSection = {
+  notFoundTitle: 'News Not Found',
+  backLabel: '← Back to News',
+  backHref: '/news',
+  relatedHeading: 'Related News',
+  relatedLimit: 3,
+  previousImageAriaLabel: 'Previous image',
+  nextImageAriaLabel: 'Next image',
+  openImageAriaLabelPrefix: 'Open image',
+};
 
 export const newsCategories = ['All News', 'Education', 'Coffee', 'Roaster Machine', 'Our Partner'];
 

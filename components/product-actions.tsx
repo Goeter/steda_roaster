@@ -2,12 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Share2 } from 'lucide-react';
+import type { ProductDetailSection } from '@/lib/cms-types';
 
-export function ProductActions({
-  title,
-}: {
+type ProductActionsProps = {
   title: string;
-}) {
+  labels: ProductDetailSection;
+};
+
+export function ProductActions({ title, labels }: ProductActionsProps) {
   const router = useRouter();
 
   const handleShare = async () => {
@@ -18,7 +20,7 @@ export function ProductActions({
         await navigator.share({ title, url });
       } else {
         await navigator.clipboard.writeText(url);
-        alert('Link copied');
+        alert(labels.shareCopiedMessage);
       }
     } catch (err) {
       console.error(err);
@@ -26,20 +28,21 @@ export function ProductActions({
   };
 
   return (
-    <div className="absolute top-3 left-3 right-3 z-20 flex justify-between lg:hidden">
-      
-      {/* BACK */}
+    <div className="absolute left-3 right-3 top-3 z-20 flex justify-between lg:hidden">
       <button
+        type="button"
         onClick={() => router.back()}
-        className="h-10 w-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur text-white shadow active:scale-95"
+        aria-label={labels.backAriaLabel}
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white shadow backdrop-blur active:scale-95"
       >
         <ArrowLeft size={18} />
       </button>
 
-      {/* SHARE */}
       <button
+        type="button"
         onClick={handleShare}
-        className="h-10 w-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur text-white shadow active:scale-95"
+        aria-label={labels.shareAriaLabel}
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white shadow backdrop-blur active:scale-95"
       >
         <Share2 size={18} />
       </button>

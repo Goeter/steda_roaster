@@ -4,9 +4,10 @@ import { CalendarDays, UserRound } from 'lucide-react';
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Navbar } from '@/components/navbar';
 import { NewsGallery } from '@/components/news/news-gallery';
+import { Reveal } from '@/components/reveal';
 import { Footer } from '@/components/sections/footer';
-import { news } from '@/lib/cms-data';
 import { formatDate, getNewsBySlug } from '@/lib/cms';
+import { news, newsDetailSection } from '@/lib/cms-data';
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: NewsDetailPageProps) {
   const item = getNewsBySlug(slug);
 
   if (!item) {
-    return { title: 'News Not Found' };
+    return { title: newsDetailSection.notFoundTitle };
   }
 
   return {
@@ -41,30 +42,46 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   if (!item) notFound();
 
-  const relatedNews = news.filter((related) => related.slug !== item.slug).slice(0, 3);
+  const relatedNews = news
+    .filter((related) => related.slug !== item.slug)
+    .slice(0, newsDetailSection.relatedLimit);
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-gradient-to-b from-[#fff8ef] via-white to-white pt-28 pb-16">
+      <main className="min-h-screen bg-gradient-to-b from-[#fff8ef] via-white to-white pt-28 pb-16 animate-page-enter">
         <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <Link href="/news" className="mb-8 inline-flex text-sm font-semibold text-amber-700 hover:text-amber-800">
-            ← Back to News
-          </Link>
+          <Reveal>
+            <Link href={newsDetailSection.backHref} className="mb-8 inline-flex text-sm font-semibold text-amber-700 hover:text-amber-800">
+              {newsDetailSection.backLabel}
+            </Link>
+          </Reveal>
 
-          <header className="mb-10 text-center">
-            <span className="inline-flex rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800">{item.category}</span>
-            <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight text-neutral-950 md:text-5xl">{item.title}</h1>
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-neutral-600">{item.excerpt}</p>
+          <Reveal as="header" delay={100} className="mb-10 text-center">
+            <span className="inline-flex rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800">
+              {item.category}
+            </span>
+            <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight text-neutral-950 md:text-5xl">
+              {item.title}
+            </h1>
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-neutral-600">
+              {item.excerpt}
+            </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-500">
-              <span className="inline-flex items-center gap-2"><CalendarDays size={16} /> {formatDate(item.publishedAt)}</span>
-              <span className="inline-flex items-center gap-2"><UserRound size={16} /> {item.author}</span>
+              <span className="inline-flex items-center gap-2">
+                <CalendarDays size={16} /> {formatDate(item.publishedAt)}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <UserRound size={16} /> {item.author}
+              </span>
             </div>
-          </header>
+          </Reveal>
 
-          <NewsGallery images={item.images} title={item.title} />
+          <Reveal delay={150}>
+            <NewsGallery images={item.images} title={item.title} labels={newsDetailSection} />
+          </Reveal>
 
-          <div className="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-amber-100 bg-white p-6 shadow-sm sm:p-10">
+          <Reveal delay={200} className="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-amber-100 bg-white p-6 shadow-sm sm:p-10">
             <div className="prose prose-neutral max-w-none">
               {item.content.map((paragraph) => (
                 <p key={paragraph} className="mb-6 text-lg leading-9 text-neutral-700">
@@ -72,21 +89,29 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 </p>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {relatedNews.length > 0 && (
-            <section className="mt-16">
-              <h2 className="mb-6 text-2xl font-bold text-neutral-900">Related News</h2>
+            <Reveal as="section" delay={300} className="mt-16">
+              <h2 className="mb-6 text-2xl font-bold text-neutral-900">
+                {newsDetailSection.relatedHeading}
+              </h2>
               <div className="grid gap-5 sm:grid-cols-3">
                 {relatedNews.map((related) => (
                   <Link key={related.slug} href={`/news/${related.slug}`} className="rounded-2xl border border-amber-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">{related.category}</p>
-                    <h3 className="mt-3 line-clamp-2 font-bold text-neutral-900">{related.title}</h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">{related.excerpt}</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                      {related.category}
+                    </p>
+                    <h3 className="mt-3 line-clamp-2 font-bold text-neutral-900">
+                      {related.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
+                      {related.excerpt}
+                    </p>
                   </Link>
                 ))}
               </div>
-            </section>
+            </Reveal>
           )}
         </article>
       </main>

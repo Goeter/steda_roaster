@@ -3,9 +3,17 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { ImageItem } from '@/lib/cms-types';
+import type { ImageItem, NewsDetailSection } from '@/lib/cms-types';
 
-export function NewsGallery({ images, title }: { images: ImageItem[]; title: string }) {
+export function NewsGallery({
+  images,
+  title,
+  labels,
+}: {
+  images: ImageItem[];
+  title: string;
+  labels: NewsDetailSection;
+}) {
   const [index, setIndex] = useState(0);
   const current = images[index];
 
@@ -18,10 +26,10 @@ export function NewsGallery({ images, title }: { images: ImageItem[]; title: str
         <Image src={current.src} alt={current.alt || title} fill priority sizes="(min-width:1024px) 960px, 100vw" className="object-cover" />
         {images.length > 1 && (
           <>
-            <button onClick={prev} aria-label="Previous image" className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
+            <button onClick={prev} aria-label={labels.previousImageAriaLabel} className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
               <ChevronLeft size={20} />
             </button>
-            <button onClick={next} aria-label="Next image" className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
+            <button onClick={next} aria-label={labels.nextImageAriaLabel} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
               <ChevronRight size={20} />
             </button>
             <div className="absolute bottom-4 right-4 rounded-full bg-black/60 px-3 py-1 text-sm text-white">{index + 1}/{images.length}</div>
@@ -35,7 +43,7 @@ export function NewsGallery({ images, title }: { images: ImageItem[]; title: str
             <button
               key={`${image.src}-${itemIndex}`}
               onClick={() => setIndex(itemIndex)}
-              aria-label={`Open image ${itemIndex + 1}`}
+              aria-label={`${labels.openImageAriaLabelPrefix} ${itemIndex + 1}`}
               className={`relative h-20 min-w-28 overflow-hidden rounded-2xl border transition ${itemIndex === index ? 'border-amber-600 opacity-100' : 'border-transparent opacity-60 hover:opacity-90'}`}
             >
               <Image src={image.src} alt={image.alt} fill sizes="112px" className="object-cover" />

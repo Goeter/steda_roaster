@@ -1,36 +1,43 @@
 import type { Metadata, Viewport } from 'next';
+import { siteMetadata } from '@/lib/cms-data';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://stedaroaster.com'),
+  metadataBase: new URL(siteMetadata.metadataBase),
   title: {
-    default: 'Steda Roaster | Mesin Roasting Kopi Berkualitas',
-    template: '%s | Steda Roaster',
+    default: siteMetadata.defaultTitle,
+    template: siteMetadata.titleTemplate,
   },
-  description:
-    'Produsen mesin roasting kopi berkualitas untuk home roastery, coffee shop, dan kebutuhan industri.',
-  keywords: ['mesin roasting kopi', 'coffee roaster', 'home roastery', 'roaster machine', 'Steda Roaster'],
-  authors: [{ name: 'Steda Roaster' }],
+  description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
+  authors: [{ name: siteMetadata.authorName }],
   openGraph: {
-    title: 'Steda Roaster',
-    description: 'Mesin roasting kopi berkualitas untuk bisnis kopi Anda.',
-    url: 'https://stedaroaster.com',
-    siteName: 'Steda Roaster',
-    images: [{ url: '/hero-1.jpg', width: 1200, height: 630, alt: 'Steda Roaster' }],
-    locale: 'id_ID',
-    type: 'website',
+    title: siteMetadata.openGraphTitle,
+    description: siteMetadata.openGraphDescription,
+    url: siteMetadata.openGraphUrl,
+    siteName: siteMetadata.openGraphSiteName,
+    images: [
+      {
+        url: siteMetadata.openGraphImage.src,
+        width: siteMetadata.openGraphImage.width,
+        height: siteMetadata.openGraphImage.height,
+        alt: siteMetadata.openGraphImage.alt,
+      },
+    ],
+    locale: siteMetadata.locale,
+    type: siteMetadata.type,
   },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#2b1b12',
+  themeColor: siteMetadata.themeColor,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className="scroll-smooth">
+    <html lang={siteMetadata.language} className="scroll-smooth">
       <body className="bg-white text-neutral-900 antialiased">{children}</body>
     </html>
   );

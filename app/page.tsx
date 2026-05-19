@@ -11,7 +11,7 @@ import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 
 export default function Home() {
   return (
-    <main className="w-full overflow-x-hidden">
+    <main className="w-full overflow-x-hidden animate-page-enter">
       <Navbar />
       <Hero />
       <AboutUs />

@@ -7,27 +7,19 @@ import { ArrowRight, MessageCircle, Search } from 'lucide-react';
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
+import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
-import { products } from '@/lib/cms-data';
+import { productPageSection, productSection, products, siteSettings } from '@/lib/cms-data';
 
-const filterOptions = [
-  'All Products',
-  'Best Seller',
-  'Home Roastery',
-  'Industrial Roastery',
-];
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('All Products');
+  const [selectedFilter, setSelectedFilter] = useState(productSection.filters[0]);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = searchQuery.toLowerCase().trim();
 
     return products.filter((product) => {
-      const productCategory = product.category?.toLowerCase() || '';
-      const productTag = product.tag?.toLowerCase() || '';
-
       const matchesSearch =
         !normalizedQuery ||
         `${product.name} ${product.category} ${product.description} ${product.tag || ''}`
@@ -35,13 +27,11 @@ export default function ProductsPage() {
           .includes(normalizedQuery);
 
       const matchesFilter =
-        selectedFilter === 'All Products' ||
+        selectedFilter === productSection.filters[0] ||
         product.category === selectedFilter ||
         product.tag === selectedFilter;
 
-      const isAllowedCategory =
-        productCategory === 'home roastery'.toLowerCase() ||
-        productCategory === 'industrial roastery'.toLowerCase();
+      const isAllowedCategory = productSection.allowedCategories.includes(product.category);
 
       return matchesSearch && matchesFilter && isAllowedCategory;
     });
@@ -51,11 +41,11 @@ export default function ProductsPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7]">
+      <main className="min-h-screen bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7] animate-page-enter">
         <section className="relative flex h-[60vh] w-full items-center justify-center text-center">
           <Image
-            src="/banner-products.png"
-            alt="Coffee roasting machines"
+            src={productPageSection.hero.image.src}
+            alt={productPageSection.hero.image.alt}
             fill
             priority
             sizes="100vw"
@@ -64,22 +54,22 @@ export default function ProductsPage() {
 
           <div className="absolute inset-0 bg-black/60" />
 
-          <div className="relative z-10 max-w-3xl px-6 text-white">
+          <Reveal className="relative z-10 max-w-3xl px-6 text-white">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-200">
-              Products
+              {productPageSection.hero.eyebrow}
             </p>
 
             <h1 className="text-4xl font-bold md:text-5xl">
-              Our Products
+              {productPageSection.hero.heading}
             </h1>
 
             <p className="mt-4 text-lg text-white/85">
-              Temukan mesin roasting kopi berkualitas tinggi untuk kebutuhan bisnis Anda.
+              {productPageSection.hero.description}
             </p>
-          </div>
+          </Reveal>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-12">
+        <Reveal as="section" className="mx-auto max-w-7xl px-6 py-12">
           <div className="rounded-3xl border border-orange-100 bg-white/85 p-6 shadow-sm backdrop-blur">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div className="relative w-full lg:w-1/2">
@@ -90,16 +80,16 @@ export default function ProductsPage() {
 
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder={productPageSection.searchPlaceholder}
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
-                  aria-label="Search products"
+                  aria-label={productPageSection.searchAriaLabel}
                   className="w-full rounded-2xl border border-orange-100 bg-white py-3 pl-12 pr-4 outline-none transition focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {filterOptions.map((filter) => (
+                {productSection.filters.map((filter) => (
                   <Button
                     key={filter}
                     onClick={() => setSelectedFilter(filter)}
@@ -115,7 +105,7 @@ export default function ProductsPage() {
               </div>
             </div>
           </div>
-        </section>
+        </Reveal>
 
         <section className="relative mx-auto max-w-7xl px-6 pb-20">
           {filteredProducts.length > 0 ? (
@@ -124,22 +114,22 @@ export default function ProductsPage() {
                 <Link
                   key={product.id}
                   href={`/products/${product.slug}`}
-                  aria-label={`Lihat detail ${product.name}`}
+                  aria-label={`${productPageSection.detailAriaLabelPrefix} ${product.name}`}
                   className="group block h-full"
                 >
                   <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="relative h-60 w-full overflow-hidden">
                       <Image
                         src={product.image}
-                        alt={`Mesin roasting kopi ${product.name}`}
+                        alt={`${productPageSection.productImageAltPrefix} ${product.name}`}
                         fill
                         sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
-                      {product.tag === 'Best Seller' && (
+                      {product.tag === productPageSection.bestSellerLabel && (
                         <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
-                          Best Seller
+                          {productPageSection.bestSellerLabel}
                         </span>
                       )}
                     </div>
@@ -160,7 +150,7 @@ export default function ProductsPage() {
                       <div className="flex-1" />
 
                       <Button className="mt-6 w-full rounded-full bg-orange-600 text-white hover:bg-orange-700">
-                        See Detail <ArrowRight size={18} />
+                        {productPageSection.detailButtonLabel} <ArrowRight size={18} />
                       </Button>
                     </div>
                   </article>
@@ -169,12 +159,12 @@ export default function ProductsPage() {
             </div>
           ) : (
             <div className="rounded-3xl bg-white p-10 text-center text-neutral-500 shadow-sm">
-              Produk tidak ditemukan.
+              {productSection.emptyMessage}
             </div>
           )}
         </section>
 
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-8 text-white sm:py-12">
+        <Reveal as="section" delay={150} className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-8 text-white sm:py-12">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_25%,rgba(245,158,11,0.28),transparent_30%),radial-gradient(circle_at_85%_75%,rgba(120,53,15,0.45),transparent_35%)]" />
           <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(135deg,#ffffff_1px,transparent_1px),linear-gradient(45deg,#ffffff_1px,transparent_1px)] bg-[length:30px_30px]" />
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
@@ -187,16 +177,15 @@ export default function ProductsPage() {
                 </div>
 
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-200 sm:text-sm">
-                  Need Consultation?
+                  {productSection.consultation.eyebrow}
                 </p>
 
                 <h3 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-                  Want to buy Steda Roaster products?
+                  {productSection.consultation.heading}
                 </h3>
 
                 <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/75 sm:text-base lg:mx-0">
-                  Konsultasikan kapasitas, kebutuhan produksi, dan tipe mesin terbaik untuk bisnis kopi Anda.
-                  Tim kami siap membantu memilih produk Steda Roaster yang paling sesuai untuk skala usaha Anda.
+                  {productSection.consultation.description}
                 </p>
               </div>
 
@@ -206,22 +195,22 @@ export default function ProductsPage() {
                   className="w-full rounded-full bg-[#25D366] px-8 py-6 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] sm:w-auto"
                 >
                   <a
-                    href="https://wa.me/6281225171359?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Steda%20Roaster"
+                    href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(siteSettings.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Contact via WhatsApp
+                    {productSection.consultation.ctaLabel}
                     <ArrowRight size={18} />
                   </a>
                 </Button>
 
                 <p className="text-xs font-medium text-white/60">
-                  Fast response during business hours
+                  {productSection.consultation.note}
                 </p>
               </div>
             </div>
           </div>
-        </section>
+        </Reveal>
       </main>
 
       <FloatingWhatsAppButton />

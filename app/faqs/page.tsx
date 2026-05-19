@@ -2,68 +2,64 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, Coffee, Settings, BookOpen, MessageCircle } from 'lucide-react';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/sections/footer';
+import { BookOpen, ChevronDown, Coffee, MessageCircle, Settings } from 'lucide-react';
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { faqCategories } from '@/lib/cms-data';
+import { Navbar } from '@/components/navbar';
+import { Reveal } from '@/components/reveal';
+import { Footer } from '@/components/sections/footer';
+import { faqCategories, faqPageSection, siteSettings } from '@/lib/cms-data';
+import type { FAQItem } from '@/lib/cms-types';
 
-type FAQItem = {
-  question: string;
-  answer: string;
+const iconMap = {
+  coffee: Coffee,
+  settings: Settings,
+  bookOpen: BookOpen,
 };
 
 export default function FAQsPage() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const iconMap = {
-    coffee: Coffee,
-    settings: Settings,
-    bookOpen: BookOpen,
-  };
-
-  const categories = faqCategories;
-
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const whatsappHref = `https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(
+    siteSettings.whatsappMessage,
+  )}`;
+
   return (
     <>
-      {/* Navbar */}
       <Navbar />
 
-      <main className="relative min-h-screen pt-32 pb-20 bg-gradient-to-br from-[#f5efe6] via-[#ebe3d5] to-[#d6ccc2] overflow-hidden">
-        
-        {/* Background Batik Pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[url('/batik-pattern.png')] bg-cover bg-center"></div>
+      <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f5efe6] via-[#ebe3d5] to-[#d6ccc2] pt-32 pb-20 animate-page-enter">
+        <div className="absolute inset-0 bg-[url('/batik-pattern.png')] bg-cover bg-center opacity-10" />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header */}
-          <h1 className="text-3xl md:text-5xl font-bold text-center text-[#3e2723] mb-4">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-center text-[#5d4037] mb-12">
-            Temukan jawaban lengkap mengenai produk dan layanan Steda Roaster.
-          </p>
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Reveal as="header" className="text-center">
+            <h1 className="mb-4 text-3xl font-bold text-[#3e2723] md:text-5xl">
+              {faqPageSection.heading}
+            </h1>
+            <p className="mb-12 text-[#5d4037]">
+              {faqPageSection.description}
+            </p>
+          </Reveal>
 
-          {/* Category Tabs */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            {categories.map((category, index) => {
+          <Reveal delay={100} className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {faqCategories.map((category, index) => {
               const Icon = iconMap[category.icon];
+
               return (
                 <button
-                  key={index}
+                  key={category.title}
                   onClick={() => {
                     setActiveCategory(index);
                     setOpenIndex(null);
                   }}
-                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 border ${
+                  className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 font-semibold transition-all duration-300 ${
                     activeCategory === index
                       ? 'bg-[#6f4e37] text-white shadow-md'
-                      : 'bg-white/70 text-[#4e342e] border-[#d7ccc8] hover:bg-[#efebe9]'
+                      : 'border-[#d7ccc8] bg-white/70 text-[#4e342e] hover:bg-[#efebe9]'
                   }`}
                 >
                   <Icon size={18} />
@@ -71,25 +67,24 @@ export default function FAQsPage() {
                 </button>
               );
             })}
-          </div>
+          </Reveal>
 
-          {/* Accordion */}
-          <div className="space-y-4">
-            {categories[activeCategory].faqs.map((faq: FAQItem, index: number) => (
+          <Reveal delay={150} className="space-y-4">
+            {faqCategories[activeCategory].faqs.map((faq: FAQItem, index: number) => (
               <div
-                key={index}
-                className="border border-[#d7ccc8] rounded-xl overflow-hidden bg-white shadow-sm"
+                key={faq.id}
+                className="overflow-hidden rounded-xl border border-[#d7ccc8] bg-white shadow-sm"
               >
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full px-6 py-4 flex justify-between items-center hover:bg-[#f5f5f5] transition"
+                  className="flex w-full items-center justify-between px-6 py-4 transition hover:bg-[#f5f5f5]"
                 >
-                  <h3 className="font-semibold text-left text-[#3e2723]">
+                  <h3 className="text-left font-semibold text-[#3e2723]">
                     {faq.question}
                   </h3>
                   <ChevronDown
                     size={20}
-                    className={`transition-transform duration-300 text-[#6f4e37] ${
+                    className={`text-[#6f4e37] transition-transform duration-300 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -100,46 +95,41 @@ export default function FAQsPage() {
                     openIndex === index ? 'max-h-96' : 'max-h-0'
                   }`}
                 >
-                  <div className="px-6 py-4 bg-[#faf7f2] border-t border-[#d7ccc8] text-[#5d4037]">
+                  <div className="border-t border-[#d7ccc8] bg-[#faf7f2] px-6 py-4 text-[#5d4037]">
                     {faq.answer}
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </Reveal>
 
-          {/* Contact CTA */}
-          <div className="mt-12 text-center">
-            <p className="text-lg font-medium text-[#4e342e] mb-4">
-              Ingin bertanya lebih lanjut?
+          <Reveal delay={200} className="mt-12 text-center">
+            <p className="mb-4 text-lg font-medium text-[#4e342e]">
+              {faqPageSection.contactText}
             </p>
             <a
-              href="https://wa.me/6281225171359"
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#6f4e37] text-white font-semibold hover:bg-[#5d4037] transition shadow-md"
+              className="inline-flex items-center gap-2 rounded-full bg-[#6f4e37] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[#5d4037]"
             >
               <MessageCircle size={18} />
-              Hubungi Kami
+              {faqPageSection.contactCtaLabel}
             </a>
-          </div>
+          </Reveal>
 
-          {/* Back to Home Button */}
-          <div className="mt-6 text-center">
+          <Reveal delay={300} className="mt-6 text-center">
             <Link
-              href="/"
-              className="inline-block px-8 py-3 rounded-full font-semibold text-white bg-[#3e2723] hover:bg-[#2f1b16] transition shadow-md"
+              href={faqPageSection.backHref}
+              className="inline-block rounded-full bg-[#3e2723] px-8 py-3 font-semibold text-white shadow-md transition hover:bg-[#2f1b16]"
             >
-              ← Back to Home
+              {faqPageSection.backLabel}
             </Link>
-          </div>
+          </Reveal>
         </div>
       </main>
 
-       {/* Floating WhatsApp Button */}
       <FloatingWhatsAppButton />
-
-      {/* Footer */}
       <Footer />
     </>
   );

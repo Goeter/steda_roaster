@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
 import { aboutSection } from '@/lib/cms-data';
 
@@ -30,7 +31,7 @@ export function AboutUs({ showCta = true }: AboutUsProps) {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {/* 🎥 Video Section */}
-          <div className="aspect-video overflow-hidden rounded-xl border border-black/10 bg-black shadow-xl">
+          <Reveal className="aspect-video overflow-hidden rounded-xl border border-black/10 bg-black shadow-xl">
             <iframe
               className="h-full w-full"
               src={aboutSection.videoUrl}
@@ -41,10 +42,10 @@ export function AboutUs({ showCta = true }: AboutUsProps) {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
-          </div>
+          </Reveal>
 
           {/* 📝 Text Content */}
-          <div className="space-y-6">
+          <Reveal className="space-y-6" delay={150}>
             <div>
               <h2 className="text-4xl font-bold leading-tight text-gray-900">
                 {aboutSection.heading}
@@ -64,7 +65,7 @@ export function AboutUs({ showCta = true }: AboutUsProps) {
                 <Link href={aboutSection.ctaHref}>{aboutSection.ctaLabel}</Link>
               </Button>
             )}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

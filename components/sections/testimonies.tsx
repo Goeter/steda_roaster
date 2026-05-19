@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import { testimonies } from '@/lib/cms-data';
+import { testimonies, testimoniesSection } from '@/lib/cms-data';
 
 export function Testimonies() {
   const [index, setIndex] = useState(0);
@@ -79,15 +79,15 @@ export function Testimonies() {
       <div className="relative mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
-            Testimonies
+            {testimoniesSection.eyebrow}
           </p>
 
           <h2 className="text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">
-            What Our Customers Say
+            {testimoniesSection.heading}
           </h2>
 
           <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
-            Cerita pelanggan yang menggunakan Steda Roaster untuk mendukung operasional bisnis kopi mereka.
+            {testimoniesSection.description}
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function Testimonies() {
             type="button"
             onClick={() => paginate(-1)}
             className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-white/90 text-amber-800 shadow-lg shadow-amber-900/10 backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-50 sm:left-4"
-            aria-label="Previous testimony"
+            aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
           </button>
@@ -110,7 +110,7 @@ export function Testimonies() {
                   key={item.id}
                   type="button"
                   onClick={() => setIndex(itemIndex)}
-                  aria-label={`View testimony from ${item.name}`}
+                  aria-label={`${testimoniesSection.itemAriaLabelPrefix} ${item.name}`}
                   className={[
                     'absolute left-1/2 top-1/2 text-left',
                     'rounded-[1.75rem] border backdrop-blur-xl',
@@ -182,7 +182,7 @@ export function Testimonies() {
             type="button"
             onClick={() => paginate(1)}
             className="absolute right-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-white/90 text-amber-800 shadow-lg shadow-amber-900/10 backdrop-blur transition duration-300 hover:translate-x-0.5 hover:bg-amber-50 sm:right-4"
-            aria-label="Next testimony"
+            aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
           </button>
@@ -194,7 +194,7 @@ export function Testimonies() {
               key={item.id}
               type="button"
               onClick={() => setIndex(itemIndex)}
-              aria-label={`View testimony from ${item.name}`}
+              aria-label={`${testimoniesSection.itemAriaLabelPrefix} ${item.name}`}
               className={[
                 'h-2.5 rounded-full transition-all duration-300',
                 itemIndex === index

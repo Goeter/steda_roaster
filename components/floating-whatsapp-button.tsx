@@ -6,12 +6,16 @@ import { siteSettings } from '@/lib/cms-data';
 export function FloatingWhatsAppButton() {
   const handleClick = () => {
     const message = encodeURIComponent(siteSettings.whatsappMessage);
-    window.open(`https://wa.me/${siteSettings.whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+    window.open(
+      `https://wa.me/${siteSettings.whatsappNumber}?text=${message}`,
+      '_blank',
+      'noopener,noreferrer',
+    );
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-40 group">
-      <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping" />
+    <div className="group fixed bottom-8 right-8 z-40">
+      <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-30" />
       <button
         onClick={handleClick}
         aria-label="Chat with us on WhatsApp"

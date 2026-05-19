@@ -3,13 +3,15 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { ProductDetailSection } from '@/lib/cms-types';
 
 type ProductGalleryProps = {
   images: string[];
   productName: string;
+  labels: ProductDetailSection;
 };
 
-export function ProductGallery({ images, productName }: ProductGalleryProps) {
+export function ProductGallery({ images, productName, labels }: ProductGalleryProps) {
   const validImages = images?.filter(Boolean) ?? [];
   const [selectedImage, setSelectedImage] = useState(validImages[0] ?? '');
 
@@ -18,8 +20,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const handlePrevious = () => {
     if (validImages.length <= 1) return;
 
-    const previousIndex =
-      currentIndex <= 0 ? validImages.length - 1 : currentIndex - 1;
+    const previousIndex = currentIndex <= 0 ? validImages.length - 1 : currentIndex - 1;
 
     setSelectedImage(validImages[previousIndex]);
   };
@@ -27,8 +28,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const handleNext = () => {
     if (validImages.length <= 1) return;
 
-    const nextIndex =
-      currentIndex >= validImages.length - 1 ? 0 : currentIndex + 1;
+    const nextIndex = currentIndex >= validImages.length - 1 ? 0 : currentIndex + 1;
 
     setSelectedImage(validImages[nextIndex]);
   };
@@ -36,7 +36,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   if (!selectedImage) {
     return (
       <div className="flex aspect-square items-center justify-center rounded-[24px] bg-neutral-100 text-sm text-neutral-500">
-        No product image available
+        {labels.noImageMessage}
       </div>
     );
   }
@@ -60,7 +60,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <button
               type="button"
               onClick={handlePrevious}
-              aria-label="Previous product image"
+              aria-label={labels.previousImageAriaLabel}
               className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition hover:bg-white hover:text-amber-700"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -69,7 +69,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <button
               type="button"
               onClick={handleNext}
-              aria-label="Next product image"
+              aria-label={labels.nextImageAriaLabel}
               className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition hover:bg-white hover:text-amber-700"
             >
               <ChevronRight className="h-5 w-5" />
@@ -89,7 +89,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   key={`${image}-${index}`}
                   type="button"
                   onClick={() => setSelectedImage(image)}
-                  aria-label={`View ${productName} image ${index + 1}`}
+                  aria-label={`${labels.thumbnailAriaLabelPrefix} ${index + 1}: ${productName}`}
                   className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-[#f7f5f0] transition sm:h-24 sm:w-24 ${
                     isActive
                       ? 'border-amber-700 ring-2 ring-amber-700/20'
