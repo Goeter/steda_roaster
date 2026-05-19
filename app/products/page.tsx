@@ -4,9 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { ArrowRight, MessageCircle, Search } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/sections/footer';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
 import { productPageSection, productSection, products, siteSettings } from '@/lib/cms-data';
@@ -39,7 +36,6 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Navbar />
 
       <main className="min-h-screen bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7] animate-page-enter">
         <section className="relative flex h-[60vh] w-full items-center justify-center text-center">
@@ -213,8 +209,6 @@ export default function ProductsPage() {
         </Reveal>
       </main>
 
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }

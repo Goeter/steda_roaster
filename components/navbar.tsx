@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -10,7 +10,6 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
   const menuItems = footerSection.navigationItems;
 
   useEffect(() => {
@@ -18,7 +17,9 @@ export function Navbar() {
       setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -28,7 +29,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed left-0 top-0 z-[999] w-full transition-all duration-300 ${
         scrolled
           ? 'bg-black/75 py-2 shadow-lg backdrop-blur-md'
           : 'bg-gradient-to-r from-black via-neutral-900 to-black py-4'
@@ -36,7 +37,6 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <span className="cursor-pointer text-lg font-extrabold tracking-wide drop-shadow-sm">
               <span className="text-yellow-400">STEDA</span>
@@ -44,7 +44,6 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden items-center space-x-9 md:flex">
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
@@ -57,7 +56,7 @@ export function Navbar() {
                     className="relative cursor-not-allowed text-base font-extrabold tracking-wide text-yellow-400 drop-shadow-sm"
                   >
                     {item.label}
-                    <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-yellow-400"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-yellow-400" />
                   </span>
                 );
               }
@@ -69,18 +68,19 @@ export function Navbar() {
                   className="group relative text-base font-bold tracking-wide text-white drop-shadow-sm transition-all duration-300 hover:text-yellow-400"
                 >
                   {item.label}
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-yellow-400 transition-all duration-300 group-hover:w-full" />
                 </Link>
               );
             })}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
               className="relative flex h-8 w-8 items-center justify-center text-white"
               aria-label="Toggle Menu"
+              aria-expanded={isOpen}
             >
               <span
                 className={`absolute transition-all duration-300 ${
@@ -101,7 +101,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
             isOpen ? 'mt-4 max-h-96 opacity-100' : 'max-h-0 opacity-0'

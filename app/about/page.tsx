@@ -3,12 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircle, Eye, Target } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
 import { Reveal } from '@/components/reveal';
 import { AboutUs } from '@/components/sections/about-us';
 import { Benefits } from '@/components/sections/benefits';
-import { Footer } from '@/components/sections/footer';
 import { Testimonies } from '@/components/sections/testimonies';
 import { Button } from '@/components/ui/button';
 import { aboutPageSection } from '@/lib/cms-data';
@@ -16,7 +13,6 @@ import { aboutPageSection } from '@/lib/cms-data';
 export default function AboutPage() {
   return (
     <>
-      <Navbar />
 
       <main className="bg-[#fdfaf6] text-gray-800 animate-page-enter">
         <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden text-center md:h-[70vh] lg:h-[75vh]">
@@ -116,8 +112,6 @@ export default function AboutPage() {
         </Reveal>
       </main>
 
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }

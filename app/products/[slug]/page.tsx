@@ -1,10 +1,7 @@
 import { notFound } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
 import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
-import { Footer } from '@/components/sections/footer';
 import { Reveal } from '@/components/reveal';
 import { productDetailSection, products } from '@/lib/cms-data';
 import { getProductBySlug } from '@/lib/cms';
@@ -44,7 +41,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   return (
     <>
-      <Navbar />
       <main className="min-h-screen overflow-hidden bg-[#f7f5f0] pt-20 animate-page-enter">
         <ProductActions title={product.name} labels={productDetailSection} />
 
@@ -91,8 +87,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </Reveal>
         </section>
       </main>
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }

@@ -1,4 +1,7 @@
 import type { Metadata, Viewport } from 'next';
+import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/sections/footer';
 import { siteMetadata } from '@/lib/cms-data';
 import './globals.css';
 
@@ -38,7 +41,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang={siteMetadata.language} className="scroll-smooth">
-      <body className="bg-white text-neutral-900 antialiased">{children}</body>
+      <body className="bg-white text-neutral-900 antialiased">
+        <Navbar />
+        {children}
+        <Footer />
+        <FloatingWhatsAppButton />
+      </body>
     </html>
   );
 }

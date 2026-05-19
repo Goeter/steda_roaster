@@ -4,10 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
 import { Reveal } from '@/components/reveal';
-import { Footer } from '@/components/sections/footer';
 import { formatDate } from '@/lib/cms';
 import { news, newsCategories, newsPageSection } from '@/lib/cms-data';
 
@@ -28,7 +25,6 @@ export default function NewsPage() {
 
   return (
     <>
-      <Navbar />
       <main className="min-h-screen bg-gradient-to-b from-[#fdf8f3] to-white pt-28 pb-16 animate-page-enter">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal as="header" className="mb-10 text-center">
@@ -114,8 +110,6 @@ export default function NewsPage() {
           )}
         </div>
       </main>
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }

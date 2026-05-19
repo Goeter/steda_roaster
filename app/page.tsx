@@ -1,4 +1,3 @@
-import { Navbar } from '@/components/navbar';
 import { Hero } from '@/components/sections/hero';
 import { AboutUs } from '@/components/sections/about-us';
 import { Product } from '@/components/sections/product';
@@ -6,13 +5,10 @@ import { Benefits } from '@/components/sections/benefits';
 import { Distribution } from '@/components/sections/distribution';
 import { Testimonies } from '@/components/sections/testimonies';
 import { FAQ } from '@/components/sections/faq';
-import { Footer } from '@/components/sections/footer';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 
 export default function Home() {
   return (
     <main className="w-full overflow-x-hidden animate-page-enter">
-      <Navbar />
       <Hero />
       <AboutUs />
       <Product />
@@ -20,8 +16,6 @@ export default function Home() {
       <Testimonies />
       <Distribution />
       <FAQ />
-      <Footer />
-      <FloatingWhatsAppButton />
     </main>
   );
 }

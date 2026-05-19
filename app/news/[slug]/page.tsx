@@ -1,11 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CalendarDays, UserRound } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { Footer } from '@/components/sections/footer';
 import { formatDate, getNewsBySlug } from '@/lib/cms';
 import { news, newsDetailSection } from '@/lib/cms-data';
 
@@ -48,7 +45,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   return (
     <>
-      <Navbar />
       <main className="min-h-screen bg-gradient-to-b from-[#fff8ef] via-white to-white pt-28 pb-16 animate-page-enter">
         <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
@@ -115,8 +111,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           )}
         </article>
       </main>
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }

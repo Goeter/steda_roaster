@@ -3,10 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { BookOpen, ChevronDown, Coffee, MessageCircle, Settings } from 'lucide-react';
-import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
-import { Navbar } from '@/components/navbar';
 import { Reveal } from '@/components/reveal';
-import { Footer } from '@/components/sections/footer';
 import { faqCategories, faqPageSection, siteSettings } from '@/lib/cms-data';
 import type { FAQItem } from '@/lib/cms-types';
 
@@ -30,7 +27,6 @@ export default function FAQsPage() {
 
   return (
     <>
-      <Navbar />
 
       <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f5efe6] via-[#ebe3d5] to-[#d6ccc2] pt-32 pb-20 animate-page-enter">
         <div className="absolute inset-0 bg-[url('/batik-pattern.png')] bg-cover bg-center opacity-10" />
@@ -129,8 +125,6 @@ export default function FAQsPage() {
         </div>
       </main>
 
-      <FloatingWhatsAppButton />
-      <Footer />
     </>
   );
 }
