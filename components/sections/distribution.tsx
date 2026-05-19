@@ -42,13 +42,13 @@ export function Distribution() {
                 Keterangan
               </h3>
 
-              <div className="grid grid-cols-2 gap-x-5 gap-y-2.5 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
                 {cities.map((city) => (
-                  <div key={city.name} className="flex items-center gap-2.5">
+                  <div key={city.name} className="flex items-center gap-2">
                     <span
-                      className={`h-3.5 w-3.5 shrink-0 rounded-full ${city.color}`}
+                      className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`}
                     />
-                    <span className="text-xs font-extrabold uppercase tracking-wide text-slate-700 sm:text-sm">
+                    <span className="text-[10px] font-bold uppercase tracking-wide text-slate-700 sm:text-[11px]">
                       {city.name}
                     </span>
                   </div>
