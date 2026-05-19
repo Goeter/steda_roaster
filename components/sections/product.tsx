@@ -24,7 +24,7 @@ export function Product() {
   const scrollCarousel = (direction: 'prev' | 'next') => {
     if (!carouselRef.current) return;
 
-    const scrollAmount = carouselRef.current.clientWidth * 0.9;
+    const scrollAmount = carouselRef.current.clientWidth * 0.85;
 
     carouselRef.current.scrollBy({
       left: direction === 'next' ? scrollAmount : -scrollAmount,
@@ -56,12 +56,12 @@ export function Product() {
         <div className="relative w-full">
           <div
             ref={carouselRef}
-            className="flex w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {homeProducts.map((product) => (
               <div
                 key={product.id}
-                className="min-w-[86%] snap-start sm:min-w-[48%] lg:min-w-[31.8%]"
+                className="min-w-[82%] snap-start sm:min-w-[44%] lg:min-w-[29%]"
               >
                 <Link
                   href={`/products/${product.slug}`}
@@ -69,12 +69,12 @@ export function Product() {
                   className="group block h-full"
                 >
                   <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-                    <div className="relative h-60 w-full overflow-hidden">
+                    <div className="relative h-52 w-full overflow-hidden">
                       <Image
                         src={product.image}
                         alt={`Mesin roasting kopi ${product.name}`}
                         fill
-                        sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                        sizes="(min-width:1024px) 30vw, (min-width:640px) 44vw, 82vw"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
@@ -85,23 +85,23 @@ export function Product() {
                       )}
                     </div>
 
-                    <div className="flex flex-1 flex-col p-6">
-                      <span className="w-fit rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700">
+                    <div className="flex flex-1 flex-col p-5">
+                      <span className="w-fit rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
                         {product.category}
                       </span>
 
-                      <h2 className="mt-4 text-xl font-bold text-neutral-900">
+                      <h2 className="mt-3 text-lg font-bold text-neutral-900">
                         {product.name}
                       </h2>
 
-                      <p className="mt-3 text-sm leading-6 text-neutral-600">
+                      <p className="mt-2 text-sm leading-6 text-neutral-600">
                         {product.description}
                       </p>
 
                       <div className="flex-1" />
 
-                      <Button className="mt-6 w-full rounded-full bg-orange-600 text-white hover:bg-orange-700">
-                        See Detail <ArrowRight size={18} />
+                      <Button className="mt-5 h-10 w-full rounded-full bg-orange-600 text-sm font-semibold text-white hover:bg-orange-700">
+                        See Detail <ArrowRight size={16} />
                       </Button>
                     </div>
                   </article>
