@@ -24,7 +24,7 @@ export function Product() {
   const scrollCarousel = (direction: 'prev' | 'next') => {
     if (!carouselRef.current) return;
 
-    const scrollAmount = carouselRef.current.clientWidth * 0.75;
+    const scrollAmount = carouselRef.current.clientWidth * 0.85;
 
     carouselRef.current.scrollBy({
       left: direction === 'next' ? scrollAmount : -scrollAmount,
@@ -56,12 +56,12 @@ export function Product() {
         <div className="relative w-full">
           <div
             ref={carouselRef}
-            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-2 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {homeProducts.map((product) => (
               <div
                 key={product.id}
-                className="w-[240px] shrink-0 snap-start sm:w-[260px] lg:w-[280px]"
+                className="w-[82vw] max-w-[340px] shrink-0 snap-start sm:w-[320px] lg:w-[360px]"
               >
                 <Link
                   href={`/products/${product.slug}`}
@@ -69,12 +69,12 @@ export function Product() {
                   className="group block h-full"
                 >
                   <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-                    <div className="relative h-52 w-full overflow-hidden">
+                    <div className="relative h-52 w-full overflow-hidden sm:h-56">
                       <Image
                         src={product.image}
                         alt={`Mesin roasting kopi ${product.name}`}
                         fill
-                        sizes="(min-width:1024px) 280px, (min-width:640px) 260px, 240px"
+                        sizes="(min-width:1024px) 360px, (min-width:640px) 320px, 82vw"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
@@ -112,36 +112,18 @@ export function Product() {
 
           <button
             onClick={() => scrollCarousel('prev')}
-            className="absolute left-0 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-3 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 md:flex"
+            className="absolute left-2 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:left-0 sm:-translate-x-1/2 sm:p-3"
             aria-label="Previous product"
           >
-            <ChevronLeft size={22} />
+            <ChevronLeft size={20} />
           </button>
 
           <button
             onClick={() => scrollCarousel('next')}
-            className="absolute right-0 top-1/2 z-10 hidden translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-3 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 md:flex"
+            className="absolute right-2 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:right-0 sm:translate-x-1/2 sm:p-3"
             aria-label="Next product"
           >
-            <ChevronRight size={22} />
-          </button>
-        </div>
-
-        <div className="mt-8 flex items-center justify-center gap-4 md:hidden">
-          <button
-            onClick={() => scrollCarousel('prev')}
-            className="rounded-full bg-orange-600 p-3 text-white shadow-md transition hover:bg-orange-700"
-            aria-label="Previous product"
-          >
-            <ChevronLeft size={18} />
-          </button>
-
-          <button
-            onClick={() => scrollCarousel('next')}
-            className="rounded-full bg-orange-600 p-3 text-white shadow-md transition hover:bg-orange-700"
-            aria-label="Next product"
-          >
-            <ChevronRight size={18} />
+            <ChevronRight size={20} />
           </button>
         </div>
 
