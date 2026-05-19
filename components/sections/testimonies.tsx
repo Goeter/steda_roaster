@@ -68,7 +68,7 @@ export function Testimonies() {
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-[#fffaf1] py-16 sm:py-20"
+      className="relative overflow-hidden bg-[#fffaf1] py-12 sm:py-16"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
@@ -78,7 +78,7 @@ export function Testimonies() {
 
       <div className="relative mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
             Testimonies
           </p>
 
@@ -86,12 +86,12 @@ export function Testimonies() {
             What Our Customers Say
           </h2>
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-neutral-600 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
             Cerita pelanggan yang menggunakan Steda Roaster untuk mendukung operasional bisnis kopi mereka.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-6 flex h-[430px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-8 sm:overflow-visible">
+        <div className="relative mx-auto mt-2 flex h-[390px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-4 sm:h-[400px] sm:overflow-visible">
           <button
             type="button"
             onClick={() => paginate(-1)}
@@ -188,7 +188,7 @@ export function Testimonies() {
           </button>
         </div>
 
-        <div className="mt-0 flex items-center justify-center gap-2 sm:mt-2">
+        <div className="-mt-2 flex items-center justify-center gap-2 sm:mt-0">
           {testimonies.map((item, itemIndex) => (
             <button
               key={item.id}
