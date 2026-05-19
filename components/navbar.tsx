@@ -18,7 +18,6 @@ export function Navbar() {
     { label: 'FAQs', href: '/faqs' },
   ];
 
-  // Efek perubahan navbar saat scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -28,45 +27,43 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Menutup menu mobile saat berpindah halaman
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? 'backdrop-blur-md bg-black/70 shadow-lg py-2'
+          ? 'bg-black/75 py-2 shadow-lg backdrop-blur-md'
           : 'bg-gradient-to-r from-black via-neutral-900 to-black py-4'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
           
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <span className="text-lg font-bold tracking-wide cursor-pointer">
+            <span className="cursor-pointer text-lg font-extrabold tracking-wide drop-shadow-sm">
               <span className="text-yellow-400">STEDA</span>
               <span className="ml-1 text-white">ROASTER</span>
             </span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden items-center space-x-9 md:flex">
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
 
-              // Menu aktif tidak dapat diklik
               if (isActive) {
                 return (
                   <span
                     key={item.href}
                     aria-current="page"
-                    className="text-sm font-semibold text-yellow-400 cursor-not-allowed relative"
+                    className="relative cursor-not-allowed text-[15px] font-extrabold uppercase tracking-[0.12em] text-yellow-400 drop-shadow-sm"
                   >
                     {item.label}
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400"></span>
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-yellow-400"></span>
                   </span>
                 );
               }
@@ -75,10 +72,10 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm font-medium text-white hover:text-yellow-400 transition-all duration-300 relative group"
+                  className="group relative text-[15px] font-bold uppercase tracking-[0.12em] text-white drop-shadow-sm transition-all duration-300 hover:text-yellow-400"
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               );
             })}
@@ -88,7 +85,7 @@ export function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white relative w-8 h-8 flex items-center justify-center"
+              className="relative flex h-8 w-8 items-center justify-center text-white"
               aria-label="Toggle Menu"
             >
               <span
@@ -111,21 +108,20 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'
+          className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
+            isOpen ? 'mt-4 max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="bg-gradient-to-b from-neutral-900 to-black rounded-xl border border-yellow-400/20 shadow-xl p-4 space-y-2">
+          <div className="space-y-2 rounded-xl border border-yellow-400/20 bg-gradient-to-b from-neutral-900 to-black p-4 shadow-xl">
             {menuItems.map((item, index) => {
               const isActive = pathname === item.href;
 
-              // Menu aktif tidak dapat diklik
               if (isActive) {
                 return (
                   <span
                     key={item.href}
                     aria-current="page"
-                    className="block px-3 py-2 rounded-md text-base font-semibold text-yellow-400 bg-yellow-400/10 cursor-not-allowed"
+                    className="block rounded-md bg-yellow-400/10 px-3 py-2.5 text-base font-extrabold uppercase tracking-[0.1em] text-yellow-400"
                     style={{ transitionDelay: `${index * 50}ms` }}
                   >
                     ✓ {item.label}
@@ -137,7 +133,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-yellow-400/10 hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-1"
+                  className="block rounded-md px-3 py-2.5 text-base font-bold uppercase tracking-[0.1em] text-white transition-all duration-300 hover:translate-x-1 hover:bg-yellow-400/10 hover:text-yellow-400"
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >
                   {item.label}
