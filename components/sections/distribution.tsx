@@ -19,38 +19,36 @@ const cities = [
 
 export function Distribution() {
   return (
-    <section id="distribution" className="bg-[#eef8ff] py-10 sm:py-12 lg:py-14">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-12">
+    <section id="distribution" className="bg-[#eef8ff] py-8 sm:py-10 lg:py-12">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.35fr_0.65fr] lg:gap-12">
           {/* LEFT: MAP + LEGEND */}
           <div className="w-full">
-            {/* MAP IMAGE */}
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="relative aspect-[16/8.8] w-full sm:aspect-[16/8.5] lg:aspect-[16/8.2]">
-                <Image
-                  src="/gambar_peta.png"
-                  alt="Distribution map Steda Roaster"
-                  fill
-                  sizes="(min-width: 1024px) 56vw, 100vw"
-                  className="object-contain object-center"
-                  priority
-                />
-              </div>
+            {/* MAP IMAGE - NO BORDER */}
+            <div className="relative aspect-[16/7.8] w-full overflow-hidden">
+              <Image
+                src="/gambar_peta.png"
+                alt="Distribution map Steda Roaster"
+                fill
+                sizes="(min-width: 1024px) 65vw, 100vw"
+                className="object-contain object-center"
+                priority
+              />
             </div>
 
             {/* CITY LEGEND */}
-            <div className="mt-4 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm">
+            <div className="mt-3">
               <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-slate-700">
                 Keterangan
               </h3>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-5 gap-y-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
                 {cities.map((city) => (
-                  <div key={city.name} className="flex items-center gap-2">
+                  <div key={city.name} className="flex items-center gap-2.5">
                     <span
-                      className={`h-3 w-3 shrink-0 rounded-full ${city.color}`}
+                      className={`h-3.5 w-3.5 shrink-0 rounded-full ${city.color}`}
                     />
-                    <span className="text-[11px] font-extrabold uppercase tracking-wide text-slate-700 sm:text-xs">
+                    <span className="text-xs font-extrabold uppercase tracking-wide text-slate-700 sm:text-sm">
                       {city.name}
                     </span>
                   </div>
@@ -67,16 +65,14 @@ export function Distribution() {
               </p>
 
               <h2 className="text-3xl font-black leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
-                Mesin{' '}
-                <span className="text-orange-600">Steda</span>{' '}
-                Roaster sudah tersebar diseluruh Nusantara.
+                Mesin <span className="text-orange-600">Steda</span> Roaster
+                sudah tersebar diseluruh Nusantara.
               </h2>
 
               <p className="mt-5 text-base leading-8 text-neutral-600 sm:text-lg">
                 Percayakan kepada kami dalam solusi mesin roasting kopi
                 profesional. Mesin Steda Roaster telah digunakan di berbagai
-                wilayah Indonesia untuk mendukung kebutuhan roasting kopi, mulai
-                dari home roastery hingga produksi profesional.
+                wilayah Indonesia untuk mendukung kebutuhan roasting kopi.
               </p>
 
               <div className="mt-7">
