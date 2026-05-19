@@ -102,7 +102,7 @@ export function Hero() {
         />
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/25" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl text-left">
@@ -121,11 +121,11 @@ export function Hero() {
 
           <Button
             onClick={handleSeeProducts}
-            className="group mt-8 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-8 py-6 text-base font-semibold text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105 hover:from-amber-500 hover:via-orange-500 hover:to-amber-600 hover:shadow-xl hover:shadow-amber-500/40 active:scale-95"
+            className="group mt-8 h-auto rounded-full border border-amber-200/80 bg-amber-100 px-6 py-3 text-sm font-bold text-stone-950 shadow-lg shadow-amber-500/25 transition-all duration-300 hover:scale-[1.03] hover:border-amber-100 hover:bg-white hover:text-stone-950 hover:shadow-xl hover:shadow-amber-300/30 active:scale-95 sm:px-7 sm:py-3.5 sm:text-base"
           >
             <span className="flex items-center gap-2">
               See Products
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
+              <span className="inline-block animate-[arrowMove_1.2s_ease-in-out_infinite] text-base leading-none sm:text-lg">
                 →
               </span>
             </span>
@@ -148,13 +148,26 @@ export function Hero() {
           >
             {index === currentBg && (
               <span
-                className="block h-full rounded-full bg-amber-400 transition-all duration-100"
+                className="block h-full rounded-full bg-amber-300 transition-all duration-100"
                 style={{ width: `${progress}%` }}
               />
             )}
           </button>
         ))}
       </div>
+
+      <style jsx>{`
+        @keyframes arrowMove {
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+
+          50% {
+            transform: translateX(5px);
+          }
+        }
+      `}</style>
     </section>
   );
 }
