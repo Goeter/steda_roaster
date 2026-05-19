@@ -24,7 +24,7 @@ export function Product() {
   const scrollCarousel = (direction: 'prev' | 'next') => {
     if (!carouselRef.current) return;
 
-    const scrollAmount = carouselRef.current.clientWidth * 0.85;
+    const scrollAmount = carouselRef.current.clientWidth * 0.75;
 
     carouselRef.current.scrollBy({
       left: direction === 'next' ? scrollAmount : -scrollAmount,
@@ -61,7 +61,7 @@ export function Product() {
             {homeProducts.map((product) => (
               <div
                 key={product.id}
-                className="min-w-[82%] snap-start sm:min-w-[44%] lg:min-w-[29%]"
+                className="min-w-[72%] snap-start sm:min-w-[36%] lg:min-w-[24%]"
               >
                 <Link
                   href={`/products/${product.slug}`}
@@ -74,7 +74,7 @@ export function Product() {
                         src={product.image}
                         alt={`Mesin roasting kopi ${product.name}`}
                         fill
-                        sizes="(min-width:1024px) 30vw, (min-width:640px) 44vw, 82vw"
+                        sizes="(min-width:1024px) 24vw, (min-width:640px) 36vw, 72vw"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
