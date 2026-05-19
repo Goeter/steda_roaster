@@ -33,7 +33,10 @@ export function Product() {
   };
 
   return (
-    <section id="product" className="relative overflow-hidden bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7] py-20">
+    <section
+      id="product"
+      className="relative overflow-hidden bg-gradient-to-br from-[#fff7ed] via-[#fffbf5] to-[#fef3c7] py-20"
+    >
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6">
         <div className="mb-14 w-full text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
