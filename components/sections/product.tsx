@@ -53,15 +53,15 @@ export function Product() {
           </p>
         </div>
 
-        <div className="relative w-full px-12 sm:px-14 lg:px-16">
+        <div className="relative w-full px-0 sm:px-14 lg:px-16">
           <div
             ref={carouselRef}
-            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-0 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-1"
           >
             {homeProducts.map((product) => (
               <div
                 key={product.id}
-                className="w-[78vw] max-w-[340px] shrink-0 snap-start sm:w-[320px] lg:w-[360px]"
+                className="mx-auto w-[88vw] max-w-[340px] shrink-0 snap-center sm:mx-0 sm:w-[320px] sm:snap-start lg:w-[360px]"
               >
                 <Link
                   href={`/products/${product.slug}`}
@@ -74,7 +74,7 @@ export function Product() {
                         src={product.image}
                         alt={`Mesin roasting kopi ${product.name}`}
                         fill
-                        sizes="(min-width:1024px) 360px, (min-width:640px) 320px, 78vw"
+                        sizes="(min-width:1024px) 360px, (min-width:640px) 320px, 88vw"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
@@ -112,7 +112,7 @@ export function Product() {
 
           <button
             onClick={() => scrollCarousel('prev')}
-            className="absolute -left-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:-left-2 sm:p-3 lg:-left-3"
+            className="absolute left-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:-left-2 sm:p-3 lg:-left-3"
             aria-label="Previous product"
           >
             <ChevronLeft size={20} />
@@ -120,7 +120,7 @@ export function Product() {
 
           <button
             onClick={() => scrollCarousel('next')}
-            className="absolute -right-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:-right-2 sm:p-3 lg:-right-3"
+            className="absolute right-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-100 transition hover:bg-orange-50 sm:-right-2 sm:p-3 lg:-right-3"
             aria-label="Next product"
           >
             <ChevronRight size={20} />
