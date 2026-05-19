@@ -41,7 +41,6 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <span className="cursor-pointer text-lg font-extrabold tracking-wide drop-shadow-sm">
@@ -60,7 +59,7 @@ export function Navbar() {
                   <span
                     key={item.href}
                     aria-current="page"
-                    className="relative cursor-not-allowed text-lg font-extrabold tracking-wide text-yellow-400 drop-shadow-sm"
+                    className="relative cursor-not-allowed text-base font-extrabold tracking-wide text-yellow-400 drop-shadow-sm"
                   >
                     {item.label}
                     <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-yellow-400"></span>
@@ -72,7 +71,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group relative text-lg font-bold tracking-wide text-white drop-shadow-sm transition-all duration-300 hover:text-yellow-400"
+                  className="group relative text-base font-bold tracking-wide text-white drop-shadow-sm transition-all duration-300 hover:text-yellow-400"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
@@ -95,6 +94,7 @@ export function Navbar() {
               >
                 <Menu size={26} />
               </span>
+
               <span
                 className={`absolute transition-all duration-300 ${
                   isOpen ? 'rotate-0 opacity-100' : '-rotate-45 opacity-0'
@@ -121,7 +121,7 @@ export function Navbar() {
                   <span
                     key={item.href}
                     aria-current="page"
-                    className="block rounded-md bg-yellow-400/10 px-3 py-2.5 text-lg font-extrabold tracking-wide text-yellow-400"
+                    className="block rounded-md bg-yellow-400/10 px-3 py-2.5 text-base font-extrabold tracking-wide text-yellow-400"
                     style={{ transitionDelay: `${index * 50}ms` }}
                   >
                     ✓ {item.label}
@@ -133,7 +133,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block rounded-md px-3 py-2.5 text-lg font-bold tracking-wide text-white transition-all duration-300 hover:translate-x-1 hover:bg-yellow-400/10 hover:text-yellow-400"
+                  className="block rounded-md px-3 py-2.5 text-base font-bold tracking-wide text-white transition-all duration-300 hover:translate-x-1 hover:bg-yellow-400/10 hover:text-yellow-400"
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >
                   {item.label}
