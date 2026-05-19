@@ -2,94 +2,91 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+const cities = [
+  { name: 'Aceh', color: 'bg-red-500' },
+  { name: 'Jabodetabek', color: 'bg-yellow-400' },
+  { name: 'Solo', color: 'bg-green-600' },
+  { name: 'Surabaya', color: 'bg-blue-900' },
+  { name: 'Madura', color: 'bg-rose-600' },
+  { name: 'Malang', color: 'bg-lime-500' },
+  { name: 'Bondowoso', color: 'bg-purple-600' },
+  { name: 'Bali', color: 'bg-orange-500' },
+  { name: 'Kalimantan Tengah', color: 'bg-pink-600' },
+  { name: 'Kalimantan Timur', color: 'bg-amber-800' },
+  { name: 'NTT', color: 'bg-black' },
+  { name: 'Jayapura', color: 'bg-neutral-700' },
+];
+
 export function Distribution() {
   return (
-    <section
-      id="distribution"
-      className="relative overflow-hidden bg-[#edf7ff] py-14 sm:py-16 lg:py-0"
-    >
-      {/* Decorative background */}
-      <div className="pointer-events-none absolute right-[-120px] top-[-120px] h-80 w-80 rounded-full bg-amber-200/30 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-140px] right-[20%] h-96 w-96 rounded-full bg-sky-300/20 blur-3xl" />
-
-      <div className="mx-auto max-w-[1600px]">
-        <div className="grid min-h-[620px] grid-cols-1 lg:grid-cols-[1.12fr_0.88fr]">
-          {/* LEFT IMAGE */}
-          <div className="relative flex items-center justify-center bg-white/35 p-4 sm:p-6 lg:p-0">
-            <div className="relative w-full overflow-hidden rounded-3xl bg-white shadow-[0_20px_60px_rgba(15,23,42,0.12)] lg:h-full lg:rounded-none lg:shadow-none">
-              <div className="relative aspect-[16/9] w-full lg:h-full lg:aspect-auto">
-                <Image
-                  src="/gambar_peta.png"
-                  alt="Distribution map Steda Roaster"
-                  fill
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  className="object-cover object-center transition duration-700 hover:scale-[1.02]"
-                  priority
-                />
-              </div>
+    <section id="distribution" className="bg-[#eef8ff] py-12 sm:py-14 lg:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:gap-12">
+          {/* LEFT: MAP IMAGE */}
+          <div className="overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-200/70">
+            <div className="relative aspect-[16/9] w-full">
+              <Image
+                src="/gambar_peta.png"
+                alt="Distribution map Steda Roaster"
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-contain object-center"
+                priority
+              />
             </div>
           </div>
 
-          {/* RIGHT CONTENT */}
-          <div className="relative flex items-center px-5 py-12 sm:px-8 lg:px-16 xl:px-24">
-            <div className="max-w-2xl">
-              <p className="mb-5 inline-flex rounded-full bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-amber-700 shadow-sm">
-                Distribution
-              </p>
+          {/* RIGHT: CONTENT */}
+          <div className="rounded-3xl bg-white/55 p-6 shadow-sm backdrop-blur-sm sm:p-8 lg:bg-transparent lg:p-0 lg:shadow-none">
+            <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.28em] text-amber-700">
+              Distribution
+            </p>
 
-              <h2 className="text-4xl font-black leading-[1.18] tracking-tight text-black sm:text-5xl lg:text-6xl xl:text-7xl">
-                Mesin{' '}
-                <span className="bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">
-                  Steda
-                </span>{' '}
-                Roaster sudah tersebar diseluruh Nusantara.
-              </h2>
+            <h2 className="max-w-xl text-3xl font-black leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
+              Mesin{' '}
+              <span className="text-orange-600">Steda</span>{' '}
+              Roaster sudah tersebar diseluruh Nusantara.
+            </h2>
 
-              <p className="mt-7 max-w-xl text-lg leading-8 text-neutral-600 sm:text-xl">
-                Percayakan kepada kami dalam solusi mesin roasting kopi
-                profesional.
-              </p>
+            <p className="mt-5 max-w-lg text-base leading-8 text-neutral-600 sm:text-lg">
+              Percayakan kepada kami dalam solusi mesin roasting kopi
+              profesional.
+            </p>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Button
-                  asChild
-                  className="group h-14 rounded-full bg-neutral-900 px-8 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-neutral-900/20 transition hover:-translate-y-1 hover:bg-amber-600 hover:shadow-amber-600/30"
-                >
-                  <Link href="/products">
-                    Explore Products
-                    <span className="ml-2 inline-block transition group-hover:translate-x-1">
-                      →
+            <div className="mt-7">
+              <Button
+                asChild
+                className="group h-12 rounded-full bg-neutral-900 px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-amber-600 hover:shadow-lg hover:shadow-amber-600/25"
+              >
+                <Link href="/products">
+                  Explore Products
+                  <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </Button>
+            </div>
+
+            {/* CITY LIST / LEGEND */}
+            <div className="mt-8">
+              <h3 className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-slate-700">
+                Keterangan
+              </h3>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {cities.map((city) => (
+                  <div
+                    key={city.name}
+                    className="group flex items-center gap-3 rounded-full border border-white/80 bg-white/80 px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
+                  >
+                    <span
+                      className={`h-3.5 w-3.5 shrink-0 rounded-full shadow-sm ${city.color}`}
+                    />
+                    <span className="text-sm font-extrabold uppercase tracking-wide text-slate-700">
+                      {city.name}
                     </span>
-                  </Link>
-                </Button>
-
-                <div className="text-sm font-medium text-neutral-500">
-                  Tersedia untuk kebutuhan home roastery hingga produksi.
-                </div>
-              </div>
-
-              {/* MINI STATS */}
-              <div className="mt-12 grid grid-cols-3 gap-3 sm:max-w-md">
-                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <div className="text-2xl font-black text-neutral-900">11+</div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                    Wilayah
                   </div>
-                </div>
-
-                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <div className="text-2xl font-black text-neutral-900">ID</div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                    Nusantara
-                  </div>
-                </div>
-
-                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <div className="text-2xl font-black text-neutral-900">Pro</div>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                    Roasting
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
