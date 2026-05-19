@@ -2,142 +2,95 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-const cities = [
-  {
-    name: 'Aceh',
-    color: 'bg-red-500',
-    text: 'text-red-700',
-    border: 'border-red-200',
-    bg: 'bg-red-50',
-  },
-  {
-    name: 'Jabodetabek',
-    color: 'bg-yellow-400',
-    text: 'text-yellow-700',
-    border: 'border-yellow-200',
-    bg: 'bg-yellow-50',
-  },
-  {
-    name: 'Solo',
-    color: 'bg-green-600',
-    text: 'text-green-700',
-    border: 'border-green-200',
-    bg: 'bg-green-50',
-  },
-  {
-    name: 'Surabaya',
-    color: 'bg-orange-500',
-    text: 'text-orange-700',
-    border: 'border-orange-200',
-    bg: 'bg-orange-50',
-  },
-  {
-    name: 'Madura',
-    color: 'bg-purple-600',
-    text: 'text-purple-700',
-    border: 'border-purple-200',
-    bg: 'bg-purple-50',
-  },
-  {
-    name: 'Malang',
-    color: 'bg-blue-950',
-    text: 'text-blue-950',
-    border: 'border-blue-200',
-    bg: 'bg-blue-50',
-  },
-  {
-    name: 'Bondowoso',
-    color: 'bg-pink-600',
-    text: 'text-pink-700',
-    border: 'border-pink-200',
-    bg: 'bg-pink-50',
-  },
-  {
-    name: 'Bali',
-    color: 'bg-black',
-    text: 'text-neutral-900',
-    border: 'border-neutral-300',
-    bg: 'bg-neutral-50',
-  },
-  {
-    name: 'Kalimantan Tengah',
-    color: 'bg-pink-500',
-    text: 'text-pink-700',
-    border: 'border-pink-200',
-    bg: 'bg-pink-50',
-  },
-  {
-    name: 'Kalimantan Timur',
-    color: 'bg-amber-800',
-    text: 'text-amber-800',
-    border: 'border-amber-200',
-    bg: 'bg-amber-50',
-  },
-  {
-    name: 'Papua',
-    color: 'bg-neutral-700',
-    text: 'text-neutral-700',
-    border: 'border-neutral-300',
-    bg: 'bg-neutral-50',
-  },
-];
-
 export function Distribution() {
   return (
-    <section id="distribution" className="bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          {/* LEFT: MAP IMAGE */}
-          <div className="order-1">
-            <div className="relative w-full overflow-hidden rounded-3xl border border-amber-100 bg-neutral-50 shadow-lg">
-              <div className="relative aspect-[16/10] w-full sm:aspect-[16/9] lg:aspect-[4/3]">
+    <section
+      id="distribution"
+      className="relative overflow-hidden bg-[#edf7ff] py-14 sm:py-16 lg:py-0"
+    >
+      {/* Decorative background */}
+      <div className="pointer-events-none absolute right-[-120px] top-[-120px] h-80 w-80 rounded-full bg-amber-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-140px] right-[20%] h-96 w-96 rounded-full bg-sky-300/20 blur-3xl" />
+
+      <div className="mx-auto max-w-[1600px]">
+        <div className="grid min-h-[620px] grid-cols-1 lg:grid-cols-[1.12fr_0.88fr]">
+          {/* LEFT IMAGE */}
+          <div className="relative flex items-center justify-center bg-white/35 p-4 sm:p-6 lg:p-0">
+            <div className="relative w-full overflow-hidden rounded-3xl bg-white shadow-[0_20px_60px_rgba(15,23,42,0.12)] lg:h-full lg:rounded-none lg:shadow-none">
+              <div className="relative aspect-[16/9] w-full lg:h-full lg:aspect-auto">
                 <Image
                   src="/gambar_peta.png"
                   alt="Distribution map Steda Roaster"
                   fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-contain p-3 sm:p-5"
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className="object-cover object-center transition duration-700 hover:scale-[1.02]"
                   priority
                 />
               </div>
             </div>
           </div>
 
-          {/* RIGHT: CONTENT */}
-          <div className="order-2">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
-              Distribution
-            </p>
+          {/* RIGHT CONTENT */}
+          <div className="relative flex items-center px-5 py-12 sm:px-8 lg:px-16 xl:px-24">
+            <div className="max-w-2xl">
+              <p className="mb-5 inline-flex rounded-full bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-amber-700 shadow-sm">
+                Distribution
+              </p>
 
-            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              Mesin <span className="text-amber-700">Steda Roaster</span> sudah tersebar di seluruh Nusantara.
-            </h2>
+              <h2 className="text-4xl font-black leading-[1.18] tracking-tight text-black sm:text-5xl lg:text-6xl xl:text-7xl">
+                Mesin{' '}
+                <span className="bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">
+                  Steda
+                </span>{' '}
+                Roaster sudah tersebar diseluruh Nusantara.
+              </h2>
 
-            <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-600 sm:text-lg">
-              Percayakan kebutuhan mesin roasting kopi Anda kepada tim yang memahami kebutuhan home roastery hingga produksi profesional.
-            </p>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-neutral-600 sm:text-xl">
+                Percayakan kepada kami dalam solusi mesin roasting kopi
+                profesional.
+              </p>
 
-            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {cities.map((city) => (
-                <div
-                  key={city.name}
-                  className={`flex items-center gap-3 rounded-full border px-4 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${city.border} ${city.bg}`}
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Button
+                  asChild
+                  className="group h-14 rounded-full bg-neutral-900 px-8 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-neutral-900/20 transition hover:-translate-y-1 hover:bg-amber-600 hover:shadow-amber-600/30"
                 >
-                  <span className={`h-3 w-3 shrink-0 rounded-full ${city.color}`} />
-                  <span className={`text-sm font-semibold ${city.text}`}>
-                    {city.name}
-                  </span>
-                </div>
-              ))}
-            </div>
+                  <Link href="/products">
+                    Explore Products
+                    <span className="ml-2 inline-block transition group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
+                </Button>
 
-            <div className="mt-9">
-              <Button
-                asChild
-                className="rounded-full bg-amber-600 px-7 py-6 text-white hover:bg-amber-700"
-              >
-                <Link href="/products">Explore Products</Link>
-              </Button>
+                <div className="text-sm font-medium text-neutral-500">
+                  Tersedia untuk kebutuhan home roastery hingga produksi.
+                </div>
+              </div>
+
+              {/* MINI STATS */}
+              <div className="mt-12 grid grid-cols-3 gap-3 sm:max-w-md">
+                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
+                  <div className="text-2xl font-black text-neutral-900">11+</div>
+                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                    Wilayah
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
+                  <div className="text-2xl font-black text-neutral-900">ID</div>
+                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                    Nusantara
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-white/80 p-4 shadow-sm backdrop-blur">
+                  <div className="text-2xl font-black text-neutral-900">Pro</div>
+                  <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                    Roasting
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
