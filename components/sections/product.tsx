@@ -61,7 +61,7 @@ export function Product() {
             {homeProducts.map((product) => (
               <div
                 key={product.id}
-                className="min-w-[72%] snap-start sm:min-w-[36%] lg:min-w-[24%]"
+                className="w-[240px] shrink-0 snap-start sm:w-[260px] lg:w-[280px]"
               >
                 <Link
                   href={`/products/${product.slug}`}
@@ -74,7 +74,7 @@ export function Product() {
                         src={product.image}
                         alt={`Mesin roasting kopi ${product.name}`}
                         fill
-                        sizes="(min-width:1024px) 24vw, (min-width:640px) 36vw, 72vw"
+                        sizes="(min-width:1024px) 280px, (min-width:640px) 260px, 240px"
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
 
