@@ -1,10 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CalendarDays, UserRound } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
 import { formatDate, getNewsBySlug } from '@/lib/cms';
-import { news, newsDetailSection } from '@/lib/cms-data';
+import { absoluteUrl, getNewsUrl } from '@/lib/seo';
+import { news, newsDetailSection, siteMetadata, siteSettings } from '@/lib/cms-data';
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -14,7 +16,7 @@ export function generateStaticParams() {
   return news.map((item) => ({ slug: item.slug }));
 }
 
-export async function generateMetadata({ params }: NewsDetailPageProps) {
+export async function generateMetadata({ params }: NewsDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const item = getNewsBySlug(slug);
 
@@ -25,10 +27,23 @@ export async function generateMetadata({ params }: NewsDetailPageProps) {
   return {
     title: item.title,
     description: item.excerpt,
+    alternates: {
+      canonical: `/news/${item.slug}`,
+    },
     openGraph: {
       title: item.title,
       description: item.excerpt,
+      url: `/news/${item.slug}`,
+      type: 'article',
+      publishedTime: item.publishedAt,
+      authors: [item.author],
       images: [{ url: item.images[0].src, alt: item.images[0].alt }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.title,
+      description: item.excerpt,
+      images: [item.images[0].src],
     },
   };
 }
@@ -43,8 +58,37 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     .filter((related) => related.slug !== item.slug)
     .slice(0, newsDetailSection.relatedLimit);
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: item.title,
+    description: item.excerpt,
+    image: item.images.map((image) => absoluteUrl(image.src)),
+    datePublished: item.publishedAt,
+    dateModified: item.publishedAt,
+    author: {
+      '@type': 'Organization',
+      name: item.author || siteSettings.siteName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteSettings.siteName,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl('/hero-1.jpg'),
+      },
+    },
+    mainEntityOfPage: getNewsUrl(item.slug),
+    inLanguage: siteMetadata.language,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <main className="min-h-screen bg-gradient-to-b from-[#fff8ef] via-white to-white pt-28 pb-16 animate-page-enter">
         <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>

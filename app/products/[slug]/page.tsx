@@ -1,10 +1,12 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
 import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
-import { productDetailSection, products } from '@/lib/cms-data';
+import { productDetailSection, products, siteMetadata, siteSettings } from '@/lib/cms-data';
 import { getProductBySlug } from '@/lib/cms';
+import { absoluteUrl, getProductUrl } from '@/lib/seo';
 
 type ProductDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -14,7 +16,7 @@ export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }
 
-export async function generateMetadata({ params }: ProductDetailPageProps) {
+export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
 
@@ -23,10 +25,21 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
   return {
     title: product.name,
     description: product.description,
+    alternates: {
+      canonical: `/products/${product.slug}`,
+    },
     openGraph: {
-      title: `${product.name} | ${productDetailSection.metadataTitleSuffix}`, 
+      title: `${product.name} | ${productDetailSection.metadataTitleSuffix}`,
       description: product.description,
+      url: `/products/${product.slug}`,
+      type: 'website',
       images: [{ url: product.image, alt: product.name }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.name,
+      description: product.description,
+      images: [product.image],
     },
   };
 }
@@ -38,9 +51,37 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (!product) notFound();
 
   const galleryImages = product.images.length > 0 ? product.images : [product.image];
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: galleryImages.map((image) => absoluteUrl(image)),
+    brand: {
+      '@type': 'Brand',
+      name: siteSettings.siteName,
+    },
+    manufacturer: {
+      '@type': 'Organization',
+      name: siteSettings.siteName,
+      url: siteMetadata.metadataBase,
+    },
+    category: product.category,
+    url: getProductUrl(product.slug),
+    additionalProperty: Object.entries(product.technicalParams).map(([name, value]) => ({
+      '@type': 'PropertyValue',
+      name,
+      value,
+    })),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <main className="min-h-screen overflow-hidden bg-[#f7f5f0] pt-20 animate-page-enter">
         <ProductActions title={product.name} labels={productDetailSection} />
 

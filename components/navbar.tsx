@@ -18,10 +18,7 @@ export function Navbar() {
     };
 
     handleScroll();
-<<<<<<< HEAD
-=======
 
->>>>>>> 2766674de407d7e591d4fd05eb242b63cb416cca
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -33,11 +30,7 @@ export function Navbar() {
 
   return (
     <nav
-<<<<<<< HEAD
       className={`fixed left-0 top-0 z-[999] w-full transition-all duration-300 ${
-=======
-      className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
->>>>>>> 2766674de407d7e591d4fd05eb242b63cb416cca
         scrolled
           ? 'bg-black/75 py-2 shadow-lg backdrop-blur-md'
           : 'bg-gradient-to-r from-black via-neutral-900 to-black py-4'
