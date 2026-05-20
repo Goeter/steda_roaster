@@ -68,7 +68,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         new Date(b.publishedAt).getTime() -
         new Date(a.publishedAt).getTime()
     )
-    .slice(0, 4);
+    .slice(0, 3);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -149,13 +149,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           <Reveal
             delay={200}
-            className="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-amber-100 bg-white p-6 shadow-sm sm:p-10"
+            className="mt-12 rounded-[2rem] border border-amber-100 bg-white p-6 shadow-sm sm:p-10"
           >
             <div className="prose prose-neutral max-w-none">
               {item.content.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="mb-6 text-lg leading-9 text-neutral-700"
+                  className="mb-6 text-lg leading-9 text-neutral-700 last:mb-0"
                 >
                   {paragraph}
                 </p>
@@ -164,23 +164,19 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           </Reveal>
 
           {latestNews.length > 0 && (
-            <Reveal
-              as="section"
-              delay={300}
-              className="mx-auto mt-16 max-w-3xl"
-            >
-              <div className="mb-6 text-center sm:text-left">
+            <Reveal as="section" delay={300} className="mt-16">
+              <div className="mb-6 text-left">
                 <h2 className="text-2xl font-bold text-neutral-900">
                   Latest News
                 </h2>
 
-                <p className="mt-2 text-sm leading-6 text-neutral-600">
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
                   Stay updated with the newest stories, coffee insights, and
                   updates from Steda Roaster.
                 </p>
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {latestNews.map((latest) => (
                   <Link
                     key={latest.slug}
