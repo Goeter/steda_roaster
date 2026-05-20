@@ -8,9 +8,17 @@ import { AboutUs } from '@/components/sections/about-us';
 import { Benefits } from '@/components/sections/benefits';
 import { Testimonies } from '@/components/sections/testimonies';
 import { Button } from '@/components/ui/button';
-import { aboutPageSection } from '@/lib/cms-data';
+import type { AboutPageSection, AboutSection, BenefitsSection, TestimoniesSection, Testimony } from '@/lib/cms-types';
 
-export function AboutPageContent() {
+type AboutPageContentProps = {
+  aboutPageSection: AboutPageSection;
+  aboutSection: AboutSection;
+  benefitsSection: BenefitsSection;
+  testimoniesSection: TestimoniesSection;
+  testimonies: Testimony[];
+};
+
+export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSection, testimoniesSection, testimonies }: AboutPageContentProps) {
   return (
     <>
 
@@ -37,7 +45,7 @@ export function AboutPageContent() {
           </Reveal>
         </section>
 
-        <AboutUs showCta={false} />
+        <AboutUs aboutSection={aboutSection} showCta={false} />
 
         <section className="bg-gradient-to-b from-[#fdfaf6] to-[#f5efe6] py-24">
           <div className="mx-auto max-w-7xl px-6">
@@ -90,8 +98,8 @@ export function AboutPageContent() {
           </div>
         </section>
 
-        <Benefits />
-        <Testimonies />
+        <Benefits benefitsSection={benefitsSection} />
+        <Testimonies testimoniesSection={testimoniesSection} testimonies={testimonies} />
 
         <Reveal as="section" className="bg-gradient-to-r from-[#3e2723] to-[#6d4c41] py-20 text-white">
           <div className="mx-auto max-w-6xl px-6 text-center">

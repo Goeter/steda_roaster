@@ -5,9 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
-import { faqHomeSection, faqs } from '@/lib/cms-data';
+import type { FAQHomeSection, FAQItem } from '@/lib/cms-types';
 
-export function FAQ() {
+type FAQProps = {
+  faqHomeSection: FAQHomeSection;
+  faqs: FAQItem[];
+};
+
+export function FAQ({ faqHomeSection, faqs }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const homeFaqs = faqs.slice(0, faqHomeSection.previewLimit);
 

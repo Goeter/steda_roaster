@@ -4,21 +4,22 @@ import { CheckCircle2 } from 'lucide-react';
 import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
-import { productDetailSection, products, siteMetadata, siteSettings } from '@/lib/cms-data';
-import { getProductBySlug } from '@/lib/cms';
+import { getProductDetailContent } from '@/lib/cms';
 import { absoluteUrl, getProductUrl } from '@/lib/seo';
 
 type ProductDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { products } = await getProductDetailContent();
   return products.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const { productDetailSection, products } = await getProductDetailContent();
+  const product = products.find((item) => item.slug === slug);
 
   if (!product) return { title: productDetailSection.notFoundTitle };
 
@@ -46,7 +47,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const { productDetailSection, products, siteMetadata, siteSettings } = await getProductDetailContent();
+  const product = products.find((item) => item.slug === slug);
 
   if (!product) notFound();
 
@@ -56,7 +58,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: galleryImages.map((image) => absoluteUrl(image)),
+    image: galleryImages.map((image) => absoluteUrl(image, siteMetadata.metadataBase)),
     brand: {
       '@type': 'Brand',
       name: siteSettings.siteName,
@@ -67,7 +69,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       url: siteMetadata.metadataBase,
     },
     category: product.category,
-    url: getProductUrl(product.slug),
+    url: getProductUrl(product.slug, siteMetadata.metadataBase),
     additionalProperty: Object.entries(product.technicalParams).map(([name, value]) => ({
       '@type': 'PropertyValue',
       name,

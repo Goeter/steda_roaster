@@ -4,8 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { BookOpen, ChevronDown, Coffee, MessageCircle, Settings } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
-import { faqCategories, faqPageSection, siteSettings } from '@/lib/cms-data';
-import type { FAQItem } from '@/lib/cms-types';
+import type { FAQCategory, FAQItem, FAQPageSection, SiteSettings } from '@/lib/cms-types';
 
 const iconMap = {
   coffee: Coffee,
@@ -13,7 +12,13 @@ const iconMap = {
   bookOpen: BookOpen,
 };
 
-export function FAQsPageContent() {
+type FAQsPageContentProps = {
+  faqCategories: FAQCategory[];
+  faqPageSection: FAQPageSection;
+  siteSettings: SiteSettings;
+};
+
+export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }: FAQsPageContentProps) {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 

@@ -1,9 +1,13 @@
 'use client';
 
 import { FaWhatsapp } from 'react-icons/fa';
-import { siteSettings } from '@/lib/cms-data';
+import type { SiteSettings } from '@/lib/cms-types';
 
-export function FloatingWhatsAppButton() {
+type FloatingWhatsAppButtonProps = {
+  siteSettings: SiteSettings;
+};
+
+export function FloatingWhatsAppButton({ siteSettings }: FloatingWhatsAppButtonProps) {
   const handleClick = () => {
     const message = encodeURIComponent(siteSettings.whatsappMessage);
     window.open(

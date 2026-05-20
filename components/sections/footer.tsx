@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebookF, FaTiktok } from 'react-icons/fa';
-import { footerSection, siteSettings } from '@/lib/cms-data';
+import type { FooterSection, SiteSettings } from '@/lib/cms-types';
 
 const socialClass =
   'group relative rounded-full bg-white/10 p-3 text-white transition-all duration-300 hover:-translate-y-1';
@@ -11,7 +11,12 @@ const socialClass =
 const iconClass =
   'relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110';
 
-export function Footer() {
+type FooterProps = {
+  footerSection: FooterSection;
+  siteSettings: SiteSettings;
+};
+
+export function Footer({ footerSection, siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (

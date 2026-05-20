@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { footerSection } from '@/lib/cms-data';
+import type { FooterSection } from '@/lib/cms-types';
 
-export function Navbar() {
+type NavbarProps = {
+  footerSection: FooterSection;
+};
+
+export function Navbar({ footerSection }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();

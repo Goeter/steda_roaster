@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
-import { aboutSection } from '@/lib/cms-data';
+import type { AboutSection } from '@/lib/cms-types';
 
 type AboutUsProps = {
+  aboutSection: AboutSection;
   showCta?: boolean;
 };
 
-export function AboutUs({ showCta = true }: AboutUsProps) {
+export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
   return (
     <section id="about" className="relative overflow-hidden py-20 text-gray-800">
       {/* 🌿 Soft Elegant Background */}

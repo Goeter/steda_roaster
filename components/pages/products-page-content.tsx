@@ -6,10 +6,17 @@ import { useMemo, useState } from 'react';
 import { ArrowRight, MessageCircle, Search } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
-import { productPageSection, productSection, products, siteSettings } from '@/lib/cms-data';
+import type { Product, ProductPageSection, ProductSection, SiteSettings } from '@/lib/cms-types';
 
 
-export function ProductsPageContent() {
+type ProductsPageContentProps = {
+  productPageSection: ProductPageSection;
+  productSection: ProductSection;
+  products: Product[];
+  siteSettings: SiteSettings;
+};
+
+export function ProductsPageContent({ productPageSection, productSection, products, siteSettings }: ProductsPageContentProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState(productSection.filters[0]);
 

@@ -6,9 +6,15 @@ import { useMemo, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
-import { productPageSection, productSection, products } from '@/lib/cms-data';
+import type { Product as ProductItem, ProductPageSection, ProductSection } from '@/lib/cms-types';
 
-export function Product() {
+type ProductProps = {
+  productPageSection: ProductPageSection;
+  productSection: ProductSection;
+  products: ProductItem[];
+};
+
+export function Product({ productPageSection, productSection, products }: ProductProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const homeProducts = useMemo(

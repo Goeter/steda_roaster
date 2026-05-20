@@ -1,34 +1,39 @@
 import type { Metadata } from 'next';
 import { NewsPageContent } from '@/components/pages/news-page-content';
-import { news, newsPageSection, siteMetadata } from '@/lib/cms-data';
+import { getLayoutContent, getNewsContent } from '@/lib/cms';
 import { getNewsUrl } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'News',
-  description: newsPageSection.description,
-  alternates: {
-    canonical: '/news',
-  },
-  openGraph: {
-    title: `News | ${siteMetadata.openGraphSiteName}`,
+export async function generateMetadata(): Promise<Metadata> {
+  const { newsPageSection, siteMetadata } = await getNewsContent();
+
+  return {
+    title: 'News',
     description: newsPageSection.description,
-    url: '/news',
-  },
-};
+    alternates: {
+      canonical: '/news',
+    },
+    openGraph: {
+      title: `News | ${siteMetadata.openGraphSiteName}`,
+      description: newsPageSection.description,
+      url: '/news',
+    },
+  };
+}
 
+export default async function NewsPage() {
+  const [content, { siteMetadata }] = await Promise.all([getNewsContent(), getLayoutContent()]);
 
-const newsListJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  itemListElement: news.map((item, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    url: getNewsUrl(item.slug),
-    name: item.title,
-  })),
-};
+  const newsListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: content.news.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: getNewsUrl(item.slug, siteMetadata.metadataBase),
+      name: item.title,
+    })),
+  };
 
-export default function NewsPage() {
   return (
     <>
       <script
@@ -36,8 +41,7 @@ export default function NewsPage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(newsListJsonLd) }}
       />
-      <NewsPageContent />
+      <NewsPageContent news={content.news} newsCategories={content.newsCategories} newsPageSection={content.newsPageSection} />
     </>
   );
 }
-

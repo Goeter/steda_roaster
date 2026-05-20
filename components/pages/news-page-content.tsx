@@ -6,9 +6,15 @@ import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import { formatDate } from '@/lib/cms';
-import { news, newsCategories, newsPageSection } from '@/lib/cms-data';
+import type { NewsItem, NewsPageSection } from '@/lib/cms-types';
 
-export function NewsPageContent() {
+type NewsPageContentProps = {
+  news: NewsItem[];
+  newsCategories: string[];
+  newsPageSection: NewsPageSection;
+};
+
+export function NewsPageContent({ news, newsCategories, newsPageSection }: NewsPageContentProps) {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState(newsPageSection.defaultCategory);
 

@@ -1,26 +1,31 @@
 import type { MetadataRoute } from 'next';
-import { news, products } from '@/lib/cms-data';
+import { getNewsContent, getProductDetailContent, getLayoutContent } from '@/lib/cms';
 import { absoluteUrl, getStaticRoutes } from '@/lib/seo';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const [{ products }, { news }, { siteMetadata }] = await Promise.all([
+    getProductDetailContent(),
+    getNewsContent(),
+    getLayoutContent(),
+  ]);
 
   const staticRoutes = getStaticRoutes().map((route) => ({
-    url: absoluteUrl(route),
+    url: absoluteUrl(route, siteMetadata.metadataBase),
     lastModified: now,
     changeFrequency: route === '/' ? 'weekly' : 'monthly',
     priority: route === '/' ? 1 : 0.8,
   })) satisfies MetadataRoute.Sitemap;
 
   const productRoutes = products.map((product) => ({
-    url: absoluteUrl(`/products/${product.slug}`),
+    url: absoluteUrl(`/products/${product.slug}`, siteMetadata.metadataBase),
     lastModified: now,
     changeFrequency: 'monthly',
     priority: 0.9,
   })) satisfies MetadataRoute.Sitemap;
 
   const newsRoutes = news.map((item) => ({
-    url: absoluteUrl(`/news/${item.slug}`),
+    url: absoluteUrl(`/news/${item.slug}`, siteMetadata.metadataBase),
     lastModified: new Date(item.publishedAt),
     changeFrequency: 'monthly',
     priority: 0.7,

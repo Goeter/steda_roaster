@@ -2,9 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import { testimonies, testimoniesSection } from '@/lib/cms-data';
+import type { TestimoniesSection, Testimony } from '@/lib/cms-types';
 
-export function Testimonies() {
+type TestimoniesProps = {
+  testimoniesSection: TestimoniesSection;
+  testimonies: Testimony[];
+};
+
+export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProps) {
   const [index, setIndex] = useState(0);
   const [isHover, setIsHover] = useState(false);
 

@@ -2,9 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
-import { distributionSection } from '@/lib/cms-data';
+import type { DistributionSection } from '@/lib/cms-types';
 
-export function Distribution() {
+type DistributionProps = {
+  distributionSection: DistributionSection;
+};
+
+export function Distribution({ distributionSection }: DistributionProps) {
   const { cities, highlightedWord, heading } = distributionSection;
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 

@@ -1,41 +1,48 @@
 import type { Metadata } from 'next';
 import { ProductsPageContent } from '@/components/pages/products-page-content';
-import { productPageSection, products, siteMetadata } from '@/lib/cms-data';
+import { getProductsContent, getLayoutContent } from '@/lib/cms';
 import { getProductUrl } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Products',
-  description:
-    'Temukan berbagai mesin roasting kopi Steda Roaster untuk home roastery, coffee shop, hingga produksi profesional.',
-  alternates: {
-    canonical: '/products',
-  },
-  openGraph: {
-    title: `Products | ${siteMetadata.openGraphSiteName}`,
+export async function generateMetadata(): Promise<Metadata> {
+  const [{ productPageSection }, { siteMetadata }] = await Promise.all([
+    getProductsContent(),
+    getLayoutContent(),
+  ]);
+
+  return {
+    title: 'Products',
     description: productPageSection.hero.description,
-    url: '/products',
-    images: [
-      {
-        url: productPageSection.hero.image.src,
-        alt: productPageSection.hero.image.alt,
-      },
-    ],
-  },
-};
+    alternates: {
+      canonical: '/products',
+    },
+    openGraph: {
+      title: `Products | ${siteMetadata.openGraphSiteName}`,
+      description: productPageSection.hero.description,
+      url: '/products',
+      images: [
+        {
+          url: productPageSection.hero.image.src,
+          alt: productPageSection.hero.image.alt,
+        },
+      ],
+    },
+  };
+}
 
+export default async function ProductsPage() {
+  const [content, { siteMetadata }] = await Promise.all([getProductsContent(), getLayoutContent()]);
 
-const productListJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  itemListElement: products.map((product, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    url: getProductUrl(product.slug),
-    name: product.name,
-  })),
-};
+  const productListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: content.products.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: getProductUrl(product.slug, siteMetadata.metadataBase),
+      name: product.name,
+    })),
+  };
 
-export default function ProductsPage() {
   return (
     <>
       <script
@@ -43,8 +50,7 @@ export default function ProductsPage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }}
       />
-      <ProductsPageContent />
+      <ProductsPageContent {...content} />
     </>
   );
 }
-

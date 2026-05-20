@@ -3,13 +3,17 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { heroSection } from '@/lib/cms-data';
+import type { HeroSection } from '@/lib/cms-types';
 
 const SLIDE_DURATION = 8000;
 const PROGRESS_INTERVAL = 100;
 const MIN_SWIPE_DISTANCE = 50;
 
-export function Hero() {
+type HeroProps = {
+  heroSection: HeroSection;
+};
+
+export function Hero({ heroSection }: HeroProps) {
   const [currentBg, setCurrentBg] = useState(0);
   const [progress, setProgress] = useState(0);
 

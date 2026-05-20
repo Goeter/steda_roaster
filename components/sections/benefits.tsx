@@ -2,9 +2,13 @@
 
 import Image from 'next/image';
 import { Reveal } from '@/components/reveal';
-import { benefitsSection } from '@/lib/cms-data';
+import type { BenefitsSection } from '@/lib/cms-types';
 
-export function Benefits() {
+type BenefitsProps = {
+  benefitsSection: BenefitsSection;
+};
+
+export function Benefits({ benefitsSection }: BenefitsProps) {
   return (
     <section
       id="benefits"

@@ -4,21 +4,22 @@ import { notFound } from 'next/navigation';
 import { CalendarDays, UserRound } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { formatDate, getNewsBySlug } from '@/lib/cms';
+import { formatDate, getNewsDetailContent } from '@/lib/cms';
 import { absoluteUrl, getNewsUrl } from '@/lib/seo';
-import { news, newsDetailSection, siteMetadata, siteSettings } from '@/lib/cms-data';
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const { news } = await getNewsDetailContent();
   return news.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: NewsDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const item = getNewsBySlug(slug);
+  const { news, newsDetailSection } = await getNewsDetailContent();
+  const item = news.find((newsItem) => newsItem.slug === slug);
 
   if (!item) {
     return { title: newsDetailSection.notFoundTitle };
@@ -50,7 +51,8 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const item = getNewsBySlug(slug);
+  const { news, newsDetailSection, siteMetadata, siteSettings } = await getNewsDetailContent();
+  const item = news.find((newsItem) => newsItem.slug === slug);
 
   if (!item) notFound();
 
@@ -63,7 +65,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     '@type': 'Article',
     headline: item.title,
     description: item.excerpt,
-    image: item.images.map((image) => absoluteUrl(image.src)),
+    image: item.images.map((image) => absoluteUrl(image.src, siteMetadata.metadataBase)),
     datePublished: item.publishedAt,
     dateModified: item.publishedAt,
     author: {
@@ -75,10 +77,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       name: siteSettings.siteName,
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/hero-1.jpg'),
+        url: absoluteUrl('/hero-1.jpg', siteMetadata.metadataBase),
       },
     },
-    mainEntityOfPage: getNewsUrl(item.slug),
+    mainEntityOfPage: getNewsUrl(item.slug, siteMetadata.metadataBase),
     inLanguage: siteMetadata.language,
   };
 
