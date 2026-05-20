@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CalendarDays, UserRound } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { formatDate, getNewsDetailContent } from '@/lib/cms';
+import { getNewsDetailContent } from '@/lib/cms';
 import { absoluteUrl, getNewsUrl } from '@/lib/seo';
 
 type NewsDetailPageProps = {
@@ -104,52 +103,50 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <main className="min-h-screen bg-gradient-to-b from-[#fff8ef] via-white to-white pt-28 pb-16 animate-page-enter">
-        <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <main className="relative min-h-screen overflow-hidden bg-[#fffaf3] pt-28 pb-16 animate-page-enter">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[-10%] top-20 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl" />
+          <div className="absolute right-[-8%] top-72 h-80 w-80 rounded-full bg-orange-200/25 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-100/40 blur-3xl" />
+        </div>
+
+        <article className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <Link
               href={newsDetailSection.backHref}
-              className="mb-8 inline-flex text-sm font-semibold text-amber-700 hover:text-amber-800"
+              className="mb-8 inline-flex rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur transition hover:-translate-x-1 hover:border-amber-300 hover:bg-amber-50"
             >
               {newsDetailSection.backLabel}
             </Link>
           </Reveal>
 
-          <Reveal as="header" delay={100} className="mb-10 text-center">
-            <span className="inline-flex rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800">
+          <Reveal
+            as="header"
+            delay={100}
+            className="mb-10 rounded-[2rem] border border-amber-100 bg-white/75 px-5 py-10 text-center shadow-sm backdrop-blur sm:px-10 sm:py-12"
+          >
+            <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm">
               {item.category}
             </span>
 
-            <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight text-neutral-950 md:text-5xl">
+            <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl">
               {item.title}
             </h1>
-
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-neutral-600">
-              {item.excerpt}
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-500">
-              <span className="inline-flex items-center gap-2">
-                <CalendarDays size={16} /> {formatDate(item.publishedAt)}
-              </span>
-
-              <span className="inline-flex items-center gap-2">
-                <UserRound size={16} /> {item.author}
-              </span>
-            </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <NewsGallery
-              images={item.images}
-              title={item.title}
-              labels={newsDetailSection}
-            />
+            <div className="overflow-hidden rounded-[2rem] border border-amber-100 bg-white/80 p-3 shadow-sm backdrop-blur sm:p-4">
+              <NewsGallery
+                images={item.images}
+                title={item.title}
+                labels={newsDetailSection}
+              />
+            </div>
           </Reveal>
 
           <Reveal
             delay={200}
-            className="mt-12 rounded-[2rem] border border-amber-100 bg-white p-6 shadow-sm sm:p-10"
+            className="mt-12 rounded-[2rem] border border-amber-100 bg-white/85 p-6 shadow-sm backdrop-blur sm:p-10"
           >
             <div className="prose prose-neutral max-w-none">
               {item.content.map((paragraph) => (
@@ -166,14 +163,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           {latestNews.length > 0 && (
             <Reveal as="section" delay={300} className="mt-16">
               <div className="mb-6 text-left">
-                <h2 className="text-2xl font-bold text-neutral-900">
+                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
+                  More Stories
+                </span>
+
+                <h2 className="mt-2 text-2xl font-bold text-neutral-950">
                   Latest News
                 </h2>
-
-                <p className="mt-2 max-w-3xl text-sm leading-6 text-neutral-600">
-                  Stay updated with the newest stories, coffee insights, and
-                  updates from Steda Roaster.
-                </p>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -181,13 +177,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                   <Link
                     key={latest.slug}
                     href={`/news/${latest.slug}`}
-                    className="rounded-2xl border border-amber-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                    className="group rounded-3xl border border-amber-100 bg-white/85 p-5 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg"
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
                       {latest.category}
                     </p>
 
-                    <h3 className="mt-3 line-clamp-2 font-bold text-neutral-900">
+                    <h3 className="mt-3 line-clamp-2 font-bold leading-6 text-neutral-950 transition group-hover:text-amber-800">
                       {latest.title}
                     </h3>
 
@@ -195,7 +191,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                       {latest.excerpt}
                     </p>
 
-                    <div className="mt-4 text-xs font-semibold text-amber-700">
+                    <div className="mt-5 inline-flex text-xs font-bold uppercase tracking-[0.16em] text-amber-700 transition group-hover:translate-x-1">
                       Read more
                     </div>
                   </Link>
