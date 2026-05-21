@@ -172,10 +172,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                   labels={newsDetailSection}
                 />
               </div>
-
-              <div className="mt-4 text-center text-xs font-medium text-neutral-500">
-                Picture by 2024 Getty Images
-              </div>
             </section>
           </Reveal>
 
