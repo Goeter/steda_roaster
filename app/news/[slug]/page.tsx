@@ -9,7 +9,6 @@ import {
   Instagram,
   Link as LinkIcon,
   Share2,
-  UserRound,
 } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
@@ -19,6 +18,20 @@ import { absoluteUrl, getNewsUrl } from '@/lib/seo';
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function getReadingTime(content: string[]) {
+  const wordsPerMinute = 200;
+
+  const wordCount = content
+    .join(' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+  const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+
+  return `${minutes} minute read`;
+}
 
 export async function generateStaticParams() {
   const { news } = await getNewsDetailContent();
@@ -85,6 +98,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     : relatedNews.slice(0, 4);
 
   const articleUrl = String(getNewsUrl(item.slug, siteMetadata.metadataBase));
+  const readingTime = getReadingTime(item.content);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -121,26 +135,17 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       />
 
       <main className="min-h-screen bg-white pt-24 pb-20 animate-page-enter">
-        <article className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <Link
-              href={newsDetailSection.backHref}
-              className="inline-flex text-sm font-semibold text-amber-700 transition hover:text-amber-900"
-            >
-              {newsDetailSection.backLabel}
-            </Link>
-          </Reveal>
-
+        <article className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal
             as="header"
             delay={100}
-            className="mx-auto mt-8 max-w-5xl text-center"
+            className="mx-auto max-w-6xl text-center"
           >
-            <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl lg:text-6xl">
+            <h1 className="mx-auto max-w-6xl text-balance text-4xl font-bold leading-[1.12] tracking-tight text-neutral-950 md:text-5xl lg:text-6xl">
               {item.title}
             </h1>
 
-            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-neutral-600 md:text-lg">
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-neutral-600 md:text-lg md:leading-8">
               {item.excerpt}
             </p>
 
@@ -153,12 +158,12 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
               <span className="inline-flex items-center gap-2">
                 <Clock3 size={15} />
-                3 minute read
+                {readingTime}
               </span>
             </div>
           </Reveal>
 
-          <Reveal delay={150} className="mt-12">
+          <Reveal delay={150} className="mt-10">
             <section>
               <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200">
                 <NewsGallery
@@ -174,14 +179,14 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </section>
           </Reveal>
 
-          <div className="mt-20 grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+          <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
             <Reveal delay={200}>
               <section className="max-w-none">
                 <div className="prose prose-neutral max-w-none">
                   {item.content.map((paragraph, index) => (
                     <p
                       key={`${paragraph}-${index}`}
-                      className="mb-7 text-base leading-8 text-neutral-800 last:mb-0 sm:text-lg sm:leading-9"
+                      className="mb-6 text-base leading-8 text-neutral-800 last:mb-0 sm:text-lg sm:leading-9"
                     >
                       {paragraph}
                     </p>
@@ -192,78 +197,90 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
             <Reveal delay={300}>
               <aside className="lg:sticky lg:top-28">
-                <div className="space-y-9">
-                  <section>
-                    <div className="space-y-6">
-                      <div>
-                        <div className="mb-2 text-sm font-medium text-neutral-500">
-                          Published
-                        </div>
-
-                        <p className="text-base font-bold text-neutral-950">
-                          {formatDate(item.publishedAt)}
-                        </p>
+                <div className="space-y-10">
+                  <section className="space-y-6">
+                    <div>
+                      <div className="mb-2 text-sm font-medium text-neutral-500">
+                        Published
                       </div>
 
-                      <div>
-                        <div className="mb-2 text-sm font-medium text-neutral-500">
-                          Content
-                        </div>
+                      <p className="text-base font-bold text-neutral-950">
+                        {formatDate(item.publishedAt)}
+                      </p>
+                    </div>
 
-                        <p className="text-base font-bold text-neutral-950">
-                          {item.author || 'Steda Team'}
-                        </p>
+                    <div>
+                      <div className="mb-2 text-sm font-medium text-neutral-500">
+                        Content
                       </div>
 
-                      <div>
-                        <div className="mb-4 text-sm font-medium text-neutral-500">
-                          Share
-                        </div>
+                      <p className="text-base font-bold text-neutral-950">
+                        {item.author || 'Steda Team'}
+                      </p>
+                    </div>
 
-                        <div className="flex flex-wrap items-center gap-4">
-                          <Link
-                            href={articleUrl}
-                            aria-label="Open article link"
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
-                          >
-                            <LinkIcon size={17} />
-                          </Link>
+                    <div>
+                      <div className="mb-4 flex items-center gap-2 text-sm font-medium text-neutral-500">
+                        <Share2 size={15} />
+                        Share
+                      </div>
 
-                          <Link
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                              articleUrl
-                            )}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label="Share to Facebook"
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
-                          >
-                            f
-                          </Link>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Link
+                          href={articleUrl}
+                          aria-label="Open article link"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                        >
+                          <LinkIcon size={17} />
+                        </Link>
 
-                          <Link
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label="Open Instagram"
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
-                          >
-                            <Instagram size={17} />
-                          </Link>
-                        </div>
+                        <Link
+                          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                            articleUrl
+                          )}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="Share to Facebook"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                        >
+                          f
+                        </Link>
+
+                        <Link
+                          href="https://www.instagram.com/"
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="Open Instagram"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                        >
+                          <Instagram size={17} />
+                        </Link>
                       </div>
                     </div>
                   </section>
 
                   {latestNews.length > 0 && (
                     <section>
-                      <h2 className="mb-5 text-xl font-bold text-neutral-950">
-                        Latest News
-                      </h2>
+                      <div className="mb-5 flex items-center justify-between gap-4">
+                        <h2 className="text-xl font-bold text-neutral-950">
+                          Latest News
+                        </h2>
+
+                        <Link
+                          href="/news"
+                          className="inline-flex items-center gap-1 text-sm font-semibold text-amber-700 transition hover:text-amber-900"
+                        >
+                          View all
+                          <ArrowUpRight size={15} />
+                        </Link>
+                      </div>
 
                       <div className="space-y-7">
                         {latestNews.map((latest) => {
                           const latestImage = latest.images[0];
+                          const latestReadingTime = getReadingTime(
+                            latest.content
+                          );
 
                           return (
                             <Link
@@ -276,7 +293,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                                   src={latestImage.src}
                                   alt={latestImage.alt || latest.title}
                                   fill
-                                  sizes="360px"
+                                  sizes="340px"
                                   className="object-cover transition duration-500 group-hover:scale-105"
                                 />
                               </div>
@@ -305,7 +322,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
                                   <span className="h-4 w-px bg-neutral-300" />
 
-                                  <span>3 minute read</span>
+                                  <span>{latestReadingTime}</span>
                                 </div>
                               </div>
                             </Link>
@@ -344,6 +361,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {moreNews.map((latest) => {
                   const latestImage = latest.images[0];
+                  const latestReadingTime = getReadingTime(latest.content);
 
                   return (
                     <Link
@@ -378,6 +396,16 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                         <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
                           {latest.excerpt}
                         </p>
+
+                        <div className="mt-4 flex items-center gap-3 text-xs font-medium text-neutral-500">
+                          <span className="font-semibold text-amber-700">
+                            {latest.category}
+                          </span>
+
+                          <span className="h-4 w-px bg-neutral-300" />
+
+                          <span>{latestReadingTime}</span>
+                        </div>
 
                         <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-700">
                           Read more
