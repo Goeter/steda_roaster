@@ -107,8 +107,9 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
       <main className="relative min-h-screen overflow-hidden bg-[#fbf6ee] pt-28 pb-20 animate-page-enter">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(120,53,15,0.12),transparent_32%)]" />
-          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.35),rgba(255,255,255,0.9)_45%,rgba(255,255,255,1))]" />
+          <div className="absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.20),transparent_34%),radial-gradient(circle_at_top_right,rgba(120,53,15,0.14),transparent_32%)]" />
+          <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/20 blur-3xl" />
+          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.28),rgba(255,255,255,0.82)_42%,rgba(255,255,255,1))]" />
         </div>
 
         <article className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -126,7 +127,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             delay={100}
             className="mx-auto mt-10 max-w-4xl text-center"
           >
-            <span className="inline-flex rounded-full border border-amber-200/80 bg-white/70 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur">
+            <span className="inline-flex rounded-full border border-amber-200/80 bg-white/75 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur">
               {item.category}
             </span>
 
@@ -152,19 +153,41 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </div>
           </Reveal>
 
-          <Reveal delay={200} className="mx-auto mt-14 max-w-3xl">
-            <div className="border-l border-amber-200 pl-6 sm:pl-8">
-              <div className="prose prose-neutral max-w-none">
-                {item.content.map((paragraph) => (
-                  <p
-                    key={paragraph}
-                    className="mb-7 text-lg leading-9 text-neutral-700 last:mb-0"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+          <Reveal delay={200} className="mt-10">
+            <section className="relative overflow-hidden rounded-[2rem] border border-amber-100/80 bg-white/80 shadow-[0_22px_70px_rgba(120,53,15,0.10)] backdrop-blur">
+              <div className="pointer-events-none absolute inset-0">
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+                <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full bg-amber-200/20 blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-orange-100/40 blur-3xl" />
               </div>
-            </div>
+
+              <div className="relative px-5 py-8 sm:px-8 md:px-10 lg:px-12 lg:py-11">
+                <div className="mb-7 flex flex-wrap items-center gap-3 border-b border-amber-100 pb-6">
+                  <span className="rounded-full bg-amber-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-800 ring-1 ring-amber-100">
+                    Article
+                  </span>
+
+                  <span className="text-sm font-medium text-neutral-500">
+                    {item.category}
+                  </span>
+                </div>
+
+                <div className="prose prose-neutral max-w-none">
+                  {item.content.map((paragraph, index) => (
+                    <p
+                      key={paragraph}
+                      className={`mb-7 text-base leading-8 text-neutral-700 last:mb-0 sm:text-lg sm:leading-9 ${
+                        index === 0
+                          ? 'first-letter:float-left first-letter:mr-3 first-letter:text-5xl first-letter:font-bold first-letter:leading-[0.9] first-letter:text-amber-800 sm:first-letter:text-6xl'
+                          : ''
+                      }`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </section>
           </Reveal>
 
           {latestNews.length > 0 && (
