@@ -134,8 +134,20 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <main className="min-h-screen bg-white pt-24 pb-20 animate-page-enter">
-        <article className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <main className="relative min-h-screen overflow-hidden bg-[#fbf7ef] pt-24 pb-20 animate-page-enter">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.22),transparent_30%),radial-gradient(circle_at_top_right,rgba(120,53,15,0.13),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.58)_0%,rgba(251,247,239,0.92)_42%,rgba(255,255,255,1)_100%)]" />
+
+          <div className="absolute left-[-120px] top-24 h-80 w-80 rounded-full bg-amber-300/20 blur-3xl" />
+          <div className="absolute right-[-140px] top-52 h-96 w-96 rounded-full bg-orange-200/25 blur-3xl" />
+          <div className="absolute left-1/2 top-[520px] h-72 w-72 -translate-x-1/2 rounded-full bg-yellow-100/40 blur-3xl" />
+
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(120,53,15,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(120,53,15,0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_72%)]" />
+
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+        </div>
+
+        <article className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal
             as="header"
             delay={100}
@@ -164,20 +176,18 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           </Reveal>
 
           <Reveal delay={150} className="mt-10">
-            <section>
-              <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200">
-                <NewsGallery
-                  images={item.images}
-                  title={item.title}
-                  labels={newsDetailSection}
-                />
-              </div>
+            <section className="overflow-hidden rounded-2xl">
+              <NewsGallery
+                images={item.images}
+                title={item.title}
+                labels={newsDetailSection}
+              />
             </section>
           </Reveal>
 
           <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
             <Reveal delay={200}>
-              <section className="max-w-none">
+              <section className="max-w-none rounded-[2rem] bg-white/45 p-6 backdrop-blur-sm sm:p-8 lg:bg-white/35">
                 <div className="prose prose-neutral max-w-none">
                   {item.content.map((paragraph, index) => (
                     <p
@@ -193,7 +203,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
             <Reveal delay={300}>
               <aside className="lg:sticky lg:top-28">
-                <div className="space-y-10">
+                <div className="space-y-10 rounded-[2rem] bg-white/45 p-6 backdrop-blur-sm lg:bg-white/35">
                   <section className="space-y-6">
                     <div>
                       <div className="mb-2 text-sm font-medium text-neutral-500">
@@ -225,7 +235,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                         <Link
                           href={articleUrl}
                           aria-label="Open article link"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-white/80 hover:text-amber-700"
                         >
                           <LinkIcon size={17} />
                         </Link>
@@ -237,7 +247,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           target="_blank"
                           rel="noreferrer"
                           aria-label="Share to Facebook"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-neutral-950 transition hover:bg-white/80 hover:text-amber-700"
                         >
                           f
                         </Link>
@@ -247,7 +257,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           target="_blank"
                           rel="noreferrer"
                           aria-label="Open Instagram"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-white/80 hover:text-amber-700"
                         >
                           <Instagram size={17} />
                         </Link>
@@ -284,7 +294,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                               href={`/news/${latest.slug}`}
                               className="group block"
                             >
-                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100 shadow-sm">
+                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100">
                                 <Image
                                   src={latestImage.src}
                                   alt={latestImage.alt || latest.title}
@@ -363,7 +373,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                     <Link
                       key={latest.slug}
                       href={`/news/${latest.slug}`}
-                      className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                      className="group overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-sm backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/90 hover:shadow-xl"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
                         <Image
