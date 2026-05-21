@@ -78,11 +78,14 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     );
 
   const latestNews = relatedNews.slice(0, 4);
+
   const moreNews = relatedNews.slice(4, 8).length
     ? relatedNews.slice(4, 8)
     : relatedNews.slice(0, 4);
 
   const heroImage = item.images[0];
+
+  const articleUrl = getNewsUrl(item.slug, siteMetadata.metadataBase);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -106,7 +109,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         url: absoluteUrl('/hero-1.jpg', siteMetadata.metadataBase),
       },
     },
-    mainEntityOfPage: getNewsUrl(item.slug, siteMetadata.metadataBase),
+    mainEntityOfPage: articleUrl,
     inLanguage: siteMetadata.language,
   };
 
@@ -189,7 +192,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
                           <div className="min-w-0">
                             <div className="mb-2 flex items-center gap-2 text-[11px] font-medium text-neutral-500">
-                              <CalendarDays size={13} className="text-amber-700" />
+                              <CalendarDays
+                                size={13}
+                                className="text-amber-700"
+                              />
                               {formatDate(latest.publishedAt)}
                             </div>
 
@@ -251,7 +257,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                     </div>
 
                     <p className="text-sm font-semibold text-neutral-950">
-                      Steda Team
+                      {item.author || 'Steda Team'}
                     </p>
                   </div>
 
@@ -272,7 +278,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
                       <Link
                         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                          getNewsUrl(item.slug, siteMetadata.metadataBase)
+                          articleUrl
                         )}`}
                         target="_blank"
                         rel="noreferrer"
@@ -329,7 +335,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               </section>
             </Reveal>
 
-            <Reveal delay={250} className="lg:hidden">
+            <Reveal delay={300} className="lg:hidden">
               <aside className="rounded-[2rem] border border-amber-100 bg-white/85 p-5 shadow-[0_20px_60px_rgba(120,53,15,0.08)] backdrop-blur">
                 <div className="mb-5 flex items-center justify-between">
                   <h2 className="text-lg font-bold text-neutral-950">
@@ -367,7 +373,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
                         <div className="min-w-0">
                           <div className="mb-2 flex items-center gap-2 text-[11px] font-medium text-neutral-500">
-                            <CalendarDays size={13} className="text-amber-700" />
+                            <CalendarDays
+                              size={13}
+                              className="text-amber-700"
+                            />
                             {formatDate(latest.publishedAt)}
                           </div>
 
