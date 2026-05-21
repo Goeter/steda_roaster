@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CalendarDays } from 'lucide-react';
+import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
 import { formatDate, getNewsDetailContent } from '@/lib/cms';
@@ -104,18 +105,17 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <main className="relative min-h-screen overflow-hidden bg-[#fffaf3] pt-28 pb-16 animate-page-enter">
+      <main className="relative min-h-screen overflow-hidden bg-[#fbf6ee] pt-28 pb-20 animate-page-enter">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[-10%] top-20 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl" />
-          <div className="absolute right-[-8%] top-72 h-80 w-80 rounded-full bg-orange-200/25 blur-3xl" />
-          <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-100/40 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.18),transparent_34%),radial-gradient(circle_at_top_right,rgba(120,53,15,0.12),transparent_32%)]" />
+          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.35),rgba(255,255,255,0.9)_45%,rgba(255,255,255,1))]" />
         </div>
 
-        <article className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <article className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <Link
               href={newsDetailSection.backHref}
-              className="mb-8 inline-flex rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur transition hover:-translate-x-1 hover:border-amber-300 hover:bg-amber-50"
+              className="inline-flex text-sm font-semibold text-amber-800 transition hover:text-amber-950"
             >
               {newsDetailSection.backLabel}
             </Link>
@@ -124,26 +124,26 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           <Reveal
             as="header"
             delay={100}
-            className="mb-10 rounded-[2rem] border border-amber-100 bg-white/75 px-5 py-10 text-center shadow-sm backdrop-blur sm:px-10 sm:py-12"
+            className="mx-auto mt-10 max-w-4xl text-center"
           >
-            <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm">
+            <span className="inline-flex rounded-full border border-amber-200/80 bg-white/70 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur">
               {item.category}
             </span>
 
-            <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl">
+            <h1 className="mx-auto mt-6 text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl lg:text-6xl">
               {item.title}
             </h1>
 
             <div className="mt-6 flex items-center justify-center text-sm font-medium text-neutral-500">
-              <span className="inline-flex items-center gap-2 rounded-full border border-amber-100 bg-white/80 px-4 py-2 shadow-sm">
+              <span className="inline-flex items-center gap-2">
                 <CalendarDays size={16} className="text-amber-700" />
                 {formatDate(item.publishedAt)}
               </span>
             </div>
           </Reveal>
 
-          <Reveal delay={150}>
-            <div className="overflow-hidden rounded-[2rem] border border-amber-100 bg-white/80 p-3 shadow-sm backdrop-blur sm:p-4">
+          <Reveal delay={150} className="mt-12">
+            <div className="rounded-[2rem] bg-white/60 p-2 shadow-[0_24px_80px_rgba(120,53,15,0.12)] ring-1 ring-amber-100/80 backdrop-blur">
               <NewsGallery
                 images={item.images}
                 title={item.title}
@@ -152,25 +152,24 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </div>
           </Reveal>
 
-          <Reveal
-            delay={200}
-            className="mt-12 rounded-[2rem] border border-amber-100 bg-white/85 p-6 shadow-sm backdrop-blur sm:p-10"
-          >
-            <div className="prose prose-neutral max-w-none">
-              {item.content.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="mb-6 text-lg leading-9 text-neutral-700 last:mb-0"
-                >
-                  {paragraph}
-                </p>
-              ))}
+          <Reveal delay={200} className="mx-auto mt-14 max-w-3xl">
+            <div className="border-l border-amber-200 pl-6 sm:pl-8">
+              <div className="prose prose-neutral max-w-none">
+                {item.content.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="mb-7 text-lg leading-9 text-neutral-700 last:mb-0"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
           </Reveal>
 
           {latestNews.length > 0 && (
-            <Reveal as="section" delay={300} className="mt-16">
-              <div className="mb-6 text-left">
+            <Reveal as="section" delay={300} className="mt-20">
+              <div className="mx-auto mb-8 max-w-4xl text-center">
                 <span className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
                   More Stories
                 </span>
@@ -180,30 +179,57 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 </h2>
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {latestNews.map((latest) => (
-                  <Link
-                    key={latest.slug}
-                    href={`/news/${latest.slug}`}
-                    className="group rounded-3xl border border-amber-100 bg-white/85 p-5 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg"
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                      {latest.category}
-                    </p>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {latestNews.map((latest) => {
+                  const latestImage = latest.images[0];
 
-                    <h3 className="mt-3 line-clamp-2 font-bold leading-6 text-neutral-950 transition group-hover:text-amber-800">
-                      {latest.title}
-                    </h3>
+                  return (
+                    <Link
+                      key={latest.slug}
+                      href={`/news/${latest.slug}`}
+                      className="group overflow-hidden rounded-[1.75rem] border border-amber-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-xl"
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden bg-amber-50">
+                        <Image
+                          src={latestImage.src}
+                          alt={latestImage.alt || latest.title}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                        />
 
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
-                      {latest.excerpt}
-                    </p>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-black/0" />
 
-                    <div className="mt-5 inline-flex text-xs font-bold uppercase tracking-[0.16em] text-amber-700 transition group-hover:translate-x-1">
-                      Read more
-                    </div>
-                  </Link>
-                ))}
+                        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-amber-800 shadow-sm backdrop-blur">
+                          {latest.category}
+                        </span>
+                      </div>
+
+                      <div className="p-5">
+                        <div className="mb-3 flex items-center gap-2 text-xs font-medium text-neutral-500">
+                          <CalendarDays size={14} className="text-amber-700" />
+                          {formatDate(latest.publishedAt)}
+                        </div>
+
+                        <h3 className="line-clamp-2 text-lg font-bold leading-7 text-neutral-950 transition group-hover:text-amber-800">
+                          {latest.title}
+                        </h3>
+
+                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
+                          {latest.excerpt}
+                        </p>
+
+                        <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-700">
+                          Read more
+                          <ArrowUpRight
+                            size={15}
+                            className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+                          />
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </Reveal>
           )}
