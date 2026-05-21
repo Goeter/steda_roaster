@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { getNewsDetailContent } from '@/lib/cms';
+import { formatDate, getNewsDetailContent } from '@/lib/cms';
 import { absoluteUrl, getNewsUrl } from '@/lib/seo';
 
 type NewsDetailPageProps = {
@@ -132,6 +133,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl">
               {item.title}
             </h1>
+
+            <div className="mt-6 flex items-center justify-center text-sm font-medium text-neutral-500">
+              <span className="inline-flex items-center gap-2 rounded-full border border-amber-100 bg-white/80 px-4 py-2 shadow-sm">
+                <CalendarDays size={16} className="text-amber-700" />
+                {formatDate(item.publishedAt)}
+              </span>
+            </div>
           </Reveal>
 
           <Reveal delay={150}>
