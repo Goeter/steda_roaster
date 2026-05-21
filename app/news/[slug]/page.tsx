@@ -80,19 +80,14 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   if (!item) notFound();
 
-  const relatedNews = news
+  const latestNews = news
     .filter((latest) => latest.slug !== item.slug)
     .sort(
       (a, b) =>
         new Date(b.publishedAt).getTime() -
         new Date(a.publishedAt).getTime()
-    );
-
-  const latestNews = relatedNews.slice(0, 3);
-
-  const moreNews = relatedNews.slice(3, 7).length
-    ? relatedNews.slice(3, 7)
-    : relatedNews.slice(0, 4);
+    )
+    .slice(0, 3);
 
   const articleUrl = String(getNewsUrl(item.slug, siteMetadata.metadataBase));
   const readingTime = getReadingTime(item.content);
@@ -172,6 +167,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               <span className="h-5 w-px bg-neutral-300" />
 
               <span className="inline-flex items-center gap-2">
+                <CalendarDays size={15} className="text-amber-700" />
+                {formatDate(item.publishedAt)}
+              </span>
+
+              <span className="h-5 w-px bg-neutral-300" />
+
+              <span className="inline-flex items-center gap-2">
                 <Clock3 size={15} />
                 {readingTime}
               </span>
@@ -180,7 +182,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           {/* Gallery */}
           <Reveal delay={150} className="mt-10">
-            <section className="overflow-hidden rounded-[1.75rem] shadow-[0_18px_55px_rgba(120,53,15,0.08)] ring-1 ring-white/45">
+            <section className="overflow-hidden rounded-[1.75rem]">
               <NewsGallery
                 images={item.images}
                 title={item.title}
@@ -189,136 +191,33 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </section>
           </Reveal>
 
-          {/* Content + Sidebar */}
-          <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
-            <Reveal delay={200}>
-              <section className="max-w-none rounded-[2rem] bg-[#fffdf8]/45 p-6 shadow-[0_14px_45px_rgba(120,53,15,0.055)] ring-1 ring-white/45 backdrop-blur-sm sm:p-8 lg:bg-[#fffdf8]/38">
-                <div className="prose prose-neutral max-w-none">
-                  {item.content.map((paragraph, index) => (
-                    <p
-                      key={`${paragraph}-${index}`}
-                      className="mb-6 text-base leading-8 text-neutral-800 last:mb-0 sm:text-lg sm:leading-9"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </section>
-            </Reveal>
+          {/* Content */}
+          <Reveal delay={200} className="mt-16">
+            <section className="mx-auto max-w-4xl">
+              <div className="prose prose-neutral max-w-none">
+                {item.content.map((paragraph, index) => (
+                  <p
+                    key={`${paragraph}-${index}`}
+                    className="mb-6 text-base leading-8 text-neutral-800 last:mb-0 sm:text-lg sm:leading-9"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </section>
+          </Reveal>
 
-            <Reveal delay={300}>
-              <aside className="lg:sticky lg:top-28">
-                <div className="space-y-10 rounded-[2rem] bg-[#fffdf8]/45 p-6 shadow-[0_14px_45px_rgba(120,53,15,0.055)] ring-1 ring-white/45 backdrop-blur-sm lg:bg-[#fffdf8]/38">
-                  <section className="space-y-6">
-                    <div>
-                      <div className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-amber-700/70">
-                        Published
-                      </div>
-
-                      <p className="text-base font-bold text-neutral-950">
-                        {formatDate(item.publishedAt)}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-amber-700/70">
-                        Content
-                      </div>
-
-                      <p className="text-base font-bold text-neutral-950">
-                        {item.author || 'Steda Team'}
-                      </p>
-                    </div>
-                  </section>
-
-                  {latestNews.length > 0 && (
-                    <section>
-                      <div className="mb-5 flex items-center justify-between gap-4">
-                        <h2 className="text-sm font-semibold uppercase tracking-widest text-neutral-950">
-                          Latest News
-                        </h2>
-
-                        <Link
-                          href="/news"
-                          className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-amber-700 transition hover:text-amber-900"
-                        >
-                          View all
-                          <ArrowUpRight size={13} />
-                        </Link>
-                      </div>
-
-                      <div className="space-y-7">
-                        {latestNews.map((latest) => {
-                          const latestImage = latest.images[0];
-                          const latestReadingTime = getReadingTime(
-                            latest.content
-                          );
-
-                          return (
-                            <Link
-                              key={latest.slug}
-                              href={`/news/${latest.slug}`}
-                              className="group block"
-                            >
-                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100 shadow-[0_10px_30px_rgba(120,53,15,0.06)] ring-1 ring-white/50">
-                                <Image
-                                  src={latestImage.src}
-                                  alt={latestImage.alt || latest.title}
-                                  fill
-                                  sizes="340px"
-                                  className="object-cover transition duration-500 group-hover:scale-105"
-                                />
-                              </div>
-
-                              <div className="mt-3">
-                                <div className="mb-2 flex items-center gap-2 text-xs font-medium text-neutral-500">
-                                  <CalendarDays
-                                    size={13}
-                                    className="text-amber-600"
-                                  />
-                                  {formatDate(latest.publishedAt)}
-                                </div>
-
-                                <h3 className="line-clamp-2 text-base font-bold leading-6 text-neutral-950 transition group-hover:text-amber-800">
-                                  {latest.title}
-                                </h3>
-
-                                <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
-                                  {latest.excerpt}
-                                </p>
-
-                                <div className="mt-3 flex items-center gap-3 text-xs font-medium text-neutral-500">
-                                  <span className="font-semibold text-amber-700">
-                                    {latest.category}
-                                  </span>
-
-                                  <span className="h-4 w-px bg-neutral-300" />
-
-                                  <span>{latestReadingTime}</span>
-                                </div>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </section>
-                  )}
-                </div>
-              </aside>
-            </Reveal>
-          </div>
-
-          {/* More News */}
-          {moreNews.length > 0 && (
-            <Reveal as="section" delay={400} className="mt-24">
+          {/* Latest News */}
+          {latestNews.length > 0 && (
+            <Reveal as="section" delay={300} className="mt-24">
               <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <h2 className="text-3xl font-bold text-neutral-950">
-                    More News
+                    Latest News
                   </h2>
 
                   <p className="mt-2 text-sm text-neutral-500">
-                    Explore more stories and updates.
+                    Latest updates and stories from Steda Roaster.
                   </p>
                 </div>
 
@@ -331,8 +230,8 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 </Link>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {moreNews.map((latest) => {
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {latestNews.map((latest) => {
                   const latestImage = latest.images[0];
                   const latestReadingTime = getReadingTime(latest.content);
 
@@ -347,7 +246,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           src={latestImage.src}
                           alt={latestImage.alt || latest.title}
                           fill
-                          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover transition duration-500 group-hover:scale-105"
                         />
 
