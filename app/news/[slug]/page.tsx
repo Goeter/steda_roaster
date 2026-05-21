@@ -193,7 +193,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           {/* Content */}
           <Reveal delay={200} className="mt-16">
-            <section className="mx-auto max-w-4xl">
+            <section className="mx-auto max-w-6xl">
               <div className="prose prose-neutral max-w-none">
                 {item.content.map((paragraph, index) => (
                   <p
