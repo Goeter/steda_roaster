@@ -6,9 +6,6 @@ import {
   ArrowUpRight,
   CalendarDays,
   Clock3,
-  Instagram,
-  Link as LinkIcon,
-  Share2,
 } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
@@ -137,24 +134,18 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       <main className="relative min-h-screen overflow-hidden bg-[#ede8de] pt-24 pb-20 animate-page-enter">
         {/* Background */}
         <div className="pointer-events-none absolute inset-0">
-          {/* Base gradient */}
           <div className="absolute inset-0 bg-[linear-gradient(160deg,#f7f0e4_0%,#ede5d4_30%,#e5dac8_60%,#ede8de_100%)]" />
 
-          {/* Radial overlays */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_15%_0%,rgba(217,165,80,0.16),transparent_60%),radial-gradient(ellipse_50%_40%_at_90%_10%,rgba(160,100,40,0.10),transparent_55%),radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(180,140,80,0.08),transparent_60%)]" />
 
-          {/* Soft blobs */}
           <div className="absolute -left-24 top-10 h-[560px] w-[560px] rounded-full bg-amber-300/20 blur-[140px]" />
           <div className="absolute -right-20 top-32 h-[420px] w-[420px] rounded-full bg-orange-200/20 blur-[120px]" />
           <div className="absolute bottom-0 left-1/2 h-[320px] w-[700px] -translate-x-1/2 rounded-full bg-yellow-200/25 blur-[100px]" />
 
-          {/* Subtle dot grid */}
           <div className="absolute inset-0 bg-[radial-gradient(rgba(101,67,33,0.07)_1px,transparent_1px)] bg-[size:28px_28px] [mask-image:linear-gradient(to_bottom,black,transparent_55%)]" />
 
-          {/* Top border line */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
 
-          {/* Bottom fade */}
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#ede8de]/80 to-transparent" />
         </div>
 
@@ -174,7 +165,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm font-medium text-neutral-500">
-              <span className="rounded-full bg-amber-100/80 px-3 py-1 text-xs font-semibold tracking-wide text-amber-800 ring-1 ring-amber-300/50">
+              <span className="rounded-full bg-amber-100/70 px-3 py-1 text-xs font-semibold tracking-wide text-amber-800 ring-1 ring-amber-300/40">
                 {item.category}
               </span>
 
@@ -189,7 +180,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           {/* Gallery */}
           <Reveal delay={150} className="mt-10">
-            <section className="overflow-hidden rounded-2xl shadow-lg shadow-amber-900/10 ring-1 ring-amber-900/8">
+            <section className="overflow-hidden rounded-[1.75rem] shadow-[0_18px_55px_rgba(120,53,15,0.08)] ring-1 ring-white/45">
               <NewsGallery
                 images={item.images}
                 title={item.title}
@@ -201,7 +192,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           {/* Content + Sidebar */}
           <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
             <Reveal delay={200}>
-              <section className="max-w-none rounded-[2rem] bg-[#fffdf8]/70 p-6 shadow-sm shadow-amber-900/8 ring-1 ring-amber-900/6 backdrop-blur-md sm:p-8 lg:bg-[#fffdf8]/60">
+              <section className="max-w-none rounded-[2rem] bg-[#fffdf8]/45 p-6 shadow-[0_14px_45px_rgba(120,53,15,0.055)] ring-1 ring-white/45 backdrop-blur-sm sm:p-8 lg:bg-[#fffdf8]/38">
                 <div className="prose prose-neutral max-w-none">
                   {item.content.map((paragraph, index) => (
                     <p
@@ -217,7 +208,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
             <Reveal delay={300}>
               <aside className="lg:sticky lg:top-28">
-                <div className="space-y-10 rounded-[2rem] bg-[#fffdf8]/70 p-6 shadow-sm shadow-amber-900/8 ring-1 ring-amber-900/6 backdrop-blur-md lg:bg-[#fffdf8]/60">
+                <div className="space-y-10 rounded-[2rem] bg-[#fffdf8]/45 p-6 shadow-[0_14px_45px_rgba(120,53,15,0.055)] ring-1 ring-white/45 backdrop-blur-sm lg:bg-[#fffdf8]/38">
                   <section className="space-y-6">
                     <div>
                       <div className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-amber-700/70">
@@ -237,45 +228,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                       <p className="text-base font-bold text-neutral-950">
                         {item.author || 'Steda Team'}
                       </p>
-                    </div>
-
-                    <div>
-                      <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-amber-700/70">
-                        <Share2 size={14} />
-                        Share
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Link
-                          href={articleUrl}
-                          aria-label="Open article link"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-neutral-700 ring-1 ring-amber-900/10 transition hover:bg-white hover:text-amber-700 hover:ring-amber-400/40"
-                        >
-                          <LinkIcon size={16} />
-                        </Link>
-
-                        <Link
-                          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                            articleUrl
-                          )}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label="Share to Facebook"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-sm font-black text-neutral-700 ring-1 ring-amber-900/10 transition hover:bg-white hover:text-amber-700 hover:ring-amber-400/40"
-                        >
-                          f
-                        </Link>
-
-                        <Link
-                          href="https://www.instagram.com/"
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label="Open Instagram"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-neutral-700 ring-1 ring-amber-900/10 transition hover:bg-white hover:text-amber-700 hover:ring-amber-400/40"
-                        >
-                          <Instagram size={16} />
-                        </Link>
-                      </div>
                     </div>
                   </section>
 
@@ -308,7 +260,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                               href={`/news/${latest.slug}`}
                               className="group block"
                             >
-                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100 shadow-sm shadow-amber-900/10 ring-1 ring-amber-900/6">
+                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100 shadow-[0_10px_30px_rgba(120,53,15,0.06)] ring-1 ring-white/50">
                                 <Image
                                   src={latestImage.src}
                                   alt={latestImage.alt || latest.title}
@@ -388,7 +340,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                     <Link
                       key={latest.slug}
                       href={`/news/${latest.slug}`}
-                      className="group overflow-hidden rounded-2xl bg-[#fffdf8]/75 shadow-sm shadow-amber-900/10 ring-1 ring-amber-900/8 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-[#fffdf8]/95 hover:shadow-lg hover:shadow-amber-900/12"
+                      className="group overflow-hidden rounded-2xl bg-[#fffdf8]/60 shadow-[0_12px_38px_rgba(120,53,15,0.06)] ring-1 ring-white/45 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-[#fffdf8]/85 hover:shadow-[0_18px_52px_rgba(120,53,15,0.09)]"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
                         <Image
@@ -399,7 +351,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           className="object-cover transition duration-500 group-hover:scale-105"
                         />
 
-                        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-amber-800 shadow-sm ring-1 ring-amber-300/30 backdrop-blur">
+                        <span className="absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1 text-xs font-semibold text-amber-800 shadow-sm ring-1 ring-amber-300/25 backdrop-blur">
                           {latest.category}
                         </span>
                       </div>
