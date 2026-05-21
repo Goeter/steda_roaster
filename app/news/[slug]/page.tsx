@@ -11,6 +11,7 @@ import {
   Share2,
   UserRound,
 } from 'lucide-react';
+import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
 import { formatDate, getNewsDetailContent } from '@/lib/cms';
 import { absoluteUrl, getNewsUrl } from '@/lib/seo';
@@ -77,15 +78,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         new Date(a.publishedAt).getTime()
     );
 
-  const latestNews = relatedNews.slice(0, 4);
+  const latestNews = relatedNews.slice(0, 3);
 
-  const moreNews = relatedNews.slice(4, 8).length
-    ? relatedNews.slice(4, 8)
+  const moreNews = relatedNews.slice(3, 7).length
+    ? relatedNews.slice(3, 7)
     : relatedNews.slice(0, 4);
 
-  const heroImage = item.images[0];
-
-  const articleUrl = getNewsUrl(item.slug, siteMetadata.metadataBase);
+  const articleUrl = String(getNewsUrl(item.slug, siteMetadata.metadataBase));
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -121,212 +120,68 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <main className="relative min-h-screen overflow-hidden bg-[#f8f1e7] pt-28 pb-20 animate-page-enter">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.22),transparent_34%),radial-gradient(circle_at_top_right,rgba(120,53,15,0.14),transparent_32%)]" />
-          <div className="absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-200/20 blur-3xl" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.24),rgba(255,255,255,0.78)_48%,rgba(255,255,255,1))]" />
-        </div>
-
-        <article className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-white pt-24 pb-20 animate-page-enter">
+        <article className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <Link
               href={newsDetailSection.backHref}
-              className="inline-flex text-sm font-semibold text-amber-800 transition hover:text-amber-950"
+              className="inline-flex text-sm font-semibold text-amber-700 transition hover:text-amber-900"
             >
               {newsDetailSection.backLabel}
             </Link>
           </Reveal>
 
-          <Reveal delay={100} className="mt-10">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-              <header className="max-w-4xl">
-                <span className="inline-flex rounded-full border border-amber-200/80 bg-white/80 px-4 py-2 text-sm font-semibold text-amber-800 shadow-sm backdrop-blur">
-                  {item.category}
-                </span>
+          <Reveal
+            as="header"
+            delay={100}
+            className="mx-auto mt-8 max-w-5xl text-center"
+          >
+            <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl lg:text-6xl">
+              {item.title}
+            </h1>
 
-                <h1 className="mt-6 text-balance text-4xl font-bold leading-tight tracking-tight text-neutral-950 md:text-5xl lg:text-6xl">
-                  {item.title}
-                </h1>
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-neutral-600 md:text-lg">
+              {item.excerpt}
+            </p>
 
-                <p className="mt-5 max-w-3xl text-base leading-8 text-neutral-600 md:text-lg">
-                  {item.excerpt}
-                </p>
-              </header>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm font-medium text-neutral-500">
+              <span className="font-semibold text-amber-700">
+                {item.category}
+              </span>
 
-              <aside className="hidden lg:block">
-                <div className="rounded-[2rem] border border-amber-100 bg-white/80 p-5 shadow-[0_20px_60px_rgba(120,53,15,0.10)] backdrop-blur">
-                  <div className="mb-5 flex items-center justify-between">
-                    <h2 className="text-lg font-bold text-neutral-950">
-                      Latest News
-                    </h2>
+              <span className="h-5 w-px bg-neutral-300" />
 
-                    <Link
-                      href="/news"
-                      className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.14em] text-amber-700 hover:text-amber-900"
-                    >
-                      View all
-                      <ArrowUpRight size={14} />
-                    </Link>
-                  </div>
-
-                  <div className="space-y-5">
-                    {latestNews.map((latest) => {
-                      const latestImage = latest.images[0];
-
-                      return (
-                        <Link
-                          key={latest.slug}
-                          href={`/news/${latest.slug}`}
-                          className="group grid grid-cols-[96px_minmax(0,1fr)] gap-4"
-                        >
-                          <div className="relative aspect-square overflow-hidden rounded-2xl bg-amber-50">
-                            <Image
-                              src={latestImage.src}
-                              alt={latestImage.alt || latest.title}
-                              fill
-                              sizes="96px"
-                              className="object-cover transition duration-500 group-hover:scale-105"
-                            />
-                          </div>
-
-                          <div className="min-w-0">
-                            <div className="mb-2 flex items-center gap-2 text-[11px] font-medium text-neutral-500">
-                              <CalendarDays
-                                size={13}
-                                className="text-amber-700"
-                              />
-                              {formatDate(latest.publishedAt)}
-                            </div>
-
-                            <h3 className="line-clamp-2 text-sm font-bold leading-5 text-neutral-950 transition group-hover:text-amber-800">
-                              {latest.title}
-                            </h3>
-
-                            <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">
-                              {latest.excerpt}
-                            </p>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              </aside>
+              <span className="inline-flex items-center gap-2">
+                <Clock3 size={15} />
+                3 minute read
+              </span>
             </div>
           </Reveal>
 
           <Reveal delay={150} className="mt-12">
-            <section className="relative">
-              <div className="relative overflow-hidden rounded-[2.25rem] bg-neutral-900 shadow-[0_32px_90px_rgba(120,53,15,0.16)]">
-                <div className="relative aspect-[16/9] min-h-[360px]">
-                  <Image
-                    src={heroImage.src}
-                    alt={heroImage.alt || item.title}
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
-                </div>
+            <section>
+              <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200">
+                <NewsGallery
+                  images={item.images}
+                  title={item.title}
+                  labels={newsDetailSection}
+                />
               </div>
 
-              <div className="mt-5 text-center text-xs font-medium text-neutral-500">
+              <div className="mt-4 text-center text-xs font-medium text-neutral-500">
                 Picture by 2024 Getty Images
-              </div>
-
-              <div className="right-8 bottom-10 mt-6 w-full rounded-[1.75rem] border border-amber-100 bg-white/95 p-5 shadow-[0_24px_70px_rgba(23,23,23,0.16)] backdrop-blur lg:absolute lg:mt-0 lg:max-w-sm">
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                  <div>
-                    <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
-                      <CalendarDays size={14} />
-                      Published
-                    </div>
-
-                    <p className="text-sm font-semibold text-neutral-950">
-                      {formatDate(item.publishedAt)}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
-                      <UserRound size={14} />
-                      Content
-                    </div>
-
-                    <p className="text-sm font-semibold text-neutral-950">
-                      {item.author || 'Steda Team'}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
-                      <Share2 size={14} />
-                      Share
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        aria-label="Copy article link"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-100 bg-amber-50 text-amber-800 transition hover:bg-amber-100"
-                      >
-                        <LinkIcon size={17} />
-                      </button>
-
-                      <Link
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                          articleUrl
-                        )}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Share to Facebook"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-100 bg-amber-50 text-sm font-black text-amber-800 transition hover:bg-amber-100"
-                      >
-                        f
-                      </Link>
-
-                      <Link
-                        href="https://www.instagram.com/"
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Open Instagram"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-amber-100 bg-amber-50 text-amber-800 transition hover:bg-amber-100"
-                      >
-                        <Instagram size={17} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
               </div>
             </section>
           </Reveal>
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+          <div className="mt-20 grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
             <Reveal delay={200}>
-              <section className="rounded-[2rem] border border-amber-100/80 bg-white/85 px-5 py-8 shadow-[0_22px_70px_rgba(120,53,15,0.08)] backdrop-blur sm:px-8 md:px-10 lg:px-12 lg:py-11">
-                <div className="mb-8 flex flex-wrap items-center gap-3 border-b border-amber-100 pb-6">
-                  <span className="rounded-full bg-amber-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-800 ring-1 ring-amber-100">
-                    Article
-                  </span>
-
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-neutral-500">
-                    <Clock3 size={15} className="text-amber-700" />
-                    3 min read
-                  </span>
-                </div>
-
+              <section className="max-w-none">
                 <div className="prose prose-neutral max-w-none">
                   {item.content.map((paragraph, index) => (
                     <p
-                      key={paragraph}
-                      className={`mb-7 text-base leading-8 text-neutral-700 last:mb-0 sm:text-lg sm:leading-9 ${
-                        index === 0
-                          ? 'first-letter:float-left first-letter:mr-3 first-letter:text-5xl first-letter:font-bold first-letter:leading-[0.9] first-letter:text-amber-800 sm:first-letter:text-6xl'
-                          : ''
-                      }`}
+                      key={`${paragraph}-${index}`}
+                      className="mb-7 text-base leading-8 text-neutral-800 last:mb-0 sm:text-lg sm:leading-9"
                     >
                       {paragraph}
                     </p>
@@ -335,85 +190,153 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               </section>
             </Reveal>
 
-            <Reveal delay={300} className="lg:hidden">
-              <aside className="rounded-[2rem] border border-amber-100 bg-white/85 p-5 shadow-[0_20px_60px_rgba(120,53,15,0.08)] backdrop-blur">
-                <div className="mb-5 flex items-center justify-between">
-                  <h2 className="text-lg font-bold text-neutral-950">
-                    Latest News
-                  </h2>
-
-                  <Link
-                    href="/news"
-                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.14em] text-amber-700 hover:text-amber-900"
-                  >
-                    View all
-                    <ArrowUpRight size={14} />
-                  </Link>
-                </div>
-
-                <div className="space-y-5">
-                  {latestNews.map((latest) => {
-                    const latestImage = latest.images[0];
-
-                    return (
-                      <Link
-                        key={latest.slug}
-                        href={`/news/${latest.slug}`}
-                        className="group grid grid-cols-[96px_minmax(0,1fr)] gap-4"
-                      >
-                        <div className="relative aspect-square overflow-hidden rounded-2xl bg-amber-50">
-                          <Image
-                            src={latestImage.src}
-                            alt={latestImage.alt || latest.title}
-                            fill
-                            sizes="96px"
-                            className="object-cover transition duration-500 group-hover:scale-105"
-                          />
+            <Reveal delay={300}>
+              <aside className="lg:sticky lg:top-28">
+                <div className="space-y-9">
+                  <section>
+                    <div className="space-y-6">
+                      <div>
+                        <div className="mb-2 text-sm font-medium text-neutral-500">
+                          Published
                         </div>
 
-                        <div className="min-w-0">
-                          <div className="mb-2 flex items-center gap-2 text-[11px] font-medium text-neutral-500">
-                            <CalendarDays
-                              size={13}
-                              className="text-amber-700"
-                            />
-                            {formatDate(latest.publishedAt)}
-                          </div>
+                        <p className="text-base font-bold text-neutral-950">
+                          {formatDate(item.publishedAt)}
+                        </p>
+                      </div>
 
-                          <h3 className="line-clamp-2 text-sm font-bold leading-5 text-neutral-950 transition group-hover:text-amber-800">
-                            {latest.title}
-                          </h3>
-
-                          <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">
-                            {latest.excerpt}
-                          </p>
+                      <div>
+                        <div className="mb-2 text-sm font-medium text-neutral-500">
+                          Content
                         </div>
-                      </Link>
-                    );
-                  })}
+
+                        <p className="text-base font-bold text-neutral-950">
+                          {item.author || 'Steda Team'}
+                        </p>
+                      </div>
+
+                      <div>
+                        <div className="mb-4 text-sm font-medium text-neutral-500">
+                          Share
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-4">
+                          <Link
+                            href={articleUrl}
+                            aria-label="Open article link"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          >
+                            <LinkIcon size={17} />
+                          </Link>
+
+                          <Link
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                              articleUrl
+                            )}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="Share to Facebook"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-black text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          >
+                            f
+                          </Link>
+
+                          <Link
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="Open Instagram"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-950 transition hover:bg-neutral-100 hover:text-amber-700"
+                          >
+                            <Instagram size={17} />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  {latestNews.length > 0 && (
+                    <section>
+                      <h2 className="mb-5 text-xl font-bold text-neutral-950">
+                        Latest News
+                      </h2>
+
+                      <div className="space-y-7">
+                        {latestNews.map((latest) => {
+                          const latestImage = latest.images[0];
+
+                          return (
+                            <Link
+                              key={latest.slug}
+                              href={`/news/${latest.slug}`}
+                              className="group block"
+                            >
+                              <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-neutral-100 shadow-sm">
+                                <Image
+                                  src={latestImage.src}
+                                  alt={latestImage.alt || latest.title}
+                                  fill
+                                  sizes="360px"
+                                  className="object-cover transition duration-500 group-hover:scale-105"
+                                />
+                              </div>
+
+                              <div className="mt-3">
+                                <div className="mb-2 flex items-center gap-2 text-xs font-medium text-neutral-500">
+                                  <CalendarDays
+                                    size={14}
+                                    className="text-amber-700"
+                                  />
+                                  {formatDate(latest.publishedAt)}
+                                </div>
+
+                                <h3 className="line-clamp-2 text-base font-bold leading-6 text-neutral-950 transition group-hover:text-amber-800">
+                                  {latest.title}
+                                </h3>
+
+                                <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
+                                  {latest.excerpt}
+                                </p>
+
+                                <div className="mt-3 flex items-center gap-3 text-xs font-medium text-neutral-500">
+                                  <span className="font-semibold text-amber-700">
+                                    {latest.category}
+                                  </span>
+
+                                  <span className="h-4 w-px bg-neutral-300" />
+
+                                  <span>3 minute read</span>
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </section>
+                  )}
                 </div>
               </aside>
             </Reveal>
           </div>
 
           {moreNews.length > 0 && (
-            <Reveal as="section" delay={300} className="mt-20">
+            <Reveal as="section" delay={400} className="mt-24">
               <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <span className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
+                  <h2 className="text-3xl font-bold text-neutral-950">
                     More News
-                  </span>
-
-                  <h2 className="mt-2 text-3xl font-bold text-neutral-950">
-                    Read More Stories
                   </h2>
+
+                  <p className="mt-2 text-sm text-neutral-500">
+                    Explore more stories and updates.
+                  </p>
                 </div>
 
                 <Link
                   href="/news"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-amber-700 hover:text-amber-900"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-amber-700 transition hover:text-amber-900"
                 >
-                  Show More
+                  Show More News
                   <ArrowUpRight size={16} />
                 </Link>
               </div>
@@ -426,9 +349,9 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                     <Link
                       key={latest.slug}
                       href={`/news/${latest.slug}`}
-                      className="group overflow-hidden rounded-[1.75rem] border border-amber-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-xl"
+                      className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden bg-amber-50">
+                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
                         <Image
                           src={latestImage.src}
                           alt={latestImage.alt || latest.title}
