@@ -3,13 +3,16 @@ import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { getLayoutContent } from '@/lib/cms';
+import { getSiteUrl } from '@/lib/seo';
 import './globals.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { siteMetadata } = await getLayoutContent();
 
+  const siteUrl = getSiteUrl(siteMetadata.metadataBase);
+
   return {
-    metadataBase: new URL(siteMetadata.metadataBase),
+    metadataBase: new URL(siteUrl),
     title: {
       default: siteMetadata.defaultTitle,
       template: siteMetadata.titleTemplate,
@@ -70,14 +73,15 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { footerSection, siteMetadata, siteSettings } = await getLayoutContent();
+  const siteUrl = getSiteUrl(siteMetadata.metadataBase);
 
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': ['Organization', 'LocalBusiness'],
     name: siteSettings.siteName,
-    url: siteMetadata.metadataBase,
-    logo: `${siteMetadata.metadataBase}/hero-1.jpg`,
-    image: `${siteMetadata.metadataBase}/hero-1.jpg`,
+    url: siteUrl,
+    logo: `${siteUrl}/hero-1.jpg`,
+    image: `${siteUrl}/hero-1.jpg`,
     description: siteSettings.description,
     email: siteSettings.email,
     address: {
@@ -104,7 +108,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteSettings.siteName,
-    url: siteMetadata.metadataBase,
+    url: siteUrl,
     description: siteMetadata.description,
     publisher: {
       '@type': 'Organization',

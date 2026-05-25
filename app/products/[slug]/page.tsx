@@ -54,7 +54,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   if (!product) notFound();
 
-  const galleryImages = (product.images.length > 0 ? product.images : [product.image]).filter(Boolean);
+  const productImages = Array.isArray(product.images) ? product.images : [];
+  const galleryImages = (productImages.length > 0 ? productImages : [product.image]).filter(Boolean);
+  const technicalParams = product.technicalParams ?? {};
+  const specifications = Array.isArray(product.specifications) ? product.specifications : [];
   const breadcrumbJsonLd = getBreadcrumbJsonLd(
     [
       { name: 'Home', href: '/' },
@@ -81,7 +84,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     },
     category: product.category,
     url: getProductUrl(product.slug, siteMetadata.metadataBase),
-    additionalProperty: Object.entries(product.technicalParams).map(([name, value]) => ({
+    additionalProperty: Object.entries(technicalParams).map(([name, value]) => ({
       '@type': 'PropertyValue',
       name,
       value,
@@ -122,7 +125,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
                 <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.technicalParametersHeading}</h2>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {Object.entries(product.technicalParams).map(([key, value]) => (
+                  {Object.entries(technicalParams).map(([key, value]) => (
                     <div key={key} className="rounded-2xl border border-neutral-200 bg-[#fafafa] p-4">
                       <p className="text-xs capitalize text-neutral-500">{key}</p>
                       <p className="mt-1 text-sm font-semibold text-neutral-950">{value}</p>
@@ -134,7 +137,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
                 <h2 className="mb-4 text-lg font-bold text-neutral-950">{productDetailSection.specificationsHeading}</h2>
                 <div className="space-y-3">
-                  {product.specifications.map((item) => (
+                  {specifications.map((item) => (
                     <div key={item} className="flex gap-3 text-sm leading-6 text-neutral-700">
                       <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
                       <p>{item}</p>

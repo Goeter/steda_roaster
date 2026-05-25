@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getNewsContent, getProductDetailContent, getLayoutContent } from '@/lib/cms';
-import { absoluteUrl, getStaticRoutes } from '@/lib/seo';
+import { absoluteUrl, getSafeDate, getStaticRoutes } from '@/lib/seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const newsRoutes = news.map((item) => ({
     url: absoluteUrl(`/news/${item.slug}`, siteMetadata.metadataBase),
-    lastModified: new Date(item.publishedAt),
+    lastModified: getSafeDate(item.publishedAt, now),
     changeFrequency: 'monthly',
     priority: 0.7,
   })) satisfies MetadataRoute.Sitemap;

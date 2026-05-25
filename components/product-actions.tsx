@@ -22,8 +22,8 @@ export function ProductActions({ title, labels }: ProductActionsProps) {
         await navigator.clipboard.writeText(url);
         alert(labels.shareCopiedMessage);
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
+      // The user may cancel the native share dialog; no UI update is required.
     }
   };
 

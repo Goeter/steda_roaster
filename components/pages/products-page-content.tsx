@@ -41,7 +41,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
 
       return matchesSearch && matchesFilter && isAllowedCategory;
     });
-  }, [defaultFilter, productSection.allowedCategories, productSection.filters, products, searchQuery, selectedFilter]);
+  }, [defaultFilter, productSection.allowedCategories, products, searchQuery, selectedFilter]);
 
   return (
     <>

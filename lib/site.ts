@@ -4,8 +4,9 @@ export type BrandParts = {
 };
 
 export function splitBrandName(siteName: string): BrandParts {
-  const words = siteName.trim().split(/\s+/).filter(Boolean);
-  const [highlight = siteName.trim(), ...restWords] = words;
+  const safeSiteName = siteName.trim() || 'Steda Roaster';
+  const words = safeSiteName.split(/\s+/).filter(Boolean);
+  const [highlight = safeSiteName, ...restWords] = words;
 
   return {
     highlight,
@@ -49,7 +50,9 @@ export function getWhatsappHref({
   whatsappMessage: string;
 }) {
   const normalizedPhone = normalizePhoneNumber(whatsappNumber);
-  const message = encodeURIComponent(whatsappMessage);
+  const message = encodeURIComponent(whatsappMessage || 'Halo Steda Roaster, saya ingin konsultasi.');
+
+  if (!normalizedPhone) return '#contact';
 
   return `https://wa.me/${normalizedPhone}?text=${message}`;
 }

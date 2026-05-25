@@ -68,7 +68,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function mergeWithFallback<T>(fallback: T, data: unknown): T {
   if (Array.isArray(fallback)) {
-    return Array.isArray(data) ? (data as T) : fallback;
+    return Array.isArray(data) && data.length > 0 ? (data as T) : fallback;
   }
 
   if (isRecord(fallback)) {
@@ -86,7 +86,16 @@ function mergeWithFallback<T>(fallback: T, data: unknown): T {
 }
 
 function getCmsBaseUrl() {
-  return process.env.CMS_API_URL || process.env.NEXT_PUBLIC_CMS_API_URL || '';
+  const value = process.env.CMS_API_URL || process.env.NEXT_PUBLIC_CMS_API_URL || '';
+
+  if (!value) return '';
+
+  try {
+    return new URL(value).origin;
+  } catch {
+    console.warn('[cms] CMS_API_URL is invalid. Using fallback data.');
+    return '';
+  }
 }
 
 function getRevalidateSeconds() {

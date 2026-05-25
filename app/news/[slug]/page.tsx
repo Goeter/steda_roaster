@@ -6,7 +6,7 @@ import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
 import { formatDate, getNewsDetailContent } from '@/lib/cms';
-import { absoluteUrl, getBreadcrumbJsonLd, getNewsUrl } from '@/lib/seo';
+import { absoluteUrl, getBreadcrumbJsonLd, getNewsUrl, getSafeTimestamp } from '@/lib/seo';
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -70,9 +70,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const latestNews = news
     .filter((latest) => latest.slug !== item.slug)
     .sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() -
-        new Date(a.publishedAt).getTime()
+      (a, b) => getSafeTimestamp(b.publishedAt) - getSafeTimestamp(a.publishedAt)
     )
     .slice(0, newsDetailSection.relatedLimit);
 

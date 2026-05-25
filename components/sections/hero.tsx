@@ -19,7 +19,9 @@ export function Hero({ heroSection }: HeroProps) {
 
   const startX = useRef<number | null>(null);
   const isDragging = useRef(false);
-  const slides = heroSection.slides;
+  const slides = heroSection.slides.length > 0
+    ? heroSection.slides
+    : [{ id: 'fallback-hero', src: '/hero-1.jpg', alt: heroSection.heading || 'Steda Roaster' }];
 
   const resetProgress = () => setProgress(0);
 

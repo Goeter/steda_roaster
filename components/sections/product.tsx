@@ -19,7 +19,7 @@ export function Product({ productPageSection, productSection, products }: Produc
 
   const homeProducts = useMemo(
     () => products.filter((product) => productSection.allowedCategories.includes(product.category)),
-    [],
+    [productSection.allowedCategories, products],
   );
 
   const scrollCarousel = (direction: 'prev' | 'next') => {
@@ -100,8 +100,10 @@ export function Product({ productPageSection, productSection, products }: Produc
 
                       <div className="flex-1" />
 
-                      <Button className="mt-5 h-10 w-full rounded-full bg-orange-600 text-sm font-semibold text-white hover:bg-orange-700">
-                        {productPageSection.detailButtonLabel} <ArrowRight size={16} />
+                      <Button asChild className="mt-5 h-10 w-full rounded-full bg-orange-600 text-sm font-semibold text-white hover:bg-orange-700">
+                        <span>
+                          {productPageSection.detailButtonLabel} <ArrowRight size={16} />
+                        </span>
                       </Button>
                     </div>
                   </article>

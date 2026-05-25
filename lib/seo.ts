@@ -6,12 +6,32 @@ export type BreadcrumbItem = {
 };
 
 export function getSiteUrl(siteUrl = fallbackSiteMetadata.metadataBase) {
-  return siteUrl.replace(/\/$/, '');
+  const fallbackUrl = fallbackSiteMetadata.metadataBase.replace(/\/$/, '');
+  const value = typeof siteUrl === 'string' ? siteUrl.trim() : '';
+
+  try {
+    return new URL(value || fallbackUrl).origin;
+  } catch {
+    return fallbackUrl;
+  }
 }
 
 export function absoluteUrl(path = '/', siteUrl = fallbackSiteMetadata.metadataBase) {
-  if (path.startsWith('http://') || path.startsWith('https://')) return path;
-  return `${getSiteUrl(siteUrl)}${path.startsWith('/') ? path : `/${path}`}`;
+  const value = typeof path === 'string' ? path.trim() : '';
+
+  if (value.startsWith('http://') || value.startsWith('https://')) return value;
+
+  const safePath = value || '/';
+  return `${getSiteUrl(siteUrl)}${safePath.startsWith('/') ? safePath : `/${safePath}`}`;
+}
+
+export function getSafeDate(value: string | Date | undefined, fallback = new Date()) {
+  const date = value instanceof Date ? value : new Date(value ?? '');
+  return Number.isNaN(date.getTime()) ? fallback : date;
+}
+
+export function getSafeTimestamp(value: string | Date | undefined) {
+  return getSafeDate(value, new Date(0)).getTime();
 }
 
 export function getProductUrl(slug: string, siteUrl?: string) {
