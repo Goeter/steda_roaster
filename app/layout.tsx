@@ -65,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#78350f',
+  themeColor: '#2b1b12',
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -73,16 +73,27 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   const organizationJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Organization', 'LocalBusiness'],
     name: siteSettings.siteName,
     url: siteMetadata.metadataBase,
     logo: `${siteMetadata.metadataBase}/hero-1.jpg`,
+    image: `${siteMetadata.metadataBase}/hero-1.jpg`,
     description: siteSettings.description,
     email: siteSettings.email,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Sidoarjo',
       addressCountry: 'ID',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Indonesia',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      email: siteSettings.email,
+      availableLanguage: ['id', 'en'],
     },
     sameAs: Object.values(siteSettings.socials).filter(Boolean),
   };
@@ -92,6 +103,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     '@type': 'WebSite',
     name: siteSettings.siteName,
     url: siteMetadata.metadataBase,
+    description: siteMetadata.description,
+    publisher: {
+      '@type': 'Organization',
+      name: siteSettings.siteName,
+    },
     inLanguage: siteMetadata.language,
   };
 

@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FAQsPage() {
-  const { faqCategories, faqPageSection, siteSettings, siteMetadata } = await getFAQsContent();
+  const { faqCategories, faqPageSection, siteSettings } = await getFAQsContent();
 
   const faqJsonLd = {
     '@context': 'https://schema.org',

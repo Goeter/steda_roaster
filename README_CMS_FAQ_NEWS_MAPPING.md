@@ -5,7 +5,7 @@ File utama untuk konten CMS:
 - `lib/cms-data.ts` untuk isi konten/data yang nanti bisa diganti dari CMS admin.
 - `lib/cms-types.ts` untuk tipe/struktur data TypeScript.
 
-UI behavior tidak diubah. Perubahan hanya memindahkan teks/label/image/limit ke variabel CMS-ready dan menambahkan reveal animation ringan pada page/section.
+UI behavior utama tidak diubah. Perubahan hanya memindahkan teks/label/limit ke variabel CMS-ready, mempertahankan accordion/reveal animation, dan menghapus gambar FAQ home sesuai kebutuhan layout terbaru.
 
 ## FAQs
 
@@ -30,8 +30,6 @@ Field yang bisa diganti dari CMS:
 ```ts
 faqHomeSection.heading
 faqHomeSection.description
-faqHomeSection.image.src
-faqHomeSection.image.alt
 faqHomeSection.ctaLabel
 faqHomeSection.ctaHref
 faqHomeSection.previewLimit
@@ -195,6 +193,7 @@ Catatan penting:
 - `newsPageSection.defaultCategory` sebaiknya sama dengan item pertama di `newsCategories`, misalnya `All News`.
 - `news[].category` sebaiknya cocok dengan salah satu kategori di `newsCategories` agar filter tetap berjalan.
 - `news[].slug` dipakai untuk URL detail `/news/[slug]`, jadi harus unik.
+- Waktu baca artikel tidak ditampilkan di detail news; metadata yang tampil hanya kategori dan tanggal publish.
 
 ## Site Settings yang juga dipakai FAQ
 
@@ -222,6 +221,7 @@ components/sections/faq.tsx
 app/faqs/page.tsx
 app/news/page.tsx
 app/news/[slug]/page.tsx
+lib/seo.ts
 README_CMS_FAQ_NEWS_MAPPING.md
 ```
 

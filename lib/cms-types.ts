@@ -54,7 +54,6 @@ export type ProductSection = {
   nextProductAriaLabel: string;
 };
 
-
 export type ProductPageSection = {
   hero: {
     eyebrow: string;
@@ -145,7 +144,6 @@ export type FAQCategory = {
 export type FAQHomeSection = {
   heading: string;
   description: string;
-  image: ImageItem;
   ctaLabel: string;
   ctaHref: string;
   previewLimit: number;
@@ -201,7 +199,6 @@ export type AboutSection = {
   ctaLabel: string;
   ctaHref: string;
 };
-
 
 export type AboutPageSection = {
   hero: {

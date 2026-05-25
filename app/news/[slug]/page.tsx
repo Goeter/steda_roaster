@@ -2,33 +2,15 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  ArrowUpRight,
-  CalendarDays,
-  Clock3,
-} from 'lucide-react';
+import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
 import { formatDate, getNewsDetailContent } from '@/lib/cms';
-import { absoluteUrl, getNewsUrl } from '@/lib/seo';
+import { absoluteUrl, getBreadcrumbJsonLd, getNewsUrl } from '@/lib/seo';
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
-
-function getReadingTime(content: string[]) {
-  const wordsPerMinute = 200;
-
-  const wordCount = content
-    .join(' ')
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean).length;
-
-  const minutes = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
-
-  return `${minutes} minute read`;
-}
 
 export async function generateStaticParams() {
   const { news } = await getNewsDetailContent();
@@ -87,10 +69,18 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         new Date(b.publishedAt).getTime() -
         new Date(a.publishedAt).getTime()
     )
-    .slice(0, 3);
+    .slice(0, newsDetailSection.relatedLimit);
 
   const articleUrl = String(getNewsUrl(item.slug, siteMetadata.metadataBase));
-  const readingTime = getReadingTime(item.content);
+
+  const breadcrumbJsonLd = getBreadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'News', href: '/news' },
+      { name: item.title, href: `/news/${item.slug}` },
+    ],
+    siteMetadata.metadataBase,
+  );
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -124,6 +114,11 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <main className="relative min-h-screen overflow-hidden bg-[#ede8de] pt-24 pb-20 animate-page-enter">
@@ -170,13 +165,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 <CalendarDays size={15} className="text-amber-700" />
                 {formatDate(item.publishedAt)}
               </span>
-
-              <span className="h-5 w-px bg-neutral-300" />
-
-              <span className="inline-flex items-center gap-2">
-                <Clock3 size={15} />
-                {readingTime}
-              </span>
             </div>
           </Reveal>
 
@@ -213,7 +201,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <h2 className="text-3xl font-bold text-neutral-950">
-                    Latest News
+                    {newsDetailSection.relatedHeading}
                   </h2>
 
                   <p className="mt-2 text-sm text-neutral-500">
@@ -233,8 +221,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {latestNews.map((latest) => {
                   const latestImage = latest.images[0];
-                  const latestReadingTime = getReadingTime(latest.content);
-
                   return (
                     <Link
                       key={latest.slug}
@@ -269,15 +255,9 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           {latest.excerpt}
                         </p>
 
-                        <div className="mt-4 flex items-center gap-3 text-xs font-medium text-neutral-500">
-                          <span className="font-semibold text-amber-700">
-                            {latest.category}
-                          </span>
-
-                          <span className="h-4 w-px bg-neutral-300" />
-
-                          <span>{latestReadingTime}</span>
-                        </div>
+                        <p className="mt-4 text-xs font-semibold text-amber-700">
+                          {latest.category}
+                        </p>
 
                         <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-700">
                           Read more

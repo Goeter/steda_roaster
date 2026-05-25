@@ -5,7 +5,7 @@ import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
 import { getProductDetailContent } from '@/lib/cms';
-import { absoluteUrl, getProductUrl } from '@/lib/seo';
+import { absoluteUrl, getBreadcrumbJsonLd, getProductUrl } from '@/lib/seo';
 
 type ProductDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -53,6 +53,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (!product) notFound();
 
   const galleryImages = product.images.length > 0 ? product.images : [product.image];
+  const breadcrumbJsonLd = getBreadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'Products', href: '/products' },
+      { name: product.name, href: `/products/${product.slug}` },
+    ],
+    siteMetadata.metadataBase,
+  );
+
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -83,6 +92,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <main className="min-h-screen overflow-hidden bg-[#f7f5f0] pt-20 animate-page-enter">
         <ProductActions title={product.name} labels={productDetailSection} />

@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server';
 import { CMS_TAGS } from '@/lib/cms';
 
 const ALLOWED_TAGS = new Set<string>(Object.values(CMS_TAGS));
-const ALLOWED_PATH_PREFIXES = ['/', '/about', '/products', '/faqs', '/news'];
+const ALLOWED_EXACT_PATHS = new Set(['/', '/about', '/products', '/faqs', '/news']);
+const ALLOWED_DYNAMIC_PATH_PREFIXES = ['/products/', '/news/'];
 
 type RevalidateBody = {
   secret?: string;
@@ -12,7 +13,10 @@ type RevalidateBody = {
 };
 
 function isValidPath(path: string) {
-  return path.startsWith('/') && ALLOWED_PATH_PREFIXES.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+  return (
+    ALLOWED_EXACT_PATHS.has(path) ||
+    ALLOWED_DYNAMIC_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))
+  );
 }
 
 export async function POST(request: Request) {

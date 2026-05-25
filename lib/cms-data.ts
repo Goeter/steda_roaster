@@ -342,7 +342,6 @@ export const testimonies: Testimony[] = [
 export const faqHomeSection: FAQHomeSection = {
   heading: 'Frequently Asked Questions',
   description: 'Temukan jawaban untuk pertanyaan umum tentang produk dan layanan Steda Roaster.',
-  image: { src: '/product-faq.jpg', alt: 'Coffee Machine' },
   ctaLabel: 'See Details FAQs',
   ctaHref: '/faqs',
   previewLimit: 4,
