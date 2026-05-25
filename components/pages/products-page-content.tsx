@@ -7,6 +7,7 @@ import { ArrowRight, MessageCircle, Search } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
 import type { Product, ProductPageSection, ProductSection, SiteSettings } from '@/lib/cms-types';
+import { getWhatsappHref } from '@/lib/site';
 
 
 type ProductsPageContentProps = {
@@ -18,7 +19,8 @@ type ProductsPageContentProps = {
 
 export function ProductsPageContent({ productPageSection, productSection, products, siteSettings }: ProductsPageContentProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState(productSection.filters[0]);
+  const defaultFilter = productSection.filters[0] ?? '';
+  const [selectedFilter, setSelectedFilter] = useState(defaultFilter);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = searchQuery.toLowerCase().trim();
@@ -31,7 +33,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
           .includes(normalizedQuery);
 
       const matchesFilter =
-        selectedFilter === productSection.filters[0] ||
+        selectedFilter === defaultFilter ||
         product.category === selectedFilter ||
         product.tag === selectedFilter;
 
@@ -39,7 +41,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
 
       return matchesSearch && matchesFilter && isAllowedCategory;
     });
-  }, [searchQuery, selectedFilter]);
+  }, [defaultFilter, productSection.allowedCategories, productSection.filters, products, searchQuery, selectedFilter]);
 
   return (
     <>
@@ -152,8 +154,10 @@ export function ProductsPageContent({ productPageSection, productSection, produc
 
                       <div className="flex-1" />
 
-                      <Button className="mt-6 w-full rounded-full bg-orange-600 text-white hover:bg-orange-700">
-                        {productPageSection.detailButtonLabel} <ArrowRight size={18} />
+                      <Button asChild className="mt-6 w-full rounded-full bg-orange-600 text-white hover:bg-orange-700">
+                        <span>
+                          {productPageSection.detailButtonLabel} <ArrowRight size={18} />
+                        </span>
                       </Button>
                     </div>
                   </article>
@@ -198,7 +202,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
                   className="w-full rounded-full bg-[#25D366] px-8 py-6 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe5d] sm:w-auto"
                 >
                   <a
-                    href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(siteSettings.whatsappMessage)}`}
+                    href={getWhatsappHref(siteSettings)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

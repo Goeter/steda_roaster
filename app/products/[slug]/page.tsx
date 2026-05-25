@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
   if (!product) return { title: productDetailSection.notFoundTitle };
 
+  const coverImage = product.image || product.images.find(Boolean) || '/hero-1.jpg';
+
   return {
     title: product.name,
     description: product.description,
@@ -34,13 +36,13 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       description: product.description,
       url: `/products/${product.slug}`,
       type: 'website',
-      images: [{ url: product.image, alt: product.name }],
+      images: [{ url: coverImage, alt: product.name }],
     },
     twitter: {
       card: 'summary_large_image',
       title: product.name,
       description: product.description,
-      images: [product.image],
+      images: [coverImage],
     },
   };
 }
@@ -52,7 +54,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   if (!product) notFound();
 
-  const galleryImages = product.images.length > 0 ? product.images : [product.image];
+  const galleryImages = (product.images.length > 0 ? product.images : [product.image]).filter(Boolean);
   const breadcrumbJsonLd = getBreadcrumbJsonLd(
     [
       { name: 'Home', href: '/' },

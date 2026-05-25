@@ -12,11 +12,29 @@ type RevalidateBody = {
   paths?: string[];
 };
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === 'string');
+}
+
 function isValidPath(path: string) {
   return (
     ALLOWED_EXACT_PATHS.has(path) ||
     ALLOWED_DYNAMIC_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))
   );
+}
+
+function parseBody(value: unknown): RevalidateBody | null {
+  if (!isRecord(value)) return null;
+
+  if (value.secret !== undefined && typeof value.secret !== 'string') return null;
+  if (value.tags !== undefined && !isStringArray(value.tags)) return null;
+  if (value.paths !== undefined && !isStringArray(value.paths)) return null;
+
+  return value as RevalidateBody;
 }
 
 export async function POST(request: Request) {
@@ -29,12 +47,16 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: RevalidateBody;
+  let body: RevalidateBody | null;
 
   try {
-    body = (await request.json()) as RevalidateBody;
+    body = parseBody(await request.json());
   } catch {
     return NextResponse.json({ message: 'Invalid JSON body.' }, { status: 400 });
+  }
+
+  if (!body) {
+    return NextResponse.json({ message: 'Invalid revalidation payload.' }, { status: 400 });
   }
 
   if (body.secret !== secret) {

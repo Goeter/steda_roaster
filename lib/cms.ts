@@ -60,6 +60,30 @@ export const CMS_TAGS = {
 } as const;
 
 const DEFAULT_REVALIDATE_SECONDS = 60 * 60 * 24 * 30;
+const DEFAULT_CMS_FETCH_TIMEOUT_MS = 15_000;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function mergeWithFallback<T>(fallback: T, data: unknown): T {
+  if (Array.isArray(fallback)) {
+    return Array.isArray(data) ? (data as T) : fallback;
+  }
+
+  if (isRecord(fallback)) {
+    if (!isRecord(data)) return fallback;
+
+    return Object.fromEntries(
+      Object.entries(fallback).map(([key, fallbackValue]) => [
+        key,
+        mergeWithFallback(fallbackValue, data[key]),
+      ]),
+    ) as T;
+  }
+
+  return data === undefined || data === null ? fallback : (data as T);
+}
 
 function getCmsBaseUrl() {
   return process.env.CMS_API_URL || process.env.NEXT_PUBLIC_CMS_API_URL || '';
@@ -68,6 +92,11 @@ function getCmsBaseUrl() {
 function getRevalidateSeconds() {
   const value = Number(process.env.CMS_REVALIDATE_SECONDS);
   return Number.isFinite(value) && value > 0 ? value : DEFAULT_REVALIDATE_SECONDS;
+}
+
+function getCmsFetchTimeoutMs() {
+  const value = Number(process.env.CMS_FETCH_TIMEOUT_MS);
+  return Number.isFinite(value) && value > 0 ? value : DEFAULT_CMS_FETCH_TIMEOUT_MS;
 }
 
 async function fetchFromCms<T>(path: string, fallback: T, tags: string[]): Promise<T> {
@@ -87,6 +116,7 @@ async function fetchFromCms<T>(path: string, fallback: T, tags: string[]): Promi
         revalidate: getRevalidateSeconds(),
         tags: [CMS_TAGS.all, ...tags],
       },
+      signal: AbortSignal.timeout(getCmsFetchTimeoutMs()),
     });
 
     if (!response.ok) {
@@ -94,7 +124,7 @@ async function fetchFromCms<T>(path: string, fallback: T, tags: string[]): Promi
       return fallback;
     }
 
-    return (await response.json()) as T;
+    return mergeWithFallback(fallback, await response.json());
   } catch (error) {
     console.warn(`[cms] Failed to fetch ${path}. Using fallback data.`, error);
     return fallback;
@@ -310,9 +340,13 @@ export async function getNewsBySlug(slug: string) {
 }
 
 export function formatDate(date: string) {
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) return date;
+
   return new Intl.DateTimeFormat('id-ID', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
-  }).format(new Date(date));
+  }).format(parsedDate);
 }

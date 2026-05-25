@@ -14,17 +14,19 @@ export function NewsGallery({
   title: string;
   labels: NewsDetailSection;
 }) {
+  const galleryImages = images.filter((image) => image.src);
+  const safeImages = galleryImages.length > 0 ? galleryImages : [{ src: '/hero-1.jpg', alt: title }];
   const [index, setIndex] = useState(0);
-  const current = images[index];
+  const current = safeImages[index] ?? safeImages[0];
 
-  const prev = () => setIndex((value) => (value - 1 + images.length) % images.length);
-  const next = () => setIndex((value) => (value + 1) % images.length);
+  const prev = () => setIndex((value) => (value - 1 + safeImages.length) % safeImages.length);
+  const next = () => setIndex((value) => (value + 1) % safeImages.length);
 
   return (
     <div className="space-y-4">
       <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-amber-50 shadow-xl">
         <Image src={current.src} alt={current.alt || title} fill priority sizes="(min-width:1024px) 960px, 100vw" className="object-cover" />
-        {images.length > 1 && (
+        {safeImages.length > 1 && (
           <>
             <button onClick={prev} aria-label={labels.previousImageAriaLabel} className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
               <ChevronLeft size={20} />
@@ -32,14 +34,14 @@ export function NewsGallery({
             <button onClick={next} aria-label={labels.nextImageAriaLabel} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/55 p-3 text-white backdrop-blur hover:bg-black/70">
               <ChevronRight size={20} />
             </button>
-            <div className="absolute bottom-4 right-4 rounded-full bg-black/60 px-3 py-1 text-sm text-white">{index + 1}/{images.length}</div>
+            <div className="absolute bottom-4 right-4 rounded-full bg-black/60 px-3 py-1 text-sm text-white">{index + 1}/{safeImages.length}</div>
           </>
         )}
       </div>
 
-      {images.length > 1 && (
+      {safeImages.length > 1 && (
         <div className="flex gap-3 overflow-x-auto pb-2">
-          {images.map((image, itemIndex) => (
+          {safeImages.map((image, itemIndex) => (
             <button
               key={`${image.src}-${itemIndex}`}
               onClick={() => setIndex(itemIndex)}

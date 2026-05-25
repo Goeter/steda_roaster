@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebookF, FaTiktok } from 'react-icons/fa';
 import type { FooterSection, SiteSettings } from '@/lib/cms-types';
+import { formatPhoneNumber, getTelHref, splitBrandName } from '@/lib/site';
 
 const socialClass =
   'group relative rounded-full bg-white/10 p-3 text-white transition-all duration-300 hover:-translate-y-1';
@@ -18,6 +19,8 @@ type FooterProps = {
 
 export function Footer({ footerSection, siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const brandParts = splitBrandName(siteSettings.siteName);
+  const phoneLabel = formatPhoneNumber(siteSettings.whatsappNumber);
 
   return (
     <footer id="contact" className="border-t border-white/10 bg-[#0f172a]">
@@ -25,12 +28,14 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">
             <h3 className="text-lg font-bold tracking-wide">
-              <span className="text-amber-400">STEDA</span>
-              <span className="ml-1 text-white">ROASTER</span>
+              <span className="text-amber-400">{brandParts.highlight.toUpperCase()}</span>
+              {brandParts.rest && (
+                <span className="ml-1 text-white">{brandParts.rest.toUpperCase()}</span>
+              )}
             </h3>
             <p className="text-sm text-white/70">{footerSection.description}</p>
             <p className="text-xs text-white/50">
-              © {currentYear} STEDA Roaster. {footerSection.copyright}
+              © {currentYear} {siteSettings.siteName}. {footerSection.copyright}
             </p>
           </div>
 
@@ -55,11 +60,11 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href={`tel:+${siteSettings.whatsappNumber}`}
+                  href={getTelHref(siteSettings.whatsappNumber)}
                   className="flex items-center gap-2 text-white/70 transition-colors duration-300 hover:text-amber-400"
                 >
                   <Phone size={16} />
-                  +62 812 2517 1359
+                  {phoneLabel}
                 </a>
               </li>
               <li>

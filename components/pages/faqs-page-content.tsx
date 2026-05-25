@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { BookOpen, ChevronDown, Coffee, MessageCircle, Settings } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import type { FAQCategory, FAQItem, FAQPageSection, SiteSettings } from '@/lib/cms-types';
+import { getWhatsappHref } from '@/lib/site';
 
 const iconMap = {
   coffee: Coffee,
@@ -26,9 +27,8 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const whatsappHref = `https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(
-    siteSettings.whatsappMessage,
-  )}`;
+  const activeFaqCategory = faqCategories[activeCategory] ?? faqCategories[0];
+  const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f5efe6] via-[#ebe3d5] to-[#d6ccc2] pt-32 pb-20 animate-page-enter">
@@ -44,7 +44,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
 
         <Reveal delay={100} className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           {faqCategories.map((category, index) => {
-            const Icon = iconMap[category.icon];
+            const Icon = iconMap[category.icon] ?? Coffee;
 
             return (
               <button
@@ -67,7 +67,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
         </Reveal>
 
         <Reveal delay={150} className="space-y-4">
-          {faqCategories[activeCategory].faqs.map((faq: FAQItem, index: number) => (
+          {activeFaqCategory?.faqs.map((faq: FAQItem, index: number) => (
             <div
               key={faq.id}
               className="overflow-hidden rounded-xl border border-[#d7ccc8] bg-white shadow-sm"

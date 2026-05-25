@@ -29,6 +29,11 @@ export async function generateMetadata({
     return { title: newsDetailSection.notFoundTitle };
   }
 
+  const coverImage = item.images.find((image) => image.src) ?? {
+    src: '/hero-1.jpg',
+    alt: item.title,
+  };
+
   return {
     title: item.title,
     description: item.excerpt,
@@ -42,13 +47,13 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: item.publishedAt,
       authors: [item.author],
-      images: [{ url: item.images[0].src, alt: item.images[0].alt }],
+      images: [{ url: coverImage.src, alt: coverImage.alt }],
     },
     twitter: {
       card: 'summary_large_image',
       title: item.title,
       description: item.excerpt,
-      images: [item.images[0].src],
+      images: [coverImage.src],
     },
   };
 }
@@ -71,6 +76,8 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     )
     .slice(0, newsDetailSection.relatedLimit);
 
+  const articleImages = item.images.filter((image) => image.src);
+  const safeArticleImages = articleImages.length > 0 ? articleImages : [{ src: '/hero-1.jpg', alt: item.title }];
   const articleUrl = String(getNewsUrl(item.slug, siteMetadata.metadataBase));
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd(
@@ -87,8 +94,8 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     '@type': 'Article',
     headline: item.title,
     description: item.excerpt,
-    image: item.images.map((image) =>
-      absoluteUrl(image.src, siteMetadata.metadataBase)
+    image: safeArticleImages.map((image) =>
+      absoluteUrl(image.src, siteMetadata.metadataBase),
     ),
     datePublished: item.publishedAt,
     dateModified: item.publishedAt,
@@ -172,7 +179,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           <Reveal delay={150} className="mt-10">
             <section className="overflow-hidden rounded-[1.75rem]">
               <NewsGallery
-                images={item.images}
+                images={safeArticleImages}
                 title={item.title}
                 labels={newsDetailSection}
               />
@@ -220,7 +227,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {latestNews.map((latest) => {
-                  const latestImage = latest.images[0];
+                  const latestImage = latest.images.find((image) => image.src) ?? {
+                    src: '/hero-1.jpg',
+                    alt: latest.title,
+                  };
                   return (
                     <Link
                       key={latest.slug}

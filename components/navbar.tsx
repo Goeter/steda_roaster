@@ -4,17 +4,20 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import type { FooterSection } from '@/lib/cms-types';
+import type { FooterSection, SiteSettings } from '@/lib/cms-types';
+import { splitBrandName } from '@/lib/site';
 
 type NavbarProps = {
   footerSection: FooterSection;
+  siteSettings: Pick<SiteSettings, 'siteName'>;
 };
 
-export function Navbar({ footerSection }: NavbarProps) {
+export function Navbar({ footerSection, siteSettings }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const menuItems = footerSection.navigationItems;
+  const brandParts = splitBrandName(siteSettings.siteName);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,8 +47,10 @@ export function Navbar({ footerSection }: NavbarProps) {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex-shrink-0">
             <span className="cursor-pointer text-lg font-extrabold tracking-wide drop-shadow-sm">
-              <span className="text-yellow-400">STEDA</span>
-              <span className="ml-1 text-white">ROASTER</span>
+              <span className="text-yellow-400">{brandParts.highlight.toUpperCase()}</span>
+              {brandParts.rest && (
+                <span className="ml-1 text-white">{brandParts.rest.toUpperCase()}</span>
+              )}
             </span>
           </Link>
 

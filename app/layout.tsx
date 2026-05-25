@@ -89,13 +89,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       '@type': 'Country',
       name: 'Indonesia',
     },
+    telephone: siteSettings.whatsappNumber,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
+      telephone: siteSettings.whatsappNumber,
       email: siteSettings.email,
       availableLanguage: ['id', 'en'],
     },
-    sameAs: Object.values(siteSettings.socials).filter(Boolean),
+    sameAs: Object.values(siteSettings.socials).filter((url): url is string => Boolean(url)),
   };
 
   const websiteJsonLd = {
@@ -124,7 +126,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <Navbar footerSection={footerSection} />
+        <Navbar footerSection={footerSection} siteSettings={siteSettings} />
         {children}
         <Footer footerSection={footerSection} siteSettings={siteSettings} />
         <FloatingWhatsAppButton siteSettings={siteSettings} />

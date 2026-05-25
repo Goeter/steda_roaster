@@ -2,6 +2,7 @@
 
 import { FaWhatsapp } from 'react-icons/fa';
 import type { SiteSettings } from '@/lib/cms-types';
+import { getWhatsappHref } from '@/lib/site';
 
 type FloatingWhatsAppButtonProps = {
   siteSettings: SiteSettings;
@@ -9,12 +10,7 @@ type FloatingWhatsAppButtonProps = {
 
 export function FloatingWhatsAppButton({ siteSettings }: FloatingWhatsAppButtonProps) {
   const handleClick = () => {
-    const message = encodeURIComponent(siteSettings.whatsappMessage);
-    window.open(
-      `https://wa.me/${siteSettings.whatsappNumber}?text=${message}`,
-      '_blank',
-      'noopener,noreferrer',
-    );
+    window.open(getWhatsappHref(siteSettings), '_blank', 'noopener,noreferrer');
   };
 
   return (
