@@ -1,0 +1,5 @@
+STEDA ROASTER CLEAN FIXED DEPLOYMENT MARKER
+Generated: 2026-05-25T12:01:02Z
+Expected install registry: https://registry.npmjs.org/
+Expected package version: 0.2.1
+If Vercel logs still show node 20.x or commit 02aed55, it is deploying an old GitHub commit/source.
