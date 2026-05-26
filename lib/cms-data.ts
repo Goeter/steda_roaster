@@ -460,7 +460,7 @@ export const newsDetailSection: NewsDetailSection = {
   notFoundTitle: 'News Not Found',
   backLabel: '← Back to News',
   backHref: '/news',
-  relatedHeading: 'Related News',
+  relatedHeading: 'Lastest News',
   relatedLimit: 3,
   previousImageAriaLabel: 'Previous image',
   nextImageAriaLabel: 'Next image',
