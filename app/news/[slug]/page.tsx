@@ -263,10 +263,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                           {latest.excerpt}
                         </p>
 
-                        <p className="mt-4 text-xs font-semibold text-amber-700">
-                          {latest.category}
-                        </p>
-
                         <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-700">
                           Read more
                           <ArrowUpRight
