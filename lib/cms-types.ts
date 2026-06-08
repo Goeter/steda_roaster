@@ -60,6 +60,8 @@ export type Product = {
   category: string;
   tag?: string;
   description: string;
+  /** Long-form product copy shown below the product title. CMS may send paragraphs as an array or one text block. */
+  detailDescription?: string[] | string;
   image: string;
   images: string[];
   technicalParams: ProductTechnicalParameters | Record<string, string>;
@@ -112,7 +114,8 @@ export type ProductDetailSection = {
   technicalParameterFields: ProductTechnicalParameterField[];
   specificationsHeading: string;
   specificationFields: ProductSpecificationField[];
-  bestSellerHeading: string;
+  similarProductsHeading: string;
+  noSimilarProductsMessage: string;
   viewAllProductsLabel: string;
   noImageMessage: string;
   previousImageAriaLabel: string;

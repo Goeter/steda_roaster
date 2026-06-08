@@ -23,15 +23,6 @@
         }
       ],
       "specificationsHeading": "Specifications",
-      "bestSellerHeading": "Best Seller",
-      "viewAllProductsLabel": "View All Products",
-      "noImageMessage": "No product image available",
-      "previousImageAriaLabel": "Previous product image",
-      "nextImageAriaLabel": "Next product image",
-      "thumbnailAriaLabelPrefix": "View product image",
-      "shareCopiedMessage": "Link copied",
-      "backAriaLabel": "Back to previous page",
-      "shareAriaLabel": "Share product",
       "specificationFields": [
         {
           "key": "type",
@@ -73,7 +64,17 @@
           "key": "dataLogger",
           "label": "Data Logger"
         }
-      ]
+      ],
+      "similarProductsHeading": "Other Similar Product",
+      "noSimilarProductsMessage": "Belum ada produk lain pada kategori yang sama.",
+      "viewAllProductsLabel": "View All Products",
+      "noImageMessage": "No product image available",
+      "previousImageAriaLabel": "Previous product image",
+      "nextImageAriaLabel": "Next product image",
+      "thumbnailAriaLabelPrefix": "View product image",
+      "shareCopiedMessage": "Link copied",
+      "backAriaLabel": "Back to previous page",
+      "shareAriaLabel": "Share product"
     },
     "products": [
       {
@@ -83,6 +84,13 @@
         "category": "Home Roastery",
         "tag": "Best Seller",
         "description": "Mesin roasting kopi kapasitas 1 kg untuk home roasting dan coffee shop skala kecil.",
+        "detailDescription": [
+          "MRE Series dirancang khusus untuk kebutuhan home roastery, kedai kopi spesial, dan usaha roasting skala kecil yang membutuhkan performa stabil dalam bentuk mesin yang ringkas.",
+          "Panel kontrol digital memberikan akses kepada operator untuk memantau suhu dan mengatur proses roasting dengan lebih terarah.",
+          "Dengan kapasitas maksimal 1 kilogram per batch, MRE Series memberikan keseimbangan antara fleksibilitas dan produktivitas.",
+          "Komponen yang bersentuhan dengan biji kopi menggunakan material yang kuat dan mudah dirawat.",
+          "MRE Series menjadi partner yang tepat bagi pelaku usaha yang ingin meningkatkan kualitas roasting melalui kontrol yang lebih baik."
+        ],
         "image": "https://cdn.example.com/products/mre/cover.webp",
         "images": [
           "https://cdn.example.com/products/mre/front.webp",

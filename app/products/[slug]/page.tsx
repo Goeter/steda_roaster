@@ -67,6 +67,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   const productImages = Array.isArray(product.images) ? product.images : [];
   const galleryImages = (productImages.length > 0 ? productImages : [product.image]).filter(Boolean);
+  const detailDescriptionParagraphs = Array.isArray(product.detailDescription)
+    ? product.detailDescription.filter(Boolean)
+    : typeof product.detailDescription === 'string'
+      ? product.detailDescription.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean)
+      : [product.description];
   const technicalParams: Record<string, string> = product.technicalParams ?? {};
   const technicalParameterFallbacks: Record<ProductTechnicalParameterKey, string> = {
     capacity: technicalParams.capacity || '-',
@@ -91,14 +96,18 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     (column) => column.length > 0,
   );
 
-  const bestSellerCandidates = [
-    ...products.filter((item) => item.slug !== product.slug && item.tag?.toLowerCase() === 'best seller'),
-    ...products.filter((item) => item.slug !== product.slug && item.tag?.toLowerCase() !== 'best seller'),
-  ];
-  const bestSellerProducts = Array.from(new Map(bestSellerCandidates.map((item) => [item.slug, item])).values()).slice(
-    0,
-    3,
-  );
+  const normalizedCategory = product.category.trim().toLowerCase();
+  const similarProducts = products
+    .filter(
+      (item) =>
+        item.slug !== product.slug && item.category.trim().toLowerCase() === normalizedCategory,
+    )
+    .sort((first, second) => {
+      const firstIsBestSeller = first.tag?.trim().toLowerCase() === 'best seller';
+      const secondIsBestSeller = second.tag?.trim().toLowerCase() === 'best seller';
+      return Number(secondIsBestSeller) - Number(firstIsBestSeller);
+    })
+    .slice(0, 3);
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd(
     [
@@ -113,7 +122,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description: product.description,
+    description: detailDescriptionParagraphs.join(' '),
     image: galleryImages.map((image) => absoluteUrl(image, siteMetadata.metadataBase)),
     brand: {
       '@type': 'Brand',
@@ -199,7 +208,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   ) : null}
                 </div>
                 <h1 className="text-3xl font-bold leading-tight text-neutral-950 sm:text-4xl">{product.name}</h1>
-                <p className="mt-4 text-sm leading-7 text-neutral-600 sm:text-base">{product.description}</p>
+                <div className="mt-5 space-y-4 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
+                  {detailDescriptionParagraphs.map((paragraph, index) => (
+                    <p key={`${product.slug}-description-${index}`}>{paragraph}</p>
+                  ))}
+                </div>
               </div>
 
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
@@ -225,7 +238,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <Reveal>
             <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
               <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-lg font-bold text-neutral-950">{productDetailSection.bestSellerHeading}</h2>
+                <h2 className="text-lg font-bold text-neutral-950">{productDetailSection.similarProductsHeading}</h2>
                 <Link
                   href="/products"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 transition hover:text-amber-800"
@@ -235,11 +248,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 </Link>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {bestSellerProducts.map((item) => {
-                  const itemImage = item.images?.find(Boolean) || item.image;
+              {similarProducts.length > 0 ? (
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {similarProducts.map((item) => {
+                    const itemImage = item.images?.find(Boolean) || item.image;
 
-                  return (
+                    return (
                     <Link
                       key={item.slug}
                       href={`/products/${item.slug}`}
@@ -270,10 +284,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                         </h3>
                         <p className="line-clamp-2 text-sm leading-6 text-neutral-600">{item.description}</p>
                       </div>
-                    </Link>
-                  );
-                })}
-              </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="rounded-3xl border border-dashed border-neutral-300 bg-[#fafafa] px-6 py-10 text-center text-sm text-neutral-500">
+                  {productDetailSection.noSimilarProductsMessage}
+                </div>
+              )}
             </div>
           </Reveal>
         </section>

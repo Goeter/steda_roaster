@@ -167,6 +167,7 @@ export type Product = {
   category: string;
   tag?: string;
   description: string;
+  detailDescription?: string[] | string;
   image: string;
   images: string[];
   technicalParams: {
@@ -189,6 +190,13 @@ Contoh response produk:
   "category": "Home Roastery",
   "tag": "Best Seller",
   "description": "Mesin roasting kopi kapasitas 1 kg.",
+  "detailDescription": [
+    "Paragraf pertama deskripsi panjang produk.",
+    "Paragraf kedua menjelaskan kontrol dan fitur.",
+    "Paragraf ketiga menjelaskan kapasitas dan penggunaan.",
+    "Paragraf keempat menjelaskan material dan durabilitas.",
+    "Paragraf kelima menjadi penutup produk."
+  ],
   "image": "https://cdn.example.com/products/mre/cover.webp",
   "images": [
     "https://cdn.example.com/products/mre/front.webp",
@@ -219,6 +227,7 @@ Contoh response produk:
 Catatan frontend:
 
 - `images` mendukung jumlah gambar dinamis dari CMS.
+- `detailDescription` tampil tepat di bawah judul produk. Gunakan array untuk memisahkan paragraf; satu string dengan jeda dua baris juga didukung.
 - `technicalParams` memiliki empat field utama: `capacity`, `efficiency`, `roastingTime`, dan `production`.
 - Label keempat field berasal dari `productDetailSection.technicalParameterFields` dan dapat dikirim CMS.
 - Ikon Technical Parameters ditentukan oleh frontend agar visual tetap konsisten; CMS hanya mengirim label dan nilai.
@@ -228,7 +237,8 @@ Catatan frontend:
 - Detail produk menampilkan 10 field spesifikasi terstruktur: `type`, `minRoast`, `maxRoast`, `ignition`, `airflow`, `drum`, `dimensions`, `weight`, `electricalPower`, dan `dataLogger`.
 - Lima field pertama tampil di kolom kiri dan lima field berikutnya tampil di kolom kanan.
 - Label dan urutan field berasal dari `productDetailSection.specificationFields`, sehingga developer CMS dapat mengubah label tanpa menyentuh komponen UI.
-- `tag: "Best Seller"` menandai produk best seller.
+- Section **Other Similar Product** hanya mengambil produk lain dengan `category` yang sama.
+- Produk dengan `tag: "Best Seller"` otomatis diurutkan paling kiri pada daftar produk serupa.
 - Array string lama masih diterima sementara sebagai mode kompatibilitas, tetapi CMS baru sebaiknya mengirim object `specifications`.
 - URL gambar dapat berupa URL HTTPS dari CDN/CMS atau path lokal yang dimulai `/`.
 

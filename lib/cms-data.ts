@@ -157,7 +157,8 @@ export const productDetailSection: ProductDetailSection = {
     { key: 'electricalPower', label: 'Daya Listrik' },
     { key: 'dataLogger', label: 'Data Logger' },
   ],
-  bestSellerHeading: 'Best Seller',
+  similarProductsHeading: 'Other Similar Product',
+  noSimilarProductsMessage: 'Belum ada produk lain pada kategori yang sama.',
   viewAllProductsLabel: 'View All Products',
   noImageMessage: 'No product image available',
   previousImageAriaLabel: 'Previous product image',
@@ -258,6 +259,13 @@ export const products: Product[] = [
     category: 'Home Roastery',
     tag: 'Compact Roaster',
     description: 'Solusi roaster kapasitas 200 gram untuk kebutuhan home roastery dan sample roasting.',
+    detailDescription: [
+      'SE 200 Series dirancang untuk home roaster, quality control, dan kebutuhan sample roasting yang membutuhkan kendali praktis dalam ukuran yang ringkas. Desainnya modern, kokoh, dan mudah ditempatkan di ruang kerja terbatas tanpa mengurangi kenyamanan operator selama proses roasting.',
+      'Sistem kontrol yang sederhana memberikan akses langsung untuk memantau suhu dan mengatur proses secara bertahap. Karakter ini membantu pengguna mempelajari perubahan biji kopi selama roasting sekaligus membangun profil yang lebih konsisten dari satu batch ke batch berikutnya.',
+      'Dengan kapasitas maksimal 200 gram per batch, SE 200 Series sesuai untuk eksplorasi profil, pengujian green bean, pelatihan dasar roasting, maupun produksi sampel. Pemanas elektrik membuat proses persiapan lebih praktis dan cocok digunakan pada lingkungan kerja yang memerlukan pengoperasian efisien.',
+      'Area kontak biji menggunakan material stainless steel food grade untuk membantu menjaga kebersihan dan ketahanan mesin. Konstruksi yang mudah dirawat juga mempermudah pembersihan rutin sehingga performa mesin tetap terjaga untuk penggunaan harian.',
+      'SE 200 Series merupakan pilihan tepat bagi pengguna yang ingin memulai perjalanan roasting kopi dengan mesin ringkas, kontrol yang mudah dipahami, dan hasil yang dapat dipantau secara presisi.',
+    ],
     image: '/product-1.jpg',
     images: ['/product-1.jpg', '/product-1-alt-1.webp', '/product-1-alt-2.webp'],
     technicalParams: {
@@ -286,6 +294,13 @@ export const products: Product[] = [
     category: 'Home Roastery',
     tag: 'Best Seller',
     description: 'Mesin roasting kopi kapasitas 1 kg untuk home roasting dan coffee shop skala kecil.',
+    detailDescription: [
+      'MRE Series dirancang khusus untuk kebutuhan home roastery, kedai kopi spesial, dan usaha roasting skala kecil yang membutuhkan performa stabil dalam bentuk mesin yang ringkas. Desain modern yang dipadukan dengan konstruksi kokoh memberikan tampilan profesional sekaligus mendukung aktivitas produksi harian.',
+      'Panel kontrol digital memberikan akses kepada operator untuk memantau suhu dan mengatur proses roasting dengan lebih terarah. Sistem ini membantu pengguna melakukan penyesuaian profil secara presisi sehingga karakter rasa yang diinginkan dapat dicapai secara lebih konsisten pada setiap batch.',
+      'Dengan kapasitas maksimal 1 kilogram per batch, MRE Series memberikan keseimbangan antara fleksibilitas dan produktivitas. Mesin ini cocok digunakan untuk kebutuhan coffee shop, micro roastery, pengembangan profil kopi, maupun produksi rutin dalam volume kecil hingga menengah.',
+      'Komponen yang bersentuhan dengan biji kopi menggunakan material yang kuat dan mudah dirawat. Sistem airflow yang dapat disesuaikan, cooling tray terintegrasi, serta konstruksi yang stabil membantu proses roasting dan pendinginan berlangsung lebih efektif.',
+      'MRE Series menjadi partner yang tepat bagi pelaku usaha yang ingin meningkatkan kualitas roasting melalui kontrol yang lebih baik, performa andal, dan desain yang mudah diintegrasikan ke dalam ruang produksi.',
+    ],
     image: '/product-2.jpg',
     images: ['/product-2.jpg', '/product-2-alt-1.webp', '/product-2-alt-2.webp'],
     technicalParams: {
@@ -314,6 +329,13 @@ export const products: Product[] = [
     category: 'Small Roastery',
     tag: 'Industrial Roastery',
     description: 'Mesin roasting kopi kapasitas 5 kg untuk kebutuhan small roastery yang stabil dan produktif.',
+    detailDescription: [
+      'SR5 Series dirancang untuk memenuhi kebutuhan small roastery dan usaha kopi yang mulai meningkatkan kapasitas produksinya. Dengan desain industrial yang modern namun tetap kokoh, mesin ini memberikan kendali presisi dalam setiap proses roasting untuk membantu menghasilkan kualitas profesional di setiap batch.',
+      'Panel kontrol terpisah memberikan akses penuh kepada operator untuk mengatur parameter penting seperti suhu, airflow, dan durasi roasting. Dukungan sistem PLC serta data logging memungkinkan proses pemantauan dan evaluasi profil dilakukan secara lebih terstruktur dan real-time.',
+      'Dengan kapasitas maksimal 5 kilogram biji kopi per batch, SR5 Series sesuai untuk roastery skala kecil hingga menengah, kedai kopi spesial, dan bisnis yang membutuhkan konsistensi dalam volume produksi yang lebih tinggi. Performa mesin dapat disesuaikan dengan profil dan ritme produksi masing-masing pengguna.',
+      'Konstruksi drum dan komponen pendukung dirancang untuk menjaga retensi panas serta distribusi udara yang stabil. Cooling tray terintegrasi membantu proses pendinginan berlangsung lebih cepat, sehingga karakter kopi dapat dipertahankan setelah proses roasting selesai.',
+      'SR5 Series adalah pilihan tepat untuk roastery yang membutuhkan kontrol penuh, hasil presisi, kapasitas produktif, dan performa andal untuk mendukung pertumbuhan usaha dalam jangka panjang.',
+    ],
     image: '/product-3.jpg',
     images: ['/product-3.jpg', '/product-3-alt-1.webp', '/product-3-alt-2.webp'],
     technicalParams: {
@@ -342,6 +364,13 @@ export const products: Product[] = [
     category: 'Medium Roastery',
     tag: 'Industrial Roastery',
     description: 'Mesin roasting kopi kapasitas 20 kg untuk produksi medium roastery dan operasional intensif.',
+    detailDescription: [
+      'SRG5 Series dikembangkan untuk medium roastery dan fasilitas produksi yang membutuhkan kapasitas besar, kestabilan proses, serta ketahanan mesin dalam operasional intensif. Desain industrialnya memadukan konstruksi kokoh dengan sistem kontrol modern untuk mendukung kebutuhan produksi profesional.',
+      'Industrial PLC memberikan operator akses terhadap pengaturan suhu, airflow, waktu, dan tahapan roasting secara lebih presisi. Sistem kontrol tersebut membantu menjaga konsistensi profil, mempermudah pengulangan hasil, dan mendukung pencatatan proses untuk kebutuhan quality control.',
+      'Dengan kapasitas maksimal 20 kilogram per batch, SRG5 Series cocok untuk roastery yang menangani volume produksi menengah dan membutuhkan ritme kerja yang efisien. Cooling tray berukuran besar membantu mempercepat pendinginan, sedangkan sistem cyclone mendukung area produksi yang lebih bersih.',
+      'Material stainless steel dan rangka heavy-duty dirancang untuk menghadapi penggunaan berulang dalam jadwal produksi yang padat. Manajemen airflow serta retensi panas yang stabil membantu distribusi energi berlangsung merata agar kualitas roasting tetap konsisten dari batch ke batch.',
+      'SRG5 Series merupakan investasi produksi bagi bisnis kopi yang ingin meningkatkan kapasitas tanpa mengorbankan kontrol, konsistensi, dan keandalan mesin dalam penggunaan jangka panjang.',
+    ],
     image: '/product-4.jpg',
     images: ['/product-4.jpg', '/product-4-alt-1.webp', '/product-4-alt-2.webp'],
     technicalParams: {
