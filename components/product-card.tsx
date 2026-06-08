@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Product, ProductPageSection } from '@/lib/cms-types';
+import { getProductCoverImage, isBestSeller } from '@/lib/products';
 
 type ProductCardProps = {
   product: Product;
@@ -23,14 +24,14 @@ export function ProductCard({ product, labels }: ProductCardProps) {
       <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
         <div className="relative h-60 w-full overflow-hidden">
           <Image
-            src={product.image}
+            src={getProductCoverImage(product)}
             alt={`${labels.productImageAltPrefix} ${product.name}`}
             fill
             sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
             className="object-cover transition duration-500 group-hover:scale-105"
           />
 
-          {product.tag === labels.bestSellerLabel && (
+          {isBestSeller(product, labels.bestSellerLabel) && (
             <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
               {labels.bestSellerLabel}
             </span>

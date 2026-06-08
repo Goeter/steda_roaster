@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
-import { formatDate } from '@/lib/cms';
+import { formatDate } from '@/lib/date';
 import type { NewsItem, NewsPageSection } from '@/lib/cms-types';
 
 type NewsPageContentProps = {

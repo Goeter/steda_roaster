@@ -31,7 +31,7 @@ Salin `.env.example` menjadi `.env.local` untuk development lokal.
 ```env
 CMS_API_URL=https://domain-cms-kamu.com
 CMS_READ_TOKEN=
-CMS_REVALIDATE_SECRET='Lh6"Ka}c6w>2bAUx&OW]4lSS-m=~+d7b'
+CMS_REVALIDATE_SECRET='replace-with-a-new-long-random-secret'
 CMS_REVALIDATE_SECONDS=2592000
 CMS_FETCH_TIMEOUT_MS=15000
 CMS_STRICT_MODE=false
@@ -293,7 +293,7 @@ POST https://domain-frontend.com/api/cms/revalidate
 Secret direkomendasikan dikirim melalui header:
 
 ```txt
-x-cms-revalidate-secret: Lh6"Ka}c6w>2bAUx&OW]4lSS-m=~+d7b
+x-cms-revalidate-secret: replace-with-a-new-long-random-secret
 Content-Type: application/json
 ```
 
@@ -417,3 +417,47 @@ Untuk fase integrasi gunakan `false`. Setelah backend CMS stabil dan webhook sud
 - Jangan hard-code secret di komponen UI.
 - Set secret melalui environment hosting.
 - Karena secret contoh sudah dibagikan dalam source handoff, sebaiknya rotate secret sebelum production final.
+
+## 10. SEO field opsional dari CMS
+
+Halaman dan item konten mendukung object opsional berikut tanpa mengubah UI:
+
+```json
+{
+  "seo": {
+    "title": "Judul SEO khusus",
+    "description": "Deskripsi SEO khusus",
+    "image": {
+      "src": "https://cdn.example.com/seo/cover.webp",
+      "alt": "Deskripsi gambar SEO"
+    }
+  },
+  "updatedAt": "2026-06-08T12:00:00.000Z"
+}
+```
+
+`seo` didukung pada `aboutPageSection`, `productPageSection`, `faqPageSection`, `newsPageSection`, setiap `Product`, dan setiap `NewsItem`. Jika tidak dikirim, frontend memakai heading, description, dan image yang sudah tersedia. `updatedAt` dipakai sitemap dan Article structured data agar tanggal perubahan tidak dibuat-buat.
+
+## 11. Konten detail berita yang harus dikirim CMS
+
+`newsDetailSection` juga menerima:
+
+```json
+{
+  "relatedDescription": "Latest updates and stories from Steda Roaster.",
+  "viewAllLabel": "Show More News",
+  "readMoreLabel": "Read more"
+}
+```
+
+## 12. Revalidation route SEO
+
+Ketika layout, produk, atau berita berubah, CMS dapat ikut mengirim path berikut:
+
+```json
+{
+  "paths": ["/sitemap.xml", "/robots.txt", "/manifest.webmanifest"]
+}
+```
+
+Gunakan secret production baru yang hanya disimpan di environment hosting frontend dan konfigurasi webhook CMS. Jangan menyimpan secret asli di repository atau `.env.example`.

@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: '/',
     },
-    manifest: '/site.webmanifest',
+    manifest: '/manifest.webmanifest',
     robots: {
       index: true,
       follow: true,
@@ -65,11 +65,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#2b1b12',
-};
+export async function generateViewport(): Promise<Viewport> {
+  const { siteMetadata } = await getLayoutContent();
+
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: siteMetadata.themeColor,
+  };
+}
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { footerSection, siteMetadata, siteSettings } = await getLayoutContent();
@@ -86,7 +90,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     email: siteSettings.email,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Sidoarjo',
+      streetAddress: siteSettings.address,
       addressCountry: 'ID',
     },
     areaServed: {
@@ -99,7 +103,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       contactType: 'customer service',
       telephone: siteSettings.whatsappNumber,
       email: siteSettings.email,
-      availableLanguage: ['id', 'en'],
+      availableLanguage: Array.from(new Set([siteMetadata.language, 'en'])),
     },
     sameAs: Object.values(siteSettings.socials).filter((url): url is string => Boolean(url)),
   };

@@ -9,6 +9,7 @@ import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
 import { getProductDetailContent } from '@/lib/cms';
 import type { ProductTechnicalParameterKey } from '@/lib/cms-types';
+import { getProductCoverImage, isBestSeller } from '@/lib/products';
 import { absoluteUrl, getBreadcrumbJsonLd, getProductUrl } from '@/lib/seo';
 
 type ProductDetailPageProps = {
@@ -34,25 +35,25 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
   if (!product) return { title: productDetailSection.notFoundTitle };
 
-  const coverImage = product.image || product.images.find(Boolean) || '/hero-1.jpg';
+  const coverImage = product.seo?.image?.src || getProductCoverImage(product);
 
   return {
-    title: product.name,
-    description: product.description,
+    title: product.seo?.title || product.name,
+    description: product.seo?.description || product.description,
     alternates: {
       canonical: `/products/${product.slug}`,
     },
     openGraph: {
-      title: `${product.name} | ${productDetailSection.metadataTitleSuffix}`,
-      description: product.description,
+      title: product.seo?.title || `${product.name} | ${productDetailSection.metadataTitleSuffix}`,
+      description: product.seo?.description || product.description,
       url: `/products/${product.slug}`,
       type: 'website',
       images: [{ url: coverImage, alt: product.name }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: product.name,
-      description: product.description,
+      title: product.seo?.title || product.name,
+      description: product.seo?.description || product.description,
       images: [coverImage],
     },
   };
@@ -103,8 +104,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         item.slug !== product.slug && item.category.trim().toLowerCase() === normalizedCategory,
     )
     .sort((first, second) => {
-      const firstIsBestSeller = first.tag?.trim().toLowerCase() === 'best seller';
-      const secondIsBestSeller = second.tag?.trim().toLowerCase() === 'best seller';
+      const firstIsBestSeller = isBestSeller(first, productPageSection.bestSellerLabel);
+      const secondIsBestSeller = isBestSeller(second, productPageSection.bestSellerLabel);
       return Number(secondIsBestSeller) - Number(firstIsBestSeller);
     })
     .slice(0, 3);
@@ -122,6 +123,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
+    sku: String(product.id),
+    model: product.name,
     description: detailDescriptionParagraphs.join(' '),
     image: galleryImages.map((image) => absoluteUrl(image, siteMetadata.metadataBase)),
     brand: {
@@ -204,7 +207,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   {product.tag ? (
                     <span
                       className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
-                        product.tag.toLowerCase() === 'best seller'
+                        isBestSeller(product, productPageSection.bestSellerLabel)
                           ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
                           : 'border-neutral-200 bg-neutral-100 text-neutral-700'
                       }`}

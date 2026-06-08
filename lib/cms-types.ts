@@ -8,6 +8,12 @@ export type LinkItem = {
   href: string;
 };
 
+export type SeoFields = {
+  title?: string;
+  description?: string;
+  image?: ImageItem;
+};
+
 export type HeroSlide = ImageItem & {
   id: string;
 };
@@ -60,6 +66,8 @@ export type Product = {
   category: string;
   tag?: string;
   description: string;
+  seo?: SeoFields;
+  updatedAt?: string;
   /** Long-form product copy shown below the product title. CMS may send paragraphs as an array or one text block. */
   detailDescription?: string[] | string;
   image: string;
@@ -93,6 +101,7 @@ export type ProductSection = {
 };
 
 export type ProductPageSection = {
+  seo?: SeoFields;
   hero: {
     eyebrow: string;
     heading: string;
@@ -193,6 +202,7 @@ export type FAQHomeSection = {
 };
 
 export type FAQPageSection = {
+  seo?: SeoFields;
   heading: string;
   description: string;
   contactText: string;
@@ -202,6 +212,7 @@ export type FAQPageSection = {
 };
 
 export type NewsPageSection = {
+  seo?: SeoFields;
   eyebrow: string;
   heading: string;
   description: string;
@@ -216,6 +227,9 @@ export type NewsDetailSection = {
   backLabel: string;
   backHref: string;
   relatedHeading: string;
+  relatedDescription: string;
+  viewAllLabel: string;
+  readMoreLabel: string;
   relatedLimit: number;
   previousImageAriaLabel: string;
   nextImageAriaLabel: string;
@@ -227,6 +241,8 @@ export type NewsItem = {
   slug: string;
   title: string;
   excerpt: string;
+  seo?: SeoFields;
+  updatedAt?: string;
   content: string[];
   category: string;
   publishedAt: string;
@@ -244,6 +260,7 @@ export type AboutSection = {
 };
 
 export type AboutPageSection = {
+  seo?: SeoFields;
   hero: {
     heading: string;
     description: string;

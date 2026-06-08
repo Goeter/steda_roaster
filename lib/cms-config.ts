@@ -42,7 +42,16 @@ const CMS_ENDPOINT_ENV_KEYS: Record<CmsEndpointKey, string> = {
   newsDetail: 'CMS_ENDPOINT_NEWS_DETAIL',
 };
 
-export const CMS_ALLOWED_EXACT_PATHS = ['/', '/about', '/products', '/faqs', '/news'] as const;
+export const CMS_ALLOWED_EXACT_PATHS = [
+  '/',
+  '/about',
+  '/products',
+  '/faqs',
+  '/news',
+  '/sitemap.xml',
+  '/robots.txt',
+  '/manifest.webmanifest',
+] as const;
 export const CMS_ALLOWED_DYNAMIC_PATH_PREFIXES = ['/products/', '/news/'] as const;
 
 const DEFAULT_REVALIDATE_SECONDS = 60 * 60 * 24 * 30;

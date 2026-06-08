@@ -79,11 +79,13 @@ function mergeWithFallback<T>(fallback: T, data: unknown): T {
   if (isRecord(fallback)) {
     if (!isRecord(data)) return fallback;
 
+    const keys = new Set([...Object.keys(fallback), ...Object.keys(data)]);
+
     return Object.fromEntries(
-      Object.entries(fallback).map(([key, fallbackValue]) => [
-        key,
-        mergeWithFallback(fallbackValue, data[key]),
-      ]),
+      Array.from(keys).map((key) => {
+        if (!(key in fallback)) return [key, data[key]];
+        return [key, mergeWithFallback(fallback[key], data[key])];
+      }),
     ) as T;
   }
 
@@ -333,26 +335,4 @@ export function getNewsDetailContent() {
     },
     [CMS_TAGS.news, CMS_TAGS.newsDetail, CMS_TAGS.seo],
   );
-}
-
-export async function getProductBySlug(slug: string) {
-  const { products } = await getProductDetailContent();
-  return products.find((product) => product.slug === slug);
-}
-
-export async function getNewsBySlug(slug: string) {
-  const { news } = await getNewsDetailContent();
-  return news.find((item) => item.slug === slug);
-}
-
-export function formatDate(date: string) {
-  const parsedDate = new Date(date);
-
-  if (Number.isNaN(parsedDate.getTime())) return date;
-
-  return new Intl.DateTimeFormat('id-ID', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  }).format(parsedDate);
 }

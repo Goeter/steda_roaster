@@ -54,7 +54,7 @@ export const aboutPageSection: AboutPageSection = {
   hero: {
     heading: 'About Steda Roaster',
     description: 'Crafting Precision Coffee Roasting Machines for Professionals Around the World.',
-    image: { src: '/company-roaster.png', alt: 'Steda Roaster Company' },
+    image: { src: '/company-roaster.webp', alt: 'Steda Roaster Company' },
   },
   visionMission: {
     heading: 'Vision & Mission',
@@ -124,7 +124,7 @@ export const productPageSection: ProductPageSection = {
     eyebrow: 'Products',
     heading: 'Our Products',
     description: 'Temukan mesin roasting kopi berkualitas tinggi untuk kebutuhan bisnis Anda.',
-    image: { src: '/banner-products.png', alt: 'Coffee roasting machines' },
+    image: { src: '/banner-products.webp', alt: 'Coffee roasting machines' },
   },
   searchPlaceholder: 'Search products...',
   searchAriaLabel: 'Search products',
@@ -215,7 +215,7 @@ export const distributionSection: DistributionSection = {
     'Percayakan kepada kami dalam solusi mesin roasting kopi profesional. Mesin Steda Roaster telah digunakan di berbagai wilayah Indonesia untuk mendukung kebutuhan roasting kopi.',
   ctaLabel: 'Explore Products',
   ctaHref: '/products',
-  map: { src: '/gambar_peta.png', alt: 'Distribution map Steda Roaster' },
+  map: { src: '/gambar_peta.webp', alt: 'Distribution map Steda Roaster' },
   legendTitle: 'Keterangan',
   cities: [
     { name: 'Aceh', color: 'bg-red-500' },
@@ -538,6 +538,9 @@ export const newsDetailSection: NewsDetailSection = {
   backLabel: '← Back to News',
   backHref: '/news',
   relatedHeading: 'Latest News',
+  relatedDescription: 'Latest updates and stories from Steda Roaster.',
+  viewAllLabel: 'Show More News',
+  readMoreLabel: 'Read more',
   relatedLimit: 3,
   previousImageAriaLabel: 'Previous image',
   nextImageAriaLabel: 'Next image',

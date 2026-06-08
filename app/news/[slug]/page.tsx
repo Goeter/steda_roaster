@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { formatDate, getNewsDetailContent } from '@/lib/cms';
+import { getNewsDetailContent } from '@/lib/cms';
+import { formatDate } from '@/lib/date';
 import { absoluteUrl, getBreadcrumbJsonLd, getNewsUrl, getSafeTimestamp } from '@/lib/seo';
 
 type NewsDetailPageProps = {
@@ -29,20 +30,20 @@ export async function generateMetadata({
     return { title: newsDetailSection.notFoundTitle };
   }
 
-  const coverImage = item.images.find((image) => image.src) ?? {
+  const coverImage = item.seo?.image || item.images.find((image) => image.src) || {
     src: '/hero-1.jpg',
     alt: item.title,
   };
 
   return {
-    title: item.title,
-    description: item.excerpt,
+    title: item.seo?.title || item.title,
+    description: item.seo?.description || item.excerpt,
     alternates: {
       canonical: `/news/${item.slug}`,
     },
     openGraph: {
-      title: item.title,
-      description: item.excerpt,
+      title: item.seo?.title || item.title,
+      description: item.seo?.description || item.excerpt,
       url: `/news/${item.slug}`,
       type: 'article',
       publishedTime: item.publishedAt,
@@ -51,8 +52,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: item.title,
-      description: item.excerpt,
+      title: item.seo?.title || item.title,
+      description: item.seo?.description || item.excerpt,
       images: [coverImage.src],
     },
   };
@@ -96,7 +97,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       absoluteUrl(image.src, siteMetadata.metadataBase),
     ),
     datePublished: item.publishedAt,
-    dateModified: item.publishedAt,
+    dateModified: item.updatedAt || item.publishedAt,
     author: {
       '@type': 'Organization',
       name: item.author || siteSettings.siteName,
@@ -210,7 +211,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                   </h2>
 
                   <p className="mt-2 text-sm text-neutral-500">
-                    Latest updates and stories from Steda Roaster.
+                    {newsDetailSection.relatedDescription}
                   </p>
                 </div>
 
@@ -218,7 +219,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                   href="/news"
                   className="inline-flex items-center gap-2 text-sm font-bold text-amber-700 transition hover:text-amber-900"
                 >
-                  Show More News
+                  {newsDetailSection.viewAllLabel}
                   <ArrowUpRight size={16} />
                 </Link>
               </div>
@@ -264,7 +265,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                         </p>
 
                         <div className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-700">
-                          Read more
+                          {newsDetailSection.readMoreLabel}
                           <ArrowUpRight
                             size={15}
                             className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
