@@ -32,3 +32,8 @@ After deployment, open this URL to verify the public folder is from this version
 ```txt
 /deployment-check.txt
 ```
+
+CMS environment reminder:
+- Set CMS_REVALIDATE_SECRET to the same value as in .env.example when deploying to Hostinger/Vercel.
+
+CMS integration details: `docs/CMS_FRONTEND_INTEGRATION.md`

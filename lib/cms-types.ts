@@ -74,6 +74,9 @@ export type ProductDetailSection = {
   metadataTitleSuffix: string;
   technicalParametersHeading: string;
   specificationsHeading: string;
+  categoryHeading: string;
+  bestSellerHeading: string;
+  viewAllProductsLabel: string;
   noImageMessage: string;
   previousImageAriaLabel: string;
   nextImageAriaLabel: string;

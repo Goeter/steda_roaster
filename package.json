@@ -8,7 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run build",
-    "verify:deploy-config": "node scripts/verify-deploy-config.mjs"
+    "verify:deploy-config": "node scripts/verify-deploy-config.mjs",
+    "check:cms": "node scripts/check-cms-connection.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.2.4",

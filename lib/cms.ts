@@ -1,4 +1,3 @@
-import { unstable_cache } from 'next/cache';
 import {
   aboutPageSection as fallbackAboutPageSection,
   aboutSection as fallbackAboutSection,
@@ -22,6 +21,13 @@ import {
   testimonies as fallbackTestimonies,
   testimoniesSection as fallbackTestimoniesSection,
 } from './cms-data';
+import {
+  CMS_TAGS,
+  getCmsEndpoint,
+  getCmsEndpointUrl,
+  getCmsRuntimeConfig,
+  type CmsEndpointKey,
+} from './cms-config';
 import type {
   AboutPageSection,
   AboutSection,
@@ -46,29 +52,28 @@ import type {
   Testimony,
 } from './cms-types';
 
-export const CMS_TAGS = {
-  all: 'cms:all',
-  layout: 'cms:layout',
-  home: 'cms:home',
-  about: 'cms:about',
-  products: 'cms:products',
-  productDetail: 'cms:product-detail',
-  faqs: 'cms:faqs',
-  news: 'cms:news',
-  newsDetail: 'cms:news-detail',
-  seo: 'cms:seo',
-} as const;
-
-const DEFAULT_REVALIDATE_SECONDS = 60 * 60 * 24 * 30;
-const DEFAULT_CMS_FETCH_TIMEOUT_MS = 15_000;
+export { CMS_TAGS } from './cms-config';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+/**
+ * CMS responses may be returned directly or wrapped as { data: ... }.
+ * This keeps the frontend independent from a common backend response envelope.
+ */
+function unwrapCmsPayload(value: unknown) {
+  if (isRecord(value) && 'data' in value) return value.data;
+  return value;
+}
+
+/**
+ * Keeps the UI stable when an older CMS response is missing a newly added field.
+ * Arrays from the CMS are authoritative, including intentionally empty arrays.
+ */
 function mergeWithFallback<T>(fallback: T, data: unknown): T {
   if (Array.isArray(fallback)) {
-    return Array.isArray(data) && data.length > 0 ? (data as T) : fallback;
+    return Array.isArray(data) ? (data as T) : fallback;
   }
 
   if (isRecord(fallback)) {
@@ -85,58 +90,68 @@ function mergeWithFallback<T>(fallback: T, data: unknown): T {
   return data === undefined || data === null ? fallback : (data as T);
 }
 
-function getCmsBaseUrl() {
-  const value = process.env.CMS_API_URL || process.env.NEXT_PUBLIC_CMS_API_URL || '';
+const warnedCmsMessages = new Set<string>();
 
-  if (!value) return '';
+function cmsFailure<T>(message: string, fallback: T, error?: unknown): T {
+  const { strictMode } = getCmsRuntimeConfig();
 
-  try {
-    return new URL(value).origin;
-  } catch {
-    console.warn('[cms] CMS_API_URL is invalid. Using fallback data.');
-    return '';
+  if (strictMode) {
+    throw new Error(message, error ? { cause: error } : undefined);
   }
+
+  if (!warnedCmsMessages.has(message)) {
+    warnedCmsMessages.add(message);
+    if (error) console.warn(message, error);
+    else console.warn(message);
+  }
+
+  return fallback;
 }
 
-function getRevalidateSeconds() {
-  const value = Number(process.env.CMS_REVALIDATE_SECONDS);
-  return Number.isFinite(value) && value > 0 ? value : DEFAULT_REVALIDATE_SECONDS;
-}
+async function fetchFromCms<T>(
+  endpointKey: CmsEndpointKey,
+  fallback: T,
+  tags: string[],
+): Promise<T> {
+  const config = getCmsRuntimeConfig();
+  const endpointUrl = getCmsEndpointUrl(endpointKey);
+  const endpointPath = getCmsEndpoint(endpointKey);
 
-function getCmsFetchTimeoutMs() {
-  const value = Number(process.env.CMS_FETCH_TIMEOUT_MS);
-  return Number.isFinite(value) && value > 0 ? value : DEFAULT_CMS_FETCH_TIMEOUT_MS;
-}
-
-async function fetchFromCms<T>(path: string, fallback: T, tags: string[]): Promise<T> {
-  const baseUrl = getCmsBaseUrl();
-
-  if (!baseUrl) return fallback;
+  if (!endpointUrl) {
+    return cmsFailure(
+      '[cms] CMS_API_URL is not configured. Using local fallback content.',
+      fallback,
+    );
+  }
 
   try {
-    const response = await fetch(`${baseUrl.replace(/\/$/, '')}${path}`, {
+    const response = await fetch(endpointUrl, {
       headers: {
         Accept: 'application/json',
-        ...(process.env.CMS_READ_TOKEN
-          ? { Authorization: `Bearer ${process.env.CMS_READ_TOKEN}` }
-          : {}),
+        ...(config.readToken ? { Authorization: `Bearer ${config.readToken}` } : {}),
       },
       next: {
-        revalidate: getRevalidateSeconds(),
+        revalidate: config.revalidateSeconds,
         tags: [CMS_TAGS.all, ...tags],
       },
-      signal: AbortSignal.timeout(getCmsFetchTimeoutMs()),
+      signal: AbortSignal.timeout(config.fetchTimeoutMs),
     });
 
     if (!response.ok) {
-      console.warn(`[cms] ${path} returned ${response.status}. Using fallback data.`);
-      return fallback;
+      return cmsFailure(
+        `[cms] ${endpointPath} returned HTTP ${response.status}. Using local fallback content.`,
+        fallback,
+      );
     }
 
-    return mergeWithFallback(fallback, await response.json());
+    const payload = unwrapCmsPayload(await response.json());
+    return mergeWithFallback(fallback, payload);
   } catch (error) {
-    console.warn(`[cms] Failed to fetch ${path}. Using fallback data.`, error);
-    return fallback;
+    return cmsFailure(
+      `[cms] Failed to fetch ${endpointPath}. Using local fallback content.`,
+      fallback,
+      error,
+    );
   }
 }
 
@@ -203,140 +218,120 @@ export type NewsDetailContent = {
   siteMetadata: SiteMetadata;
 };
 
-export const getLayoutContent = unstable_cache(
-  () =>
-    fetchFromCms<LayoutContent>(
-      '/api/layout',
-      {
-        siteSettings: fallbackSiteSettings,
-        siteMetadata: fallbackSiteMetadata,
-        footerSection: fallbackFooterSection,
-      },
-      [CMS_TAGS.layout, CMS_TAGS.seo],
-    ),
-  ['cms-layout'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.layout, CMS_TAGS.seo], revalidate: getRevalidateSeconds() },
-);
+/**
+ * All pages read content through these functions only.
+ * The Next.js fetch cache is the single cache layer and is invalidated by CMS tags/webhooks.
+ */
+export function getLayoutContent() {
+  return fetchFromCms<LayoutContent>(
+    'layout',
+    {
+      siteSettings: fallbackSiteSettings,
+      siteMetadata: fallbackSiteMetadata,
+      footerSection: fallbackFooterSection,
+    },
+    [CMS_TAGS.layout, CMS_TAGS.seo],
+  );
+}
 
-export const getHomeContent = unstable_cache(
-  () =>
-    fetchFromCms<HomeContent>(
-      '/api/home',
-      {
-        heroSection: fallbackHeroSection,
-        aboutSection: fallbackAboutSection,
-        productSection: fallbackProductSection,
-        productPageSection: fallbackProductPageSection,
-        benefitsSection: fallbackBenefitsSection,
-        distributionSection: fallbackDistributionSection,
-        testimoniesSection: fallbackTestimoniesSection,
-        testimonies: fallbackTestimonies,
-        faqHomeSection: fallbackFaqHomeSection,
-        faqs: fallbackFaqCategories.flatMap((category) => category.faqs),
-        products: fallbackProducts,
-      },
-      [CMS_TAGS.home, CMS_TAGS.products, CMS_TAGS.faqs],
-    ),
-  ['cms-home'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.home, CMS_TAGS.products, CMS_TAGS.faqs], revalidate: getRevalidateSeconds() },
-);
+export function getHomeContent() {
+  return fetchFromCms<HomeContent>(
+    'home',
+    {
+      heroSection: fallbackHeroSection,
+      aboutSection: fallbackAboutSection,
+      productSection: fallbackProductSection,
+      productPageSection: fallbackProductPageSection,
+      benefitsSection: fallbackBenefitsSection,
+      distributionSection: fallbackDistributionSection,
+      testimoniesSection: fallbackTestimoniesSection,
+      testimonies: fallbackTestimonies,
+      faqHomeSection: fallbackFaqHomeSection,
+      faqs: fallbackFaqCategories.flatMap((category) => category.faqs),
+      products: fallbackProducts,
+    },
+    [CMS_TAGS.home, CMS_TAGS.products, CMS_TAGS.faqs],
+  );
+}
 
-export const getAboutContent = unstable_cache(
-  () =>
-    fetchFromCms<AboutContent>(
-      '/api/about',
-      {
-        aboutPageSection: fallbackAboutPageSection,
-        aboutSection: fallbackAboutSection,
-        benefitsSection: fallbackBenefitsSection,
-        testimoniesSection: fallbackTestimoniesSection,
-        testimonies: fallbackTestimonies,
-      },
-      [CMS_TAGS.about],
-    ),
-  ['cms-about'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.about], revalidate: getRevalidateSeconds() },
-);
+export function getAboutContent() {
+  return fetchFromCms<AboutContent>(
+    'about',
+    {
+      aboutPageSection: fallbackAboutPageSection,
+      aboutSection: fallbackAboutSection,
+      benefitsSection: fallbackBenefitsSection,
+      testimoniesSection: fallbackTestimoniesSection,
+      testimonies: fallbackTestimonies,
+    },
+    [CMS_TAGS.about],
+  );
+}
 
-export const getProductsContent = unstable_cache(
-  () =>
-    fetchFromCms<ProductsContent>(
-      '/api/products-page',
-      {
-        productPageSection: fallbackProductPageSection,
-        productSection: fallbackProductSection,
-        products: fallbackProducts,
-        siteSettings: fallbackSiteSettings,
-      },
-      [CMS_TAGS.products],
-    ),
-  ['cms-products-page'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.products], revalidate: getRevalidateSeconds() },
-);
+export function getProductsContent() {
+  return fetchFromCms<ProductsContent>(
+    'productsPage',
+    {
+      productPageSection: fallbackProductPageSection,
+      productSection: fallbackProductSection,
+      products: fallbackProducts,
+      siteSettings: fallbackSiteSettings,
+    },
+    [CMS_TAGS.products],
+  );
+}
 
-export const getProductDetailContent = unstable_cache(
-  () =>
-    fetchFromCms<ProductDetailContent>(
-      '/api/product-detail',
-      {
-        productDetailSection: fallbackProductDetailSection,
-        products: fallbackProducts,
-        siteSettings: fallbackSiteSettings,
-        siteMetadata: fallbackSiteMetadata,
-      },
-      [CMS_TAGS.products, CMS_TAGS.productDetail, CMS_TAGS.seo],
-    ),
-  ['cms-product-detail'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.products, CMS_TAGS.productDetail, CMS_TAGS.seo], revalidate: getRevalidateSeconds() },
-);
+export function getProductDetailContent() {
+  return fetchFromCms<ProductDetailContent>(
+    'productDetail',
+    {
+      productDetailSection: fallbackProductDetailSection,
+      products: fallbackProducts,
+      siteSettings: fallbackSiteSettings,
+      siteMetadata: fallbackSiteMetadata,
+    },
+    [CMS_TAGS.products, CMS_TAGS.productDetail, CMS_TAGS.seo],
+  );
+}
 
-export const getFAQsContent = unstable_cache(
-  () =>
-    fetchFromCms<FAQsContent>(
-      '/api/faqs',
-      {
-        faqCategories: fallbackFaqCategories,
-        faqPageSection: fallbackFaqPageSection,
-        siteSettings: fallbackSiteSettings,
-        siteMetadata: fallbackSiteMetadata,
-      },
-      [CMS_TAGS.faqs, CMS_TAGS.seo],
-    ),
-  ['cms-faqs'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.faqs, CMS_TAGS.seo], revalidate: getRevalidateSeconds() },
-);
+export function getFAQsContent() {
+  return fetchFromCms<FAQsContent>(
+    'faqs',
+    {
+      faqCategories: fallbackFaqCategories,
+      faqPageSection: fallbackFaqPageSection,
+      siteSettings: fallbackSiteSettings,
+      siteMetadata: fallbackSiteMetadata,
+    },
+    [CMS_TAGS.faqs, CMS_TAGS.seo],
+  );
+}
 
-export const getNewsContent = unstable_cache(
-  () =>
-    fetchFromCms<NewsContent>(
-      '/api/news-page',
-      {
-        news: fallbackNews,
-        newsCategories: fallbackNewsCategories,
-        newsPageSection: fallbackNewsPageSection,
-        siteMetadata: fallbackSiteMetadata,
-      },
-      [CMS_TAGS.news, CMS_TAGS.seo],
-    ),
-  ['cms-news-page'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.news, CMS_TAGS.seo], revalidate: getRevalidateSeconds() },
-);
+export function getNewsContent() {
+  return fetchFromCms<NewsContent>(
+    'newsPage',
+    {
+      news: fallbackNews,
+      newsCategories: fallbackNewsCategories,
+      newsPageSection: fallbackNewsPageSection,
+      siteMetadata: fallbackSiteMetadata,
+    },
+    [CMS_TAGS.news, CMS_TAGS.seo],
+  );
+}
 
-export const getNewsDetailContent = unstable_cache(
-  () =>
-    fetchFromCms<NewsDetailContent>(
-      '/api/news-detail',
-      {
-        news: fallbackNews,
-        newsDetailSection: fallbackNewsDetailSection,
-        siteSettings: fallbackSiteSettings,
-        siteMetadata: fallbackSiteMetadata,
-      },
-      [CMS_TAGS.news, CMS_TAGS.newsDetail, CMS_TAGS.seo],
-    ),
-  ['cms-news-detail'],
-  { tags: [CMS_TAGS.all, CMS_TAGS.news, CMS_TAGS.newsDetail, CMS_TAGS.seo], revalidate: getRevalidateSeconds() },
-);
+export function getNewsDetailContent() {
+  return fetchFromCms<NewsDetailContent>(
+    'newsDetail',
+    {
+      news: fallbackNews,
+      newsDetailSection: fallbackNewsDetailSection,
+      siteSettings: fallbackSiteSettings,
+      siteMetadata: fallbackSiteMetadata,
+    },
+    [CMS_TAGS.news, CMS_TAGS.newsDetail, CMS_TAGS.seo],
+  );
+}
 
 export async function getProductBySlug(slug: string) {
   const { products } = await getProductDetailContent();

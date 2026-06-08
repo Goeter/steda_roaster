@@ -1,50 +1,67 @@
-# Steda Roaster — CMS Webhook Cache Ready Frontend
+# Steda Roaster — CMS API Ready Frontend
 
-Project ini sudah disesuaikan dengan alur aman dan SEO-friendly:
-
-```txt
-Admin CMS -> POST/PUT/PATCH -> Backend CMS -> Database CMS -> Webhook -> Next.js revalidate/cache -> Customer view static/cache website
-```
-
-Baca dokumentasi utama di:
+Frontend memakai alur berikut:
 
 ```txt
-README_CMS_WEBHOOK_CACHE_SETUP.md
+Admin CMS -> Backend CMS -> Database CMS -> CMS API -> Next.js cache -> Website
+                                         -> Webhook revalidation -> Next.js
 ```
 
-## Cara menjalankan
+Dashboard admin tetap dikelola oleh project CMS yang terpisah. Project ini hanya menyediakan frontend, kontrak API, cache, webhook, fallback, SEO, dan health check.
+
+## Dokumentasi utama
+
+Baca:
+
+```txt
+docs/CMS_FRONTEND_INTEGRATION.md
+```
+
+Dokumen tersebut berisi:
+
+- Environment variable yang harus diisi.
+- Endpoint CMS yang diharapkan frontend.
+- Type dan contoh response.
+- Product gallery dan specification contract.
+- Cache tags dan webhook payload.
+- Health check.
+- Checklist frontend developer dan CMS developer.
+
+## Menjalankan project
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-## Build production
+## Validasi production
 
 ```bash
+npm run typecheck
 npm run build
-npm run start
+npm run verify:deploy-config
 ```
 
-## Environment
+Setelah `.env.local` terisi, cek koneksi CMS:
 
-Copy `.env.example` menjadi `.env.local`, lalu isi:
-
-```env
-CMS_API_URL=https://domain-cms-kamu.com
-CMS_READ_TOKEN=optional-jika-api-butuh-token
-CMS_REVALIDATE_SECRET=change-this-to-a-long-random-secret
-CMS_REVALIDATE_SECONDS=2592000
+```bash
+npm run check:cms
 ```
 
-## File penting
+Health endpoint setelah website berjalan:
 
 ```txt
-lib/cms.ts                         -> fetch server-side ke CMS API + cache tags + fallback
-app/api/cms/revalidate/route.ts    -> webhook dari CMS untuk refresh cache frontend
-lib/cms-data.ts                    -> fallback data jika CMS API belum ready/down
-lib/cms-types.ts                   -> kontrak struktur response CMS API
-app/sitemap.ts                     -> sitemap dinamis dari data CMS/cache
+/api/cms/health
 ```
 
-Customer browser tidak langsung akses database. Fetch konten dilakukan server-side oleh Next.js, lalu hasilnya di-cache/prerender. Saat admin update data, CMS memanggil webhook frontend untuk memperbarui cache.
+## File utama integrasi
+
+```txt
+lib/cms-config.ts                 -> endpoint, environment, cache tags, strict mode
+lib/cms.ts                        -> single data access layer
+lib/cms-types.ts                  -> TypeScript contract
+lib/cms-data.ts                   -> local fallback dan contoh data
+app/api/cms/revalidate/route.ts   -> CMS webhook receiver
+app/api/cms/health/route.ts       -> safe CMS connectivity check
+docs/CMS_FRONTEND_INTEGRATION.md  -> complete handoff contract
+```
