@@ -65,3 +65,9 @@ app/api/cms/revalidate/route.ts   -> CMS webhook receiver
 app/api/cms/health/route.ts       -> safe CMS connectivity check
 docs/CMS_FRONTEND_INTEGRATION.md  -> complete handoff contract
 ```
+
+## Footer and static navigation
+
+Footer contact details, WhatsApp, email, address, map URL, social links, footer description, copyright, and section headings are provided by `/api/layout` through `siteSettings` and `footerSection`.
+
+Navbar and footer navigation links are intentionally static in `lib/navigation.ts`. The CMS does not need to send `navigationItems`.

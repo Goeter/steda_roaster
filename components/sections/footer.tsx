@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebookF, FaTiktok } from 'react-icons/fa';
 import type { FooterSection, SiteSettings } from '@/lib/cms-types';
-import { formatPhoneNumber, getTelHref, splitBrandName } from '@/lib/site';
+import { NAVIGATION_ITEMS } from '@/lib/navigation';
+import { formatPhoneNumber, getWhatsappHref, splitBrandName } from '@/lib/site';
 
 const socialClass =
   'group relative rounded-full bg-white/10 p-3 text-white transition-all duration-300 hover:-translate-y-1';
@@ -21,6 +22,7 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const brandParts = splitBrandName(siteSettings.siteName);
   const phoneLabel = formatPhoneNumber(siteSettings.whatsappNumber);
+  const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
     <footer id="contact" className="border-t border-white/10 bg-[#0f172a]">
@@ -42,7 +44,7 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
           <div>
             <h4 className="mb-4 font-bold text-white">{footerSection.navigationTitle}</h4>
             <ul className="space-y-2">
-              {footerSection.navigationItems.map((item) => (
+              {NAVIGATION_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -60,7 +62,9 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href={getTelHref(siteSettings.whatsappNumber)}
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-white/70 transition-colors duration-300 hover:text-amber-400"
                 >
                   <Phone size={16} />

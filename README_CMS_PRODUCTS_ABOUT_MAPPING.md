@@ -88,6 +88,9 @@ Field CMS:
 - `productDetailSection.metadataTitleSuffix`
 - `productDetailSection.technicalParametersHeading`
 - `productDetailSection.specificationsHeading`
+- `productDetailSection.specificationFields[]`
+- `productDetailSection.specificationFields[].key`
+- `productDetailSection.specificationFields[].label`
 - `productDetailSection.noImageMessage`
 - `productDetailSection.previousImageAriaLabel`
 - `productDetailSection.nextImageAriaLabel`
@@ -103,7 +106,16 @@ Field CMS:
 - `products[].image`
 - `products[].images`
 - `products[].technicalParams`
-- `products[].specifications`
+- `products[].specifications.type`
+- `products[].specifications.minRoast`
+- `products[].specifications.maxRoast`
+- `products[].specifications.ignition`
+- `products[].specifications.airflow`
+- `products[].specifications.drum`
+- `products[].specifications.dimensions`
+- `products[].specifications.weight`
+- `products[].specifications.electricalPower`
+- `products[].specifications.dataLogger`
 
 ## About homepage section
 

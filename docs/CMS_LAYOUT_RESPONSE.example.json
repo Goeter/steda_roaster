@@ -1,0 +1,51 @@
+{
+  "data": {
+    "siteSettings": {
+      "siteName": "Steda Roaster",
+      "description": "Produsen mesin roasting kopi untuk kebutuhan home roastery hingga industri.",
+      "whatsappNumber": "6281225171359",
+      "whatsappMessage": "Halo, saya ingin bertanya tentang produk Steda Roaster",
+      "email": "info@stedaroaster.com",
+      "address": "Sidoarjo, Indonesia",
+      "mapUrl": "https://maps.app.goo.gl/TwcEPir1WrDrryfAA",
+      "socials": {
+        "instagram": "https://www.instagram.com/coffeeroaster_steda/",
+        "facebook": "https://www.facebook.com/",
+        "tiktok": "https://www.tiktok.com/@stedaroaster"
+      }
+    },
+    "siteMetadata": {
+      "metadataBase": "https://stedaroaster.com",
+      "defaultTitle": "Steda Roaster | Mesin Roasting Kopi Berkualitas",
+      "titleTemplate": "%s | Steda Roaster",
+      "description": "Produsen mesin roasting kopi berkualitas untuk home roastery, coffee shop, dan industri.",
+      "keywords": [
+        "mesin roasting kopi",
+        "coffee roaster",
+        "Steda Roaster"
+      ],
+      "authorName": "Steda Roaster",
+      "openGraphTitle": "Steda Roaster",
+      "openGraphDescription": "Mesin roasting kopi berkualitas untuk bisnis kopi Anda.",
+      "openGraphUrl": "https://stedaroaster.com",
+      "openGraphSiteName": "Steda Roaster",
+      "openGraphImage": {
+        "src": "https://cdn.example.com/seo/steda-cover.webp",
+        "width": 1200,
+        "height": 630,
+        "alt": "Steda Roaster"
+      },
+      "locale": "id_ID",
+      "type": "website",
+      "language": "id",
+      "themeColor": "#2b1b12"
+    },
+    "footerSection": {
+      "description": "Precision Coffee Roasting Machine for Modern Businesses.",
+      "copyright": "All rights reserved.",
+      "navigationTitle": "Navigation",
+      "contactTitle": "Contact Us",
+      "socialTitle": "Follow Us"
+    }
+  }
+}

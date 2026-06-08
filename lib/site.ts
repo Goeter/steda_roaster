@@ -37,11 +37,6 @@ export function formatPhoneNumber(phoneNumber: string) {
   return phoneNumber.trim().startsWith('+') ? phoneNumber.trim() : `+${normalizedPhone}`;
 }
 
-export function getTelHref(phoneNumber: string) {
-  const normalizedPhone = normalizePhoneNumber(phoneNumber);
-  return normalizedPhone ? `tel:+${normalizedPhone}` : '#contact';
-}
-
 export function getWhatsappHref({
   whatsappNumber,
   whatsappMessage,

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
@@ -59,12 +59,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const productImages = Array.isArray(product.images) ? product.images : [];
   const galleryImages = (productImages.length > 0 ? productImages : [product.image]).filter(Boolean);
   const technicalParams = product.technicalParams ?? {};
-  const specifications = Array.isArray(product.specifications) ? product.specifications.slice(0, 10) : [];
-  const specificationColumns = [specifications.slice(0, 5), specifications.slice(5, 10)].filter(
+  const legacySpecifications = Array.isArray(product.specifications) ? product.specifications : [];
+  const specificationValues = Array.isArray(product.specifications) ? {} : product.specifications ?? {};
+  const specificationCards = productDetailSection.specificationFields.slice(0, 10).map((field, index) => ({
+    key: field.key,
+    label: field.label,
+    value: specificationValues[field.key] || legacySpecifications[index] || '-',
+  }));
+  const specificationColumns = [specificationCards.slice(0, 5), specificationCards.slice(5, 10)].filter(
     (column) => column.length > 0,
   );
 
-  const categories = Array.from(new Set(products.map((item) => item.category).filter(Boolean)));
   const bestSellerCandidates = [
     ...products.filter((item) => item.slug !== product.slug && item.tag?.toLowerCase() === 'best seller'),
     ...products.filter((item) => item.slug !== product.slug && item.tag?.toLowerCase() !== 'best seller'),
@@ -106,10 +111,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         name,
         value,
       })),
-      ...specifications.map((value, index) => ({
+      ...specificationCards.map((item) => ({
         '@type': 'PropertyValue',
-        name: `Specification ${index + 1}`,
-        value,
+        name: item.label,
+        value: item.value,
       })),
     ],
   };
@@ -167,14 +172,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
 
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-                <h2 className="mb-4 text-lg font-bold text-neutral-950">{productDetailSection.specificationsHeading}</h2>
-                <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+                <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.specificationsHeading}</h2>
+                <div className="grid gap-4 md:grid-cols-2 md:gap-5">
                   {specificationColumns.map((column, columnIndex) => (
                     <div key={`spec-column-${columnIndex}`} className="space-y-3">
                       {column.map((item) => (
-                        <div key={item} className="flex gap-3 text-sm leading-6 text-neutral-700">
-                          <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
-                          <p>{item}</p>
+                        <div key={item.key} className="rounded-2xl border border-neutral-200 bg-[#fafafa] p-4">
+                          <p className="text-xs font-medium text-neutral-500">{item.label}</p>
+                          <p className="mt-1 text-sm font-semibold leading-6 text-neutral-950">{item.value}</p>
                         </div>
                       ))}
                     </div>
@@ -186,38 +191,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         </section>
 
         <section className="mx-auto max-w-[1400px] px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
-          <Reveal className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <Reveal>
             <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-              <div className="mb-5 flex items-center justify-between gap-3">
-                <h2 className="text-lg font-bold text-neutral-950">{productDetailSection.categoryHeading}</h2>
-                <Link
-                  href="/products"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 transition hover:text-amber-800"
-                >
-                  {productDetailSection.viewAllProductsLabel}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Link
-                    key={category}
-                    href="/products"
-                    className={`inline-flex rounded-full border px-3 py-1.5 text-xs font-medium transition sm:text-sm ${
-                      category === product.category
-                        ? 'border-amber-300 bg-amber-50 text-amber-800'
-                        : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-amber-200 hover:text-amber-800'
-                    }`}
-                  >
-                    {category}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-              <div className="mb-5 flex items-center justify-between gap-3">
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-lg font-bold text-neutral-950">{productDetailSection.bestSellerHeading}</h2>
                 <Link
                   href="/products"
@@ -228,7 +204,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 </Link>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {bestSellerProducts.map((item) => {
                   const itemImage = item.images?.find(Boolean) || item.image;
 
@@ -236,18 +212,18 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                     <Link
                       key={item.slug}
                       href={`/products/${item.slug}`}
-                      className="group overflow-hidden rounded-3xl border border-neutral-200 bg-[#fafafa] transition hover:-translate-y-1 hover:border-amber-200 hover:shadow-md"
+                      className="group grid overflow-hidden rounded-3xl border border-neutral-200 bg-[#fafafa] transition hover:-translate-y-1 hover:border-amber-200 hover:shadow-md sm:grid-cols-[150px_1fr]"
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden bg-white">
+                      <div className="relative min-h-40 overflow-hidden bg-white">
                         <Image
                           src={itemImage}
                           alt={item.name}
                           fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 767px) 100vw, 150px"
                           className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
-                      <div className="space-y-2 p-4">
+                      <div className="flex flex-col justify-center space-y-2 p-4">
                         <div className="flex flex-wrap gap-2">
                           <span className="inline-flex rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[11px] font-medium text-neutral-600">
                             {item.category}

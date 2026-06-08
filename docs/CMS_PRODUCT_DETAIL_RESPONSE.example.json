@@ -5,7 +5,6 @@
       "metadataTitleSuffix": "Steda Roaster",
       "technicalParametersHeading": "Technical Parameters",
       "specificationsHeading": "Specifications",
-      "categoryHeading": "Category",
       "bestSellerHeading": "Best Seller",
       "viewAllProductsLabel": "View All Products",
       "noImageMessage": "No product image available",
@@ -14,7 +13,49 @@
       "thumbnailAriaLabelPrefix": "View product image",
       "shareCopiedMessage": "Link copied",
       "backAriaLabel": "Back to previous page",
-      "shareAriaLabel": "Share product"
+      "shareAriaLabel": "Share product",
+      "specificationFields": [
+        {
+          "key": "type",
+          "label": "Tipe"
+        },
+        {
+          "key": "minRoast",
+          "label": "Min. Roast"
+        },
+        {
+          "key": "maxRoast",
+          "label": "Maks. Roast"
+        },
+        {
+          "key": "ignition",
+          "label": "Pengapian"
+        },
+        {
+          "key": "airflow",
+          "label": "Airflow"
+        },
+        {
+          "key": "drum",
+          "label": "Drum"
+        },
+        {
+          "key": "dimensions",
+          "label": "Dimensi"
+        },
+        {
+          "key": "weight",
+          "label": "Berat"
+        },
+        {
+          "key": "electricalPower",
+          "label": "Daya Listrik"
+        },
+        {
+          "key": "dataLogger",
+          "label": "Data Logger"
+        }
+      ]
     },
     "products": [
       {
@@ -37,18 +78,18 @@
           "control": "Digital PID",
           "material": "Stainless Steel"
         },
-        "specifications": [
-          "Industrial burner system",
-          "Digital monitoring panel",
-          "Integrated cooling tray",
-          "Cyclone air circulation support",
-          "Compact body for coffee shop setup",
-          "Consistent roasting performance",
-          "Food-grade contact components",
-          "Easy access maintenance points",
-          "Emergency stop safety button",
-          "Ideal for daily commercial roasting"
-        ]
+        "specifications": {
+          "type": "MRE Series",
+          "minRoast": "250 Gram",
+          "maxRoast": "1 Kg",
+          "ignition": "Gas",
+          "airflow": "Adjustable",
+          "drum": "Stainless Steel",
+          "dimensions": "Isi dari CMS",
+          "weight": "Isi dari CMS",
+          "electricalPower": "220V / 2200W",
+          "dataLogger": "Digital Monitoring"
+        }
       }
     ],
     "siteSettings": {
@@ -70,7 +111,10 @@
       "defaultTitle": "Steda Roaster | Mesin Roasting Kopi Berkualitas",
       "titleTemplate": "%s | Steda Roaster",
       "description": "Produsen mesin roasting kopi berkualitas.",
-      "keywords": ["mesin roasting kopi", "coffee roaster"],
+      "keywords": [
+        "mesin roasting kopi",
+        "coffee roaster"
+      ],
       "authorName": "Steda Roaster",
       "openGraphTitle": "Steda Roaster",
       "openGraphDescription": "Mesin roasting kopi berkualitas.",

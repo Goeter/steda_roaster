@@ -21,6 +21,25 @@ export type HeroSection = {
   slideAriaLabelPrefix: string;
 };
 
+export type ProductSpecificationKey =
+  | 'type'
+  | 'minRoast'
+  | 'maxRoast'
+  | 'ignition'
+  | 'airflow'
+  | 'drum'
+  | 'dimensions'
+  | 'weight'
+  | 'electricalPower'
+  | 'dataLogger';
+
+export type ProductSpecificationField = {
+  key: ProductSpecificationKey;
+  label: string;
+};
+
+export type ProductSpecifications = Partial<Record<ProductSpecificationKey, string>>;
+
 export type Product = {
   id: number;
   slug: string;
@@ -31,7 +50,11 @@ export type Product = {
   image: string;
   images: string[];
   technicalParams: Record<string, string>;
-  specifications: string[];
+  /**
+   * Object format is the current CMS contract. A string array remains accepted
+   * temporarily so an older CMS response does not break the product page.
+   */
+  specifications: ProductSpecifications | string[];
 };
 
 export type ProductSection = {
@@ -74,7 +97,7 @@ export type ProductDetailSection = {
   metadataTitleSuffix: string;
   technicalParametersHeading: string;
   specificationsHeading: string;
-  categoryHeading: string;
+  specificationFields: ProductSpecificationField[];
   bestSellerHeading: string;
   viewAllProductsLabel: string;
   noImageMessage: string;
@@ -231,7 +254,6 @@ export type FooterSection = {
   navigationTitle: string;
   contactTitle: string;
   socialTitle: string;
-  navigationItems: LinkItem[];
 };
 
 export type SiteSettings = {

@@ -56,7 +56,7 @@ Frontend mengharapkan endpoint berikut:
 
 | Kebutuhan frontend | Endpoint default | Response type |
 |---|---|---|
-| Layout, navbar, footer, SEO global | `/api/layout` | `LayoutContent` |
+| Layout, brand, footer contact, social media, dan SEO global | `/api/layout` | `LayoutContent` |
 | Homepage | `/api/home` | `HomeContent` |
 | About page | `/api/about` | `AboutContent` |
 | Products listing | `/api/products-page` | `ProductsContent` |
@@ -96,11 +96,70 @@ CMS_ENDPOINT_NEWS_PAGE=/api/news-page
 CMS_ENDPOINT_NEWS_DETAIL=/api/news-detail
 ```
 
+
+## 3A. Kontrak footer dan menu navigasi
+
+Data berikut berasal dari CMS melalui response `/api/layout`:
+
+- `siteSettings.siteName`
+- `siteSettings.description`
+- `siteSettings.whatsappNumber`
+- `siteSettings.whatsappMessage`
+- `siteSettings.email`
+- `siteSettings.address`
+- `siteSettings.mapUrl`
+- `siteSettings.socials.instagram`
+- `siteSettings.socials.facebook`
+- `siteSettings.socials.tiktok`
+- `footerSection.description`
+- `footerSection.copyright`
+- `footerSection.navigationTitle`
+- `footerSection.contactTitle`
+- `footerSection.socialTitle`
+
+Nomor pada footer membuka WhatsApp menggunakan `whatsappNumber` dan `whatsappMessage`. Email menggunakan link `mailto:`, alamat membuka `mapUrl`, dan icon media sosial hanya tampil bila URL terkait tersedia.
+
+Menu utama **tidak dikelola CMS**. Daftar menu navbar dan Navigation pada footer berasal dari:
+
+```txt
+lib/navigation.ts
+```
+
+Daftar statis saat ini:
+
+```ts
+export const NAVIGATION_ITEMS = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Products', href: '/products' },
+  { label: 'News', href: '/news' },
+  { label: 'FAQs', href: '/faqs' },
+];
+```
+
+Developer CMS tidak perlu mengirim `navigationItems`. Jika field itu tetap terkirim dari CMS, frontend mengabaikannya.
+
+Contoh response lengkap tersedia di `docs/CMS_LAYOUT_RESPONSE.example.json`.
+
 ## 4. Kontrak data produk
 
 Definisi TypeScript berada di `lib/cms-types.ts`.
 
 ```ts
+export type ProductSpecificationKey =
+  | 'type'
+  | 'minRoast'
+  | 'maxRoast'
+  | 'ignition'
+  | 'airflow'
+  | 'drum'
+  | 'dimensions'
+  | 'weight'
+  | 'electricalPower'
+  | 'dataLogger';
+
+export type ProductSpecifications = Partial<Record<ProductSpecificationKey, string>>;
+
 export type Product = {
   id: number;
   slug: string;
@@ -111,7 +170,7 @@ export type Product = {
   image: string;
   images: string[];
   technicalParams: Record<string, string>;
-  specifications: string[];
+  specifications: ProductSpecifications;
 };
 ```
 
@@ -138,18 +197,18 @@ Contoh response produk:
     "control": "Digital PID",
     "material": "Stainless Steel"
   },
-  "specifications": [
-    "Industrial burner system",
-    "Digital monitoring panel",
-    "Integrated cooling tray",
-    "Cyclone air circulation support",
-    "Compact body for coffee shop setup",
-    "Consistent roasting performance",
-    "Food-grade contact components",
-    "Easy access maintenance points",
-    "Emergency stop safety button",
-    "Ideal for daily commercial roasting"
-  ]
+  "specifications": {
+    "type": "MRE Series",
+    "minRoast": "250 Gram",
+    "maxRoast": "1 Kg",
+    "ignition": "Gas",
+    "airflow": "Adjustable",
+    "drum": "Stainless Steel",
+    "dimensions": "Isi dari CMS",
+    "weight": "Isi dari CMS",
+    "electricalPower": "220V / 2200W",
+    "dataLogger": "Digital Monitoring"
+  }
 }
 ```
 
@@ -158,9 +217,11 @@ Catatan frontend:
 - `images` mendukung jumlah gambar dinamis dari CMS.
 - Tampilan awal saat ini menggunakan 3 gambar per produk.
 - `image` digunakan sebagai cover/fallback dan untuk sebagian metadata.
-- Detail produk menampilkan maksimal 10 spesifikasi.
-- Spesifikasi 1–5 tampil di kolom kiri dan 6–10 di kolom kanan.
+- Detail produk menampilkan 10 field spesifikasi terstruktur: `type`, `minRoast`, `maxRoast`, `ignition`, `airflow`, `drum`, `dimensions`, `weight`, `electricalPower`, dan `dataLogger`.
+- Lima field pertama tampil di kolom kiri dan lima field berikutnya tampil di kolom kanan.
+- Label dan urutan field berasal dari `productDetailSection.specificationFields`, sehingga developer CMS dapat mengubah label tanpa menyentuh komponen UI.
 - `tag: "Best Seller"` menandai produk best seller.
+- Array string lama masih diterima sementara sebagai mode kompatibilitas, tetapi CMS baru sebaiknya mengirim object `specifications`.
 - URL gambar dapat berupa URL HTTPS dari CDN/CMS atau path lokal yang dimulai `/`.
 
 ## 5. Cache frontend

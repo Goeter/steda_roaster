@@ -4,19 +4,19 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import type { FooterSection, SiteSettings } from '@/lib/cms-types';
+import type { SiteSettings } from '@/lib/cms-types';
+import { NAVIGATION_ITEMS } from '@/lib/navigation';
 import { splitBrandName } from '@/lib/site';
 
 type NavbarProps = {
-  footerSection: FooterSection;
   siteSettings: Pick<SiteSettings, 'siteName'>;
 };
 
-export function Navbar({ footerSection, siteSettings }: NavbarProps) {
+export function Navbar({ siteSettings }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const menuItems = footerSection.navigationItems;
+  const menuItems = NAVIGATION_ITEMS;
   const brandParts = splitBrandName(siteSettings.siteName);
 
   useEffect(() => {

@@ -130,7 +130,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <Navbar footerSection={footerSection} siteSettings={siteSettings} />
+        <Navbar siteSettings={siteSettings} />
         {children}
         <Footer footerSection={footerSection} siteSettings={siteSettings} />
         <FloatingWhatsAppButton siteSettings={siteSettings} />
