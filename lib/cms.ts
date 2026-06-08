@@ -192,6 +192,7 @@ export type ProductsContent = {
 
 export type ProductDetailContent = {
   productDetailSection: ProductDetailSection;
+  productPageSection: ProductPageSection;
   products: Product[];
   siteSettings: SiteSettings;
   siteMetadata: SiteMetadata;
@@ -286,6 +287,7 @@ export function getProductDetailContent() {
     'productDetail',
     {
       productDetailSection: fallbackProductDetailSection,
+      productPageSection: fallbackProductPageSection,
       products: fallbackProducts,
       siteSettings: fallbackSiteSettings,
       siteMetadata: fallbackSiteMetadata,

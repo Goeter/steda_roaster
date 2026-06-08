@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, Boxes, Clock3, Factory, Gauge } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { ProductActions } from '@/components/product-actions';
+import { ProductCard } from '@/components/product-card';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
 import { getProductDetailContent } from '@/lib/cms';
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = await params;
-  const { productDetailSection, products, siteMetadata, siteSettings } = await getProductDetailContent();
+  const { productDetailSection, productPageSection, products, siteMetadata, siteSettings } = await getProductDetailContent();
   const product = products.find((item) => item.slug === slug);
 
   if (!product) notFound();
@@ -255,50 +255,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
 
               {similarProducts.length > 0 ? (
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  {similarProducts.map((item) => {
-                    const itemImage = item.images?.find(Boolean) || item.image;
-
-                    return (
-                    <Link
-                      key={item.slug}
-                      href={`/products/${item.slug}`}
-                      className="group grid overflow-hidden rounded-3xl border border-neutral-200 bg-[#fafafa] transition hover:-translate-y-1 hover:border-amber-200 hover:shadow-md sm:grid-cols-[150px_1fr]"
-                    >
-                      <div className="relative min-h-40 overflow-hidden bg-white">
-                        <Image
-                          src={itemImage}
-                          alt={item.name}
-                          fill
-                          sizes="(max-width: 767px) 100vw, 150px"
-                          className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center space-y-2 p-4">
-                        <div className="flex flex-wrap gap-2">
-                          <span className="inline-flex rounded-full border border-neutral-300 bg-neutral-200/80 px-2.5 py-1 text-[11px] font-medium text-neutral-700">
-                            {item.category}
-                          </span>
-                          {item.tag ? (
-                            <span
-                              className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-semibold ${
-                                item.tag.toLowerCase() === 'best seller'
-                                  ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
-                                  : 'border-neutral-200 bg-neutral-100 text-neutral-700'
-                              }`}
-                            >
-                              {item.tag}
-                            </span>
-                          ) : null}
-                        </div>
-                        <h3 className="text-base font-semibold text-neutral-950 transition group-hover:text-amber-800">
-                          {item.name}
-                        </h3>
-                        <p className="line-clamp-2 text-sm leading-6 text-neutral-600">{item.description}</p>
-                      </div>
-                      </Link>
-                    );
-                  })}
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                  {similarProducts.map((item) => (
+                    <ProductCard key={item.id} product={item} labels={productPageSection} />
+                  ))}
                 </div>
               ) : (
                 <div className="rounded-3xl border border-dashed border-neutral-300 bg-[#fafafa] px-6 py-10 text-center text-sm text-neutral-500">
