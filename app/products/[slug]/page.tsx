@@ -2,16 +2,25 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Boxes, Clock3, Factory, Gauge } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { ProductActions } from '@/components/product-actions';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
 import { getProductDetailContent } from '@/lib/cms';
+import type { ProductTechnicalParameterKey } from '@/lib/cms-types';
 import { absoluteUrl, getBreadcrumbJsonLd, getProductUrl } from '@/lib/seo';
 
 type ProductDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+const technicalParameterIcons = {
+  capacity: Boxes,
+  efficiency: Gauge,
+  roastingTime: Clock3,
+  production: Factory,
+} satisfies Record<ProductTechnicalParameterKey, LucideIcon>;
 
 export async function generateStaticParams() {
   const { products } = await getProductDetailContent();
@@ -58,7 +67,19 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   const productImages = Array.isArray(product.images) ? product.images : [];
   const galleryImages = (productImages.length > 0 ? productImages : [product.image]).filter(Boolean);
-  const technicalParams = product.technicalParams ?? {};
+  const technicalParams: Record<string, string> = product.technicalParams ?? {};
+  const technicalParameterFallbacks: Record<ProductTechnicalParameterKey, string> = {
+    capacity: technicalParams.capacity || '-',
+    efficiency: technicalParams.efficiency || technicalParams.control || '-',
+    roastingTime: technicalParams.roastingTime || '-',
+    production: technicalParams.production || product.category || '-',
+  };
+  const technicalParameterCards = productDetailSection.technicalParameterFields.slice(0, 4).map((field) => ({
+    key: field.key,
+    label: field.label,
+    value: technicalParameterFallbacks[field.key],
+    Icon: technicalParameterIcons[field.key],
+  }));
   const legacySpecifications = Array.isArray(product.specifications) ? product.specifications : [];
   const specificationValues = Array.isArray(product.specifications) ? {} : product.specifications ?? {};
   const specificationCards = productDetailSection.specificationFields.slice(0, 10).map((field, index) => ({
@@ -106,10 +127,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     category: product.category,
     url: getProductUrl(product.slug, siteMetadata.metadataBase),
     additionalProperty: [
-      ...Object.entries(technicalParams).map(([name, value]) => ({
+      ...technicalParameterCards.map((item) => ({
         '@type': 'PropertyValue',
-        name,
-        value,
+        name: item.label,
+        value: item.value,
       })),
       ...specificationCards.map((item) => ({
         '@type': 'PropertyValue',
@@ -139,8 +160,30 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <div className="absolute bottom-0 right-0 -z-10 h-[420px] w-[420px] rounded-full bg-amber-100/40 blur-3xl" />
 
           <Reveal className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="rounded-[28px] bg-white/90 p-3 shadow-sm backdrop-blur sm:p-6">
-              <ProductGallery images={galleryImages} productName={product.name} labels={productDetailSection} />
+            <div className="space-y-6">
+              <div className="rounded-[28px] bg-white/90 p-3 shadow-sm backdrop-blur sm:p-6">
+                <ProductGallery images={galleryImages} productName={product.name} labels={productDetailSection} />
+              </div>
+
+              <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
+                <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.technicalParametersHeading}</h2>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {technicalParameterCards.map(({ key, label, value, Icon }) => (
+                    <div
+                      key={key}
+                      className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-[#fafafa] p-4 transition hover:border-amber-200 hover:bg-amber-50/30"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-800">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium text-neutral-500">{label}</p>
+                        <p className="mt-1 text-sm font-semibold leading-6 text-neutral-950">{value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="space-y-6 lg:sticky lg:top-24">
@@ -157,18 +200,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 </div>
                 <h1 className="text-3xl font-bold leading-tight text-neutral-950 sm:text-4xl">{product.name}</h1>
                 <p className="mt-4 text-sm leading-7 text-neutral-600 sm:text-base">{product.description}</p>
-              </div>
-
-              <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-                <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.technicalParametersHeading}</h2>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {Object.entries(technicalParams).map(([key, value]) => (
-                    <div key={key} className="rounded-2xl border border-neutral-200 bg-[#fafafa] p-4">
-                      <p className="text-xs capitalize text-neutral-500">{key}</p>
-                      <p className="mt-1 text-sm font-semibold text-neutral-950">{value}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">

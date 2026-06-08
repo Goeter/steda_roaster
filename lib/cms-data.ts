@@ -138,6 +138,12 @@ export const productDetailSection: ProductDetailSection = {
   notFoundTitle: 'Product Not Found',
   metadataTitleSuffix: 'Steda Roaster',
   technicalParametersHeading: 'Technical Parameters',
+  technicalParameterFields: [
+    { key: 'capacity', label: 'Kapasitas' },
+    { key: 'efficiency', label: 'Efisiensi' },
+    { key: 'roastingTime', label: 'Waktu Roasting' },
+    { key: 'production', label: 'Produksi' },
+  ],
   specificationsHeading: 'Specifications',
   specificationFields: [
     { key: 'type', label: 'Tipe' },
@@ -255,11 +261,10 @@ export const products: Product[] = [
     image: '/product-1.jpg',
     images: ['/product-1.jpg', '/product-1-alt-1.webp', '/product-1-alt-2.webp'],
     technicalParams: {
-      capacity: '200 Gram',
-      power: '220V / 800W',
-      heating: 'Electric Heater',
-      control: 'Manual Control',
-      material: 'Stainless Steel 304',
+      capacity: '200 Gram / batch',
+      efficiency: 'Electric heater 800W',
+      roastingTime: 'Menyesuaikan profil roasting',
+      production: 'Home & sample roasting',
     },
     specifications: {
       type: 'SE 200 Series',
@@ -284,11 +289,10 @@ export const products: Product[] = [
     image: '/product-2.jpg',
     images: ['/product-2.jpg', '/product-2-alt-1.webp', '/product-2-alt-2.webp'],
     technicalParams: {
-      capacity: '1 Kg',
-      power: '220V / 2200W',
-      heating: 'Gas',
-      control: 'Digital PID',
-      material: 'Stainless Steel',
+      capacity: '1 Kg / batch',
+      efficiency: 'Digital PID control',
+      roastingTime: 'Menyesuaikan profil roasting',
+      production: 'Coffee shop skala kecil',
     },
     specifications: {
       type: 'MRE Series',
@@ -313,11 +317,10 @@ export const products: Product[] = [
     image: '/product-3.jpg',
     images: ['/product-3.jpg', '/product-3-alt-1.webp', '/product-3-alt-2.webp'],
     technicalParams: {
-      capacity: '5 Kg',
-      power: '380V',
-      heating: 'Gas',
-      control: 'PLC Control',
-      material: 'Mild Steel + Stainless',
+      capacity: '5 Kg / batch',
+      efficiency: 'PLC control & stable airflow',
+      roastingTime: 'Menyesuaikan profil roasting',
+      production: 'Small roastery',
     },
     specifications: {
       type: 'SR5 Series',
@@ -342,11 +345,10 @@ export const products: Product[] = [
     image: '/product-4.jpg',
     images: ['/product-4.jpg', '/product-4-alt-1.webp', '/product-4-alt-2.webp'],
     technicalParams: {
-      capacity: '20 Kg',
-      power: '380V',
-      heating: 'Gas',
-      control: 'Industrial PLC',
-      material: 'Stainless Steel',
+      capacity: '20 Kg / batch',
+      efficiency: 'Industrial PLC control',
+      roastingTime: 'Menyesuaikan profil roasting',
+      production: 'Medium roastery',
     },
     specifications: {
       type: 'SRG5 Series',

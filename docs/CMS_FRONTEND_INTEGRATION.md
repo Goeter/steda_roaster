@@ -169,7 +169,12 @@ export type Product = {
   description: string;
   image: string;
   images: string[];
-  technicalParams: Record<string, string>;
+  technicalParams: {
+    capacity?: string;
+    efficiency?: string;
+    roastingTime?: string;
+    production?: string;
+  };
   specifications: ProductSpecifications;
 };
 ```
@@ -191,11 +196,10 @@ Contoh response produk:
     "https://cdn.example.com/products/mre/detail.webp"
   ],
   "technicalParams": {
-    "capacity": "1 Kg",
-    "power": "220V / 2200W",
-    "heating": "Gas",
-    "control": "Digital PID",
-    "material": "Stainless Steel"
+    "capacity": "1 Kg / batch",
+    "efficiency": "Digital PID control",
+    "roastingTime": "Menyesuaikan profil roasting",
+    "production": "Coffee shop skala kecil"
   },
   "specifications": {
     "type": "MRE Series",
@@ -215,6 +219,10 @@ Contoh response produk:
 Catatan frontend:
 
 - `images` mendukung jumlah gambar dinamis dari CMS.
+- `technicalParams` memiliki empat field utama: `capacity`, `efficiency`, `roastingTime`, dan `production`.
+- Label keempat field berasal dari `productDetailSection.technicalParameterFields` dan dapat dikirim CMS.
+- Ikon Technical Parameters ditentukan oleh frontend agar visual tetap konsisten; CMS hanya mengirim label dan nilai.
+- Technical Parameters tampil di bawah gallery foto, sedangkan Specifications tampil di kolom kanan.
 - Tampilan awal saat ini menggunakan 3 gambar per produk.
 - `image` digunakan sebagai cover/fallback dan untuk sebagian metadata.
 - Detail produk menampilkan 10 field spesifikasi terstruktur: `type`, `minRoast`, `maxRoast`, `ignition`, `airflow`, `drum`, `dimensions`, `weight`, `electricalPower`, dan `dataLogger`.

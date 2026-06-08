@@ -21,6 +21,19 @@ export type HeroSection = {
   slideAriaLabelPrefix: string;
 };
 
+export type ProductTechnicalParameterKey =
+  | 'capacity'
+  | 'efficiency'
+  | 'roastingTime'
+  | 'production';
+
+export type ProductTechnicalParameterField = {
+  key: ProductTechnicalParameterKey;
+  label: string;
+};
+
+export type ProductTechnicalParameters = Partial<Record<ProductTechnicalParameterKey, string>>;
+
 export type ProductSpecificationKey =
   | 'type'
   | 'minRoast'
@@ -49,7 +62,7 @@ export type Product = {
   description: string;
   image: string;
   images: string[];
-  technicalParams: Record<string, string>;
+  technicalParams: ProductTechnicalParameters | Record<string, string>;
   /**
    * Object format is the current CMS contract. A string array remains accepted
    * temporarily so an older CMS response does not break the product page.
@@ -96,6 +109,7 @@ export type ProductDetailSection = {
   notFoundTitle: string;
   metadataTitleSuffix: string;
   technicalParametersHeading: string;
+  technicalParameterFields: ProductTechnicalParameterField[];
   specificationsHeading: string;
   specificationFields: ProductSpecificationField[];
   bestSellerHeading: string;

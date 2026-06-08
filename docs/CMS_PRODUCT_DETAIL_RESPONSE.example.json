@@ -4,6 +4,24 @@
       "notFoundTitle": "Product Not Found",
       "metadataTitleSuffix": "Steda Roaster",
       "technicalParametersHeading": "Technical Parameters",
+      "technicalParameterFields": [
+        {
+          "key": "capacity",
+          "label": "Kapasitas"
+        },
+        {
+          "key": "efficiency",
+          "label": "Efisiensi"
+        },
+        {
+          "key": "roastingTime",
+          "label": "Waktu Roasting"
+        },
+        {
+          "key": "production",
+          "label": "Produksi"
+        }
+      ],
       "specificationsHeading": "Specifications",
       "bestSellerHeading": "Best Seller",
       "viewAllProductsLabel": "View All Products",
@@ -72,11 +90,10 @@
           "https://cdn.example.com/products/mre/detail.webp"
         ],
         "technicalParams": {
-          "capacity": "1 Kg",
-          "power": "220V / 2200W",
-          "heating": "Gas",
-          "control": "Digital PID",
-          "material": "Stainless Steel"
+          "capacity": "1 Kg / batch",
+          "efficiency": "Digital PID control",
+          "roastingTime": "Menyesuaikan profil roasting",
+          "production": "Coffee shop skala kecil"
         },
         "specifications": {
           "type": "MRE Series",
