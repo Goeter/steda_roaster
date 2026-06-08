@@ -198,11 +198,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className="space-y-6 lg:sticky lg:top-24">
               <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
                 <div className="mb-4 flex flex-wrap gap-2">
-                  <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-800">
+                  <span className="inline-flex rounded-full border border-neutral-300 bg-neutral-200/80 px-3 py-1 text-xs font-medium text-neutral-700">
                     {product.category}
                   </span>
                   {product.tag ? (
-                    <span className="inline-flex rounded-full border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700">
+                    <span
+                      className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+                        product.tag.toLowerCase() === 'best seller'
+                          ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
+                          : 'border-neutral-200 bg-neutral-100 text-neutral-700'
+                      }`}
+                    >
                       {product.tag}
                     </span>
                   ) : null}
@@ -270,11 +276,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                       </div>
                       <div className="flex flex-col justify-center space-y-2 p-4">
                         <div className="flex flex-wrap gap-2">
-                          <span className="inline-flex rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[11px] font-medium text-neutral-600">
+                          <span className="inline-flex rounded-full border border-neutral-300 bg-neutral-200/80 px-2.5 py-1 text-[11px] font-medium text-neutral-700">
                             {item.category}
                           </span>
                           {item.tag ? (
-                            <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-800">
+                            <span
+                              className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-semibold ${
+                                item.tag.toLowerCase() === 'best seller'
+                                  ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
+                                  : 'border-neutral-200 bg-neutral-100 text-neutral-700'
+                              }`}
+                            >
                               {item.tag}
                             </span>
                           ) : null}
