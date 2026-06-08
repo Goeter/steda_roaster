@@ -92,10 +92,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     label: field.label,
     value: specificationValues[field.key] || legacySpecifications[index] || '-',
   }));
-  const specificationColumns = [specificationCards.slice(0, 5), specificationCards.slice(5, 10)].filter(
-    (column) => column.length > 0,
-  );
-
   const normalizedCategory = product.category.trim().toLowerCase();
   const similarProducts = products
     .filter(
@@ -168,19 +164,72 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <div className="absolute -left-32 -top-32 -z-10 h-[500px] w-[500px] rounded-full bg-orange-100/40 blur-3xl" />
           <div className="absolute bottom-0 right-0 -z-10 h-[420px] w-[420px] rounded-full bg-amber-100/40 blur-3xl" />
 
-          <Reveal className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="space-y-6">
-              <div className="rounded-[28px] bg-white/90 p-3 shadow-sm backdrop-blur sm:p-6">
-                <ProductGallery images={galleryImages} productName={product.name} labels={productDetailSection} />
+          <Reveal className="space-y-8">
+            <article className="overflow-hidden rounded-[32px] border border-neutral-200 bg-white/95 shadow-sm backdrop-blur">
+              <div className="grid lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+                <div className="border-b border-neutral-200 bg-gradient-to-br from-white via-[#faf8f3] to-amber-50/50 p-3 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
+                  <ProductGallery images={galleryImages} productName={product.name} labels={productDetailSection} />
+                </div>
+
+                <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10 xl:p-12">
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    <span className="inline-flex rounded-full border border-neutral-300 bg-neutral-200/80 px-3 py-1 text-xs font-medium text-neutral-700">
+                      {product.category}
+                    </span>
+                    {product.tag ? (
+                      <span
+                        className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+                          product.tag.toLowerCase() === 'best seller'
+                            ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
+                            : 'border-neutral-200 bg-neutral-100 text-neutral-700'
+                        }`}
+                      >
+                        {product.tag}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <h1 className="max-w-3xl text-3xl font-bold leading-tight tracking-[-0.02em] text-neutral-950 sm:text-4xl lg:text-5xl">
+                    {product.name}
+                  </h1>
+
+                  {detailDescriptionParagraphs[0] ? (
+                    <p className="mt-6 max-w-3xl text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
+                      {detailDescriptionParagraphs[0]}
+                    </p>
+                  ) : null}
+                </div>
               </div>
 
-              <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-                <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.technicalParametersHeading}</h2>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {detailDescriptionParagraphs.length > 1 ? (
+                <div className="border-t border-neutral-200 bg-[#fcfbf8] px-6 py-7 sm:px-8 sm:py-8 lg:px-10">
+                  <div className="grid gap-x-10 gap-y-5 lg:grid-cols-2">
+                    {detailDescriptionParagraphs.slice(1).map((paragraph, index) => (
+                      <p
+                        key={`${product.slug}-description-${index + 1}`}
+                        className="text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </article>
+
+            <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
+              <section className="h-full rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
+                <div className="mb-5">
+                  <h2 className="text-lg font-bold text-neutral-950">
+                    {productDetailSection.technicalParametersHeading}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                   {technicalParameterCards.map(({ key, label, value, Icon }) => (
                     <div
                       key={key}
-                      className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-[#fafafa] p-4 transition hover:border-amber-200 hover:bg-amber-50/30"
+                      className="flex min-h-[104px] items-start gap-4 rounded-2xl border border-neutral-200 bg-[#fafafa] p-4 transition hover:border-amber-200 hover:bg-amber-50/30"
                     >
                       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-800">
                         <Icon className="h-5 w-5" aria-hidden="true" />
@@ -192,50 +241,22 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
+              </section>
 
-            <div className="space-y-6 lg:sticky lg:top-24">
-              <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-                <div className="mb-4 flex flex-wrap gap-2">
-                  <span className="inline-flex rounded-full border border-neutral-300 bg-neutral-200/80 px-3 py-1 text-xs font-medium text-neutral-700">
-                    {product.category}
-                  </span>
-                  {product.tag ? (
-                    <span
-                      className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
-                        product.tag.toLowerCase() === 'best seller'
-                          ? 'border-orange-500 bg-orange-500 text-white shadow-sm'
-                          : 'border-neutral-200 bg-neutral-100 text-neutral-700'
-                      }`}
-                    >
-                      {product.tag}
-                    </span>
-                  ) : null}
+              <section className="h-full rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
+                <div className="mb-5">
+                  <h2 className="text-lg font-bold text-neutral-950">{productDetailSection.specificationsHeading}</h2>
                 </div>
-                <h1 className="text-3xl font-bold leading-tight text-neutral-950 sm:text-4xl">{product.name}</h1>
-                <div className="mt-5 space-y-4 text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
-                  {detailDescriptionParagraphs.map((paragraph, index) => (
-                    <p key={`${product.slug}-description-${index}`}>{paragraph}</p>
-                  ))}
-                </div>
-              </div>
 
-              <div className="rounded-[28px] border border-neutral-200 bg-white/95 p-6 shadow-sm backdrop-blur sm:p-8">
-                <h2 className="mb-5 text-lg font-bold text-neutral-950">{productDetailSection.specificationsHeading}</h2>
-                <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-                  {specificationColumns.map((column, columnIndex) => (
-                    <div key={`spec-column-${columnIndex}`} className="space-y-3">
-                      {column.map((item) => (
-                        <div key={item.key} className="rounded-2xl border border-neutral-200 bg-[#fafafa] p-4">
-                          <p className="text-xs font-medium text-neutral-500">{item.label}</p>
-                          <p className="mt-1 text-sm font-semibold leading-6 text-neutral-950">{item.value}</p>
-                        </div>
-                      ))}
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {specificationCards.map((item) => (
+                    <div key={item.key} className="rounded-2xl border border-neutral-200 bg-[#fafafa] p-4">
+                      <p className="text-xs font-medium text-neutral-500">{item.label}</p>
+                      <p className="mt-1 text-sm font-semibold leading-6 text-neutral-950">{item.value}</p>
                     </div>
                   ))}
                 </div>
-              </div>
+              </section>
             </div>
           </Reveal>
         </section>
