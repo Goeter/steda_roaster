@@ -1,63 +1,140 @@
 import { NextResponse } from 'next/server';
 import {
   CMS_DEFAULT_ENDPOINTS,
+  getCmsEndpoint,
   getCmsEndpointUrl,
   getCmsRuntimeConfig,
+  type CmsEndpointKey,
 } from '@/lib/cms-config';
 
 export const dynamic = 'force-dynamic';
 
+const REQUIRED_KEYS: Record<CmsEndpointKey, string[]> = {
+  layout: ['siteSettings', 'siteMetadata', 'footerSection'],
+  home: [
+    'heroSection',
+    'aboutSection',
+    'productSection',
+    'productPageSection',
+    'benefitsSection',
+    'distributionSection',
+    'testimoniesSection',
+    'testimonies',
+    'faqHomeSection',
+    'faqs',
+    'products',
+  ],
+  about: [
+    'aboutPageSection',
+    'aboutSection',
+    'benefitsSection',
+    'testimoniesSection',
+    'testimonies',
+  ],
+  productsPage: ['productPageSection', 'productSection', 'products', 'siteSettings'],
+  productDetail: ['productDetailSection', 'products', 'siteSettings', 'siteMetadata'],
+  faqs: ['faqCategories', 'faqPageSection', 'siteSettings', 'siteMetadata'],
+  newsPage: ['news', 'newsCategories', 'newsPageSection', 'siteMetadata'],
+  newsDetail: ['news', 'newsDetailSection', 'siteSettings', 'siteMetadata'],
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function unwrap(value: unknown) {
+  return isRecord(value) && 'data' in value ? value.data : value;
+}
+
 export async function GET() {
   const config = getCmsRuntimeConfig();
-  const layoutUrl = getCmsEndpointUrl('layout');
 
-  if (!config.apiUrl || !layoutUrl) {
+  if (!config.apiUrl) {
     return NextResponse.json(
       {
         configured: false,
         reachable: false,
-        message: 'CMS_API_URL is not configured.',
+        message: 'CMS_API_URL is not configured in the frontend runtime environment.',
         expectedEndpoints: CMS_DEFAULT_ENDPOINTS,
       },
       { status: 503 },
     );
   }
 
-  try {
-    const response = await fetch(layoutUrl, {
-      headers: {
-        Accept: 'application/json',
-        ...(config.readToken ? { Authorization: `Bearer ${config.readToken}` } : {}),
-      },
-      cache: 'no-store',
-      signal: AbortSignal.timeout(config.fetchTimeoutMs),
-    });
+  const checks = await Promise.all(
+    (Object.keys(CMS_DEFAULT_ENDPOINTS) as CmsEndpointKey[]).map(async (endpointKey) => {
+      const url = getCmsEndpointUrl(endpointKey);
+      const path = getCmsEndpoint(endpointKey);
 
-    return NextResponse.json(
-      {
-        configured: true,
-        reachable: response.ok,
-        cmsHost: new URL(config.apiUrl).host,
-        readTokenConfigured: Boolean(config.readToken),
-        strictMode: config.strictMode,
-        revalidateSeconds: config.revalidateSeconds,
-        fetchTimeoutMs: config.fetchTimeoutMs,
-        checkedEndpoint: CMS_DEFAULT_ENDPOINTS.layout,
-        upstreamStatus: response.status,
-        expectedEndpoints: CMS_DEFAULT_ENDPOINTS,
-      },
-      { status: response.ok ? 200 : 502 },
-    );
-  } catch (error) {
-    return NextResponse.json(
-      {
-        configured: true,
-        reachable: false,
-        cmsHost: new URL(config.apiUrl).host,
-        message: error instanceof Error ? error.message : 'CMS connection failed.',
-        expectedEndpoints: CMS_DEFAULT_ENDPOINTS,
-      },
-      { status: 502 },
-    );
-  }
+      try {
+        const response = await fetch(url, {
+          headers: {
+            Accept: 'application/json',
+            ...(config.readToken ? { Authorization: `Bearer ${config.readToken}` } : {}),
+          },
+          cache: 'no-store',
+          redirect: 'manual',
+          signal: AbortSignal.timeout(config.fetchTimeoutMs),
+        });
+
+        const contentType = response.headers.get('content-type') || '';
+        const location = response.headers.get('location');
+        let missingKeys: string[] = REQUIRED_KEYS[endpointKey];
+        let json = false;
+        let parseError = '';
+
+        if (contentType.includes('application/json')) {
+          try {
+            const payload = unwrap(await response.json());
+            json = true;
+            if (isRecord(payload)) {
+              missingKeys = REQUIRED_KEYS[endpointKey].filter((key) => !(key in payload));
+            }
+          } catch (error) {
+            parseError = error instanceof Error ? error.message : 'Invalid JSON response.';
+          }
+        }
+
+        const ok = response.ok && json && missingKeys.length === 0;
+
+        return {
+          endpoint: endpointKey,
+          path,
+          status: response.status,
+          ok,
+          json,
+          contentType,
+          missingKeys,
+          ...(location ? { redirectLocation: location } : {}),
+          ...(parseError ? { parseError } : {}),
+        };
+      } catch (error) {
+        return {
+          endpoint: endpointKey,
+          path,
+          status: null,
+          ok: false,
+          json: false,
+          missingKeys: REQUIRED_KEYS[endpointKey],
+          error: error instanceof Error ? error.message : 'CMS connection failed.',
+        };
+      }
+    }),
+  );
+
+  const reachable = checks.every((check) => check.ok);
+
+  return NextResponse.json(
+    {
+      configured: true,
+      reachable,
+      cmsHost: new URL(config.apiUrl).host,
+      readTokenConfigured: Boolean(config.readToken),
+      strictMode: config.strictMode,
+      revalidateSeconds: config.revalidateSeconds,
+      fetchTimeoutMs: config.fetchTimeoutMs,
+      checks,
+    },
+    { status: reachable ? 200 : 502 },
+  );
 }

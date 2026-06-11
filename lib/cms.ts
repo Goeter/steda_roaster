@@ -67,6 +67,258 @@ function unwrapCmsPayload(value: unknown) {
   return value;
 }
 
+
+const TECHNICAL_PARAMETER_KEYS = [
+  'capacity',
+  'efficiency',
+  'roastingTime',
+  'production',
+] as const;
+
+const DISTRIBUTION_COLOR_CLASSES = [
+  'bg-red-500',
+  'bg-yellow-400',
+  'bg-green-600',
+  'bg-blue-900',
+  'bg-rose-600',
+  'bg-lime-500',
+  'bg-purple-600',
+  'bg-orange-500',
+] as const;
+
+function readString(value: unknown) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+const LEGACY_IMAGE_PATHS: Record<string, string> = {
+  '/banners/product-hero.jpg': '/banner-products.webp',
+  '/map-indonesia.png': '/gambar_peta.webp',
+  '/banners/about-hero.jpg': '/company-roaster.webp',
+};
+
+function normalizeImagePath(value: unknown, fallback = '') {
+  const path = readString(value);
+  return LEGACY_IMAGE_PATHS[path] || path || fallback;
+}
+
+function resolveTechnicalParameterKey(label: string) {
+  const normalized = label
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+
+  if (['capacity', 'kapasitas', 'maxcapacity', 'kapasitasmaksimal'].includes(normalized)) {
+    return 'capacity';
+  }
+
+  if (
+    ['efficiency', 'efisiensi', 'control', 'kontrol', 'controller', 'heating', 'pemanas'].includes(
+      normalized,
+    )
+  ) {
+    return 'efficiency';
+  }
+
+  if (
+    ['roastingtime', 'wakturoasting', 'waktusangrai', 'duration', 'durasi'].includes(normalized)
+  ) {
+    return 'roastingTime';
+  }
+
+  if (['production', 'produksi', 'output', 'usage', 'penggunaan'].includes(normalized)) {
+    return 'production';
+  }
+
+  return undefined;
+}
+
+function normalizeTechnicalParameters(value: unknown): Record<string, string> {
+  if (isRecord(value)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([key, item]) => [key, readString(item)] as const)
+        .filter(([, item]) => Boolean(item)),
+    );
+  }
+
+  if (!Array.isArray(value)) return {};
+
+  const normalized: Record<string, string> = {};
+  const unusedKeys = [...TECHNICAL_PARAMETER_KEYS];
+
+  value.forEach((item) => {
+    let label = '';
+    let content = '';
+
+    if (typeof item === 'string') {
+      content = item.trim();
+    } else if (isRecord(item)) {
+      label = readString(item.name) || readString(item.label) || readString(item.key);
+      content =
+        readString(item.value) ||
+        readString(item.nilai) ||
+        readString(item.description) ||
+        readString(item.keterangan);
+    }
+
+    if (!content) return;
+
+    const resolvedKey = resolveTechnicalParameterKey(label);
+    const key = resolvedKey || unusedKeys.find((candidate) => !(candidate in normalized));
+    if (!key) return;
+
+    normalized[key] = content;
+    const usedIndex = unusedKeys.indexOf(key);
+    if (usedIndex >= 0) unusedKeys.splice(usedIndex, 1);
+  });
+
+  return normalized;
+}
+
+function normalizeProducts(value: unknown) {
+  if (!Array.isArray(value)) return value;
+
+  return value.map((item) => {
+    if (!isRecord(item)) return item;
+
+    const images = Array.isArray(item.images)
+      ? item.images.map(readString).filter(Boolean)
+      : [];
+    const coverImage = readString(item.image) || images[0] || '/hero-1.jpg';
+
+    return {
+      ...item,
+      image: coverImage,
+      images: images.length ? images : [coverImage],
+      technicalParams: normalizeTechnicalParameters(item.technicalParams),
+    };
+  });
+}
+
+function normalizeProductSection(value: unknown) {
+  if (!isRecord(value)) return value;
+
+  const filters = Array.isArray(value.filters)
+    ? value.filters
+        .map((filter) => {
+          if (typeof filter === 'string') return filter.trim();
+          if (!isRecord(filter)) return '';
+          return readString(filter.label) || readString(filter.name) || readString(filter.id);
+        })
+        .filter(Boolean)
+    : value.filters;
+
+  return { ...value, filters };
+}
+
+function normalizeBenefitsSection(value: unknown) {
+  if (!isRecord(value) || !Array.isArray(value.items)) return value;
+
+  return {
+    ...value,
+    items: value.items.map((item, index) =>
+      isRecord(item) ? { ...item, id: Number(item.id) || index + 1 } : item,
+    ),
+  };
+}
+
+function normalizeDistributionSection(value: unknown) {
+  if (!isRecord(value) || !Array.isArray(value.cities)) return value;
+
+  return {
+    ...value,
+    ...(isRecord(value.map)
+      ? {
+          map: {
+            ...value.map,
+            src: normalizeImagePath(value.map.src, '/gambar_peta.webp'),
+          },
+        }
+      : {}),
+    cities: value.cities.map((city, index) => {
+      if (!isRecord(city)) return city;
+      return {
+        ...city,
+        color:
+          readString(city.color) ||
+          DISTRIBUTION_COLOR_CLASSES[index % DISTRIBUTION_COLOR_CLASSES.length],
+      };
+    }),
+  };
+}
+
+function normalizeHeroSection(value: unknown) {
+  if (!isRecord(value) || !Array.isArray(value.slides)) return value;
+
+  return {
+    ...value,
+    slides: value.slides.map((slide, index) => {
+      if (!isRecord(slide)) return slide;
+      return {
+        ...slide,
+        id: readString(slide.id) || `cms-hero-${index + 1}`,
+        src: normalizeImagePath(slide.src, '/hero-1.jpg'),
+        alt: readString(slide.alt) || readString(value.heading) || 'Steda Roaster',
+      };
+    }),
+  };
+}
+
+function normalizeProductPageSection(value: unknown) {
+  if (!isRecord(value) || !isRecord(value.hero) || !isRecord(value.hero.image)) return value;
+
+  return {
+    ...value,
+    hero: {
+      ...value.hero,
+      image: {
+        ...value.hero.image,
+        src: normalizeImagePath(value.hero.image.src, '/banner-products.webp'),
+      },
+    },
+  };
+}
+
+function normalizeAboutPageSection(value: unknown) {
+  if (!isRecord(value) || !isRecord(value.hero) || !isRecord(value.hero.image)) return value;
+
+  return {
+    ...value,
+    hero: {
+      ...value.hero,
+      image: {
+        ...value.hero.image,
+        src: normalizeImagePath(value.hero.image.src, '/company-roaster.webp'),
+      },
+    },
+  };
+}
+
+function normalizeCmsPayload(value: unknown) {
+  if (!isRecord(value)) return value;
+
+  return {
+    ...value,
+    ...(value.heroSection !== undefined ? { heroSection: normalizeHeroSection(value.heroSection) } : {}),
+    ...(value.productPageSection !== undefined
+      ? { productPageSection: normalizeProductPageSection(value.productPageSection) }
+      : {}),
+    ...(value.aboutPageSection !== undefined
+      ? { aboutPageSection: normalizeAboutPageSection(value.aboutPageSection) }
+      : {}),
+    ...(value.products !== undefined ? { products: normalizeProducts(value.products) } : {}),
+    ...(value.productSection !== undefined
+      ? { productSection: normalizeProductSection(value.productSection) }
+      : {}),
+    ...(value.benefitsSection !== undefined
+      ? { benefitsSection: normalizeBenefitsSection(value.benefitsSection) }
+      : {}),
+    ...(value.distributionSection !== undefined
+      ? { distributionSection: normalizeDistributionSection(value.distributionSection) }
+      : {}),
+  };
+}
+
 /**
  * Keeps the UI stable when an older CMS response is missing a newly added field.
  * Arrays from the CMS are authoritative, including intentionally empty arrays.
@@ -146,7 +398,7 @@ async function fetchFromCms<T>(
       );
     }
 
-    const payload = unwrapCmsPayload(await response.json());
+    const payload = normalizeCmsPayload(unwrapCmsPayload(await response.json()));
     return mergeWithFallback(fallback, payload);
   } catch (error) {
     return cmsFailure(
