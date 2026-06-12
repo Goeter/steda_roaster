@@ -32,7 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ProductsPage() {
-  const [content, { siteMetadata }] = await Promise.all([getProductsContent(), getLayoutContent()]);
+  const [content, { siteMetadata, siteSettings }] = await Promise.all([
+    getProductsContent(),
+    getLayoutContent(),
+  ]);
 
   const productListJsonLd = {
     '@context': 'https://schema.org',
@@ -56,7 +59,7 @@ export default async function ProductsPage() {
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <ProductsPageContent {...content} />
+      <ProductsPageContent {...content} siteSettings={siteSettings} />
     </>
   );
 }

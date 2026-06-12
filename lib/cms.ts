@@ -1,26 +1,4 @@
-import {
-  aboutPageSection as fallbackAboutPageSection,
-  aboutSection as fallbackAboutSection,
-  benefitsSection as fallbackBenefitsSection,
-  distributionSection as fallbackDistributionSection,
-  faqCategories as fallbackFaqCategories,
-  faqHomeSection as fallbackFaqHomeSection,
-  faqPageSection as fallbackFaqPageSection,
-  footerSection as fallbackFooterSection,
-  heroSection as fallbackHeroSection,
-  news as fallbackNews,
-  newsCategories as fallbackNewsCategories,
-  newsDetailSection as fallbackNewsDetailSection,
-  newsPageSection as fallbackNewsPageSection,
-  productDetailSection as fallbackProductDetailSection,
-  productPageSection as fallbackProductPageSection,
-  productSection as fallbackProductSection,
-  products as fallbackProducts,
-  siteMetadata as fallbackSiteMetadata,
-  siteSettings as fallbackSiteSettings,
-  testimonies as fallbackTestimonies,
-  testimoniesSection as fallbackTestimoniesSection,
-} from './cms-data';
+import { cmsFallbackContent } from './cms-data';
 import {
   CMS_TAGS,
   getCmsEndpoint,
@@ -294,11 +272,44 @@ function normalizeAboutPageSection(value: unknown) {
   };
 }
 
+function normalizeSiteSettings(value: unknown) {
+  if (!isRecord(value)) return value;
+
+  const normalized: Record<string, unknown> = { ...value };
+
+  if (!('phoneNumber' in value)) {
+    const legacyPhoneNumber =
+      readString(value.phone) ||
+      readString(value.telephone) ||
+      readString(value.whatsappNumber);
+
+    if (legacyPhoneNumber) normalized.phoneNumber = legacyPhoneNumber;
+  }
+
+  const socialAliases = {
+    instagram: value.instagram,
+    facebook: value.facebook,
+    tiktok: value.tiktok,
+  };
+  const socials = isRecord(value.socials) ? { ...value.socials } : {};
+
+  for (const [platform, alias] of Object.entries(socialAliases)) {
+    if (!(platform in socials) && readString(alias)) socials[platform] = readString(alias);
+  }
+
+  if (Object.keys(socials).length > 0) normalized.socials = socials;
+
+  return normalized;
+}
+
 function normalizeCmsPayload(value: unknown) {
   if (!isRecord(value)) return value;
 
   return {
     ...value,
+    ...(value.siteSettings !== undefined
+      ? { siteSettings: normalizeSiteSettings(value.siteSettings) }
+      : {}),
     ...(value.heroSection !== undefined ? { heroSection: normalizeHeroSection(value.heroSection) } : {}),
     ...(value.productPageSection !== undefined
       ? { productPageSection: normalizeProductPageSection(value.productPageSection) }
@@ -441,36 +452,28 @@ export type ProductsContent = {
   productPageSection: ProductPageSection;
   productSection: ProductSection;
   products: Product[];
-  siteSettings: SiteSettings;
 };
 
 export type ProductDetailContent = {
   productDetailSection: ProductDetailSection;
   productPageSection: ProductPageSection;
   products: Product[];
-  siteSettings: SiteSettings;
-  siteMetadata: SiteMetadata;
 };
 
 export type FAQsContent = {
   faqCategories: FAQCategory[];
   faqPageSection: FAQPageSection;
-  siteSettings: SiteSettings;
-  siteMetadata: SiteMetadata;
 };
 
 export type NewsContent = {
   news: NewsItem[];
   newsCategories: string[];
   newsPageSection: NewsPageSection;
-  siteMetadata: SiteMetadata;
 };
 
 export type NewsDetailContent = {
   news: NewsItem[];
   newsDetailSection: NewsDetailSection;
-  siteSettings: SiteSettings;
-  siteMetadata: SiteMetadata;
 };
 
 /**
@@ -480,11 +483,7 @@ export type NewsDetailContent = {
 export function getLayoutContent() {
   return fetchFromCms<LayoutContent>(
     'layout',
-    {
-      siteSettings: fallbackSiteSettings,
-      siteMetadata: fallbackSiteMetadata,
-      footerSection: fallbackFooterSection,
-    },
+    cmsFallbackContent.layout,
     [CMS_TAGS.layout, CMS_TAGS.seo],
   );
 }
@@ -492,19 +491,7 @@ export function getLayoutContent() {
 export function getHomeContent() {
   return fetchFromCms<HomeContent>(
     'home',
-    {
-      heroSection: fallbackHeroSection,
-      aboutSection: fallbackAboutSection,
-      productSection: fallbackProductSection,
-      productPageSection: fallbackProductPageSection,
-      benefitsSection: fallbackBenefitsSection,
-      distributionSection: fallbackDistributionSection,
-      testimoniesSection: fallbackTestimoniesSection,
-      testimonies: fallbackTestimonies,
-      faqHomeSection: fallbackFaqHomeSection,
-      faqs: fallbackFaqCategories.flatMap((category) => category.faqs),
-      products: fallbackProducts,
-    },
+    cmsFallbackContent.home,
     [CMS_TAGS.home, CMS_TAGS.products, CMS_TAGS.faqs],
   );
 }
@@ -512,13 +499,7 @@ export function getHomeContent() {
 export function getAboutContent() {
   return fetchFromCms<AboutContent>(
     'about',
-    {
-      aboutPageSection: fallbackAboutPageSection,
-      aboutSection: fallbackAboutSection,
-      benefitsSection: fallbackBenefitsSection,
-      testimoniesSection: fallbackTestimoniesSection,
-      testimonies: fallbackTestimonies,
-    },
+    cmsFallbackContent.about,
     [CMS_TAGS.about],
   );
 }
@@ -526,12 +507,7 @@ export function getAboutContent() {
 export function getProductsContent() {
   return fetchFromCms<ProductsContent>(
     'productsPage',
-    {
-      productPageSection: fallbackProductPageSection,
-      productSection: fallbackProductSection,
-      products: fallbackProducts,
-      siteSettings: fallbackSiteSettings,
-    },
+    cmsFallbackContent.productsPage,
     [CMS_TAGS.products],
   );
 }
@@ -539,13 +515,7 @@ export function getProductsContent() {
 export function getProductDetailContent() {
   return fetchFromCms<ProductDetailContent>(
     'productDetail',
-    {
-      productDetailSection: fallbackProductDetailSection,
-      productPageSection: fallbackProductPageSection,
-      products: fallbackProducts,
-      siteSettings: fallbackSiteSettings,
-      siteMetadata: fallbackSiteMetadata,
-    },
+    cmsFallbackContent.productDetail,
     [CMS_TAGS.products, CMS_TAGS.productDetail, CMS_TAGS.seo],
   );
 }
@@ -553,12 +523,7 @@ export function getProductDetailContent() {
 export function getFAQsContent() {
   return fetchFromCms<FAQsContent>(
     'faqs',
-    {
-      faqCategories: fallbackFaqCategories,
-      faqPageSection: fallbackFaqPageSection,
-      siteSettings: fallbackSiteSettings,
-      siteMetadata: fallbackSiteMetadata,
-    },
+    cmsFallbackContent.faqs,
     [CMS_TAGS.faqs, CMS_TAGS.seo],
   );
 }
@@ -566,12 +531,7 @@ export function getFAQsContent() {
 export function getNewsContent() {
   return fetchFromCms<NewsContent>(
     'newsPage',
-    {
-      news: fallbackNews,
-      newsCategories: fallbackNewsCategories,
-      newsPageSection: fallbackNewsPageSection,
-      siteMetadata: fallbackSiteMetadata,
-    },
+    cmsFallbackContent.newsPage,
     [CMS_TAGS.news, CMS_TAGS.seo],
   );
 }
@@ -579,12 +539,7 @@ export function getNewsContent() {
 export function getNewsDetailContent() {
   return fetchFromCms<NewsDetailContent>(
     'newsDetail',
-    {
-      news: fallbackNews,
-      newsDetailSection: fallbackNewsDetailSection,
-      siteSettings: fallbackSiteSettings,
-      siteMetadata: fallbackSiteMetadata,
-    },
+    cmsFallbackContent.newsDetail,
     [CMS_TAGS.news, CMS_TAGS.newsDetail, CMS_TAGS.seo],
   );
 }

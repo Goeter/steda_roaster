@@ -116,45 +116,6 @@
           "dataLogger": "Digital Monitoring"
         }
       }
-    ],
-    "siteSettings": {
-      "siteName": "Steda Roaster",
-      "description": "Produsen mesin roasting kopi berkualitas.",
-      "whatsappNumber": "6281225171359",
-      "whatsappMessage": "Halo, saya ingin bertanya tentang produk Steda Roaster",
-      "email": "info@stedaroaster.com",
-      "address": "Sidoarjo, Indonesia",
-      "mapUrl": "https://maps.example.com/location",
-      "socials": {
-        "instagram": "https://instagram.com/example",
-        "facebook": "https://facebook.com/example",
-        "tiktok": "https://tiktok.com/@example"
-      }
-    },
-    "siteMetadata": {
-      "metadataBase": "https://stedaroaster.com",
-      "defaultTitle": "Steda Roaster | Mesin Roasting Kopi Berkualitas",
-      "titleTemplate": "%s | Steda Roaster",
-      "description": "Produsen mesin roasting kopi berkualitas.",
-      "keywords": [
-        "mesin roasting kopi",
-        "coffee roaster"
-      ],
-      "authorName": "Steda Roaster",
-      "openGraphTitle": "Steda Roaster",
-      "openGraphDescription": "Mesin roasting kopi berkualitas.",
-      "openGraphUrl": "https://stedaroaster.com",
-      "openGraphSiteName": "Steda Roaster",
-      "openGraphImage": {
-        "src": "https://cdn.example.com/og-image.webp",
-        "width": 1200,
-        "height": 630,
-        "alt": "Steda Roaster"
-      },
-      "locale": "id_ID",
-      "type": "website",
-      "language": "id",
-      "themeColor": "#2b1b12"
-    }
+    ]
   }
 }

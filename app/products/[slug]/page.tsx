@@ -7,7 +7,7 @@ import { ProductActions } from '@/components/product-actions';
 import { ProductCard } from '@/components/product-card';
 import { ProductGallery } from '@/components/product-gallery';
 import { Reveal } from '@/components/reveal';
-import { getProductDetailContent } from '@/lib/cms';
+import { getLayoutContent, getProductDetailContent } from '@/lib/cms';
 import type { ProductTechnicalParameterKey } from '@/lib/cms-types';
 import { getProductCoverImage, isBestSeller } from '@/lib/products';
 import { absoluteUrl, getBreadcrumbJsonLd, getProductUrl } from '@/lib/seo';
@@ -61,7 +61,10 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = await params;
-  const { productDetailSection, productPageSection, products, siteMetadata, siteSettings } = await getProductDetailContent();
+  const [
+    { productDetailSection, productPageSection, products },
+    { siteMetadata, siteSettings },
+  ] = await Promise.all([getProductDetailContent(), getLayoutContent()]);
   const product = products.find((item) => item.slug === slug);
 
   if (!product) notFound();

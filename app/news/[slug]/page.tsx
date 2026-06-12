@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { NewsGallery } from '@/components/news/news-gallery';
 import { Reveal } from '@/components/reveal';
-import { getNewsDetailContent } from '@/lib/cms';
+import { getLayoutContent, getNewsDetailContent } from '@/lib/cms';
 import { formatDate } from '@/lib/date';
 import { absoluteUrl, getBreadcrumbJsonLd, getNewsUrl, getSafeTimestamp } from '@/lib/seo';
 
@@ -61,8 +61,10 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const { news, newsDetailSection, siteMetadata, siteSettings } =
-    await getNewsDetailContent();
+  const [{ news, newsDetailSection }, { siteMetadata, siteSettings }] = await Promise.all([
+    getNewsDetailContent(),
+    getLayoutContent(),
+  ]);
 
   const item = news.find((newsItem) => newsItem.slug === slug);
 

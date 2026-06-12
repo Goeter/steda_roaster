@@ -21,7 +21,7 @@ type FooterProps = {
 export function Footer({ footerSection, siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const brandParts = splitBrandName(siteSettings.siteName);
-  const phoneLabel = formatPhoneNumber(siteSettings.whatsappNumber);
+  const phoneLabel = formatPhoneNumber(siteSettings.phoneNumber);
   const whatsappHref = getWhatsappHref(siteSettings);
 
   return (

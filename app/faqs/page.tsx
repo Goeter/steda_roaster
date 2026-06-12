@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import { FAQsPageContent } from '@/components/pages/faqs-page-content';
-import { getFAQsContent } from '@/lib/cms';
+import { getFAQsContent, getLayoutContent } from '@/lib/cms';
 import { getBreadcrumbJsonLd } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { faqPageSection, siteMetadata } = await getFAQsContent();
+  const [{ faqPageSection }, { siteMetadata }] = await Promise.all([
+    getFAQsContent(),
+    getLayoutContent(),
+  ]);
   const title = faqPageSection.seo?.title || faqPageSection.heading;
   const description = faqPageSection.seo?.description || faqPageSection.description;
   const image = faqPageSection.seo?.image || siteMetadata.openGraphImage;
@@ -29,7 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FAQsPage() {
-  const { faqCategories, faqPageSection, siteSettings, siteMetadata } = await getFAQsContent();
+  const [{ faqCategories, faqPageSection }, { siteSettings, siteMetadata }] = await Promise.all([
+    getFAQsContent(),
+    getLayoutContent(),
+  ]);
 
   const faqJsonLd = {
     '@context': 'https://schema.org',

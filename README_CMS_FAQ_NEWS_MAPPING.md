@@ -205,7 +205,7 @@ Variabel:
 siteSettings
 ```
 
-Dipakai di FAQ page untuk link WhatsApp:
+Dipakai di FAQ page untuk link WhatsApp. Nilai ini hanya berasal dari `/api/layout`; endpoint `/api/faqs` tidak perlu mengirim ulang global settings:
 
 ```ts
 siteSettings.whatsappNumber

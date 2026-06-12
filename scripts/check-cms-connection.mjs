@@ -46,23 +46,23 @@ const endpoints = {
   },
   productsPage: {
     path: process.env.CMS_ENDPOINT_PRODUCTS_PAGE || '/api/products-page',
-    keys: ['productPageSection', 'productSection', 'products', 'siteSettings'],
+    keys: ['productPageSection', 'productSection', 'products'],
   },
   productDetail: {
     path: process.env.CMS_ENDPOINT_PRODUCT_DETAIL || '/api/product-detail',
-    keys: ['productDetailSection', 'products', 'siteSettings', 'siteMetadata'],
+    keys: ['productDetailSection', 'productPageSection', 'products'],
   },
   faqs: {
     path: process.env.CMS_ENDPOINT_FAQS || '/api/faqs',
-    keys: ['faqCategories', 'faqPageSection', 'siteSettings', 'siteMetadata'],
+    keys: ['faqCategories', 'faqPageSection'],
   },
   newsPage: {
     path: process.env.CMS_ENDPOINT_NEWS_PAGE || '/api/news-page',
-    keys: ['news', 'newsCategories', 'newsPageSection', 'siteMetadata'],
+    keys: ['news', 'newsCategories', 'newsPageSection'],
   },
   newsDetail: {
     path: process.env.CMS_ENDPOINT_NEWS_DETAIL || '/api/news-detail',
-    keys: ['news', 'newsDetailSection', 'siteSettings', 'siteMetadata'],
+    keys: ['news', 'newsDetailSection'],
   },
 };
 

@@ -8,6 +8,7 @@ import {
 } from '@/lib/cms-config';
 
 const ALLOWED_TAGS = new Set<string>(Object.values(CMS_TAGS));
+const MAX_REVALIDATE_BODY_BYTES = 16_384;
 
 type RevalidateBody = {
   secret?: string;
@@ -40,7 +41,11 @@ function secretsMatch(expected: string, supplied: string) {
 }
 
 async function readBody(request: Request): Promise<RevalidateBody | null> {
+  const declaredLength = Number(request.headers.get('content-length') || 0);
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_REVALIDATE_BODY_BYTES) return null;
+
   const rawBody = await request.text();
+  if (Buffer.byteLength(rawBody, 'utf8') > MAX_REVALIDATE_BODY_BYTES) return null;
   if (!rawBody.trim()) return {};
 
   try {

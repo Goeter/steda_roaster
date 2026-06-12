@@ -97,11 +97,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       '@type': 'Country',
       name: 'Indonesia',
     },
-    telephone: siteSettings.whatsappNumber,
+    telephone: siteSettings.phoneNumber,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      telephone: siteSettings.whatsappNumber,
+      telephone: siteSettings.phoneNumber,
       email: siteSettings.email,
       availableLanguage: Array.from(new Set([siteMetadata.language, 'en'])),
     },

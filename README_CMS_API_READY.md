@@ -70,4 +70,6 @@ docs/CMS_FRONTEND_INTEGRATION.md  -> complete handoff contract
 
 Footer contact details, WhatsApp, email, address, map URL, social links, footer description, copyright, and section headings are provided by `/api/layout` through `siteSettings` and `footerSection`.
 
+`siteSettings.phoneNumber` controls the telephone text shown in Contact Us. `siteSettings.whatsappNumber` and `siteSettings.whatsappMessage` control every WhatsApp action. Global settings are not duplicated in page endpoints.
+
 Navbar and footer navigation links are intentionally static in `lib/navigation.ts`. The CMS does not need to send `navigationItems`.

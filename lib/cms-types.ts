@@ -293,6 +293,7 @@ export type FooterSection = {
 export type SiteSettings = {
   siteName: string;
   description: string;
+  phoneNumber: string;
   whatsappNumber: string;
   whatsappMessage: string;
   email: string;

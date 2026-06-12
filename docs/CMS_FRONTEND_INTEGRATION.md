@@ -103,6 +103,7 @@ Data berikut berasal dari CMS melalui response `/api/layout`:
 
 - `siteSettings.siteName`
 - `siteSettings.description`
+- `siteSettings.phoneNumber`
 - `siteSettings.whatsappNumber`
 - `siteSettings.whatsappMessage`
 - `siteSettings.email`
@@ -117,7 +118,9 @@ Data berikut berasal dari CMS melalui response `/api/layout`:
 - `footerSection.contactTitle`
 - `footerSection.socialTitle`
 
-Nomor pada footer membuka WhatsApp menggunakan `whatsappNumber` dan `whatsappMessage`. Email menggunakan link `mailto:`, alamat membuka `mapUrl`, dan icon media sosial hanya tampil bila URL terkait tersedia.
+`phoneNumber` adalah nomor yang ditampilkan di kolom Contact Us. Klik pada nomor tersebut tetap membuka WhatsApp menggunakan `whatsappNumber` dan `whatsappMessage`, sehingga UI dan behavior lama tidak berubah. Email menggunakan link `mailto:`, alamat membuka `mapUrl`, dan icon media sosial hanya tampil bila URL terkait tersedia.
+
+Semua field global di atas **hanya** dikirim oleh `/api/layout`. Endpoint halaman seperti `/api/products-page`, `/api/product-detail`, `/api/faqs`, `/api/news-page`, dan `/api/news-detail` tidak perlu mengulang `siteSettings` atau `siteMetadata`.
 
 Menu utama **tidak dikelola CMS**. Daftar menu navbar dan Navigation pada footer berasal dari:
 
@@ -401,7 +404,7 @@ npm run check:cms
 
 ## 10. Single source dan fallback
 
-Dalam kode UI, data hanya diambil melalui `lib/cms.ts`. Ini adalah single access layer.
+Dalam kode UI, data hanya diambil melalui `lib/cms.ts`. Ini adalah single access layer. Konten fallback juga dikelompokkan per endpoint dalam `cmsFallbackContent` agar tidak ada konfigurasi global yang disalin ke endpoint halaman.
 
 Ada dua mode runtime:
 
@@ -416,7 +419,7 @@ Untuk fase integrasi gunakan `false`. Setelah backend CMS stabil dan webhook sud
 - Jangan expose `CMS_REVALIDATE_SECRET` ke browser.
 - Jangan hard-code secret di komponen UI.
 - Set secret melalui environment hosting.
-- Karena secret contoh sudah dibagikan dalam source handoff, sebaiknya rotate secret sebelum production final.
+- Gunakan secret acak yang panjang di environment hosting dan jangan menaruh nilai production di `.env.example`.
 
 ## 10. SEO field opsional dari CMS
 

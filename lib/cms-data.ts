@@ -1,4 +1,4 @@
-import type { AboutPageSection, AboutSection, BenefitsSection, DistributionSection, FAQCategory, FAQHomeSection, FAQItem, FAQPageSection, FooterSection, HeroSection, HeroSlide, NewsDetailSection, NewsItem, NewsPageSection, Product, ProductDetailSection, ProductPageSection, ProductSection, SiteMetadata, SiteSettings, TestimoniesSection, Testimony } from './cms-types';
+import type { AboutPageSection, AboutSection, BenefitsSection, DistributionSection, FAQCategory, FAQHomeSection, FAQPageSection, FooterSection, HeroSection, HeroSlide, NewsDetailSection, NewsItem, NewsPageSection, Product, ProductDetailSection, ProductPageSection, ProductSection, SiteMetadata, SiteSettings, TestimoniesSection, Testimony } from './cms-types';
 
 
 export const siteMetadata: SiteMetadata = {
@@ -20,10 +20,11 @@ export const siteMetadata: SiteMetadata = {
   themeColor: '#2b1b12',
 };
 
-export const siteSettings: SiteSettings = {
+const siteSettings: SiteSettings = {
   siteName: 'Steda Roaster',
   description:
     'Produsen mesin roasting kopi berkualitas untuk kebutuhan home roastery, coffee shop, hingga skala industri.',
+  phoneNumber: '6281225171359',
   whatsappNumber: '6281225171359',
   whatsappMessage: 'Halo, saya ingin bertanya tentang produk Steda Roaster',
   email: 'info@stedaroaster.com',
@@ -37,7 +38,7 @@ export const siteSettings: SiteSettings = {
 };
 
 
-export const aboutSection: AboutSection = {
+const aboutSection: AboutSection = {
   videoUrl: 'https://www.youtube.com/embed/IWxF0VOYymI',
   videoTitle: 'Steda Roaster Introduction',
   heading: 'Who We Are',
@@ -50,7 +51,7 @@ export const aboutSection: AboutSection = {
 };
 
 
-export const aboutPageSection: AboutPageSection = {
+const aboutPageSection: AboutPageSection = {
   hero: {
     heading: 'About Steda Roaster',
     description: 'Crafting Precision Coffee Roasting Machines for Professionals Around the World.',
@@ -80,13 +81,13 @@ export const aboutPageSection: AboutPageSection = {
   },
 };
 
-export const heroSlides: HeroSlide[] = [
+const heroSlides: HeroSlide[] = [
   { id: 'hero-1', src: '/hero-1.jpg', alt: 'Mesin roasting kopi Steda Roaster' },
   { id: 'hero-2', src: '/hero-2.jpg', alt: 'Proses roasting kopi profesional' },
   { id: 'hero-3', src: '/hero-3.jpg', alt: 'Coffee roaster untuk bisnis kopi' },
 ];
 
-export const heroSection: HeroSection = {
+const heroSection: HeroSection = {
   eyebrow: 'Premium Coffee Roasting Machine',
   heading: 'Mesin Roasting Kopi Berkualitas untuk Bisnis Anda',
   description:
@@ -96,7 +97,7 @@ export const heroSection: HeroSection = {
   slideAriaLabelPrefix: 'Go to slide',
 };
 
-export const productSection: ProductSection = {
+const productSection: ProductSection = {
   eyebrow: 'Our Products',
   heading: 'Explore Our Coffee Machine',
   description:
@@ -119,7 +120,7 @@ export const productSection: ProductSection = {
 };
 
 
-export const productPageSection: ProductPageSection = {
+const productPageSection: ProductPageSection = {
   hero: {
     eyebrow: 'Products',
     heading: 'Our Products',
@@ -134,7 +135,7 @@ export const productPageSection: ProductPageSection = {
   productImageAltPrefix: 'Mesin roasting kopi',
 };
 
-export const productDetailSection: ProductDetailSection = {
+const productDetailSection: ProductDetailSection = {
   notFoundTitle: 'Product Not Found',
   metadataTitleSuffix: 'Steda Roaster',
   technicalParametersHeading: 'Technical Parameters',
@@ -169,7 +170,7 @@ export const productDetailSection: ProductDetailSection = {
   shareAriaLabel: 'Share product',
 };
 
-export const benefitsSection: BenefitsSection = {
+const benefitsSection: BenefitsSection = {
   image: { src: '/benefits-product.jpg', alt: 'Coffee Machine' },
   heading: 'BENEFITS OF BUYING\nFROM OUR SHOP',
   description: 'Discover the Advantages: Why Choose Us for Your Next Purchase?',
@@ -207,7 +208,7 @@ export const benefitsSection: BenefitsSection = {
   ],
 };
 
-export const distributionSection: DistributionSection = {
+const distributionSection: DistributionSection = {
   eyebrow: 'Distribution',
   heading: 'Mesin Steda Roaster sudah tersebar diseluruh Nusantara.',
   highlightedWord: 'Steda',
@@ -233,7 +234,7 @@ export const distributionSection: DistributionSection = {
   ],
 };
 
-export const testimoniesSection: TestimoniesSection = {
+const testimoniesSection: TestimoniesSection = {
   eyebrow: 'Testimonies',
   heading: 'What Our Customers Say',
   description:
@@ -243,7 +244,7 @@ export const testimoniesSection: TestimoniesSection = {
   itemAriaLabelPrefix: 'View testimony from',
 };
 
-export const footerSection: FooterSection = {
+const footerSection: FooterSection = {
   description: 'Precision Coffee Roasting Machine for Modern Businesses.',
   copyright: 'All rights reserved.',
   navigationTitle: 'Navigation',
@@ -251,7 +252,7 @@ export const footerSection: FooterSection = {
   socialTitle: 'Follow Us',
 };
 
-export const products: Product[] = [
+const products: Product[] = [
   {
     id: 1,
     slug: 'se-200-series',
@@ -394,7 +395,7 @@ export const products: Product[] = [
   },
 ];
 
-export const testimonies: Testimony[] = [
+const testimonies: Testimony[] = [
   {
     id: 1,
     name: 'Santi Minato',
@@ -416,7 +417,7 @@ export const testimonies: Testimony[] = [
 ];
 
 
-export const faqHomeSection: FAQHomeSection = {
+const faqHomeSection: FAQHomeSection = {
   heading: 'Frequently Asked Questions',
   description: 'Temukan jawaban untuk pertanyaan umum tentang produk dan layanan Steda Roaster.',
   ctaLabel: 'See Details FAQs',
@@ -424,7 +425,7 @@ export const faqHomeSection: FAQHomeSection = {
   previewLimit: 4,
 };
 
-export const faqPageSection: FAQPageSection = {
+const faqPageSection: FAQPageSection = {
   heading: 'Frequently Asked Questions',
   description: 'Temukan jawaban lengkap mengenai produk dan layanan Steda Roaster.',
   contactText: 'Ingin bertanya lebih lanjut?',
@@ -433,7 +434,7 @@ export const faqPageSection: FAQPageSection = {
   backHref: '/',
 };
 
-export const faqCategories: FAQCategory[] = [
+const faqCategories: FAQCategory[] = [
   {
     title: 'About Steda Machine Roaster',
     icon: 'coffee',
@@ -520,10 +521,7 @@ export const faqCategories: FAQCategory[] = [
   },
 ];
 
-export const faqs: FAQItem[] = faqCategories.flatMap((category) => category.faqs);
-
-
-export const newsPageSection: NewsPageSection = {
+const newsPageSection: NewsPageSection = {
   eyebrow: 'News',
   heading: 'Latest News',
   description: 'Temukan berita terbaru, edukasi, dan informasi menarik seputar kopi dan dunia roasting.',
@@ -533,7 +531,7 @@ export const newsPageSection: NewsPageSection = {
   readMoreLabel: 'Read More →',
 };
 
-export const newsDetailSection: NewsDetailSection = {
+const newsDetailSection: NewsDetailSection = {
   notFoundTitle: 'News Not Found',
   backLabel: '← Back to News',
   backHref: '/news',
@@ -547,9 +545,9 @@ export const newsDetailSection: NewsDetailSection = {
   openImageAriaLabelPrefix: 'Open image',
 };
 
-export const newsCategories = ['All News', 'Education', 'Coffee', 'Roaster Machine', 'Our Partner'];
+const newsCategories = ['All News', 'Education', 'Coffee', 'Roaster Machine', 'Our Partner'];
 
-export const news: NewsItem[] = [
+const news: NewsItem[] = [
   {
     id: 1,
     slug: 'grand-opening-surabaya',
@@ -605,3 +603,58 @@ export const news: NewsItem[] = [
     ],
   },
 ];
+
+/**
+ * Local fallback content is grouped by CMS endpoint so every runtime getter uses
+ * the same contract and no page-level endpoint duplicates global layout settings.
+ */
+export const cmsFallbackContent = {
+  layout: {
+    siteSettings,
+    siteMetadata,
+    footerSection,
+  },
+  home: {
+    heroSection,
+    aboutSection,
+    productSection,
+    productPageSection,
+    benefitsSection,
+    distributionSection,
+    testimoniesSection,
+    testimonies,
+    faqHomeSection,
+    faqs: faqCategories.flatMap((category) => category.faqs),
+    products,
+  },
+  about: {
+    aboutPageSection,
+    aboutSection,
+    benefitsSection,
+    testimoniesSection,
+    testimonies,
+  },
+  productsPage: {
+    productPageSection,
+    productSection,
+    products,
+  },
+  productDetail: {
+    productDetailSection,
+    productPageSection,
+    products,
+  },
+  faqs: {
+    faqCategories,
+    faqPageSection,
+  },
+  newsPage: {
+    news,
+    newsCategories,
+    newsPageSection,
+  },
+  newsDetail: {
+    news,
+    newsDetailSection,
+  },
+} as const;

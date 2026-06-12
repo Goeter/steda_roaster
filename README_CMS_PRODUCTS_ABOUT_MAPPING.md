@@ -44,7 +44,8 @@ Variabel dari `lib/cms-data.ts`:
 - `productPageSection`
 - `productSection`
 - `products`
-- `siteSettings`
+
+Global `siteSettings` diambil satu kali dari endpoint `/api/layout`, bukan dari `/api/products-page`.
 
 Field CMS:
 

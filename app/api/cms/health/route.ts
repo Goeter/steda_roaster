@@ -31,11 +31,11 @@ const REQUIRED_KEYS: Record<CmsEndpointKey, string[]> = {
     'testimoniesSection',
     'testimonies',
   ],
-  productsPage: ['productPageSection', 'productSection', 'products', 'siteSettings'],
-  productDetail: ['productDetailSection', 'products', 'siteSettings', 'siteMetadata'],
-  faqs: ['faqCategories', 'faqPageSection', 'siteSettings', 'siteMetadata'],
-  newsPage: ['news', 'newsCategories', 'newsPageSection', 'siteMetadata'],
-  newsDetail: ['news', 'newsDetailSection', 'siteSettings', 'siteMetadata'],
+  productsPage: ['productPageSection', 'productSection', 'products'],
+  productDetail: ['productDetailSection', 'productPageSection', 'products'],
+  faqs: ['faqCategories', 'faqPageSection'],
+  newsPage: ['news', 'newsCategories', 'newsPageSection'],
+  newsDetail: ['news', 'newsDetailSection'],
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -57,7 +57,7 @@ export async function GET() {
         message: 'CMS_API_URL is not configured in the frontend runtime environment.',
         expectedEndpoints: CMS_DEFAULT_ENDPOINTS,
       },
-      { status: 503 },
+      { status: 503, headers: { 'Cache-Control': 'no-store' } },
     );
   }
 
@@ -135,6 +135,6 @@ export async function GET() {
       fetchTimeoutMs: config.fetchTimeoutMs,
       checks,
     },
-    { status: reachable ? 200 : 502 },
+    { status: reachable ? 200 : 502, headers: { 'Cache-Control': 'no-store' } },
   );
 }

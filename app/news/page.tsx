@@ -4,7 +4,10 @@ import { getLayoutContent, getNewsContent } from '@/lib/cms';
 import { getBreadcrumbJsonLd, getNewsUrl } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { newsPageSection, siteMetadata } = await getNewsContent();
+  const [{ newsPageSection }, { siteMetadata }] = await Promise.all([
+    getNewsContent(),
+    getLayoutContent(),
+  ]);
   const title = newsPageSection.seo?.title || newsPageSection.heading;
   const description = newsPageSection.seo?.description || newsPageSection.description;
   const image = newsPageSection.seo?.image || siteMetadata.openGraphImage;
