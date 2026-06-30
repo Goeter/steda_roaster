@@ -409,8 +409,15 @@ async function fetchFromCms<T>(
       );
     }
 
-    const payload = normalizeCmsPayload(unwrapCmsPayload(await response.json()));
-    return mergeWithFallback(fallback, payload);
+    const payload = normalizeCmsPayload(
+    unwrapCmsPayload(await response.json())
+  );
+
+  if (!payload) {
+      return fallback;
+  }
+
+  return payload as T;
   } catch (error) {
     return cmsFailure(
       `[cms] Failed to fetch ${endpointPath}. Using local fallback content.`,
