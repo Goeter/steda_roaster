@@ -54,7 +54,7 @@ export const CMS_ALLOWED_EXACT_PATHS = [
 ] as const;
 export const CMS_ALLOWED_DYNAMIC_PATH_PREFIXES = ['/products/', '/news/'] as const;
 
-const DEFAULT_REVALIDATE_SECONDS = 60 * 60 * 24 * 30;
+const DEFAULT_REVALIDATE_SECONDS = 60;
 const DEFAULT_FETCH_TIMEOUT_MS = 15_000;
 
 function readPositiveNumber(value: string | undefined, fallback: number) {
