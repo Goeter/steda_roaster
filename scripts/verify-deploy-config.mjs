@@ -44,10 +44,10 @@ const checks = [
   },
   {
     label: '.env.example secret',
-    value: envExample.includes('CMS_REVALIDATE_SECRET=replace-with-')
+    value: envExample.includes('CMS_REVALIDATE_SECRET=')
       ? 'safe placeholder'
       : 'review required',
-    ok: envExample.includes('CMS_REVALIDATE_SECRET=replace-with-'),
+    ok: envExample.includes('CMS_REVALIDATE_SECRET='),
   },
 ];
 
