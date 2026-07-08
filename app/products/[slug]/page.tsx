@@ -91,10 +91,21 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }));
   const legacySpecifications = Array.isArray(product.specifications) ? product.specifications : [];
   const specificationValues = Array.isArray(product.specifications) ? {} : product.specifications ?? {};
+  /** Guarantees we never render an object as a React child. */
+  const safeString = (v: unknown): string => {
+    if (typeof v === 'string') return v;
+    if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+    if (v && typeof v === 'object' && 'value' in v) return safeString((v as Record<string, unknown>).value);
+    return '-';
+  };
   const specificationCards = productDetailSection.specificationFields.slice(0, 10).map((field, index) => ({
     key: field.key,
     label: field.label,
-    value: specificationValues[field.key] || legacySpecifications[index] || '-',
+    value: safeString(specificationValues[field.key]) !== '-'
+      ? safeString(specificationValues[field.key])
+      : safeString(legacySpecifications[index]) !== '-'
+        ? safeString(legacySpecifications[index])
+        : '-',
   }));
   const specificationColumns = [specificationCards.slice(0, 5), specificationCards.slice(5, 10)].filter(
     (column) => column.length > 0,

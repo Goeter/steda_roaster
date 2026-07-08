@@ -153,6 +153,49 @@ function normalizeTechnicalParameters(value: unknown): Record<string, string> {
   return normalized;
 }
 
+/**
+ * CMS may return specifications as:
+ *   - a Record<string, string> (current contract)
+ *   - an array of strings (legacy)
+ *   - an array of { name, value } objects
+ * This normalizer converts the array-of-objects form into a flat record
+ * so the page never tries to render an object as a React child.
+ */
+function normalizeSpecifications(value: unknown): unknown {
+  // Already a plain record – keep as-is
+  if (isRecord(value)) {
+    // Guard against nested objects: ensure every value is a primitive string
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, readString(item)] as const),
+    );
+  }
+
+  // Not an array – return unchanged (could be undefined)
+  if (!Array.isArray(value)) return value;
+
+  // Check if the array contains objects with {name, value} keys
+  const hasObjectItems = value.some((item) => isRecord(item) && ('name' in item || 'label' in item || 'key' in item));
+
+  if (!hasObjectItems) {
+    // Legacy string array – convert each element to a guaranteed string
+    return value.map((item) => (typeof item === 'string' ? item : readString(item)));
+  }
+
+  // Array of { name/label/key, value/nilai/description } objects → flat record
+  const normalized: Record<string, string> = {};
+  value.forEach((item) => {
+    if (!isRecord(item)) return;
+    const key = readString(item.key) || readString(item.name) || readString(item.label);
+    const content =
+      readString(item.value) ||
+      readString(item.nilai) ||
+      readString(item.description) ||
+      readString(item.keterangan);
+    if (key && content) normalized[key] = content;
+  });
+  return normalized;
+}
+
 function normalizeProducts(value: unknown) {
   if (!Array.isArray(value)) return value;
 
@@ -169,6 +212,7 @@ function normalizeProducts(value: unknown) {
       image: coverImage,
       images: images.length ? images : [coverImage],
       technicalParams: normalizeTechnicalParameters(item.technicalParams),
+      specifications: normalizeSpecifications(item.specifications),
     };
   });
 }
