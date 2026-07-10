@@ -346,6 +346,49 @@ function normalizeSiteSettings(value: unknown) {
   return normalized;
 }
 
+/**
+ * Normalizes FAQ categories from the CMS to ensure each FAQ item has consistent
+ * id, question, and answer fields.
+ */
+function normalizeFaqCategories(value: unknown) {
+  if (!Array.isArray(value)) return value;
+
+  return value.map((category) => {
+    if (!isRecord(category)) return category;
+
+    const faqs = Array.isArray(category.faqs)
+      ? category.faqs.map((faq, index) => {
+          if (!isRecord(faq)) return faq;
+          return {
+            ...faq,
+            id: Number(faq.id) || index + 1,
+            question: readString(faq.question) || readString(faq.pertanyaan),
+            answer: readString(faq.answer) || readString(faq.jawaban),
+          };
+        })
+      : [];
+
+    return { ...category, faqs };
+  });
+}
+
+/**
+ * Normalizes flat FAQ items array (used in home page) from the CMS.
+ */
+function normalizeFaqItems(value: unknown) {
+  if (!Array.isArray(value)) return value;
+
+  return value.map((faq, index) => {
+    if (!isRecord(faq)) return faq;
+    return {
+      ...faq,
+      id: Number(faq.id) || index + 1,
+      question: readString(faq.question) || readString(faq.pertanyaan),
+      answer: readString(faq.answer) || readString(faq.jawaban),
+    };
+  });
+}
+
 function normalizeCmsPayload(value: unknown) {
   if (!isRecord(value)) return value;
 
@@ -370,6 +413,12 @@ function normalizeCmsPayload(value: unknown) {
       : {}),
     ...(value.distributionSection !== undefined
       ? { distributionSection: normalizeDistributionSection(value.distributionSection) }
+      : {}),
+    ...(value.faqCategories !== undefined
+      ? { faqCategories: normalizeFaqCategories(value.faqCategories) }
+      : {}),
+    ...(value.faqs !== undefined
+      ? { faqs: normalizeFaqItems(value.faqs) }
       : {}),
   };
 }

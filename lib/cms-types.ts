@@ -185,6 +185,7 @@ export type FAQItem = {
   id: number;
   question: string;
   answer: string;
+  isHighlighted?: boolean;
 };
 
 export type FAQCategory = {
@@ -196,6 +197,7 @@ export type FAQCategory = {
 export type FAQHomeSection = {
   heading: string;
   description: string;
+  image?: ImageItem;
   ctaLabel: string;
   ctaHref: string;
   previewLimit: number;
@@ -288,6 +290,7 @@ export type FooterSection = {
   navigationTitle: string;
   contactTitle: string;
   socialTitle: string;
+  navigationItems?: LinkItem[];
 };
 
 export type SiteSettings = {
