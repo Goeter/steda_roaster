@@ -154,6 +154,50 @@ function normalizeTechnicalParameters(value: unknown): Record<string, string> {
 }
 
 /**
+ * Maps CMS specification labels (Indonesian or English) to the camelCase keys
+ * expected by the product detail page, similar to resolveTechnicalParameterKey.
+ */
+function resolveSpecificationKey(label: string) {
+  const normalized = label
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+
+  if (['type', 'tipe', 'jenis', 'model', 'seri', 'series'].includes(normalized)) {
+    return 'type';
+  }
+  if (['minroast', 'minimumroast', 'minimalroast', 'minsangrai', 'minroasting'].includes(normalized)) {
+    return 'minRoast';
+  }
+  if (['maxroast', 'maksroast', 'maximumroast', 'maksimalroast', 'makssangrai', 'maxroasting', 'maksroasting'].includes(normalized)) {
+    return 'maxRoast';
+  }
+  if (['ignition', 'pengapian', 'pemantik', 'heating', 'pemanas', 'heater'].includes(normalized)) {
+    return 'ignition';
+  }
+  if (['airflow', 'aliranudara', 'air', 'blower'].includes(normalized)) {
+    return 'airflow';
+  }
+  if (['drum', 'tabung', 'drumseries'].includes(normalized)) {
+    return 'drum';
+  }
+  if (['dimensions', 'dimensi', 'ukuran', 'size'].includes(normalized)) {
+    return 'dimensions';
+  }
+  if (['weight', 'berat', 'bobot'].includes(normalized)) {
+    return 'weight';
+  }
+  if (['electricalpower', 'dayalistrik', 'daya', 'power', 'listrik', 'watt', 'voltage', 'electric'].includes(normalized)) {
+    return 'electricalPower';
+  }
+  if (['datalogger', 'logger', 'datalogging', 'monitoring', 'datalog'].includes(normalized)) {
+    return 'dataLogger';
+  }
+
+  return undefined;
+}
+
+/**
  * CMS may return specifications as:
  *   - a Record<string, string> (current contract)
  *   - an array of strings (legacy)
@@ -162,12 +206,15 @@ function normalizeTechnicalParameters(value: unknown): Record<string, string> {
  * so the page never tries to render an object as a React child.
  */
 function normalizeSpecifications(value: unknown): unknown {
-  // Already a plain record – keep as-is
+  // Already a plain record – resolve keys so CMS labels map to camelCase
   if (isRecord(value)) {
-    // Guard against nested objects: ensure every value is a primitive string
-    return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [key, readString(item)] as const),
-    );
+    const result: Record<string, string> = {};
+    for (const [key, item] of Object.entries(value)) {
+      const resolvedKey = resolveSpecificationKey(key) || key;
+      const content = readString(item);
+      if (content) result[resolvedKey] = content;
+    }
+    return result;
   }
 
   // Not an array – return unchanged (could be undefined)
@@ -182,16 +229,19 @@ function normalizeSpecifications(value: unknown): unknown {
   }
 
   // Array of { name/label/key, value/nilai/description } objects → flat record
+  // Resolve CMS display labels to the expected camelCase keys
   const normalized: Record<string, string> = {};
   value.forEach((item) => {
     if (!isRecord(item)) return;
-    const key = readString(item.key) || readString(item.name) || readString(item.label);
+    const rawKey = readString(item.key) || readString(item.name) || readString(item.label);
     const content =
       readString(item.value) ||
       readString(item.nilai) ||
       readString(item.description) ||
       readString(item.keterangan);
-    if (key && content) normalized[key] = content;
+    if (!rawKey || !content) return;
+    const resolvedKey = resolveSpecificationKey(rawKey) || rawKey;
+    normalized[resolvedKey] = content;
   });
   return normalized;
 }
