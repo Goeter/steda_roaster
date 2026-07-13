@@ -16,6 +16,7 @@ export const CMS_TAGS = {
   news: 'cms:news',
   newsDetail: 'cms:news-detail',
   seo: 'cms:seo',
+  settings: 'cms:settings',
 } as const;
 
 export const CMS_DEFAULT_ENDPOINTS = {
