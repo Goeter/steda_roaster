@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
+import { AntiInspect } from '@/components/anti-inspect';
 import { getLayoutContent } from '@/lib/cms';
 import { getSiteUrl } from '@/lib/seo';
 import './globals.css';
@@ -138,6 +139,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         {children}
         <Footer footerSection={footerSection} siteSettings={siteSettings} />
         <FloatingWhatsAppButton siteSettings={siteSettings} />
+        <AntiInspect />
       </body>
     </html>
   );

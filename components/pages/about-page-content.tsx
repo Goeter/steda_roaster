@@ -21,8 +21,8 @@ type AboutPageContentProps = {
 export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSection, testimoniesSection, testimonies }: AboutPageContentProps) {
   return (
     <>
-
-      <main className="animate-page-enter text-gray-800">
+      <main className="animate-page-enter bg-[#f8f3ec] text-gray-800">
+        
         {/* Hero Section */}
         <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden text-center md:h-[70vh] lg:h-[75vh]">
           <Image
@@ -34,7 +34,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
             className="object-cover object-center"
           />
 
-          <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-0 bg-black/60" />
 
           {/* Batik Parang Pattern on Hero Overlay */}
           <div
@@ -52,80 +52,83 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
               {aboutPageSection.hero.description}
             </p>
           </Reveal>
-
         </section>
 
+        {/* About Us Component */}
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
         {/* Vision & Mission Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f3ec] to-[#f3ece2] py-24">
+        <section className="relative overflow-hidden bg-[#f8f3ec] py-24 border-t border-amber-800/5">
           {/* Batik Truntum Pattern */}
           <div
-            className="absolute inset-0 bg-repeat opacity-[0.035]"
+            className="absolute inset-0 bg-repeat opacity-[0.03]"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23a67c52'/%3E%3Cpath d='M50 38 L53 46 L50 42 L47 46 Z' fill='%23a67c52'/%3E%3Cpath d='M50 62 L53 54 L50 58 L47 54 Z' fill='%23a67c52'/%3E%3Cpath d='M38 50 L46 47 L42 50 L46 53 Z' fill='%23a67c52'/%3E%3Cpath d='M62 50 L54 47 L58 50 L54 53 Z' fill='%23a67c52'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='100' cy='0' r='5'/%3E%3Ccircle cx='0' cy='100' r='5'/%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23a67c52'/%3E%3Cpath d='M50 38 L53 46 L50 42 L47 46 Z' fill='%23a67c52'/%3E%3Cpath d='M50 62 L53 54 L50 58 L47 54 Z' fill='%23a67c52'/%3E%3Cpath d='M38 50 L46 47 L42 50 L46 53 Z' fill='%23a67c52'/%3E%3Cpath d='M62 50 L54 47 L58 50 L54 53 Z' fill='%23a67c52'/%3E%3C/g%3E%3C/svg%3E")`,
             }}
           />
 
-          {/* Warm glow accents */}
-          <div className="absolute -left-16 top-1/4 h-64 w-64 rounded-full bg-amber-300/20 blur-[90px]" />
-          <div className="absolute -right-16 bottom-1/4 h-56 w-56 rounded-full bg-yellow-300/15 blur-[80px]" />
-
           <div className="relative z-10 mx-auto max-w-7xl px-6">
             <Reveal className="mb-16 text-center">
-              <h2 className="text-3xl font-bold text-[#3e2723] md:text-5xl">
+              <h2 className="text-3xl font-black text-neutral-900 md:text-5xl">
                 {aboutPageSection.visionMission.heading}
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-gray-600">
+              <p className="mx-auto mt-4 max-w-2xl text-neutral-600">
                 {aboutPageSection.visionMission.description}
               </p>
-              <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-[#6d4c41]" />
+              <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-amber-600" />
             </Reveal>
 
             <div className="grid gap-10 md:grid-cols-2">
-              <Reveal className="relative rounded-3xl border border-white/40 bg-white/80 p-10 shadow-lg backdrop-blur-lg transition duration-500 hover:shadow-2xl" delay={100}>
+              
+              {/* Vision Card */}
+              <Reveal className="relative rounded-3xl border border-amber-800/10 bg-white/70 p-10 shadow-lg backdrop-blur-sm transition duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:shadow-xl" delay={100}>
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-full bg-[#3e2723] p-4 text-white shadow-md">
+                  <div className="rounded-2xl bg-amber-700 p-4 text-white shadow-md">
                     <Eye size={28} />
                   </div>
-                  <h3 className="text-2xl font-bold text-[#3e2723]">
+                  <h3 className="text-2xl font-bold text-neutral-900">
                     {aboutPageSection.visionMission.visionTitle}
                   </h3>
                 </div>
-                <p className="leading-relaxed text-gray-600">
+                <p className="leading-relaxed text-neutral-600">
                   {aboutPageSection.visionMission.visionDescription}
                 </p>
-                <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#f5efe6] opacity-50" />
+                <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#fcf9f5] opacity-50" />
               </Reveal>
 
-              <Reveal className="relative rounded-3xl bg-gradient-to-br from-[#3e2723] to-[#6d4c41] p-10 text-white shadow-lg transition duration-500 hover:shadow-2xl" delay={150}>
+              {/* Mission Card */}
+              <Reveal className="relative rounded-3xl border border-amber-800/10 bg-white/70 p-10 shadow-lg backdrop-blur-sm transition duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:shadow-xl" delay={150}>
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-full bg-white p-4 text-[#3e2723] shadow-md">
+                  <div className="rounded-2xl bg-amber-700 p-4 text-white shadow-md">
                     <Target size={28} strokeWidth={2} />
                   </div>
-                  <h3 className="text-2xl font-bold">
+                  <h3 className="text-2xl font-bold text-neutral-900">
                     {aboutPageSection.visionMission.missionTitle}
                   </h3>
                 </div>
 
-                <ul className="space-y-4">
-                  {aboutPageSection.visionMission.missionItems.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle size={20} className="mt-1 shrink-0" />
+                <ul className="space-y-4 text-neutral-600">
+                  {aboutPageSection.visionMission.missionItems.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle size={20} className="mt-1 shrink-0 text-amber-700" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </Reveal>
+
             </div>
           </div>
         </section>
 
+        {/* Benefits Section */}
         <Benefits benefitsSection={benefitsSection} />
+        
+        {/* Testimonies Section */}
         <Testimonies testimoniesSection={testimoniesSection} testimonies={testimonies} />
 
         {/* CTA Section */}
-        <Reveal as="section" className="relative overflow-hidden bg-gradient-to-r from-[#3e2723] to-[#6d4c41] py-20 text-white">
+        <Reveal as="section" className="relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-800 py-20 text-white">
           {/* Batik Kawung Pattern on CTA */}
           <div
             className="absolute inset-0 bg-repeat opacity-[0.06]"
@@ -144,14 +147,14 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
 
             <Button
               asChild
-              className="rounded-full bg-white px-8 py-6 text-lg font-semibold text-[#3e2723] shadow-lg transition duration-300 hover:bg-gray-200"
+              className="rounded-full bg-white px-8 py-6 text-lg font-semibold text-amber-900 shadow-lg transition duration-300 hover:bg-neutral-100"
             >
               <Link href={aboutPageSection.cta.ctaHref}>{aboutPageSection.cta.ctaLabel}</Link>
             </Button>
           </div>
         </Reveal>
-      </main>
 
+      </main>
     </>
   );
 }

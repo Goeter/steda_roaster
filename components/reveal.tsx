@@ -1,4 +1,6 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+'use client';
+
+import { type HTMLAttributes, type ReactNode, useEffect, useRef, useState } from 'react';
 
 type RevealProps = HTMLAttributes<HTMLDivElement> & {
   as?: 'div' | 'section' | 'article' | 'header';
@@ -18,9 +20,39 @@ const delayClass: Record<NonNullable<RevealProps['delay']>, string> = {
 
 export function Reveal({ as = 'div', children, className = '', delay = 0, ...props }: RevealProps) {
   const Comp = as;
+  const [hasEntered, setHasEntered] = useState(false);
+  const elementRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEntered(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.08,
+      }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
-    <Comp className={`animate-reveal-up ${delayClass[delay]} ${className}`.trim()} {...props}>
+    <Comp
+      ref={elementRef as any}
+      className={`${hasEntered ? 'animate-reveal-up' : 'opacity-0'} ${
+        hasEntered ? delayClass[delay] : ''
+      } ${className}`.trim()}
+      {...props}
+    >
       {children}
     </Comp>
   );

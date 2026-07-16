@@ -96,8 +96,6 @@ export function Distribution({ distributionSection }: DistributionProps) {
         </div>
       </div>
 
-      {/* Bottom — thin transition to FAQ */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-8 bg-gradient-to-b from-transparent to-[#e8e0d2]" />
     </section>
   );
 }

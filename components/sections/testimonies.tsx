@@ -73,34 +73,34 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-gradient-to-br from-[#3d2a1a] via-[#4a3323] to-[#352418] py-12 sm:py-16"
+      className="relative overflow-hidden bg-[#f8f3ec] py-20"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(200,120,60,0.15),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(180,100,40,0.12),transparent_34%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-400/8 blur-3xl" />
-      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-300/6 blur-[90px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.08),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(139,90,43,0.06),transparent_34%)]" />
+      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/10 blur-3xl" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-yellow-200/5 blur-[90px]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-800/10 to-transparent" />
 
-      {/* Mega Mendung Cloud Pattern — Cirebon Tradition */}
+      {/* Mega Mendung Cloud Pattern — Warm Gold Line Accent */}
       <div
-        className="absolute inset-0 bg-repeat opacity-[0.04]"
+        className="absolute inset-0 bg-repeat opacity-[0.035]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='80' viewBox='0 0 160 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4a574' stroke-width='1'%3E%3Cpath d='M0 60 Q20 40 40 50 Q60 60 80 40 Q100 20 120 35 Q140 50 160 30'/%3E%3Cpath d='M0 70 Q20 50 40 60 Q60 70 80 50 Q100 30 120 45 Q140 60 160 40'/%3E%3Cpath d='M0 80 Q20 60 40 70 Q60 80 80 60 Q100 40 120 55 Q140 70 160 50'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='80' viewBox='0 0 160 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.8'%3E%3Cpath d='M0 60 Q20 40 40 50 Q60 60 80 40 Q100 20 120 35 Q140 50 160 30'/%3E%3Cpath d='M0 70 Q20 50 40 60 Q60 70 80 50 Q100 30 120 45 Q140 60 160 40'/%3E%3Cpath d='M0 80 Q20 60 40 70 Q60 80 80 60 Q100 40 120 55 Q140 70 160 50'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 text-center">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-300 sm:text-sm">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
             {testimoniesSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
             {testimoniesSection.heading}
           </h2>
 
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-white/60 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
             {testimoniesSection.description}
           </p>
         </div>
@@ -109,7 +109,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-white/90 text-amber-800 shadow-lg shadow-amber-900/10 backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-50 sm:left-4"
+            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200/50 bg-white text-amber-800 shadow-lg backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-50 sm:left-4"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
@@ -130,12 +130,10 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                     'rounded-[1.75rem] border backdrop-blur-xl',
                     'transition-[transform,opacity,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     'will-change-transform',
-                    'before:pointer-events-none before:absolute before:inset-0 before:rounded-[1.75rem]',
-                    'before:bg-gradient-to-br before:from-white/75 before:via-white/35 before:to-amber-50/80',
                     'hover:border-amber-300/80 hover:bg-white/90',
                     isCenter
-                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-200/90 bg-white/90 p-6 opacity-100 shadow-2xl shadow-amber-950/10 sm:w-[420px] sm:p-7'
-                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-white/80 bg-white/55 p-5 opacity-70 shadow-xl shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-200 bg-white p-6 opacity-100 shadow-xl shadow-amber-950/5 sm:w-[420px] sm:p-7'
+                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-amber-100 bg-white/70 p-5 opacity-70 shadow-md shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
                     position === 'left' && '-translate-x-[96%] sm:-translate-x-[122%]',
                     position === 'right' && '-translate-x-[4%] sm:translate-x-[22%]',
                     position === 'center' && 'translate-x-[-50%]',
@@ -146,14 +144,14 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                       <div
                         className={[
                           'flex shrink-0 items-center justify-center rounded-2xl',
-                          'bg-gradient-to-br from-amber-100 to-orange-100 text-amber-700 shadow-inner',
+                          'bg-gradient-to-br from-amber-100 to-orange-100/50 text-amber-700 shadow-inner',
                           isCenter ? 'h-12 w-12' : 'h-10 w-10',
                         ].join(' ')}
                       >
                         <Quote className={isCenter ? 'h-6 w-6' : 'h-5 w-5'} />
                       </div>
 
-                      <div className="h-px flex-1 bg-gradient-to-r from-amber-200/90 to-transparent" />
+                      <div className="h-px flex-1 bg-gradient-to-r from-amber-200 to-transparent" />
                     </div>
 
                     <p
@@ -169,13 +167,13 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
                     <div
                       className={[
-                        'border-t border-amber-100/80',
+                        'border-t border-amber-100',
                         isCenter ? 'mt-6 pt-5' : 'mt-5 pt-4',
                       ].join(' ')}
                     >
                       <h3
                         className={[
-                          'font-bold text-neutral-950',
+                          'font-bold text-neutral-900',
                           isCenter ? 'text-base' : 'text-sm',
                         ].join(' ')}
                       >
@@ -195,7 +193,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           <button
             type="button"
             onClick={() => paginate(1)}
-            className="absolute right-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200 bg-white/90 text-amber-800 shadow-lg shadow-amber-900/10 backdrop-blur transition duration-300 hover:translate-x-0.5 hover:bg-amber-50 sm:right-4"
+            className="absolute right-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-200/50 bg-white text-amber-800 shadow-lg backdrop-blur transition duration-300 hover:translate-x-0.5 hover:bg-amber-50 sm:right-4"
             aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
@@ -219,9 +217,6 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           ))}
         </div>
       </div>
-
-      {/* Bottom transition to light Distribution */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-b from-transparent to-[#f8f3ec]" />
     </section>
   );
 }
