@@ -73,34 +73,34 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-[#e5d8c2] py-12 sm:py-16"
+      className="relative overflow-hidden bg-gradient-to-br from-[#3d2a1a] via-[#4a3323] to-[#352418] py-12 sm:py-16"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(190,140,60,0.20),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(111,78,55,0.18),transparent_34%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-300/15 blur-3xl" />
-      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-orange-200/12 blur-[90px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(200,120,60,0.15),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(180,100,40,0.12),transparent_34%)]" />
+      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-400/8 blur-3xl" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-300/6 blur-[90px]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
 
-      {/* Batik Kawung Pattern Overlay */}
+      {/* Mega Mendung Cloud Pattern — Cirebon Tradition */}
       <div
-        className="absolute inset-0 bg-repeat opacity-[0.035]"
+        className="absolute inset-0 bg-repeat opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Cellipse cx='60' cy='30' rx='15' ry='22'/%3E%3Cellipse cx='60' cy='90' rx='15' ry='22'/%3E%3Cellipse cx='30' cy='60' rx='22' ry='15'/%3E%3Cellipse cx='90' cy='60' rx='22' ry='15'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23a67c52'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='80' viewBox='0 0 160 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4a574' stroke-width='1'%3E%3Cpath d='M0 60 Q20 40 40 50 Q60 60 80 40 Q100 20 120 35 Q140 50 160 30'/%3E%3Cpath d='M0 70 Q20 50 40 60 Q60 70 80 50 Q100 30 120 45 Q140 60 160 40'/%3E%3Cpath d='M0 80 Q20 60 40 70 Q60 80 80 60 Q100 40 120 55 Q140 70 160 50'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
       <div className="relative mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-300 sm:text-sm">
             {testimoniesSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             {testimoniesSection.heading}
           </h2>
 
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-white/60 sm:text-base">
             {testimoniesSection.description}
           </p>
         </div>
@@ -221,7 +221,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
       </div>
 
       {/* Bottom transition fade to Distribution section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#d5dfe8]" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-b from-transparent to-[#2a4550]" />
     </section>
   );
 }

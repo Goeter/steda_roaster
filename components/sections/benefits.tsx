@@ -1,15 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Award, Cpu, Hand, Shield, Star } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import type { BenefitsSection } from '@/lib/cms-types';
-
-/**
- * Maps each benefit item id to a lucide icon.
- * Falls back to Star for any id outside the map.
- */
-const BENEFIT_ICONS = [Shield, Award, Hand, Star, Cpu] as const;
 
 type BenefitsProps = {
   benefitsSection: BenefitsSection;
@@ -19,45 +12,45 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
   return (
     <section
       id="benefits"
-      className="relative overflow-hidden bg-gradient-to-br from-[#ddd0b8] via-[#e5d8c2] to-[#d8cab0] py-20"
+      className="relative overflow-hidden bg-gradient-to-br from-[#1a2332] via-[#1e2a3a] to-[#152030] py-20"
     >
-      {/* Batik Truntum Pattern — Floral Stars */}
+      {/* Songket Pattern — Indonesian Brocade Weave */}
       <div
-        className="absolute inset-0 bg-repeat opacity-[0.05]"
+        className="absolute inset-0 bg-repeat opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23785520' stroke-width='1'%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23785520'/%3E%3Cpath d='M50 38 L53 46 L50 42 L47 46 Z' fill='%23785520'/%3E%3Cpath d='M50 62 L53 54 L50 58 L47 54 Z' fill='%23785520'/%3E%3Cpath d='M38 50 L46 47 L42 50 L46 53 Z' fill='%23785520'/%3E%3Cpath d='M62 50 L54 47 L58 50 L54 53 Z' fill='%23785520'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='100' cy='0' r='5'/%3E%3Ccircle cx='0' cy='100' r='5'/%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.8'%3E%3Crect x='10' y='10' width='20' height='20'/%3E%3Crect x='50' y='50' width='20' height='20'/%3E%3Crect x='15' y='15' width='10' height='10'/%3E%3Crect x='55' y='55' width='10' height='10'/%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke-dasharray='4 4'/%3E%3Cline x1='40' y1='0' x2='40' y2='80' stroke-dasharray='4 4'/%3E%3Cpath d='M30 0 L40 10 L50 0' /%3E%3Cpath d='M30 80 L40 70 L50 80' /%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Warm Amber Glow Accents */}
-      <div className="absolute -left-10 top-1/4 h-72 w-72 rounded-full bg-amber-300/20 blur-[100px]" />
-      <div className="absolute -right-10 bottom-1/4 h-64 w-64 rounded-full bg-yellow-300/15 blur-[90px]" />
-      <div className="absolute left-1/3 top-0 h-48 w-48 rounded-full bg-orange-200/15 blur-[80px]" />
+      {/* Glow Accents */}
+      <div className="absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-blue-500/8 blur-[120px]" />
+      <div className="absolute -right-16 bottom-1/4 h-72 w-72 rounded-full bg-amber-400/6 blur-[100px]" />
+      <div className="absolute left-1/2 top-0 h-48 w-48 -translate-x-1/2 rounded-full bg-sky-400/5 blur-[80px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Top — Image + Heading Side-by-Side */}
-        <div className="mb-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           <Reveal className="flex justify-center">
             <div className="relative">
               <Image
                 src={benefitsSection.image.src}
                 alt={benefitsSection.image.alt}
-                width={520}
-                height={520}
-                className="relative z-10 w-full max-w-md rounded-2xl shadow-2xl shadow-amber-900/20"
+                width={640}
+                height={640}
+                className="relative z-10 w-full max-w-lg rounded-2xl shadow-2xl shadow-black/40"
               />
-              {/* Decorative frame */}
-              <div className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl border-2 border-amber-600/15" />
-              <div className="absolute -bottom-6 -right-6 h-full w-full rounded-2xl border border-amber-600/8" />
+              {/* Decorative gold corner accents */}
+              <div className="absolute -left-2 -top-2 z-20 h-10 w-10 border-l-2 border-t-2 border-amber-400/40 rounded-tl-lg" />
+              <div className="absolute -bottom-2 -right-2 z-20 h-10 w-10 border-b-2 border-r-2 border-amber-400/40 rounded-br-lg" />
             </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <h2 className="whitespace-pre-line text-3xl font-black leading-tight text-neutral-900 sm:text-4xl">
+            <h2 className="whitespace-pre-line text-3xl font-black leading-tight text-white sm:text-4xl">
               {benefitsSection.heading}
             </h2>
-            <div className="mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-400" />
-            <p className="mt-5 text-lg leading-relaxed text-neutral-700">
+            <div className="mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-400 to-amber-600" />
+            <p className="mt-5 text-lg leading-relaxed text-white/70">
               {benefitsSection.description}
             </p>
           </Reveal>
@@ -65,50 +58,51 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
 
         {/* Bottom — Benefit Cards Grid */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {benefitsSection.items.map((benefit, idx) => {
-            const IconComponent = BENEFIT_ICONS[idx % BENEFIT_ICONS.length];
+          {benefitsSection.items.map((benefit, idx) => (
+            <Reveal
+              key={benefit.id}
+              delay={idx < 3 ? ([0, 100, 200] as const)[idx] : 0}
+            >
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition-all duration-400 hover:-translate-y-1 hover:border-amber-400/25 hover:bg-white/[0.1] hover:shadow-xl hover:shadow-amber-900/10">
+                {/* Card accent — left gold stripe */}
+                <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-amber-400/50 via-amber-500/30 to-transparent transition-all duration-300 group-hover:w-1.5 group-hover:from-amber-400 group-hover:via-amber-500/60" />
 
-            return (
-              <Reveal
-                key={benefit.id}
-                delay={idx < 3 ? ([0, 100, 200] as const)[idx] : 0}
-                className={idx >= 3 ? 'lg:col-span-1' : ''}
-              >
-                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-amber-700/10 bg-white/70 p-6 shadow-lg shadow-amber-900/5 backdrop-blur-sm transition-all duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:bg-white/90 hover:shadow-xl hover:shadow-amber-900/10">
-                  {/* Card accent top border */}
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-600/60 via-amber-400/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                {/* Large decorative number background */}
+                <div className="absolute -right-2 -top-4 text-[80px] font-black leading-none text-white/[0.03] transition-all duration-500 group-hover:text-amber-400/[0.06]">
+                  {String(benefit.id).padStart(2, '0')}
+                </div>
 
-                  {/* Icon Circle */}
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 text-amber-700 shadow-inner transition-all duration-300 group-hover:scale-110 group-hover:from-amber-200 group-hover:to-orange-200 group-hover:shadow-md">
-                    <IconComponent size={26} strokeWidth={1.8} />
-                  </div>
+                {/* Top accent dot row */}
+                <div className="mb-5 flex items-center gap-1.5">
+                  <div className="h-2 w-2 rounded-full bg-amber-400/70" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-amber-400/40" />
+                  <div className="h-1 w-1 rounded-full bg-amber-400/20" />
+                  <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-400/20 to-transparent" />
+                </div>
 
-                  {/* Number Badge */}
-                  <div className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full bg-amber-600/8 text-xs font-bold text-amber-700/60 transition-colors duration-300 group-hover:bg-amber-600/15 group-hover:text-amber-700">
-                    0{benefit.id}
-                  </div>
+                <h3 className="mb-3 text-base font-bold text-white transition-colors duration-300 group-hover:text-amber-300">
+                  {benefit.title}
+                </h3>
 
-                  <h3 className="mb-3 text-base font-bold text-neutral-900 transition-colors duration-300 group-hover:text-amber-800">
-                    {benefit.title}
-                  </h3>
+                <p className="text-sm leading-relaxed text-white/60 transition-colors duration-300 group-hover:text-white/75">
+                  {benefit.description}
+                </p>
 
-                  <p className="text-sm leading-relaxed text-neutral-600 transition-colors duration-300 group-hover:text-neutral-700">
-                    {benefit.description}
-                  </p>
-
-                  {/* Bottom decorative line */}
-                  <div className="mt-auto pt-5">
-                    <div className="h-px w-full bg-gradient-to-r from-amber-400/30 via-amber-300/20 to-transparent" />
+                {/* Bottom decorative element */}
+                <div className="mt-auto pt-5">
+                  <div className="flex items-center gap-2">
+                    <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+                    <div className="h-1 w-1 rotate-45 bg-amber-400/30 transition-colors duration-300 group-hover:bg-amber-400/60" />
                   </div>
                 </div>
-              </Reveal>
-            );
-          })}
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
 
       {/* Bottom transition fade to Testimonies section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#e0d0b0]" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-b from-transparent to-[#3d2a1a]" />
     </section>
   );
 }

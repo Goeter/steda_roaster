@@ -21,13 +21,13 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
 
   return (
     <section id="faq" className="relative bg-faq py-20">
-      {/* Coffee Ring Watermark */}
+      {/* Ukiran Pattern — Indonesian Carved Wood */}
       <div
-        className="absolute inset-0 opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238d6e4a' stroke-width='1.5'%3E%3Ccircle cx='150' cy='150' r='60'/%3E%3Ccircle cx='150' cy='150' r='55' stroke-dasharray='8 4'/%3E%3Ccircle cx='150' cy='150' r='65' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%237a6040' stroke-width='0.8'%3E%3Cpath d='M60 10 Q80 30 60 50 Q40 30 60 10' /%3E%3Cpath d='M60 70 Q80 90 60 110 Q40 90 60 70' /%3E%3Cpath d='M10 60 Q30 40 50 60 Q30 80 10 60' /%3E%3Cpath d='M70 60 Q90 40 110 60 Q90 80 70 60' /%3E%3Ccircle cx='60' cy='60' r='4' /%3E%3Ccircle cx='60' cy='60' r='8' stroke-dasharray='2 3'/%3E%3C/g%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
-          backgroundSize: '300px 300px',
+          backgroundSize: '120px 120px',
         }}
       />
 
