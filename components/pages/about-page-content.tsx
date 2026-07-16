@@ -58,7 +58,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
         {/* Vision & Mission Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#f5ede0] to-[#ece2d0] py-24">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f3ec] to-[#f3ece2] py-24">
           {/* Batik Truntum Pattern */}
           <div
             className="absolute inset-0 bg-repeat opacity-[0.035]"

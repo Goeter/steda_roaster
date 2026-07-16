@@ -33,7 +33,7 @@ export function NewsPageContent({ news, newsCategories, newsPageSection }: NewsP
   }, [activeCategory, news, newsPageSection.defaultCategory, search]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#fdf8f3] to-white pt-28 pb-16 animate-page-enter">
+    <main className="min-h-screen bg-gradient-to-b from-[#f8f3ec] to-[#f3ece2] pt-28 pb-16 animate-page-enter">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="header" className="mb-10 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
