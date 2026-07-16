@@ -1,8 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { Award, Cpu, Hand, Shield, Star } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import type { BenefitsSection } from '@/lib/cms-types';
+
+/**
+ * Maps each benefit item id to a lucide icon.
+ * Falls back to Star for any id outside the map.
+ */
+const BENEFIT_ICONS = [Shield, Award, Hand, Star, Cpu] as const;
 
 type BenefitsProps = {
   benefitsSection: BenefitsSection;
@@ -27,12 +34,9 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
       <div className="absolute -right-10 bottom-1/4 h-64 w-64 rounded-full bg-yellow-300/15 blur-[90px]" />
       <div className="absolute left-1/3 top-0 h-48 w-48 rounded-full bg-orange-200/15 blur-[80px]" />
 
-      {/* Decorative vertical line accent */}
-      <div className="absolute left-8 top-20 hidden h-32 w-px bg-gradient-to-b from-transparent via-amber-700/20 to-transparent lg:block" />
-      <div className="absolute bottom-20 right-8 hidden h-32 w-px bg-gradient-to-b from-transparent via-amber-700/20 to-transparent lg:block" />
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        {/* Top — Image + Heading Side-by-Side */}
+        <div className="mb-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <Reveal className="flex justify-center">
             <div className="relative">
               <Image
@@ -40,41 +44,66 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
                 alt={benefitsSection.image.alt}
                 width={520}
                 height={520}
-                className="relative z-10 w-full max-w-md rounded-lg shadow-2xl shadow-amber-900/20"
+                className="relative z-10 w-full max-w-md rounded-2xl shadow-2xl shadow-amber-900/20"
               />
-              {/* Decorative frame behind image */}
-              <div className="absolute -bottom-3 -right-3 h-full w-full rounded-lg border-2 border-amber-600/15" />
+              {/* Decorative frame */}
+              <div className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl border-2 border-amber-600/15" />
+              <div className="absolute -bottom-6 -right-6 h-full w-full rounded-2xl border border-amber-600/8" />
             </div>
           </Reveal>
 
           <Reveal delay={150}>
-            <h2 className="mb-4 whitespace-pre-line text-3xl font-black leading-tight text-neutral-900">
+            <h2 className="whitespace-pre-line text-3xl font-black leading-tight text-neutral-900 sm:text-4xl">
               {benefitsSection.heading}
             </h2>
-
-            <div className="mb-2 h-1 w-16 rounded-full bg-gradient-to-r from-amber-600 to-transparent" />
-
-            <p className="mb-10 text-lg text-neutral-700">
+            <div className="mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-400" />
+            <p className="mt-5 text-lg leading-relaxed text-neutral-700">
               {benefitsSection.description}
             </p>
+          </Reveal>
+        </div>
 
-            <div className="space-y-8">
-              {benefitsSection.items.map((benefit) => (
-                <div
-                  key={benefit.id}
-                  className="group cursor-pointer rounded-xl border border-transparent p-4 transition-all duration-300 hover:translate-x-2 hover:border-amber-600/10 hover:bg-white/40 hover:shadow-md"
-                >
-                  <h3 className="mb-3 text-base font-bold text-neutral-900 transition-colors duration-300 group-hover:text-amber-700">
+        {/* Bottom — Benefit Cards Grid */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {benefitsSection.items.map((benefit, idx) => {
+            const IconComponent = BENEFIT_ICONS[idx % BENEFIT_ICONS.length];
+
+            return (
+              <Reveal
+                key={benefit.id}
+                delay={idx < 3 ? ([0, 100, 200] as const)[idx] : 0}
+                className={idx >= 3 ? 'lg:col-span-1' : ''}
+              >
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-amber-700/10 bg-white/70 p-6 shadow-lg shadow-amber-900/5 backdrop-blur-sm transition-all duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:bg-white/90 hover:shadow-xl hover:shadow-amber-900/10">
+                  {/* Card accent top border */}
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-600/60 via-amber-400/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  {/* Icon Circle */}
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 text-amber-700 shadow-inner transition-all duration-300 group-hover:scale-110 group-hover:from-amber-200 group-hover:to-orange-200 group-hover:shadow-md">
+                    <IconComponent size={26} strokeWidth={1.8} />
+                  </div>
+
+                  {/* Number Badge */}
+                  <div className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full bg-amber-600/8 text-xs font-bold text-amber-700/60 transition-colors duration-300 group-hover:bg-amber-600/15 group-hover:text-amber-700">
+                    0{benefit.id}
+                  </div>
+
+                  <h3 className="mb-3 text-base font-bold text-neutral-900 transition-colors duration-300 group-hover:text-amber-800">
                     {benefit.title}
                   </h3>
-                  <p className="leading-relaxed text-neutral-600 transition-colors duration-300 group-hover:text-neutral-800">
+
+                  <p className="text-sm leading-relaxed text-neutral-600 transition-colors duration-300 group-hover:text-neutral-700">
                     {benefit.description}
                   </p>
-                  <div className="mt-3 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-amber-600 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
+
+                  {/* Bottom decorative line */}
+                  <div className="mt-auto pt-5">
+                    <div className="h-px w-full bg-gradient-to-r from-amber-400/30 via-amber-300/20 to-transparent" />
+                  </div>
                 </div>
-              ))}
-            </div>
-          </Reveal>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
 

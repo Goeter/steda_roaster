@@ -13,7 +13,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 
   return (
-    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#d5dfe8] via-[#dce6ee] to-[#cdd9e5] py-8 sm:py-10 lg:py-12">
+    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#d5dfe8] via-[#dce6ee] to-[#cdd9e5] pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-16 lg:pt-12">
       {/* Topographic / Trade Route Pattern */}
       <div
         className="absolute inset-0 bg-repeat opacity-[0.04]"
@@ -92,8 +92,8 @@ export function Distribution({ distributionSection }: DistributionProps) {
         </div>
       </div>
 
-      {/* Bottom transition fade to FAQ section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#eae5dc]" />
+      {/* Bottom transition fade to FAQ section — thin so city names stay visible */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-b from-transparent to-[#eae5dc]" />
     </section>
   );
 }
