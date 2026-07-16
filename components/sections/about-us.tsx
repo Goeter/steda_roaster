@@ -16,10 +16,11 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
       {/* Warm Earth Tone Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#f5ede0] via-[#efe4d3] to-[#e8dac6]" />
 
-      {/* Glow Accents */}
+      {/* Glow Accents — Multiple layers for depth */}
       <div className="absolute left-0 top-0 h-[350px] w-[350px] rounded-full bg-amber-200/30 blur-[120px]" />
       <div className="absolute bottom-0 right-0 h-[280px] w-[280px] rounded-full bg-yellow-200/20 blur-[100px]" />
       <div className="absolute right-1/4 top-1/3 h-[200px] w-[200px] rounded-full bg-orange-100/20 blur-[80px]" />
+      <div className="absolute bottom-1/3 left-1/3 h-[150px] w-[150px] rounded-full bg-rose-100/15 blur-[70px]" />
 
       {/* Batik Kawung Pattern */}
       <div
@@ -33,26 +34,66 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
       <div className="absolute left-0 top-0 h-40 w-40 border-l-2 border-t-2 border-amber-600/10 rounded-br-[80px]" />
       <div className="absolute bottom-0 right-0 h-40 w-40 border-b-2 border-r-2 border-amber-600/10 rounded-tl-[80px]" />
 
+      {/* Decorative floating dots — left side */}
+      <div className="absolute left-6 top-1/4 hidden space-y-3 lg:block">
+        <div className="h-2 w-2 rounded-full bg-amber-500/15" />
+        <div className="ml-1 h-1.5 w-1.5 rounded-full bg-amber-500/10" />
+        <div className="h-1 w-1 rounded-full bg-amber-500/8" />
+      </div>
+
+      {/* Decorative floating dots — right side */}
+      <div className="absolute bottom-1/4 right-6 hidden space-y-3 lg:block">
+        <div className="h-1 w-1 rounded-full bg-amber-500/8" />
+        <div className="ml-1 h-1.5 w-1.5 rounded-full bg-amber-500/10" />
+        <div className="h-2 w-2 rounded-full bg-amber-500/15" />
+      </div>
+
+      {/* Vertical decorative line — left */}
+      <div className="absolute left-12 top-16 hidden h-24 w-px bg-gradient-to-b from-transparent via-amber-600/15 to-transparent lg:block" />
+      {/* Vertical decorative line — right */}
+      <div className="absolute bottom-16 right-12 hidden h-24 w-px bg-gradient-to-b from-transparent via-amber-600/15 to-transparent lg:block" />
+
+      {/* Top center ornament */}
+      <div className="absolute left-1/2 top-6 z-10 -translate-x-1/2">
+        <div className="flex items-center gap-2">
+          <div className="h-px w-10 bg-gradient-to-r from-transparent to-amber-600/25" />
+          <div className="h-1.5 w-1.5 rotate-45 bg-amber-600/20" />
+          <div className="h-2 w-2 rotate-45 border border-amber-600/25" />
+          <div className="h-1.5 w-1.5 rotate-45 bg-amber-600/20" />
+          <div className="h-px w-10 bg-gradient-to-l from-transparent to-amber-600/25" />
+        </div>
+      </div>
+
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {/* Video Section */}
-          <Reveal className="aspect-video overflow-hidden rounded-xl border border-amber-700/15 bg-black shadow-2xl shadow-amber-900/20">
-            <iframe
-              className="h-full w-full"
-              src={aboutSection.videoUrl}
-              title={aboutSection.videoTitle}
-              loading="lazy"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+          <Reveal className="relative">
+            <div className="aspect-video overflow-hidden rounded-xl border border-amber-700/15 bg-black shadow-2xl shadow-amber-900/20">
+              <iframe
+                className="h-full w-full"
+                src={aboutSection.videoUrl}
+                title={aboutSection.videoTitle}
+                loading="lazy"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            {/* Video frame decoration */}
+            <div className="absolute -bottom-2 -right-2 -z-10 h-full w-full rounded-xl border border-amber-600/10" />
           </Reveal>
 
           {/* Text Content */}
           <Reveal className="space-y-6" delay={150}>
             <div>
+              {/* Decorative element above heading */}
+              <div className="mb-4 flex items-center gap-3">
+                <div className="h-px w-8 bg-amber-600/40" />
+                <div className="h-1 w-1 rotate-45 bg-amber-600/40" />
+              </div>
+
               <h2 className="text-4xl font-bold leading-tight text-gray-900">
                 {aboutSection.heading}
               </h2>

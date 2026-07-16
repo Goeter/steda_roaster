@@ -35,9 +35,9 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
               <Image
                 src={benefitsSection.image.src}
                 alt={benefitsSection.image.alt}
-                width={640}
-                height={640}
-                className="relative z-10 w-full max-w-lg rounded-2xl shadow-2xl shadow-black/40"
+                width={800}
+                height={800}
+                className="relative z-10 w-full rounded-2xl shadow-2xl shadow-black/40"
               />
               {/* Decorative gold corner accents */}
               <div className="absolute -left-2 -top-2 z-20 h-10 w-10 border-l-2 border-t-2 border-amber-400/40 rounded-tl-lg" />

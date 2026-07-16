@@ -94,7 +94,7 @@ export function Product({ productPageSection, productSection, products }: Produc
                   aria-label={`${productPageSection.detailAriaLabelPrefix} ${product.name}`}
                   className="group block h-full"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/95 shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
                     <div className="relative h-52 w-full overflow-hidden sm:h-56">
                       <Image
                         src={product.image}
@@ -105,14 +105,14 @@ export function Product({ productPageSection, productSection, products }: Produc
                       />
 
                       {product.tag === productPageSection.bestSellerLabel && (
-                        <span className="absolute left-4 top-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                        <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
                           {productPageSection.bestSellerLabel}
                         </span>
                       )}
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      <span className="w-fit rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+                      <span className="w-fit rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
                         {product.category}
                       </span>
 
@@ -126,7 +126,7 @@ export function Product({ productPageSection, productSection, products }: Produc
 
                       <div className="flex-1" />
 
-                      <Button asChild className="mt-5 h-10 w-full rounded-full bg-emerald-700 text-sm font-semibold text-white hover:bg-emerald-800">
+                      <Button asChild className="mt-5 h-10 w-full rounded-full bg-orange-600 text-sm font-semibold text-white hover:bg-orange-700">
                         <span>
                           {productPageSection.detailButtonLabel} <ArrowRight size={16} />
                         </span>
@@ -140,7 +140,7 @@ export function Product({ productPageSection, productSection, products }: Produc
 
           <button
             onClick={() => scrollCarousel('prev')}
-            className="absolute left-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-emerald-700 shadow-lg ring-1 ring-emerald-200 transition hover:bg-emerald-50 sm:-left-2 sm:p-3 lg:-left-3"
+            className="absolute left-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-200 transition hover:bg-orange-50 sm:-left-2 sm:p-3 lg:-left-3"
             aria-label={productSection.previousProductAriaLabel}
           >
             <ChevronLeft size={20} />
@@ -148,7 +148,7 @@ export function Product({ productPageSection, productSection, products }: Produc
 
           <button
             onClick={() => scrollCarousel('next')}
-            className="absolute right-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-emerald-700 shadow-lg ring-1 ring-emerald-200 transition hover:bg-emerald-50 sm:-right-2 sm:p-3 lg:-right-3"
+            className="absolute right-1 top-1/2 z-10 flex -translate-y-1/2 rounded-full bg-white/95 p-2.5 text-orange-700 shadow-lg ring-1 ring-orange-200 transition hover:bg-orange-50 sm:-right-2 sm:p-3 lg:-right-3"
             aria-label={productSection.nextProductAriaLabel}
           >
             <ChevronRight size={20} />
@@ -158,7 +158,7 @@ export function Product({ productPageSection, productSection, products }: Produc
         <Reveal className="mt-10" delay={200}>
           <Button
             asChild
-            className="group rounded-full bg-white px-8 py-6 text-base font-semibold text-emerald-800 shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:bg-emerald-50 hover:shadow-xl"
+            className="group rounded-full bg-white px-8 py-6 text-base font-semibold text-orange-700 shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:bg-orange-50 hover:shadow-xl"
           >
             <Link href={productSection.ctaHref}>
               {productSection.ctaLabel}

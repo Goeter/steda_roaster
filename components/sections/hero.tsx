@@ -101,7 +101,8 @@ export function Hero({ heroSection }: HeroProps) {
         />
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/25" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
+      <div className="absolute inset-0 bg-black/20" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="animate-hero-content max-w-2xl text-left">
@@ -109,11 +110,11 @@ export function Hero({ heroSection }: HeroProps) {
             {heroSection.eyebrow}
           </p>
 
-          <h1 className="text-balance text-4xl font-bold leading-tight text-amber-100 drop-shadow sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-4xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-5xl lg:text-6xl">
             {heroSection.heading}
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-8 text-white/90 sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-8 text-white/95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:text-lg">
             {heroSection.description}
           </p>
 
