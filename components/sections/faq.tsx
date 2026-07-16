@@ -92,8 +92,11 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
         </Reveal>
       </div>
 
-      {/* Bottom transition fade to Footer */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-b from-transparent via-[#f0ede8] to-[#0f172a]" />
+      {/* Clean bottom border — natural contrast with footer */}
+      <div className="absolute inset-x-0 bottom-0 z-10">
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-700/20 to-transparent" />
+      </div>
     </section>
   );
 }

@@ -13,7 +13,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 
   return (
-    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#eef8ff] via-[#f4faff] to-[#e8f4fd] py-8 sm:py-10 lg:py-12">
+    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#d5dfe8] via-[#dce6ee] to-[#cdd9e5] py-8 sm:py-10 lg:py-12">
       {/* Topographic / Trade Route Pattern */}
       <div
         className="absolute inset-0 bg-repeat opacity-[0.04]"
@@ -23,8 +23,8 @@ export function Distribution({ distributionSection }: DistributionProps) {
       />
 
       {/* Soft blue glow accents */}
-      <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-blue-200/15 blur-[100px]" />
-      <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-sky-200/15 blur-[90px]" />
+      <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-blue-300/15 blur-[100px]" />
+      <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-sky-300/12 blur-[90px]" />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
@@ -93,7 +93,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
       </div>
 
       {/* Bottom transition fade to FAQ section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-white" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#eae5dc]" />
     </section>
   );
 }

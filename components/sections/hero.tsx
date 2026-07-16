@@ -132,7 +132,7 @@ export function Hero({ heroSection }: HeroProps) {
       </div>
 
       {/* Bottom transition fade to About section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-b from-transparent via-black/30 to-[#fdfaf6]" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-b from-transparent via-black/30 to-[#efe6d5]" />
 
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
         {slides.map((slide, index) => (

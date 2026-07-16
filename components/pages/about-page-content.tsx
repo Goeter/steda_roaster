@@ -54,13 +54,13 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
           </Reveal>
 
           {/* Bottom transition from hero to content */}
-          <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#fdfaf6]" />
+          <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#efe6d5]" />
         </section>
 
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
         {/* Vision & Mission Section */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#fdfaf6] to-[#f5efe6] py-24">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#efe6d5] to-[#e5dbc8] py-24">
           {/* Batik Truntum Pattern */}
           <div
             className="absolute inset-0 bg-repeat opacity-[0.035]"
@@ -70,8 +70,8 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
           />
 
           {/* Warm glow accents */}
-          <div className="absolute -left-16 top-1/4 h-64 w-64 rounded-full bg-amber-200/20 blur-[90px]" />
-          <div className="absolute -right-16 bottom-1/4 h-56 w-56 rounded-full bg-yellow-200/15 blur-[80px]" />
+          <div className="absolute -left-16 top-1/4 h-64 w-64 rounded-full bg-amber-300/20 blur-[90px]" />
+          <div className="absolute -right-16 bottom-1/4 h-56 w-56 rounded-full bg-yellow-300/15 blur-[80px]" />
 
           <div className="relative z-10 mx-auto max-w-7xl px-6">
             <Reveal className="mb-16 text-center">

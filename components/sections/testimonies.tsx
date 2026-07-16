@@ -73,13 +73,14 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-[#fffaf1] py-12 sm:py-16"
+      className="relative overflow-hidden bg-[#e5d8c2] py-12 sm:py-16"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(217,158,83,0.20),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(111,78,55,0.13),transparent_34%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/20 blur-3xl" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(190,140,60,0.20),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(111,78,55,0.18),transparent_34%)]" />
+      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-300/15 blur-3xl" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-orange-200/12 blur-[90px]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
 
       {/* Batik Kawung Pattern Overlay */}
       <div
@@ -220,7 +221,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
       </div>
 
       {/* Bottom transition fade to Distribution section */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#eef8ff]" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#d5dfe8]" />
     </section>
   );
 }

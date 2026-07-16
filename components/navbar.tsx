@@ -39,8 +39,8 @@ export function Navbar({ siteSettings }: NavbarProps) {
     <nav
       className={`fixed left-0 top-0 z-[999] w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-black/60 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl'
-          : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5'
+          ? 'bg-black/95 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl'
+          : 'bg-gradient-to-r from-black via-neutral-900 to-black py-4'
       }`}
     >
       {/* Bottom accent line */}
