@@ -21,6 +21,16 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
 
   return (
     <section id="faq" className="relative bg-faq py-20">
+      {/* Coffee Ring Watermark */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238d6e4a' stroke-width='1.5'%3E%3Ccircle cx='150' cy='150' r='60'/%3E%3Ccircle cx='150' cy='150' r='55' stroke-dasharray='8 4'/%3E%3Ccircle cx='150' cy='150' r='65' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '300px 300px',
+        }}
+      />
+
       <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
           <h2 className="mb-4 text-4xl font-bold text-foreground">
@@ -81,6 +91,9 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
           </Link>
         </Reveal>
       </div>
+
+      {/* Bottom transition fade to Footer */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-b from-transparent via-[#f0ede8] to-[#0f172a]" />
     </section>
   );
 }

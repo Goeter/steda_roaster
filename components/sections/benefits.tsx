@@ -14,13 +14,17 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
       id="benefits"
       className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-amber-50 py-20"
     >
+      {/* Batik Truntum Pattern — Floral Stars */}
       <div
-        className="absolute inset-0 bg-repeat opacity-5"
+        className="absolute inset-0 bg-repeat opacity-[0.04]"
         style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M50 10 Q60 30 50 50 Q40 30 50 10\' fill=\'%23000\' opacity=\'0.1\'/%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'5\' fill=\'%23000\'/%3E%3Ccircle cx=\'70\' cy=\'70\' r=\'5\' fill=\'%23000\'/%3E%3C/svg%3E")',
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23a67c52'/%3E%3Cpath d='M50 38 L53 46 L50 42 L47 46 Z' fill='%23a67c52'/%3E%3Cpath d='M50 62 L53 54 L50 58 L47 54 Z' fill='%23a67c52'/%3E%3Cpath d='M38 50 L46 47 L42 50 L46 53 Z' fill='%23a67c52'/%3E%3Cpath d='M62 50 L54 47 L58 50 L54 53 Z' fill='%23a67c52'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='100' cy='0' r='5'/%3E%3Ccircle cx='0' cy='100' r='5'/%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
+
+      {/* Warm Amber Glow Accents */}
+      <div className="absolute -left-10 top-1/4 h-64 w-64 rounded-full bg-amber-200/25 blur-[90px]" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-yellow-200/20 blur-[80px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -62,6 +66,9 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
           </Reveal>
         </div>
       </div>
+
+      {/* Bottom transition fade to Testimonies section */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#fffaf1]" />
     </section>
   );
 }

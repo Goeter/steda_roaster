@@ -81,6 +81,14 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
       <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/20 blur-3xl" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
+      {/* Batik Kawung Pattern Overlay */}
+      <div
+        className="absolute inset-0 bg-repeat opacity-[0.035]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Cellipse cx='60' cy='30' rx='15' ry='22'/%3E%3Cellipse cx='60' cy='90' rx='15' ry='22'/%3E%3Cellipse cx='30' cy='60' rx='22' ry='15'/%3E%3Cellipse cx='90' cy='60' rx='22' ry='15'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23a67c52'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+
       <div className="relative mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-700 sm:text-sm">
@@ -210,6 +218,9 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           ))}
         </div>
       </div>
+
+      {/* Bottom transition fade to Distribution section */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#eef8ff]" />
     </section>
   );
 }

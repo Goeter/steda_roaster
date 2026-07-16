@@ -22,7 +22,8 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
   return (
     <>
 
-      <main className="bg-[#fdfaf6] text-gray-800 animate-page-enter">
+      <main className="animate-page-enter text-gray-800">
+        {/* Hero Section */}
         <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden text-center md:h-[70vh] lg:h-[75vh]">
           <Image
             src={aboutPageSection.hero.image.src}
@@ -35,6 +36,14 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
 
           <div className="absolute inset-0 bg-black/55" />
 
+          {/* Batik Parang Pattern on Hero Overlay */}
+          <div
+            className="absolute inset-0 bg-repeat opacity-[0.06]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1'%3E%3Cpath d='M0 70 Q35 35 70 70 Q105 105 140 70' /%3E%3Cpath d='M0 0 Q35 -35 70 0 Q105 35 140 0' transform='translate(0,140)'/%3E%3Ccircle cx='70' cy='70' r='4' fill='%23d4af37'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+
           <Reveal className="relative z-10 max-w-3xl px-4">
             <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
               {aboutPageSection.hero.heading}
@@ -43,12 +52,28 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
               {aboutPageSection.hero.description}
             </p>
           </Reveal>
+
+          {/* Bottom transition from hero to content */}
+          <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#fdfaf6]" />
         </section>
 
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
-        <section className="bg-gradient-to-b from-[#fdfaf6] to-[#f5efe6] py-24">
-          <div className="mx-auto max-w-7xl px-6">
+        {/* Vision & Mission Section */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#fdfaf6] to-[#f5efe6] py-24">
+          {/* Batik Truntum Pattern */}
+          <div
+            className="absolute inset-0 bg-repeat opacity-[0.035]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-width='1'%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23a67c52'/%3E%3Cpath d='M50 38 L53 46 L50 42 L47 46 Z' fill='%23a67c52'/%3E%3Cpath d='M50 62 L53 54 L50 58 L47 54 Z' fill='%23a67c52'/%3E%3Cpath d='M38 50 L46 47 L42 50 L46 53 Z' fill='%23a67c52'/%3E%3Cpath d='M62 50 L54 47 L58 50 L54 53 Z' fill='%23a67c52'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='100' cy='0' r='5'/%3E%3Ccircle cx='0' cy='100' r='5'/%3E%3Ccircle cx='100' cy='100' r='5'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+
+          {/* Warm glow accents */}
+          <div className="absolute -left-16 top-1/4 h-64 w-64 rounded-full bg-amber-200/20 blur-[90px]" />
+          <div className="absolute -right-16 bottom-1/4 h-56 w-56 rounded-full bg-yellow-200/15 blur-[80px]" />
+
+          <div className="relative z-10 mx-auto max-w-7xl px-6">
             <Reveal className="mb-16 text-center">
               <h2 className="text-3xl font-bold text-[#3e2723] md:text-5xl">
                 {aboutPageSection.visionMission.heading}
@@ -101,8 +126,17 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
         <Benefits benefitsSection={benefitsSection} />
         <Testimonies testimoniesSection={testimoniesSection} testimonies={testimonies} />
 
-        <Reveal as="section" className="bg-gradient-to-r from-[#3e2723] to-[#6d4c41] py-20 text-white">
-          <div className="mx-auto max-w-6xl px-6 text-center">
+        {/* CTA Section */}
+        <Reveal as="section" className="relative overflow-hidden bg-gradient-to-r from-[#3e2723] to-[#6d4c41] py-20 text-white">
+          {/* Batik Kawung Pattern on CTA */}
+          <div
+            className="absolute inset-0 bg-repeat opacity-[0.06]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1'%3E%3Cellipse cx='60' cy='30' rx='15' ry='22'/%3E%3Cellipse cx='60' cy='90' rx='15' ry='22'/%3E%3Cellipse cx='30' cy='60' rx='22' ry='15'/%3E%3Cellipse cx='90' cy='60' rx='22' ry='15'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23d4af37'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+
+          <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">
               {aboutPageSection.cta.heading}
             </h2>

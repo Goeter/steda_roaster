@@ -13,8 +13,20 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 
   return (
-    <section id="distribution" className="bg-[#eef8ff] py-8 sm:py-10 lg:py-12">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#eef8ff] via-[#f4faff] to-[#e8f4fd] py-8 sm:py-10 lg:py-12">
+      {/* Topographic / Trade Route Pattern */}
+      <div
+        className="absolute inset-0 bg-repeat opacity-[0.04]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%234a7c9b' stroke-width='0.8'%3E%3Cpath d='M0 80 Q50 60 100 80 Q150 100 200 80'/%3E%3Cpath d='M0 120 Q50 100 100 120 Q150 140 200 120'/%3E%3Cpath d='M0 40 Q50 20 100 40 Q150 60 200 40'/%3E%3Cpath d='M0 160 Q50 140 100 160 Q150 180 200 160'/%3E%3Ccircle cx='50' cy='70' r='2' fill='%234a7c9b'/%3E%3Ccircle cx='150' cy='130' r='2' fill='%234a7c9b'/%3E%3Ccircle cx='100' cy='100' r='3' fill='%234a7c9b'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* Soft blue glow accents */}
+      <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-blue-200/15 blur-[100px]" />
+      <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-sky-200/15 blur-[90px]" />
+
+      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal className="w-full">
             <div className="relative aspect-[16/7.8] w-full overflow-hidden">
@@ -79,6 +91,9 @@ export function Distribution({ distributionSection }: DistributionProps) {
           </Reveal>
         </div>
       </div>
+
+      {/* Bottom transition fade to FAQ section */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-white" />
     </section>
   );
 }
