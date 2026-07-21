@@ -8,7 +8,8 @@ import { AboutUs } from '@/components/sections/about-us';
 import { Benefits } from '@/components/sections/benefits';
 import { Testimonies } from '@/components/sections/testimonies';
 import { Button } from '@/components/ui/button';
-import type { AboutPageSection, AboutSection, BenefitsSection, TestimoniesSection, Testimony } from '@/lib/cms-types';
+import type { AboutPageSection, AboutSection, BenefitsSection, SiteSettings, TestimoniesSection, Testimony } from '@/lib/cms-types';
+import { getWhatsappHref } from '@/lib/site';
 
 type AboutPageContentProps = {
   aboutPageSection: AboutPageSection;
@@ -16,9 +17,10 @@ type AboutPageContentProps = {
   benefitsSection: BenefitsSection;
   testimoniesSection: TestimoniesSection;
   testimonies: Testimony[];
+  siteSettings: SiteSettings;
 };
 
-export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSection, testimoniesSection, testimonies }: AboutPageContentProps) {
+export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSection, testimoniesSection, testimonies, siteSettings }: AboutPageContentProps) {
   return (
     <>
       <main className="animate-page-enter bg-[#f8f3ec] text-gray-800">
@@ -149,7 +151,13 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
               asChild
               className="rounded-full bg-white px-8 py-6 text-lg font-semibold text-amber-900 shadow-lg transition duration-300 hover:bg-neutral-100"
             >
-              <Link href={aboutPageSection.cta.ctaHref}>{aboutPageSection.cta.ctaLabel}</Link>
+              <a
+                href={getWhatsappHref(siteSettings)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {aboutPageSection.cta.ctaLabel}
+              </a>
             </Button>
           </div>
         </Reveal>

@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [content, { siteMetadata }] = await Promise.all([getAboutContent(), getLayoutContent()]);
+  const [content, { siteMetadata, siteSettings }] = await Promise.all([getAboutContent(), getLayoutContent()]);
   const breadcrumbJsonLd = getBreadcrumbJsonLd(
     [
       { name: 'Home', href: '/' },
@@ -48,7 +48,7 @@ export default async function AboutPage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <AboutPageContent {...content} />
+      <AboutPageContent {...content} siteSettings={siteSettings} />
     </>
   );
 }
