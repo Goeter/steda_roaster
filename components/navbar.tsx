@@ -38,8 +38,8 @@ export function Navbar({ siteSettings }: NavbarProps) {
     <nav
       className={`fixed left-0 top-0 z-[999] w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-black/95 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl'
-          : 'bg-gradient-to-r from-black via-neutral-900 to-black py-4'
+          ? 'bg-black/95 py-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl'
+          : 'bg-gradient-to-r from-black via-neutral-900 to-black py-3'
       }`}
     >
       {/* Bottom accent line */}
@@ -57,11 +57,11 @@ export function Navbar({ siteSettings }: NavbarProps) {
             <Image
               src="/logo-steda.png"
               alt={siteSettings.siteName || 'Steda Roaster'}
-              width={160}
-              height={48}
+              width={200}
+              height={60}
               className="h-auto transition-all duration-500 group-hover:brightness-110"
               style={{
-                width: scrolled ? '130px' : '160px',
+                width: scrolled ? 'clamp(120px, 15vw, 160px)' : 'clamp(130px, 18vw, 200px)',
                 height: 'auto',
               }}
               priority
