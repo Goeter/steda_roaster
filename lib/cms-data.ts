@@ -92,7 +92,7 @@ const heroSection: HeroSection = {
   heading: 'Mesin Roasting Kopi Berkualitas untuk Bisnis Anda',
   description:
     'Produsen mesin roasting kopi untuk kebutuhan skala kecil hingga industri, dirancang presisi untuk mendukung pertumbuhan bisnis kopi Anda.',
-  ctaLabel: 'See Products',
+  ctaLabel: 'View Product',
   slides: heroSlides,
   slideAriaLabelPrefix: 'Go to slide',
 };
@@ -102,7 +102,7 @@ const productSection: ProductSection = {
   heading: 'Explore Our Coffee Machine',
   description:
     'Kami menawarkan berbagai jenis mesin roasting kopi untuk kebutuhan home roastery, coffee shop, sampai produksi profesional.',
-  ctaLabel: 'See More Products',
+  ctaLabel: 'View Product',
   ctaHref: '/products',
   allowedCategories: ['Home Roastery', 'Industrial Roastery'],
   filters: ['All Products', 'Best Seller', 'Home Roastery', 'Industrial Roastery'],
@@ -214,7 +214,7 @@ const distributionSection: DistributionSection = {
   highlightedWord: 'Steda',
   description:
     'Percayakan kepada kami dalam solusi mesin roasting kopi profesional. Mesin Steda Roaster telah digunakan di berbagai wilayah Indonesia untuk mendukung kebutuhan roasting kopi.',
-  ctaLabel: 'Explore Products',
+  ctaLabel: 'View Product',
   ctaHref: '/products',
   map: { src: '/gambar_peta.webp', alt: 'Distribution map Steda Roaster' },
   legendTitle: 'Keterangan',

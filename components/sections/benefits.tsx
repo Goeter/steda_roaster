@@ -38,9 +38,9 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
               <Image
                 src={benefitsSection.image.src}
                 alt={benefitsSection.image.alt}
-                width={800}
-                height={800}
-                className="relative z-10 w-full rounded-2xl shadow-2xl shadow-amber-900/15"
+                width={500}
+                height={500}
+                className="relative z-10 max-w-md w-full rounded-2xl shadow-2xl shadow-amber-900/15"
               />
               <div className="absolute -left-2 -top-2 z-20 h-10 w-10 border-l-2 border-t-2 border-amber-600/25 rounded-tl-lg" />
               <div className="absolute -bottom-2 -right-2 z-20 h-10 w-10 border-b-2 border-r-2 border-amber-600/25 rounded-br-lg" />
@@ -73,17 +73,25 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
                 {/* Left gold stripe */}
                 <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-amber-500/40 via-amber-600/25 to-transparent transition-all duration-300 group-hover:w-1.5 group-hover:from-amber-500 group-hover:via-amber-600/50" />
 
-                {/* Ghost number */}
-                <div className="absolute -right-2 -top-4 text-[80px] font-black leading-none text-amber-900/[0.03] transition-all duration-500 group-hover:text-amber-600/[0.06]">
-                  {String(benefit.id).padStart(2, '0')}
+                {/* Top-right Batik corner ornament */}
+                <div className="absolute -right-1 -top-1 h-16 w-16 opacity-[0.06] transition-opacity duration-300 group-hover:opacity-[0.12]">
+                  <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="18" stroke="#8b6914" strokeWidth="1" />
+                    <circle cx="30" cy="30" r="8" stroke="#8b6914" strokeWidth="1" />
+                    <circle cx="30" cy="30" r="3" fill="#8b6914" />
+                    <ellipse cx="30" cy="14" rx="5" ry="10" stroke="#8b6914" strokeWidth="0.8" />
+                    <ellipse cx="30" cy="46" rx="5" ry="10" stroke="#8b6914" strokeWidth="0.8" />
+                    <ellipse cx="14" cy="30" rx="10" ry="5" stroke="#8b6914" strokeWidth="0.8" />
+                    <ellipse cx="46" cy="30" rx="10" ry="5" stroke="#8b6914" strokeWidth="0.8" />
+                  </svg>
                 </div>
 
                 {/* Dot accent row */}
                 <div className="mb-5 flex items-center gap-1.5">
-                  <div className="h-2 w-2 rounded-full bg-amber-500/50" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 shadow-sm shadow-amber-500/30" />
                   <div className="h-1.5 w-1.5 rounded-full bg-amber-500/30" />
                   <div className="h-1 w-1 rounded-full bg-amber-500/15" />
-                  <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-500/15 to-transparent" />
+                  <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-500/20 to-transparent" />
                 </div>
 
                 <h3 className="mb-3 text-base font-bold text-gray-900 transition-colors duration-300 group-hover:text-amber-700">
@@ -96,8 +104,10 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
 
                 <div className="mt-auto pt-5">
                   <div className="flex items-center gap-2">
-                    <div className="h-px flex-1 bg-gradient-to-r from-amber-400/15 to-transparent" />
-                    <div className="h-1 w-1 rotate-45 bg-amber-500/20 transition-colors duration-300 group-hover:bg-amber-500/40" />
+                    <div className="h-px flex-1 bg-gradient-to-r from-amber-400/20 to-transparent" />
+                    <div className="h-1.5 w-1.5 rotate-45 bg-amber-500/25 transition-colors duration-300 group-hover:bg-amber-500/50" />
+                    <div className="h-px w-4 bg-amber-500/15" />
+                    <div className="h-1 w-1 rotate-45 bg-amber-500/15" />
                   </div>
                 </div>
               </div>

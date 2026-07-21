@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import { ArrowRight, MessageCircle, Search } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, MessageCircle, Search } from 'lucide-react';
 import { ProductCard } from '@/components/product-card';
 import { Reveal } from '@/components/reveal';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,18 @@ export function ProductsPageContent({ productPageSection, productSection, produc
   const [searchQuery, setSearchQuery] = useState('');
   const defaultFilter = productSection.filters[0] ?? '';
   const [selectedFilter, setSelectedFilter] = useState(defaultFilter);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = searchQuery.toLowerCase().trim();
@@ -42,6 +54,13 @@ export function ProductsPageContent({ productPageSection, productSection, produc
       return matchesSearch && matchesFilter && isAllowedCategory;
     });
   }, [defaultFilter, productSection.allowedCategories, products, searchQuery, selectedFilter]);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, currentPage]);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   return (
     <>
@@ -87,7 +106,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
                   type="text"
                   placeholder={productPageSection.searchPlaceholder}
                   value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onChange={(event) => handleSearchChange(event.target.value)}
                   aria-label={productPageSection.searchAriaLabel}
                   className="w-full rounded-2xl border border-orange-100 bg-white py-3 pl-12 pr-4 outline-none transition focus:ring-2 focus:ring-orange-500"
                 />
@@ -97,7 +116,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
                 {productSection.filters.map((filter) => (
                   <Button
                     key={filter}
-                    onClick={() => setSelectedFilter(filter)}
+                    onClick={() => handleFilterChange(filter)}
                     className={`rounded-full px-5 py-2 font-medium ${
                       selectedFilter === filter
                         ? 'bg-orange-600 text-white hover:bg-orange-700'
@@ -113,12 +132,57 @@ export function ProductsPageContent({ productPageSection, productSection, produc
         </Reveal>
 
         <section className="relative mx-auto max-w-7xl px-6 pb-20">
-          {filteredProducts.length > 0 ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} labels={productPageSection} />
-              ))}
-            </div>
+          {paginatedProducts.length > 0 ? (
+            <>
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} labels={productPageSection} />
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="mt-12 flex items-center justify-center gap-2">
+                  <button
+                    onClick={() => {
+                      setCurrentPage((prev) => Math.max(1, prev - 1));
+                      window.scrollTo({ top: 350, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === 1}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-white text-orange-700 transition hover:bg-orange-50 disabled:opacity-50 disabled:hover:bg-white"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => {
+                        setCurrentPage(page);
+                        window.scrollTo({ top: 350, behavior: 'smooth' });
+                      }}
+                      className={`h-10 w-10 rounded-full font-semibold transition ${
+                        currentPage === page
+                          ? 'bg-orange-600 text-white'
+                          : 'border border-orange-200 bg-white text-orange-700 hover:bg-orange-50'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => {
+                      setCurrentPage((prev) => Math.min(totalPages, prev + 1));
+                      window.scrollTo({ top: 350, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === totalPages}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-white text-orange-700 transition hover:bg-orange-50 disabled:opacity-50 disabled:hover:bg-white"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="rounded-3xl bg-white p-10 text-center text-neutral-500 shadow-sm">
               {productSection.emptyMessage}

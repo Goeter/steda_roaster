@@ -128,7 +128,7 @@
   }
 
   .bg-faq {
-    background: #1E3A2F;
+    background: linear-gradient(135deg, #f8f3ec 0%, #f3ece2 50%, #ede4d6 100%);
     position: relative;
   }
 
