@@ -80,21 +80,31 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
                   </svg>
                 </div>
 
-                {/* Dot accent row */}
-                <div className="mb-5 flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 shadow-sm shadow-amber-500/30" />
-                  <div className="h-1.5 w-1.5 rounded-full bg-amber-500/30" />
-                  <div className="h-1 w-1 rounded-full bg-amber-500/15" />
-                  <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-500/20 to-transparent" />
+                {/* Dot accent row with index */}
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 flex-1 mr-4">
+                    <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 shadow-sm shadow-amber-500/30" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-amber-500/30" />
+                    <div className="h-1 w-1 rounded-full bg-amber-500/15" />
+                    <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-500/20 to-transparent" />
+                  </div>
+                  <span className="font-mono text-xs font-bold tracking-wider text-amber-800/80 transition-colors duration-300 group-hover:text-amber-600">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
                 <h3 className="mb-3 text-base font-bold text-gray-900 transition-colors duration-300 group-hover:text-amber-700">
                   {benefit.title}
                 </h3>
 
-                <p className="text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
+                <p className="text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700 z-10">
                   {benefit.description}
                 </p>
+
+                {/* Giant soft background number watermark */}
+                <span className="absolute bottom-2 right-4 translate-y-2 translate-x-2 text-8xl font-black text-amber-800/[0.03] select-none pointer-events-none transition-all duration-500 group-hover:text-amber-800/[0.07] group-hover:translate-y-0 group-hover:translate-x-0 font-mono">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
 
                 <div className="mt-auto pt-5">
                   <div className="flex items-center gap-2">
