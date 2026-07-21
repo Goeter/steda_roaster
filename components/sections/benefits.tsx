@@ -12,7 +12,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
   return (
     <section
       id="benefits"
-      className="relative overflow-hidden bg-[#F5EDE0] py-20"
+      className="relative overflow-hidden bg-transparent py-20"
     >
       {/* Songket Pattern */}
       <div

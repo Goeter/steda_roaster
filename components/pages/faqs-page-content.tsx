@@ -31,7 +31,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
   const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] pt-32 pb-20 animate-page-enter">
+    <main className="relative min-h-screen overflow-hidden bg-transparent pt-32 pb-20 animate-page-enter">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal as="header" className="text-center">
           <h1 className="mb-4 text-3xl font-bold text-[#3e2723] md:text-5xl">

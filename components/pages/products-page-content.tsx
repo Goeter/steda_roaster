@@ -65,7 +65,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
   return (
     <>
 
-      <main className="min-h-screen bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] animate-page-enter">
+      <main className="min-h-screen bg-transparent animate-page-enter">
         <section className="relative flex h-[60vh] w-full items-center justify-center text-center">
           <Image
             src={productPageSection.hero.image.src}

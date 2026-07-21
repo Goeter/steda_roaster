@@ -23,7 +23,7 @@ type AboutPageContentProps = {
 export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSection, testimoniesSection, testimonies, siteSettings }: AboutPageContentProps) {
   return (
     <>
-      <main className="animate-page-enter bg-[#f8f3ec] text-gray-800">
+      <main className="animate-page-enter bg-transparent text-gray-800">
         
         {/* Hero Section */}
         <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden text-center md:h-[70vh] lg:h-[75vh]">
@@ -60,7 +60,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
         {/* Vision & Mission Section */}
-        <section className="relative overflow-hidden bg-[#f8f3ec] py-24 border-t border-amber-800/5">
+        <section className="relative overflow-hidden bg-transparent py-24 border-t border-amber-800/5">
           {/* Batik Truntum Pattern */}
           <div
             className="absolute inset-0 bg-repeat opacity-[0.03]"

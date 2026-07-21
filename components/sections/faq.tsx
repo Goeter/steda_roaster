@@ -20,7 +20,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="relative bg-faq py-20">
+    <section id="faq" className="relative bg-transparent py-20">
       {/* Ukiran Pattern — Indonesian Carved Wood */}
       <div
         className="absolute inset-0 opacity-[0.03]"

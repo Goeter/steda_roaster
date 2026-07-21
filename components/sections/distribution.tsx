@@ -13,7 +13,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 
   return (
-    <section id="distribution" className="relative overflow-hidden bg-[#FBF7F1] pb-16 pt-10 sm:pb-18 sm:pt-12 lg:pb-20 lg:pt-14">
+    <section id="distribution" className="relative overflow-hidden bg-transparent pb-16 pt-10 sm:pb-18 sm:pt-12 lg:pb-20 lg:pt-14">
       {/* Batik Ceplok Pattern — Radial Flower Motif */}
       <div
         className="absolute inset-0 bg-repeat opacity-[0.04]"

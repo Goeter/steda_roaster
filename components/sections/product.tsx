@@ -36,7 +36,7 @@ export function Product({ productPageSection, productSection, products }: Produc
   return (
     <section
       id="product"
-      className="relative overflow-hidden bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] py-20"
+      className="relative overflow-hidden bg-transparent py-20"
     >
       {/* Batik Parang Pattern — Gold/Brown on Cream */}
       <div

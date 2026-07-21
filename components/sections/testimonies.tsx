@@ -73,13 +73,13 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-[#2B1B12] py-20"
+      className="relative overflow-hidden bg-transparent py-20"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.1),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(139,90,43,0.08),transparent_34%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-500/8 blur-3xl" />
-      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-700/5 blur-[90px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.06),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(139,90,43,0.04),transparent_34%)]" />
+      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-500/4 blur-3xl" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-700/3 blur-[90px]" />
 
       {/* Mega Mendung Cloud Pattern — Warm Gold Line Accent */}
       <div
@@ -91,15 +91,15 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-400 sm:text-sm">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-800 sm:text-sm">
             {testimoniesSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
             {testimoniesSection.heading}
           </h2>
 
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-white/60 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
             {testimoniesSection.description}
           </p>
         </div>
