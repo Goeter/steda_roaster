@@ -14,13 +14,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
       id="benefits"
       className="relative overflow-hidden bg-transparent py-20"
     >
-      {/* Songket Pattern */}
-      <div
-        className="absolute inset-0 bg-repeat opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.7'%3E%3Crect x='10' y='10' width='20' height='20'/%3E%3Crect x='50' y='50' width='20' height='20'/%3E%3Crect x='15' y='15' width='10' height='10'/%3E%3Crect x='55' y='55' width='10' height='10'/%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke-dasharray='4 4'/%3E%3Cline x1='40' y1='0' x2='40' y2='80' stroke-dasharray='4 4'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+
 
       {/* Glow */}
       <div className="absolute -left-10 top-1/4 h-72 w-72 rounded-full bg-amber-200/20 blur-[100px]" />

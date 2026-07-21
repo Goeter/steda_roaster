@@ -13,13 +13,7 @@ type AboutUsProps = {
 export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
   return (
     <section id="about" className="relative overflow-hidden bg-transparent py-24 text-gray-800">
-      {/* Elegant Batik Kawung Pattern */}
-      <div
-        className="absolute inset-0 bg-repeat opacity-[0.035]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='1'%3E%3Cellipse cx='80' cy='40' rx='20' ry='30'/%3E%3Cellipse cx='80' cy='120' rx='20' ry='30'/%3E%3Cellipse cx='40' cy='80' rx='30' ry='20'/%3E%3Cellipse cx='120' cy='80' rx='30' ry='20'/%3E%3Ccircle cx='80' cy='80' r='6' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+
 
       {/* Warm Ambient Glow Accents */}
       <div className="absolute left-0 top-1/4 h-96 w-96 rounded-full bg-amber-200/20 blur-[130px]" />

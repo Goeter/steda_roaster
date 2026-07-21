@@ -14,13 +14,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
 
   return (
     <section id="distribution" className="relative overflow-hidden bg-transparent pb-16 pt-10 sm:pb-18 sm:pt-12 lg:pb-20 lg:pt-14">
-      {/* Batik Ceplok Pattern — Radial Flower Motif */}
-      <div
-        className="absolute inset-0 bg-repeat opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.8'%3E%3Ccircle cx='50' cy='50' r='18'/%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%238b6914'/%3E%3Cpath d='M50 32 L54 44 L50 40 L46 44 Z' fill='%238b6914'/%3E%3Cpath d='M50 68 L54 56 L50 60 L46 56 Z' fill='%238b6914'/%3E%3Cpath d='M32 50 L44 46 L40 50 L44 54 Z' fill='%238b6914'/%3E%3Cpath d='M68 50 L56 46 L60 50 L56 54 Z' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+
 
       {/* Glow */}
       <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-amber-200/15 blur-[100px]" />

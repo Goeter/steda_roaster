@@ -21,15 +21,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
 
   return (
     <section id="faq" className="relative bg-transparent py-20">
-      {/* Ukiran Pattern — Indonesian Carved Wood */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%236f4e37' stroke-width='0.8'%3E%3Cpath d='M60 10 Q80 30 60 50 Q40 30 60 10' /%3E%3Cpath d='M60 70 Q80 90 60 110 Q40 90 60 70' /%3E%3Cpath d='M10 60 Q30 40 50 60 Q30 80 10 60' /%3E%3Cpath d='M70 60 Q90 40 110 60 Q90 80 70 60' /%3E%3Ccircle cx='60' cy='60' r='4' /%3E%3Ccircle cx='60' cy='60' r='8' stroke-dasharray='2 3'/%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '120px 120px',
-        }}
-      />
+
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">

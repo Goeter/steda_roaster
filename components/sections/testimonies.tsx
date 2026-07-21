@@ -81,13 +81,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
       <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-500/4 blur-3xl" />
       <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-700/3 blur-[90px]" />
 
-      {/* Mega Mendung Cloud Pattern — Warm Gold Line Accent */}
-      <div
-        className="absolute inset-0 bg-repeat opacity-[0.035]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='160' height='80' viewBox='0 0 160 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.8'%3E%3Cpath d='M0 60 Q20 40 40 50 Q60 60 80 40 Q100 20 120 35 Q140 50 160 30'/%3E%3Cpath d='M0 70 Q20 50 40 60 Q60 70 80 50 Q100 30 120 45 Q140 60 160 40'/%3E%3Cpath d='M0 80 Q20 60 40 70 Q60 80 80 60 Q100 40 120 55 Q140 70 160 50'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">

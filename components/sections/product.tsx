@@ -38,13 +38,7 @@ export function Product({ productPageSection, productSection, products }: Produc
       id="product"
       className="relative overflow-hidden bg-transparent py-20"
     >
-      {/* Batik Parang Pattern — Gold/Brown on Cream */}
-      <div
-        className="absolute inset-0 bg-repeat opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='1'%3E%3Cpath d='M0 70 Q35 35 70 70 Q105 105 140 70'/%3E%3Cpath d='M0 0 Q35 -35 70 0 Q105 35 140 0' transform='translate(0,140)'/%3E%3Ccircle cx='70' cy='70' r='3' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+
 
       {/* Glow Ambient */}
       <div className="absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-amber-500/5 blur-[120px]" />
