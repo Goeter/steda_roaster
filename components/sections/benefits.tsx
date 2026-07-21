@@ -12,7 +12,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
   return (
     <section
       id="benefits"
-      className="relative overflow-hidden bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] py-20"
+      className="relative overflow-hidden bg-[#F5EDE0] py-20"
     >
       {/* Songket Pattern */}
       <div
@@ -106,8 +106,6 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
         </div>
       </div>
 
-      {/* Bottom transition to dark Testimonies */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-b from-transparent to-[#2b1b12]" />
     </section>
   );
 }

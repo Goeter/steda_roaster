@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import type { SiteSettings } from '@/lib/cms-types';
@@ -53,19 +52,7 @@ export function Navbar({ siteSettings }: NavbarProps) {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <Link href="/" className="group flex-shrink-0 flex items-center gap-3">
-            <Image
-              src="/logo-steda-icon.png"
-              alt={siteSettings.siteName || 'Steda Roaster'}
-              width={50}
-              height={50}
-              className="transition-all duration-500 group-hover:brightness-110"
-              style={{
-                width: scrolled ? '40px' : '50px',
-                height: scrolled ? '40px' : '50px',
-              }}
-              priority
-            />
+          <Link href="/" className="group flex-shrink-0">
             <div className="flex flex-col leading-tight">
               <span className="text-base font-extrabold tracking-widest sm:text-lg">
                 <span className="text-yellow-400">STEDA</span>

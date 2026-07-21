@@ -36,45 +36,44 @@ export function Product({ productPageSection, productSection, products }: Produc
   return (
     <section
       id="product"
-      className="relative overflow-hidden bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] py-20"
+      className="relative overflow-hidden bg-[#1A1510] py-20"
     >
-      {/* Tenun Ikat Pattern - Colored in warm gold stroke */}
+      {/* Batik Parang Pattern — Gold on Dark */}
       <div
-        className="absolute inset-0 bg-repeat opacity-[0.035]"
+        className="absolute inset-0 bg-repeat opacity-[0.08]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.7'%3E%3Cpath d='M0 30 L15 15 L30 30 L15 45 Z'/%3E%3Cpath d='M30 0 L45 15 L30 30 L45 45 L30 60'/%3E%3Ccircle cx='15' cy='30' r='2' fill='%238b6914'/%3E%3Ccircle cx='45' cy='30' r='2' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='1'%3E%3Cpath d='M0 70 Q35 35 70 70 Q105 105 140 70'/%3E%3Cpath d='M0 0 Q35 -35 70 0 Q105 35 140 0' transform='translate(0,140)'/%3E%3Ccircle cx='70' cy='70' r='3' fill='%23d4af37'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Glow Ambient */}
-      <div className="absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-amber-500/5 blur-[120px]" />
-      <div className="absolute -right-16 bottom-1/4 h-64 w-64 rounded-full bg-orange-400/5 blur-[100px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-800/10 to-transparent" />
+      <div className="absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-amber-500/10 blur-[120px]" />
+      <div className="absolute -right-16 bottom-1/4 h-64 w-64 rounded-full bg-orange-400/8 blur-[100px]" />
 
       {/* Top ornament */}
       <div className="absolute left-1/2 top-6 z-10 -translate-x-1/2">
         <div className="flex items-center gap-2">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-700/20" />
-          <div className="h-1.5 w-1.5 rotate-45 bg-amber-700/15" />
-          <div className="h-2 w-2 rotate-45 border border-amber-700/20" />
-          <div className="h-1.5 w-1.5 rotate-45 bg-amber-700/15" />
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-700/20" />
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-400/30" />
+          <div className="h-1.5 w-1.5 rotate-45 bg-amber-400/25" />
+          <div className="h-2 w-2 rotate-45 border border-amber-400/30" />
+          <div className="h-1.5 w-1.5 rotate-45 bg-amber-400/25" />
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/30" />
         </div>
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6">
         <Reveal className="mb-14 w-full text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-400">
             {productSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-black text-neutral-900 sm:text-4xl">
+          <h2 className="text-3xl font-black text-white sm:text-4xl">
             {productSection.heading}
           </h2>
 
           <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-orange-500" />
 
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-neutral-600">
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/70">
             {productSection.description}
           </p>
         </Reveal>
@@ -94,7 +93,7 @@ export function Product({ productPageSection, productSection, products }: Produc
                   aria-label={`${productPageSection.detailAriaLabelPrefix} ${product.name}`}
                   className="group block h-full"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-amber-700/20 bg-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="relative h-52 w-full overflow-hidden sm:h-56">
                       <Image
                         src={product.image}

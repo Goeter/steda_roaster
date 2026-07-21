@@ -13,12 +13,12 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
 
   return (
-    <section id="distribution" className="relative overflow-hidden bg-gradient-to-br from-[#f8f3ec] via-[#f3ece2] to-[#ede4d6] pb-16 pt-10 sm:pb-18 sm:pt-12 lg:pb-20 lg:pt-14">
-      {/* Maritime Wave Pattern */}
+    <section id="distribution" className="relative overflow-hidden bg-[#FBF7F1] pb-16 pt-10 sm:pb-18 sm:pt-12 lg:pb-20 lg:pt-14">
+      {/* Batik Ceplok Pattern — Radial Flower Motif */}
       <div
-        className="absolute inset-0 bg-repeat opacity-[0.03]"
+        className="absolute inset-0 bg-repeat opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.7'%3E%3Cpath d='M0 50 Q25 30 50 50 Q75 70 100 50 Q125 30 150 50 Q175 70 200 50'/%3E%3Cpath d='M0 65 Q25 45 50 65 Q75 85 100 65 Q125 45 150 65 Q175 85 200 65'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%238b6914'/%3E%3Ccircle cx='150' cy='50' r='2' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238b6914' stroke-width='0.8'%3E%3Ccircle cx='50' cy='50' r='18'/%3E%3Ccircle cx='50' cy='50' r='8'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%238b6914'/%3E%3Cpath d='M50 32 L54 44 L50 40 L46 44 Z' fill='%238b6914'/%3E%3Cpath d='M50 68 L54 56 L50 60 L46 56 Z' fill='%238b6914'/%3E%3Cpath d='M32 50 L44 46 L40 50 L44 54 Z' fill='%238b6914'/%3E%3Cpath d='M68 50 L56 46 L60 50 L56 54 Z' fill='%238b6914'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 

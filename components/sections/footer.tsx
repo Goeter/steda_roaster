@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebookF, FaTiktok } from 'react-icons/fa';
 import type { FooterSection, SiteSettings } from '@/lib/cms-types';
@@ -29,23 +28,14 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo-steda-icon.png"
-                alt={siteSettings.siteName || 'Steda Roaster'}
-                width={48}
-                height={48}
-                className="h-12 w-12"
-              />
-              <div className="flex flex-col leading-tight">
-                <span className="text-lg font-extrabold tracking-widest">
-                  <span className="text-amber-400">STEDA</span>
-                  <span className="ml-1.5 text-white">ROASTER</span>
-                </span>
-                <span className="text-[10px] font-medium tracking-[0.2em] text-white/70">
-                  SPECIALIST ROASTERY MACHINES
-                </span>
-              </div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg font-extrabold tracking-widest">
+                <span className="text-amber-400">STEDA</span>
+                <span className="ml-1.5 text-white">ROASTER</span>
+              </span>
+              <span className="text-[10px] font-medium tracking-[0.2em] text-white/70">
+                SPECIALIST ROASTERY MACHINES
+              </span>
             </div>
             <p className="text-sm text-white/70">{footerSection.description}</p>
             <p className="text-xs text-white/50">

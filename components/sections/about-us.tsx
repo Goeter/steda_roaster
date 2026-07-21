@@ -12,7 +12,7 @@ type AboutUsProps = {
 
 export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
   return (
-    <section id="about" className="relative overflow-hidden bg-[#f8f3ec] py-24 text-gray-800">
+    <section id="about" className="relative overflow-hidden bg-[#FAF6F0] py-24 text-gray-800">
       {/* Elegant Batik Kawung Pattern */}
       <div
         className="absolute inset-0 bg-repeat opacity-[0.035]"

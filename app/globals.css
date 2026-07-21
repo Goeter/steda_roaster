@@ -128,7 +128,7 @@
   }
 
   .bg-faq {
-    background: linear-gradient(180deg, #e8e0d2 0%, #f0e8da 100%);
+    background: #1E3A2F;
     position: relative;
   }
 
@@ -136,7 +136,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(135deg, rgba(212,175,55,0.04) 0px, rgba(212,175,55,0.04) 1px, transparent 1px, transparent 8px);
+    background-image: repeating-linear-gradient(135deg, rgba(212,175,55,0.06) 0px, rgba(212,175,55,0.06) 1px, transparent 1px, transparent 8px);
     pointer-events: none;
   }
 }
