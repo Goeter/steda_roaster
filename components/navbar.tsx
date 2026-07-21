@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import type { SiteSettings } from '@/lib/cms-types';
 import { NAVIGATION_ITEMS } from '@/lib/navigation';
-import { splitBrandName } from '@/lib/site';
 
 type NavbarProps = {
   siteSettings: Pick<SiteSettings, 'siteName'>;
@@ -17,7 +17,6 @@ export function Navbar({ siteSettings }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const menuItems = NAVIGATION_ITEMS;
-  const brandParts = splitBrandName(siteSettings.siteName);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,16 +54,18 @@ export function Navbar({ siteSettings }: NavbarProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <Link href="/" className="group flex-shrink-0">
-            <span className="cursor-pointer text-lg font-extrabold tracking-wide">
-              <span className="animate-brand-glow text-yellow-400 transition-all duration-300 group-hover:text-yellow-300">
-                {brandParts.highlight.toUpperCase()}
-              </span>
-              {brandParts.rest && (
-                <span className="ml-1 text-white/90 transition-colors duration-300 group-hover:text-white">
-                  {brandParts.rest.toUpperCase()}
-                </span>
-              )}
-            </span>
+            <Image
+              src="/logo-steda-icon.png"
+              alt={siteSettings.siteName || 'Steda Roaster'}
+              width={44}
+              height={44}
+              className="h-auto transition-all duration-500 group-hover:brightness-110"
+              style={{
+                width: scrolled ? '36px' : '44px',
+                height: 'auto',
+              }}
+              priority
+            />
           </Link>
 
           <div className="hidden items-center gap-1 md:flex">
