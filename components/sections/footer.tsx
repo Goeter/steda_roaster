@@ -29,14 +29,24 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">
-            <Image
-              src="/logo-steda.png"
-              alt={siteSettings.siteName || 'Steda Roaster'}
-              width={180}
-              height={54}
-              className="h-auto"
-              style={{ width: '180px', height: 'auto' }}
-            />
+            <div className="flex items-center gap-3">
+              <Image
+                src="/logo-steda-icon.png"
+                alt={siteSettings.siteName || 'Steda Roaster'}
+                width={48}
+                height={48}
+                className="h-12 w-12"
+              />
+              <div className="flex flex-col leading-tight">
+                <span className="text-lg font-extrabold tracking-widest">
+                  <span className="text-amber-400">STEDA</span>
+                  <span className="ml-1.5 text-white">ROASTER</span>
+                </span>
+                <span className="text-[10px] font-medium tracking-[0.2em] text-white/70">
+                  SPECIALIST ROASTERY MACHINES
+                </span>
+              </div>
+            </div>
             <p className="text-sm text-white/70">{footerSection.description}</p>
             <p className="text-xs text-white/50">
               © {currentYear} {siteSettings.siteName}. {footerSection.copyright}

@@ -38,8 +38,8 @@ export function Navbar({ siteSettings }: NavbarProps) {
     <nav
       className={`fixed left-0 top-0 z-[999] w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-black/95 py-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl'
-          : 'bg-gradient-to-r from-black via-neutral-900 to-black py-3'
+          ? 'bg-black py-1 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl'
+          : 'bg-black py-1.5'
       }`}
     >
       {/* Bottom accent line */}
@@ -53,19 +53,28 @@ export function Navbar({ siteSettings }: NavbarProps) {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <Link href="/" className="group flex-shrink-0">
+          <Link href="/" className="group flex-shrink-0 flex items-center gap-2.5">
             <Image
-              src="/logo-steda.png"
+              src="/logo-steda-icon.png"
               alt={siteSettings.siteName || 'Steda Roaster'}
-              width={200}
-              height={60}
-              className="h-auto transition-all duration-500 group-hover:brightness-110"
+              width={40}
+              height={40}
+              className="transition-all duration-500 group-hover:brightness-110"
               style={{
-                width: scrolled ? 'clamp(120px, 15vw, 160px)' : 'clamp(130px, 18vw, 200px)',
-                height: 'auto',
+                width: scrolled ? '32px' : '40px',
+                height: scrolled ? '32px' : '40px',
               }}
               priority
             />
+            <div className="flex flex-col leading-tight">
+              <span className="text-base font-extrabold tracking-widest sm:text-lg">
+                <span className="text-yellow-400">STEDA</span>
+                <span className="ml-1.5 text-white">ROASTER</span>
+              </span>
+              <span className="text-[9px] font-medium tracking-[0.2em] text-white/70 sm:text-[10px]">
+                SPECIALIST ROASTERY MACHINES
+              </span>
+            </div>
           </Link>
 
           <div className="hidden items-center gap-1 md:flex">
