@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebookF, FaTiktok } from 'react-icons/fa';
 import type { FooterSection, SiteSettings } from '@/lib/cms-types';
 import { NAVIGATION_ITEMS } from '@/lib/navigation';
-import { formatPhoneNumber, getWhatsappHref, splitBrandName } from '@/lib/site';
+import { formatPhoneNumber, getWhatsappHref } from '@/lib/site';
 
 const socialClass =
   'group relative rounded-full bg-white/10 p-3 text-white transition-all duration-300 hover:-translate-y-1';
@@ -20,7 +21,6 @@ type FooterProps = {
 
 export function Footer({ footerSection, siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  const brandParts = splitBrandName(siteSettings.siteName);
   const phoneLabel = formatPhoneNumber(siteSettings.phoneNumber);
   const whatsappHref = getWhatsappHref(siteSettings);
 
@@ -29,12 +29,14 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold tracking-wide">
-              <span className="text-amber-400">{brandParts.highlight.toUpperCase()}</span>
-              {brandParts.rest && (
-                <span className="ml-1 text-white">{brandParts.rest.toUpperCase()}</span>
-              )}
-            </h3>
+            <Image
+              src="/logo-steda.png"
+              alt={siteSettings.siteName || 'Steda Roaster'}
+              width={180}
+              height={54}
+              className="h-auto"
+              style={{ width: '180px', height: 'auto' }}
+            />
             <p className="text-sm text-white/70">{footerSection.description}</p>
             <p className="text-xs text-white/50">
               © {currentYear} {siteSettings.siteName}. {footerSection.copyright}

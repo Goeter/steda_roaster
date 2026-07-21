@@ -55,13 +55,13 @@ export function Navbar({ siteSettings }: NavbarProps) {
         <div className="flex items-center justify-between">
           <Link href="/" className="group flex-shrink-0">
             <Image
-              src="/logo-steda-icon.png"
+              src="/logo-steda.png"
               alt={siteSettings.siteName || 'Steda Roaster'}
-              width={44}
-              height={44}
+              width={160}
+              height={48}
               className="h-auto transition-all duration-500 group-hover:brightness-110"
               style={{
-                width: scrolled ? '36px' : '44px',
+                width: scrolled ? '130px' : '160px',
                 height: 'auto',
               }}
               priority
