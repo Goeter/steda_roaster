@@ -101,10 +101,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
                   {benefit.description}
                 </p>
 
-                {/* Giant soft background number watermark */}
-                <span className="absolute bottom-2 right-4 translate-y-2 translate-x-2 text-8xl font-black text-amber-800/[0.03] select-none pointer-events-none transition-all duration-500 group-hover:text-amber-800/[0.07] group-hover:translate-y-0 group-hover:translate-x-0 font-mono">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
+
 
                 <div className="mt-auto pt-5">
                   <div className="flex items-center gap-2">

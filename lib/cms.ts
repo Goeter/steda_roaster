@@ -516,6 +516,45 @@ function cmsFailure<T>(message: string, fallback: T, error?: unknown): T {
   return fallback;
 }
 
+function applyGlobalTextOverrides<T>(value: T): T {
+  if (value === null || value === undefined) return value;
+
+  if (Array.isArray(value)) {
+    return value.map(item => applyGlobalTextOverrides(item)) as unknown as T;
+  }
+
+  if (typeof value === 'object') {
+    const result: any = {};
+    for (const [key, val] of Object.entries(value)) {
+      result[key] = applyGlobalTextOverrides(val);
+    }
+
+    // Intercept ctaLabel and ctaHref pairs:
+    if (typeof result.ctaLabel === 'string' && typeof result.ctaHref === 'string') {
+      const lowerLabel = result.ctaLabel.toLowerCase().trim();
+      if (lowerLabel.includes('partner')) {
+        result.ctaHref = 'https://wa.me/6281225171359?text=Halo%20Steda%20Roaster%2C%20saya%20tertarik%20menjadi%20partner.';
+      }
+    }
+
+    return result as T;
+  }
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    const lower = trimmed.toLowerCase();
+    if (lower === 'explore now' || lower === 'explore') {
+      return 'View Product' as unknown as T;
+    }
+    if (lower === 'learn more' || lower === 'learn') {
+      return 'View Detail' as unknown as T;
+    }
+    return value;
+  }
+
+  return value;
+}
+
 async function fetchFromCms<T>(
   endpointKey: CmsEndpointKey,
   fallback: T,
@@ -526,9 +565,11 @@ async function fetchFromCms<T>(
   const endpointPath = getCmsEndpoint(endpointKey);
 
   if (!endpointUrl) {
-    return cmsFailure(
-      '[cms] CMS_API_URL is not configured. Using local fallback content.',
-      fallback,
+    return applyGlobalTextOverrides(
+      cmsFailure(
+        '[cms] CMS_API_URL is not configured. Using local fallback content.',
+        fallback,
+      ),
     );
   }
 
@@ -546,9 +587,11 @@ async function fetchFromCms<T>(
     });
 
     if (!response.ok) {
-      return cmsFailure(
-        `[cms] ${endpointPath} returned HTTP ${response.status}. Using local fallback content.`,
-        fallback,
+      return applyGlobalTextOverrides(
+        cmsFailure(
+          `[cms] ${endpointPath} returned HTTP ${response.status}. Using local fallback content.`,
+          fallback,
+        ),
       );
     }
 
@@ -557,15 +600,17 @@ async function fetchFromCms<T>(
     );
 
     if (!payload) {
-      return fallback;
+      return applyGlobalTextOverrides(fallback);
     }
 
-    return mergeWithFallback(fallback, payload);
+    return applyGlobalTextOverrides(mergeWithFallback(fallback, payload));
   } catch (error) {
-    return cmsFailure(
-      `[cms] Failed to fetch ${endpointPath}. Using local fallback content.`,
-      fallback,
-      error,
+    return applyGlobalTextOverrides(
+      cmsFailure(
+        `[cms] Failed to fetch ${endpointPath}. Using local fallback content.`,
+        fallback,
+        error,
+      ),
     );
   }
 }

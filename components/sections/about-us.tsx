@@ -76,7 +76,17 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
                     asChild
                     className="rounded-full bg-amber-700 px-8 py-6 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-xl"
                   >
-                    <Link href={aboutSection.ctaHref}>{aboutSection.ctaLabel}</Link>
+                    {aboutSection.ctaHref.startsWith('http') ? (
+                      <a
+                        href={aboutSection.ctaHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {aboutSection.ctaLabel}
+                      </a>
+                    ) : (
+                      <Link href={aboutSection.ctaHref}>{aboutSection.ctaLabel}</Link>
+                    )}
                   </Button>
                 </div>
               )}
