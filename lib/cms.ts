@@ -62,6 +62,10 @@ const DISTRIBUTION_COLOR_CLASSES = [
   'bg-lime-500',
   'bg-purple-600',
   'bg-orange-500',
+  'bg-pink-600',
+  'bg-amber-800',
+  'bg-black',
+  'bg-neutral-700',
 ] as const;
 
 function readString(value: unknown) {
@@ -297,6 +301,26 @@ function normalizeBenefitsSection(value: unknown) {
 function normalizeDistributionSection(value: unknown) {
   if (!isRecord(value) || !Array.isArray(value.cities)) return value;
 
+  const cmsCities = value.cities.map((city, index) => {
+    if (!isRecord(city)) return city;
+    return {
+      ...city,
+      color:
+        readString(city.color) ||
+        DISTRIBUTION_COLOR_CLASSES[index % DISTRIBUTION_COLOR_CLASSES.length],
+    };
+  });
+
+  const fallbackCities = cmsFallbackContent.home.distributionSection.cities;
+  const existingNames = new Set(cmsCities.map((c) => (isRecord(c) ? readString(c.name) : '')));
+  const mergedCities = [...cmsCities];
+
+  fallbackCities.forEach((fallbackCity) => {
+    if (!existingNames.has(fallbackCity.name)) {
+      mergedCities.push(fallbackCity);
+    }
+  });
+
   return {
     ...value,
     ...(isRecord(value.map)
@@ -307,15 +331,7 @@ function normalizeDistributionSection(value: unknown) {
           },
         }
       : {}),
-    cities: value.cities.map((city, index) => {
-      if (!isRecord(city)) return city;
-      return {
-        ...city,
-        color:
-          readString(city.color) ||
-          DISTRIBUTION_COLOR_CLASSES[index % DISTRIBUTION_COLOR_CLASSES.length],
-      };
-    }),
+    cities: mergedCities,
   };
 }
 
