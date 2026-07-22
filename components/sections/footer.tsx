@@ -24,7 +24,7 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
   const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
-    <footer id="contact" className="border-t border-white/10 bg-[#140E0A]">
+    <footer id="contact" className="border-t border-amber-900/30 bg-[#2b1b12]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">

@@ -73,54 +73,54 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-transparent py-20"
+      className="relative overflow-hidden bg-[#2b1b12] py-20 text-white border-y border-amber-900/30"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.06),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(139,90,43,0.04),transparent_34%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-500/4 blur-3xl" />
-      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-700/3 blur-[90px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.12),transparent_30%),radial-gradient(circle_at_82%_78%,rgba(139,90,43,0.15),transparent_34%)]" />
+      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-500/10 blur-3xl" />
+      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-amber-700/10 blur-[90px]" />
 
       {/* Editorial Quote Watermarks in Background */}
-      <span className="absolute left-[8%] top-[12%] text-[18rem] font-serif font-black text-amber-800/[0.018] select-none pointer-events-none hidden xl:block leading-none">
+      <span className="absolute left-[8%] top-[12%] text-[18rem] font-serif font-black text-amber-400/[0.04] select-none pointer-events-none hidden xl:block leading-none">
         “
       </span>
-      <span className="absolute right-[8%] bottom-[12%] text-[18rem] font-serif font-black text-amber-800/[0.018] select-none pointer-events-none hidden xl:block leading-none">
+      <span className="absolute right-[8%] bottom-[12%] text-[18rem] font-serif font-black text-amber-400/[0.04] select-none pointer-events-none hidden xl:block leading-none">
         ”
       </span>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-800 sm:text-sm">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-400 sm:text-sm">
             {testimoniesSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
             {testimoniesSection.heading}
           </h2>
 
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-amber-100/80 sm:text-base">
             {testimoniesSection.description}
           </p>
         </div>
 
         <div className="relative mx-auto mt-2 flex h-[390px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-4 sm:h-[400px] sm:overflow-visible">
           {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-600/15 bg-white/80 shadow-md backdrop-blur-sm w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-600/30">
-            <span className="text-3xl font-black text-[#3e2723]">4.9★</span>
-            <span className="text-[10px] font-bold text-amber-800 mt-1 uppercase tracking-wider">Rating Roaster</span>
-            <div className="h-px w-8 bg-amber-600/25 my-2" />
-            <p className="text-[10px] leading-relaxed text-center text-neutral-600">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-500/20 bg-[#3a2a1d]/90 shadow-lg backdrop-blur-sm w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-500/40">
+            <span className="text-3xl font-black text-amber-300">4.9★</span>
+            <span className="text-[10px] font-bold text-amber-200 mt-1 uppercase tracking-wider">Rating Roaster</span>
+            <div className="h-px w-8 bg-amber-500/30 my-2" />
+            <p className="text-[10px] leading-relaxed text-center text-amber-100/70">
               Ditinjau oleh 500+ Roaster Kopi Nusantara
             </p>
           </div>
 
           {/* Floating Trust Badge - Right */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-600/15 bg-white/80 shadow-md backdrop-blur-sm w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-600/30">
-            <span className="text-3xl font-black text-[#3e2723]">100%</span>
-            <span className="text-[10px] font-bold text-amber-800 mt-1 uppercase tracking-wider">Garansi Mesin</span>
-            <div className="h-px w-8 bg-amber-600/25 my-2" />
-            <p className="text-[10px] leading-relaxed text-center text-neutral-600">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-500/20 bg-[#3a2a1d]/90 shadow-lg backdrop-blur-sm w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-500/40">
+            <span className="text-3xl font-black text-amber-300">100%</span>
+            <span className="text-[10px] font-bold text-amber-200 mt-1 uppercase tracking-wider">Garansi Mesin</span>
+            <div className="h-px w-8 bg-amber-500/30 my-2" />
+            <p className="text-[10px] leading-relaxed text-center text-amber-100/70">
               Dukungan Teknis & Suku Cadang Terjamin
             </p>
           </div>
