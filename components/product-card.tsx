@@ -21,7 +21,7 @@ export function ProductCard({ product, labels }: ProductCardProps) {
       aria-label={`${labels.detailAriaLabelPrefix} ${product.name}`}
       className="group block h-full"
     >
-      <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white/95 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <article className="flex h-full flex-col overflow-hidden rounded-3xl card-timbul transition duration-300 hover:-translate-y-1 hover:border-amber-600/30">
         <div className="relative h-60 w-full overflow-hidden">
           <Image
             src={getProductCoverImage(product)}
@@ -32,20 +32,20 @@ export function ProductCard({ product, labels }: ProductCardProps) {
           />
 
           {isBestSeller(product, labels.bestSellerLabel) && (
-            <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
+            <span className="absolute left-4 top-4 rounded-full bg-orange-600 px-3 py-1 text-xs font-bold text-white shadow-md">
               {labels.bestSellerLabel}
             </span>
           )}
         </div>
 
         <div className="flex flex-1 flex-col p-6">
-          <span className="w-fit rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700">
+          <span className="w-fit rounded-full bg-orange-100/90 px-3 py-1 text-sm font-bold text-orange-800">
             {product.category}
           </span>
 
-          <h3 className="mt-4 text-xl font-bold text-neutral-900">{product.name}</h3>
+          <h3 className="mt-4 text-xl font-extrabold text-neutral-900 text-timbul-dark">{product.name}</h3>
 
-          <p className="mt-3 text-sm leading-6 text-neutral-600">{product.description}</p>
+          <p className="mt-3 text-sm font-medium leading-6 text-neutral-700 text-timbul-dark">{product.description}</p>
 
           <div className="flex-1" />
 

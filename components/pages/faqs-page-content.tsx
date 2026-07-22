@@ -34,10 +34,10 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
     <main className="relative min-h-screen overflow-hidden bg-transparent pt-32 pb-20 animate-page-enter">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal as="header" className="text-center">
-          <h1 className="mb-4 text-3xl font-bold text-[#3e2723] md:text-5xl">
+          <h1 className="mb-4 text-3xl font-black text-neutral-900 text-timbul-heading md:text-5xl">
             {faqPageSection.heading}
           </h1>
-          <p className="mb-12 text-[#5d4037]">
+          <p className="mb-12 text-base font-semibold text-neutral-800 text-timbul-dark">
             {faqPageSection.description}
           </p>
         </Reveal>
@@ -53,10 +53,10 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
                   setActiveCategory(index);
                   setOpenIndex(null);
                 }}
-                className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 font-semibold transition-all duration-300 ${
+                className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-extrabold transition-all duration-300 ${
                   activeCategory === index
-                    ? 'bg-[#6f4e37] text-white shadow-md'
-                    : 'border-[#d7ccc8] bg-white/70 text-[#4e342e] hover:bg-[#efebe9]'
+                    ? 'card-timbul-active text-amber-900 shadow-md'
+                    : 'card-timbul text-neutral-800 hover:bg-white'
                 }`}
               >
                 <Icon size={18} />
@@ -70,18 +70,18 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
           {activeFaqCategory?.faqs.map((faq: FAQItem, index: number) => (
             <div
               key={faq.id}
-              className="overflow-hidden rounded-xl border border-[#d7ccc8] bg-white shadow-sm"
+              className="overflow-hidden rounded-xl card-timbul"
             >
               <button
                 onClick={() => toggleAccordion(index)}
-                className="flex w-full items-center justify-between px-6 py-4 transition hover:bg-[#f5f5f5]"
+                className="flex w-full items-center justify-between px-6 py-4 transition hover:bg-[#faf9f6]"
               >
-                <h3 className="text-left font-semibold text-[#3e2723]">
+                <h3 className="text-left font-bold text-neutral-900 text-timbul-dark">
                   {faq.question}
                 </h3>
                 <ChevronDown
                   size={20}
-                  className={`text-[#6f4e37] transition-transform duration-300 ${
+                  className={`text-amber-800 transition-transform duration-300 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                 />
@@ -92,7 +92,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
                   openIndex === index ? 'max-h-96' : 'max-h-0'
                 }`}
               >
-                <div className="border-t border-[#d7ccc8] bg-[#faf7f2] px-6 py-4 text-[#5d4037]">
+                <div className="border-t border-amber-800/15 bg-[#faf8f5] px-6 py-4 text-neutral-800 text-timbul-dark font-medium text-sm leading-relaxed">
                   {faq.answer}
                 </div>
               </div>
