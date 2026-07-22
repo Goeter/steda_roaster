@@ -63,7 +63,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
               key={benefit.id}
               delay={idx < 3 ? ([0, 100, 200] as const)[idx] : 0}
             >
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-amber-800/15 bg-white/90 p-6 shadow-md shadow-amber-950/5 backdrop-blur-md transition-all duration-400 hover:-translate-y-1 hover:border-amber-600/30 hover:bg-white hover:shadow-xl hover:shadow-amber-950/10">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl card-timbul p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-600/30">
                 {/* Left gold stripe */}
                 <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-amber-500/40 via-amber-600/25 to-transparent transition-all duration-300 group-hover:w-1.5 group-hover:from-amber-500 group-hover:via-amber-600/50" />
 

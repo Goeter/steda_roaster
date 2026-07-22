@@ -88,7 +88,7 @@ export function Product({ productPageSection, productSection, products }: Produc
                   aria-label={`${productPageSection.detailAriaLabelPrefix} ${product.name}`}
                   className="group block h-full"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-amber-900/10 bg-white/95 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <article className="flex h-full flex-col overflow-hidden rounded-3xl card-timbul transition duration-300 hover:-translate-y-1 hover:border-amber-600/30">
                     <div className="relative h-52 w-full overflow-hidden sm:h-56">
                       <Image
                         src={product.image}

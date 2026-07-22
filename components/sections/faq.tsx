@@ -42,7 +42,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
 
             {/* Custom WhatsApp Help Card */}
             <Reveal delay={100}>
-              <div className="relative overflow-hidden rounded-2xl border border-amber-800/15 bg-white/90 p-6 shadow-md shadow-amber-950/5 backdrop-blur-md">
+              <div className="relative overflow-hidden rounded-2xl card-timbul p-6">
                 <div className="absolute -right-3 -top-3 h-16 w-16 opacity-[0.05] pointer-events-none">
                   <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="30" cy="30" r="18" stroke="#8b6914" strokeWidth="1" />
@@ -74,7 +74,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
               {homeFaqs.map((faq, index) => (
                 <div
                   key={faq.id}
-                  className="overflow-hidden rounded-xl border border-amber-800/15 bg-white/95 shadow-sm transition-all duration-300 hover:border-amber-600/30"
+                  className="overflow-hidden rounded-xl card-timbul transition-all duration-300 hover:border-amber-600/30"
                 >
                   <button
                     onClick={() => toggleAccordion(index)}

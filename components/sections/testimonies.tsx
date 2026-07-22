@@ -106,7 +106,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
         <div className="relative mx-auto mt-2 flex h-[390px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-4 sm:h-[400px] sm:overflow-visible">
           {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/20 bg-white/95 shadow-xl shadow-amber-950/10 backdrop-blur-md w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
             <span className="text-3xl font-black text-amber-800 text-timbul-amber">4.9★</span>
             <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Rating Roaster</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
@@ -116,7 +116,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           </div>
 
           {/* Floating Trust Badge - Right */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/20 bg-white/95 shadow-xl shadow-amber-950/10 backdrop-blur-md w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
             <span className="text-3xl font-black text-amber-800 text-timbul-amber">100%</span>
             <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Garansi Mesin</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
@@ -128,7 +128,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-800/20 bg-white text-neutral-900 shadow-md backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-700 hover:text-white hover:border-amber-700 sm:left-4"
+            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 transition duration-300 hover:-translate-x-0.5 hover:bg-amber-700 hover:text-white sm:left-4"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
@@ -146,13 +146,12 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                   aria-label={`${testimoniesSection.itemAriaLabelPrefix} ${item.name}`}
                   className={[
                     'absolute left-1/2 top-1/2 text-left',
-                    'rounded-[1.75rem] border backdrop-blur-xl',
+                    'rounded-[1.75rem]',
                     'transition-[transform,opacity,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     'will-change-transform',
-                    'hover:border-amber-600/30 hover:bg-white',
                     isCenter
-                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-700/25 bg-white/95 p-6 opacity-100 shadow-2xl shadow-amber-950/15 sm:w-[420px] sm:p-7'
-                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-amber-800/20 bg-white/90 p-5 opacity-70 shadow-md shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active p-6 opacity-100 sm:w-[420px] sm:p-7'
+                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] card-timbul p-5 opacity-70 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
                     position === 'left' && '-translate-x-[96%] sm:-translate-x-[122%]',
                     position === 'right' && '-translate-x-[4%] sm:translate-x-[22%]',
                     position === 'center' && 'translate-x-[-50%]',
@@ -212,7 +211,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           <button
             type="button"
             onClick={() => paginate(1)}
-            className="absolute right-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-800/20 bg-white text-neutral-800 shadow-md backdrop-blur transition duration-300 hover:translate-x-0.5 hover:bg-amber-700 hover:text-white hover:border-amber-700 sm:right-4"
+            className="absolute right-1 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 transition duration-300 hover:translate-x-0.5 hover:bg-amber-700 hover:text-white sm:right-4"
             aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
