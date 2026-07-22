@@ -167,10 +167,10 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           </p>
         </div>
 
-        {/* Testimonials 3-Card Carousel Container (Showing Previous, Active, Next) */}
-        <div className="relative mx-auto mt-6 flex h-[390px] max-w-[840px] items-center justify-center overflow-visible sm:h-[410px]">
+        {/* Testimonials 3D Arc Carousel Container (Showing Previous, Active, Next) */}
+        <div className="relative mx-auto mt-4 flex h-[390px] max-w-[960px] items-center justify-center overflow-visible sm:mt-6 sm:h-[420px]">
           {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+2.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
             <span className="text-3xl font-black text-amber-800 text-timbul-amber">
               <CountUpNumber value={4.9} decimals={1} suffix="★" isVisible={isVisible} />
             </span>
@@ -183,46 +183,49 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
             </p>
           </div>
 
-          {/* Navigation Chevron - Left (close to active card) */}
+          {/* Navigation Chevron - Left (close to cards) */}
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-1 sm:left-4 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-md transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-105"
+            className="absolute left-1 sm:left-4 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-lg transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
           </button>
 
-          {/* 3-Card Sliding Track */}
+          {/* 3-Card 3D Arc Track */}
           <div className="relative h-full w-full overflow-hidden sm:overflow-visible">
             {visibleTestimonies.map(({ item, position, itemIndex }) => {
               const isCenter = position === 'center';
 
               return (
-                <div
+                <button
                   key={item.id}
+                  type="button"
                   onClick={() => setIndex(itemIndex)}
+                  aria-label={`${testimoniesSection.itemAriaLabelPrefix} ${item.name}`}
                   className={[
                     'absolute left-1/2 top-1/2 text-left cursor-pointer select-none',
-                    'rounded-3xl',
-                    'transition-all duration-600 cubic-bezier(0.25, 1, 0.5, 1)',
+                    'rounded-[1.75rem]',
+                    'transition-all duration-700 cubic-bezier(0.22, 1, 0.36, 1)',
+                    'will-change-transform',
                     isCenter
-                      ? 'z-20 w-[min(76vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active p-6 sm:w-[420px] sm:p-7 opacity-100 shadow-2xl'
-                      : 'z-10 w-[min(52vw,280px)] -translate-y-1/2 scale-85 card-timbul p-5 sm:w-[280px] opacity-60 hover:opacity-85 hover:scale-90',
-                    position === 'left' && '-translate-x-[92%] sm:-translate-x-[118%]',
-                    position === 'right' && '-translate-x-[8%] sm:translate-x-[18%]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active p-6 sm:w-[420px] sm:p-7 opacity-100 shadow-2xl'
+                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] card-timbul p-5 sm:w-[280px] opacity-65 hover:scale-[0.88] hover:opacity-90 shadow-md',
+                    position === 'left' && '-translate-x-[96%] sm:-translate-x-[122%]',
+                    position === 'right' && '-translate-x-[4%] sm:translate-x-[22%]',
                   ].join(' ')}
                 >
                   <div className="relative">
-                    <div className="mb-4 flex items-center gap-3">
+                    <div className="mb-4 flex items-center gap-3 sm:mb-5 sm:gap-4">
                       <div
                         className={[
                           'flex shrink-0 items-center justify-center rounded-2xl',
                           'bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-800 border border-amber-300/50 shadow-inner',
-                          isCenter ? 'h-11 w-11' : 'h-9 w-9',
+                          isCenter ? 'h-12 w-12' : 'h-10 w-10',
                         ].join(' ')}
                       >
-                        <Quote className={isCenter ? 'h-5 w-5' : 'h-4 w-4'} />
+                        <Quote className={isCenter ? 'h-6 w-6' : 'h-5 w-5'} />
                       </div>
 
                       <div className="h-px flex-1 bg-gradient-to-r from-amber-600/30 to-transparent" />
@@ -233,7 +236,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                         'font-semibold leading-relaxed text-neutral-900 text-timbul-dark',
                         isCenter
                           ? 'line-clamp-6 text-base leading-7 sm:text-lg sm:leading-8'
-                          : 'line-clamp-4 text-xs leading-5 text-neutral-700',
+                          : 'line-clamp-4 text-xs leading-6 text-neutral-800 sm:text-sm',
                       ].join(' ')}
                     >
                       “{item.text}”
@@ -242,33 +245,33 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                     <div
                       className={[
                         'border-t border-amber-800/15',
-                        isCenter ? 'mt-6 pt-5' : 'mt-4 pt-3',
+                        isCenter ? 'mt-6 pt-5' : 'mt-5 pt-4',
                       ].join(' ')}
                     >
                       <h3
                         className={[
                           'font-extrabold text-neutral-900 text-timbul-dark',
-                          isCenter ? 'text-base sm:text-lg' : 'text-xs sm:text-sm',
+                          isCenter ? 'text-base sm:text-lg' : 'text-sm',
                         ].join(' ')}
                       >
                         {item.name}
                       </h3>
 
-                      <p className="mt-0.5 line-clamp-1 text-xs font-semibold text-neutral-600">
+                      <p className="mt-1 line-clamp-1 text-xs font-semibold text-neutral-600 sm:text-sm">
                         {item.position}
                       </p>
                     </div>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
 
-          {/* Navigation Chevron - Right (close to active card) */}
+          {/* Navigation Chevron - Right (close to cards) */}
           <button
             type="button"
             onClick={() => paginate(1)}
-            className="absolute right-1 sm:right-4 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-md transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-105"
+            className="absolute right-1 sm:right-4 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-lg transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
