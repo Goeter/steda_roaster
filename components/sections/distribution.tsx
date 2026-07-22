@@ -120,10 +120,12 @@ export function Distribution({ distributionSection }: DistributionProps) {
                   priority
                 />
 
-                {/* Animated Pulsing Rings overlaying exact pin heads in the image */}
-                {cities.map((city) => {
-                  const coords = CITY_PIN_COORDS[city.name];
-                  if (!coords) return null;
+                {/* Animated Pulsing Dots & City Name Badges overlaying map pins */}
+                {cities.map((city, idx) => {
+                  const coords = CITY_PIN_COORDS[city.name] || {
+                    left: `${15 + ((idx * 6) % 75)}%`,
+                    top: `${40 + ((idx * 8) % 35)}%`,
+                  };
                   const isActive = activeCity === city.name;
 
                   return (
@@ -145,16 +147,16 @@ export function Distribution({ distributionSection }: DistributionProps) {
                         } ${isActive ? 'scale-150 ring-4 ring-amber-500/60' : 'group-hover:scale-125'}`}
                       />
 
-                      {/* Tooltip Badge on Hover */}
+                      {/* City Name Badge Tag */}
                       <div
-                        className={`absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-neutral-900/95 px-3 py-1 text-[11px] font-extrabold text-white shadow-xl backdrop-blur-md transition-all duration-300 pointer-events-none z-30 ${
+                        className={`absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[9px] font-extrabold shadow-md backdrop-blur-xs transition-all duration-300 pointer-events-none z-30 ${
                           isActive
-                            ? 'opacity-100 translate-y-0 scale-100'
-                            : 'opacity-0 translate-y-1 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100'
+                            ? 'scale-110 bg-amber-800 text-white shadow-amber-800/40 ring-2 ring-amber-400 opacity-100'
+                            : 'bg-neutral-900/85 text-white opacity-95 group-hover:opacity-100'
                         }`}
                       >
-                        <span className="flex items-center gap-1.5">
-                          <span className={`h-2 w-2 rounded-full ${city.color}`} />
+                        <span className="flex items-center gap-1">
+                          <span className={`h-1.5 w-1.5 rounded-full ${city.color}`} />
                           {city.name}
                         </span>
                       </div>
@@ -227,10 +229,10 @@ export function Distribution({ distributionSection }: DistributionProps) {
                   <div className="flex items-center justify-center text-amber-800 mb-1">
                     <Truck className="h-4 w-4" />
                   </div>
-                  <span className="text-xs font-bold text-amber-800 text-timbul-amber leading-tight">
-                    Terkirim & Terpasang dengan Baik
+                  <span className="text-xl font-black text-amber-800 text-timbul-amber">
+                    <CountUpNumber value={500} suffix="+" isVisible={isVisible} />
                   </span>
-                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider mt-1">
+                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider mt-0.5">
                     Unit Terpasang
                   </span>
                 </div>
