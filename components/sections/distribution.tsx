@@ -54,20 +54,20 @@ function CountUpNumber({
   );
 }
 
-// Map city coordinates on 100x100 percentage overlay
+// Precise coordinates matching pin positions on gambar_peta.webp (2.33:1 aspect ratio)
 const CITY_PIN_COORDS: Record<string, { left: string; top: string }> = {
-  Aceh: { left: '10%', top: '20%' },
-  Jabodetabek: { left: '26%', top: '65%' },
-  Solo: { left: '33%', top: '68%' },
-  Surabaya: { left: '39%', top: '68%' },
-  Madura: { left: '42%', top: '66%' },
-  Malang: { left: '40%', top: '72%' },
-  Bondowoso: { left: '44%', top: '72%' },
-  Bali: { left: '48%', top: '73%' },
-  'Kalimantan Tengah': { left: '37%', top: '44%' },
-  'Kalimantan Timur': { left: '46%', top: '40%' },
-  NTT: { left: '57%', top: '76%' },
-  Jayapura: { left: '88%', top: '54%' },
+  Aceh: { left: '4.2%', top: '9.0%' },
+  Jabodetabek: { left: '27.7%', top: '68.5%' },
+  Solo: { left: '35.0%', top: '73.0%' },
+  Surabaya: { left: '38.3%', top: '75.5%' },
+  Madura: { left: '40.8%', top: '75.2%' },
+  Malang: { left: '38.7%', top: '80.5%' },
+  Bondowoso: { left: '42.1%', top: '78.0%' },
+  Bali: { left: '44.8%', top: '78.8%' },
+  'Kalimantan Tengah': { left: '42.3%', top: '48.0%' },
+  'Kalimantan Timur': { left: '49.1%', top: '35.0%' },
+  NTT: { left: '58.1%', top: '80.2%' },
+  Jayapura: { left: '97.3%', top: '48.2%' },
 };
 
 type DistributionProps = {
@@ -108,9 +108,9 @@ export function Distribution({ distributionSection }: DistributionProps) {
       <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal className="w-full">
-            {/* Interactive Map Wrapper */}
-            <div className="relative aspect-[16/8.5] w-full overflow-hidden rounded-3xl card-timbul p-3">
-              <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#f8f5ee]">
+            {/* Map Frame fitting original 2.33:1 aspect ratio perfectly */}
+            <div className="relative aspect-[2.33/1] w-full overflow-hidden rounded-2xl border border-amber-800/10 bg-white/40 p-1 shadow-lg backdrop-blur-xs">
+              <div className="relative h-full w-full overflow-hidden rounded-xl">
                 <Image
                   src={distributionSection.map.src}
                   alt={distributionSection.map.alt}
@@ -120,7 +120,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
                   priority
                 />
 
-                {/* Animated Pulsing City Dots on Map */}
+                {/* Animated Pulsing Rings overlaying exact pin heads in the image */}
                 {cities.map((city) => {
                   const coords = CITY_PIN_COORDS[city.name];
                   if (!coords) return null;
@@ -130,31 +130,31 @@ export function Distribution({ distributionSection }: DistributionProps) {
                     <div
                       key={city.name}
                       style={{ left: coords.left, top: coords.top }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-20"
+                      className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group"
                       onMouseEnter={() => setActiveCity(city.name)}
                       onMouseLeave={() => setActiveCity(null)}
                     >
-                      {/* Pulsing Outer Ring */}
+                      {/* Pulsing Outer Ping Ring */}
                       <span
-                        className={`absolute -inset-1.5 rounded-full animate-ping opacity-75 ${city.color}`}
+                        className={`absolute -inset-2 rounded-full animate-ping opacity-75 ${city.color}`}
                       />
-                      {/* Core Dot */}
+                      {/* Core Glow Dot */}
                       <span
-                        className={`relative block h-3 w-3 rounded-full border-2 border-white shadow-md transition-transform duration-300 ${
+                        className={`relative block h-3.5 w-3.5 rounded-full border-2 border-white shadow-lg transition-transform duration-300 ${
                           city.color
-                        } ${isActive ? 'scale-150' : 'group-hover:scale-125'}`}
+                        } ${isActive ? 'scale-150 ring-4 ring-amber-500/60' : 'group-hover:scale-125'}`}
                       />
 
                       {/* Tooltip Badge on Hover */}
                       <div
-                        className={`absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-neutral-900/90 px-2.5 py-1 text-[10px] font-bold text-white shadow-lg backdrop-blur-sm transition-all duration-300 pointer-events-none ${
+                        className={`absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-neutral-900/95 px-3 py-1 text-[11px] font-extrabold text-white shadow-xl backdrop-blur-md transition-all duration-300 pointer-events-none z-30 ${
                           isActive
                             ? 'opacity-100 translate-y-0 scale-100'
                             : 'opacity-0 translate-y-1 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100'
                         }`}
                       >
-                        <span className="flex items-center gap-1">
-                          <span className={`h-1.5 w-1.5 rounded-full ${city.color}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className={`h-2 w-2 rounded-full ${city.color}`} />
                           {city.name}
                         </span>
                       </div>
@@ -164,7 +164,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
               </div>
             </div>
 
-            {/* City Legend */}
+            {/* City Legend (Rendering ALL cities from CMS) */}
             <div className="mt-4">
               <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-neutral-900 text-timbul-dark">
                 {distributionSection.legendTitle}
@@ -178,8 +178,8 @@ export function Distribution({ distributionSection }: DistributionProps) {
                       key={city.name}
                       onMouseEnter={() => setActiveCity(city.name)}
                       onMouseLeave={() => setActiveCity(null)}
-                      className={`flex items-center gap-1.5 cursor-pointer rounded-lg p-1 transition-all duration-200 ${
-                        isActive ? 'bg-amber-100/60 scale-105' : 'hover:bg-black/5'
+                      className={`flex items-center gap-1.5 cursor-pointer rounded-lg px-1.5 py-1 transition-all duration-200 ${
+                        isActive ? 'bg-amber-200/60 scale-105 shadow-xs' : 'hover:bg-black/5'
                       }`}
                     >
                       <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`} />
@@ -209,40 +209,40 @@ export function Distribution({ distributionSection }: DistributionProps) {
                 {distributionSection.description}
               </p>
 
-              {/* Animated Stat Badges for Distribution */}
+              {/* Animated Stat Badges */}
               <div className="mt-6 grid grid-cols-3 gap-3">
-                <div className="flex flex-col rounded-2xl card-timbul p-3 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl card-timbul p-3 text-center">
                   <div className="flex items-center justify-center text-amber-800 mb-1">
                     <MapPin className="h-4 w-4" />
                   </div>
                   <span className="text-xl font-black text-amber-800 text-timbul-amber">
-                    <CountUpNumber value={34} suffix="+" isVisible={isVisible} />
+                    <CountUpNumber value={12} suffix=" Kota" isVisible={isVisible} />
                   </span>
-                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider">
+                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider mt-0.5">
                     Kota Layanan
                   </span>
                 </div>
 
-                <div className="flex flex-col rounded-2xl card-timbul p-3 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl card-timbul p-3 text-center">
                   <div className="flex items-center justify-center text-amber-800 mb-1">
                     <Truck className="h-4 w-4" />
                   </div>
-                  <span className="text-xl font-black text-amber-800 text-timbul-amber">
-                    <CountUpNumber value={500} suffix="+" isVisible={isVisible} />
+                  <span className="text-xs font-bold text-amber-800 text-timbul-amber leading-tight">
+                    Terkirim & Terpasang dengan Baik
                   </span>
-                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider">
+                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider mt-1">
                     Unit Terpasang
                   </span>
                 </div>
 
-                <div className="flex flex-col rounded-2xl card-timbul p-3 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl card-timbul p-3 text-center">
                   <div className="flex items-center justify-center text-amber-800 mb-1">
                     <ShieldCheck className="h-4 w-4" />
                   </div>
                   <span className="text-xl font-black text-amber-800 text-timbul-amber">
                     <CountUpNumber value={100} suffix="%" isVisible={isVisible} />
                   </span>
-                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider">
+                  <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark uppercase tracking-wider mt-0.5">
                     Garansi Resmi
                   </span>
                 </div>

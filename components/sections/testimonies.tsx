@@ -169,17 +169,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
             </p>
           </div>
 
-          {/* Floating Trust Badge - Right */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
-            <span className="text-3xl font-black text-amber-800 text-timbul-amber">
-              <CountUpNumber value={100} suffix="%" isVisible={isVisible} />
-            </span>
-            <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Garansi Mesin</span>
-            <div className="h-px w-8 bg-amber-800/20 my-2" />
-            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
-              Dukungan Teknis & Suku Cadang Terjamin
-            </p>
-          </div>
+
 
           <button
             type="button"
