@@ -54,19 +54,20 @@ function CountUpNumber({
   );
 }
 
-const DEFAULT_12_CITIES = [
-  { name: 'Aceh', color: 'bg-red-500' },
-  { name: 'Jabodetabek', color: 'bg-yellow-400' },
-  { name: 'Solo', color: 'bg-green-600' },
-  { name: 'Surabaya', color: 'bg-blue-900' },
-  { name: 'Madura', color: 'bg-rose-600' },
-  { name: 'Malang', color: 'bg-lime-500' },
-  { name: 'Bondowoso', color: 'bg-purple-600' },
-  { name: 'Bali', color: 'bg-orange-500' },
-  { name: 'Kalimantan Tengah', color: 'bg-pink-600' },
-  { name: 'Kalimantan Timur', color: 'bg-amber-800' },
-  { name: 'NTT', color: 'bg-black' },
-  { name: 'Jayapura', color: 'bg-neutral-700' },
+// Exact 12 cities arranged in 4 columns matching the user's graphic layout
+const EXACT_12_CITIES = [
+  { name: 'Aceh', color: 'bg-[#ff0000]' },
+  { name: 'Surabaya', color: 'bg-[#1e1b4b]' },
+  { name: 'Bondowoso', color: 'bg-[#7e22ce]' },
+  { name: 'Kalimantan Timur', color: 'bg-[#78350f]' },
+  { name: 'Jabodetabek', color: 'bg-[#facc15]' },
+  { name: 'Madura', color: 'bg-[#be123c]' },
+  { name: 'Bali', color: 'bg-[#d97706]' },
+  { name: 'NTT', color: 'bg-[#000000]' },
+  { name: 'Solo', color: 'bg-[#15803d]' },
+  { name: 'Malang', color: 'bg-[#22c55e]' },
+  { name: 'Kalimantan Tengah', color: 'bg-[#c026d3]' },
+  { name: 'Jayapura', color: 'bg-[#334155]' },
 ];
 
 type DistributionProps = {
@@ -74,19 +75,10 @@ type DistributionProps = {
 };
 
 export function Distribution({ distributionSection }: DistributionProps) {
-  const { cities, highlightedWord, heading } = distributionSection;
+  const { highlightedWord, heading } = distributionSection;
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-
-  // Guarantee all 12 cities are displayed even if CMS API returns a partial list
-  const existingNames = new Set((cities || []).map((c) => c.name));
-  const displayCities = [...(cities || [])];
-  DEFAULT_12_CITIES.forEach((fallbackCity) => {
-    if (!existingNames.has(fallbackCity.name)) {
-      displayCities.push(fallbackCity);
-    }
-  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,19 +119,19 @@ export function Distribution({ distributionSection }: DistributionProps) {
               />
             </div>
 
-            {/* City Legend (Rendering ALL 12 cities guaranteed) */}
+            {/* City Legend (Rendering EXACT 12 cities matching user graphic) */}
             <div className="mt-4">
               <h3 className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-neutral-900 text-timbul-dark sm:text-sm">
                 {distributionSection.legendTitle}
               </h3>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-3 md:grid-cols-4">
-                {displayCities.map((city) => (
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4 lg:grid-cols-4">
+                {EXACT_12_CITIES.map((city) => (
                   <div key={city.name} className="flex items-center gap-2">
                     <span
-                      className={`h-3 w-3 shrink-0 rounded-full border border-white/60 shadow-xs ${city.color}`}
+                      className={`h-3.5 w-3.5 shrink-0 rounded-full border border-white/80 shadow-xs ${city.color}`}
                     />
-                    <span className="text-[10px] font-extrabold uppercase tracking-wide text-neutral-900 text-timbul-dark sm:text-xs">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#1e3a8a] text-timbul-dark sm:text-xs">
                       {city.name}
                     </span>
                   </div>
