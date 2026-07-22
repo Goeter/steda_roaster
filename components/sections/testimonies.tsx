@@ -77,9 +77,6 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.15),transparent_35%),radial-gradient(circle_at_82%_78%,rgba(180,120,60,0.1),transparent_35%)]" />
-      <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/25 blur-3xl" />
-      <div className="absolute -right-10 bottom-1/4 h-56 w-56 rounded-full bg-yellow-200/15 blur-[90px]" />
 
       {/* Editorial Quote Watermarks in Background */}
       <span className="absolute left-[8%] top-[12%] text-[18rem] font-serif font-black text-amber-900/[0.06] select-none pointer-events-none hidden xl:block leading-none">

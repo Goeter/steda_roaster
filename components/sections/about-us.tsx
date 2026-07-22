@@ -15,9 +15,6 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
     <section id="about" className="relative overflow-hidden bg-transparent py-24 text-gray-800">
 
 
-      {/* Warm Ambient Glow Accents */}
-      <div className="absolute left-0 top-1/4 h-96 w-96 rounded-full bg-amber-200/20 blur-[130px]" />
-      <div className="absolute right-0 bottom-1/4 h-80 w-80 rounded-full bg-yellow-200/10 blur-[110px]" />
 
       {/* Decorative Traditional Border Accents */}
       <div className="absolute left-4 top-4 h-24 w-24 border-l border-t border-amber-800/10" />
