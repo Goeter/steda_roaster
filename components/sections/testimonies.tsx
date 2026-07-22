@@ -4,52 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import type { TestimoniesSection, Testimony } from '@/lib/cms-types';
 
-function CountUpNumber({
-  value,
-  decimals = 0,
-  prefix = '',
-  suffix = '',
-  isVisible,
-}: {
-  value: number;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  isVisible: boolean;
-}) {
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTime: number | null = null;
-    const duration = 2000;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const currentValue = easeOutExpo * value;
-
-      setDisplayValue(currentValue);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [isVisible, value]);
-
-  return (
-    <span>
-      {prefix}
-      {displayValue.toFixed(decimals)}
-      {suffix}
-    </span>
-  );
-}
-
 type TestimoniesProps = {
   testimoniesSection: TestimoniesSection;
   testimonies: Testimony[];
@@ -59,25 +13,6 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   const [index, setIndex] = useState(0);
   const [isHover, setIsHover] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const total = testimonies.length;
 
@@ -167,27 +102,13 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           </p>
         </div>
 
-        {/* Testimonials Highlighted Carousel Container (Center Larger, Side Cards Smaller, Stable Inner Text) */}
-        <div className="relative mx-auto mt-6 flex h-[390px] max-w-[840px] items-center justify-center overflow-visible sm:h-[410px]">
-          {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+2.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
-            <span className="text-3xl font-black text-amber-800 text-timbul-amber">
-              <CountUpNumber value={4.9} decimals={1} suffix="★" isVisible={isVisible} />
-            </span>
-            <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">
-              Rating Roaster
-            </span>
-            <div className="h-px w-8 bg-amber-800/20 my-2" />
-            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
-              Ditinjau oleh <CountUpNumber value={500} suffix="+" isVisible={isVisible} /> Roaster Kopi Nusantara
-            </p>
-          </div>
-
-          {/* Navigation Chevron - Left (positioned near center card) */}
+        {/* Testimonials Carousel Container */}
+        <div className="relative mx-auto mt-6 flex h-[390px] max-w-[920px] items-center justify-center overflow-visible sm:h-[410px]">
+          {/* Navigation Chevron - Left (positioned outside the left preview card) */}
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-1 sm:left-4 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-md transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-105"
+            className="absolute -left-3 sm:-left-10 z-40 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-xl transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
@@ -208,10 +129,10 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                     'transition-all duration-600 cubic-bezier(0.25, 1, 0.5, 1)',
                     'will-change-transform',
                     isCenter
-                      ? 'z-20 w-[min(76vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active opacity-100 shadow-2xl'
-                      : 'z-10 w-[min(76vw,420px)] -translate-y-1/2 scale-80 card-timbul opacity-55 hover:opacity-80 shadow-md',
-                    position === 'left' && '-translate-x-[110%] sm:-translate-x-[120%]',
-                    position === 'right' && 'translate-x-[10%] sm:translate-x-[20%]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active opacity-100 shadow-2xl'
+                      : 'z-10 w-[min(74vw,420px)] -translate-y-1/2 scale-80 card-timbul opacity-55 hover:opacity-80 shadow-md',
+                    position === 'left' && '-translate-x-[112%] sm:-translate-x-[122%]',
+                    position === 'right' && 'translate-x-[12%] sm:translate-x-[22%]',
                   ].join(' ')}
                 >
                   <div className="relative">
@@ -243,11 +164,11 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
             })}
           </div>
 
-          {/* Navigation Chevron - Right (positioned near center card) */}
+          {/* Navigation Chevron - Right (positioned outside the right preview card) */}
           <button
             type="button"
             onClick={() => paginate(1)}
-            className="absolute right-1 sm:right-4 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-md transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-105"
+            className="absolute -right-3 sm:-right-10 z-40 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-lg transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
