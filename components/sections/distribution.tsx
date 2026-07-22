@@ -91,33 +91,29 @@ export function Distribution({ distributionSection }: DistributionProps) {
       <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal className="w-full">
-            {/* Map Frame fitting image aspect ratio cleanly without cutoff */}
-            <div className="relative aspect-[16/7.8] w-full overflow-hidden rounded-2xl border border-amber-800/10 bg-white/40 p-2 shadow-lg backdrop-blur-xs">
-              <div className="relative h-full w-full overflow-hidden rounded-xl">
-                <Image
-                  src={distributionSection.map.src}
-                  alt={distributionSection.map.alt}
-                  fill
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  className="object-contain object-center"
-                  priority
-                />
-              </div>
+            {/* Map Frame fitting image aspect ratio cleanly */}
+            <div className="relative aspect-[16/7.8] w-full overflow-hidden">
+              <Image
+                src={distributionSection.map.src}
+                alt={distributionSection.map.alt}
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-contain object-center"
+                priority
+              />
             </div>
 
-            {/* City Legend (Rendering ALL 12 cities in exact 4-column layout matching original graphic) */}
-            <div className="mt-4 rounded-2xl border border-amber-800/10 bg-white/60 p-4 shadow-sm backdrop-blur-xs">
-              <h3 className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-neutral-900 text-timbul-dark">
+            {/* City Legend (Direct clean list without any card wrapper) */}
+            <div className="mt-3">
+              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-neutral-900 text-timbul-dark">
                 {distributionSection.legendTitle}
               </h3>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4 lg:grid-cols-4">
+              <div className="grid grid-cols-3 gap-x-3 gap-y-2 sm:grid-cols-4 lg:grid-cols-4">
                 {cities.map((city) => (
-                  <div key={city.name} className="flex items-center gap-2">
-                    <span
-                      className={`h-3.5 w-3.5 shrink-0 rounded-full border border-white/80 shadow-xs ${city.color}`}
-                    />
-                    <span className="text-[11px] font-black uppercase tracking-wider text-[#1e3a8a] text-timbul-dark sm:text-xs">
+                  <div key={city.name} className="flex items-center gap-1.5">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`} />
+                    <span className="text-[9px] font-extrabold uppercase tracking-wide text-neutral-800 text-timbul-dark sm:text-[10px] lg:text-[11px]">
                       {city.name}
                     </span>
                   </div>
