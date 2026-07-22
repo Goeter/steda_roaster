@@ -55,7 +55,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
                 }}
                 className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-extrabold transition-all duration-300 ${
                   activeCategory === index
-                    ? 'bg-[#2b1b12] text-white shadow-lg border border-amber-500/30'
+                    ? 'bg-[#6f4e37] hover:bg-[#5d4037] text-white shadow-lg border border-amber-500/30'
                     : 'card-timbul text-neutral-800 hover:bg-white'
                 }`}
               >
