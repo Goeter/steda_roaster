@@ -89,12 +89,13 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
     [total]
   );
 
+  // Auto slide every 15 seconds (15000ms)
   useEffect(() => {
     if (isHover || total <= 1) return;
 
     const interval = window.setInterval(() => {
       paginate(1);
-    }, 5000);
+    }, 15000);
 
     return () => window.clearInterval(interval);
   }, [isHover, paginate, total]);
@@ -207,7 +208,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                   className={[
                     'absolute left-1/2 top-1/2 text-left cursor-pointer select-none',
                     'rounded-[1.75rem] p-6 sm:p-7',
-                    'transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]',
+                    'transition-all duration-700 cubic-bezier(0.22, 1, 0.36, 1)',
                     'will-change-transform',
                     isCenter
                       ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 card-timbul-active sm:w-[420px] opacity-100 shadow-2xl'
