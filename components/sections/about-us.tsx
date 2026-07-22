@@ -55,16 +55,16 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-600" />
-                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-amber-700">Who We Are</span>
-                  <div className="h-px flex-1 bg-gradient-to-r from-amber-600/20 to-transparent" />
+                  <span className="text-xs font-extrabold uppercase tracking-[0.3em] text-amber-800 text-timbul-amber">Who We Are</span>
+                  <div className="h-px flex-1 bg-gradient-to-r from-amber-600/30 to-transparent" />
                 </div>
-                <h2 className="text-3xl font-black leading-tight text-neutral-900 sm:text-4xl">
+                <h2 className="text-3xl font-black leading-tight text-neutral-900 text-timbul-heading sm:text-4xl">
                   {aboutSection.heading}
                 </h2>
                 <div className="h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-400" />
               </div>
 
-              <div className="space-y-4 text-base leading-relaxed text-neutral-700">
+              <div className="space-y-4 text-base font-semibold leading-relaxed text-neutral-800 text-timbul-dark">
                 {aboutSection.description.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}

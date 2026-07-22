@@ -106,15 +106,15 @@ export function Hero({ heroSection }: HeroProps) {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="animate-hero-content max-w-2xl text-left">
-          <p className="mb-4 inline-flex rounded-full border border-amber-300/40 bg-white/10 px-4 py-2 text-sm font-medium text-amber-100 backdrop-blur">
+          <p className="mb-4 inline-flex rounded-full border border-amber-300/50 bg-black/30 px-4 py-2 text-sm font-bold text-amber-200 backdrop-blur-md text-timbul-white shadow-md">
             {heroSection.eyebrow}
           </p>
 
-          <h1 className="text-balance text-4xl font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-4xl font-black leading-tight text-white text-timbul-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] sm:text-5xl lg:text-6xl">
             {heroSection.heading}
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-8 text-white/95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] sm:text-lg">
+          <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-white text-timbul-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] sm:text-lg">
             {heroSection.description}
           </p>
 

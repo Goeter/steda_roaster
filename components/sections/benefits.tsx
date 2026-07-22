@@ -46,11 +46,11 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
               <div className="h-px w-8 bg-amber-600/30" />
               <div className="h-1 w-1 rotate-45 bg-amber-600/30" />
             </div>
-            <h2 className="whitespace-pre-line text-3xl font-black leading-tight text-gray-900 sm:text-4xl">
+            <h2 className="whitespace-pre-line text-3xl font-black leading-tight text-neutral-900 text-timbul-heading sm:text-4xl">
               {benefitsSection.heading}
             </h2>
             <div className="mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-400" />
-            <p className="mt-5 text-lg leading-relaxed text-gray-700">
+            <p className="mt-5 text-lg font-semibold leading-relaxed text-neutral-800 text-timbul-dark">
               {benefitsSection.description}
             </p>
           </Reveal>
@@ -63,7 +63,7 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
               key={benefit.id}
               delay={idx < 3 ? ([0, 100, 200] as const)[idx] : 0}
             >
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-amber-700/10 bg-white/80 p-6 shadow-md shadow-amber-900/5 backdrop-blur-sm transition-all duration-400 hover:-translate-y-1 hover:border-amber-600/15 hover:bg-white hover:shadow-xl hover:shadow-amber-900/10">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-amber-800/15 bg-white/90 p-6 shadow-md shadow-amber-950/5 backdrop-blur-md transition-all duration-400 hover:-translate-y-1 hover:border-amber-600/30 hover:bg-white hover:shadow-xl hover:shadow-amber-950/10">
                 {/* Left gold stripe */}
                 <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-amber-500/40 via-amber-600/25 to-transparent transition-all duration-300 group-hover:w-1.5 group-hover:from-amber-500 group-hover:via-amber-600/50" />
 
@@ -88,16 +88,16 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
                     <div className="h-1 w-1 rounded-full bg-amber-500/15" />
                     <div className="ml-2 h-px flex-1 bg-gradient-to-r from-amber-500/20 to-transparent" />
                   </div>
-                  <span className="font-mono text-xs font-bold tracking-wider text-amber-800/80 transition-colors duration-300 group-hover:text-amber-600">
+                  <span className="font-mono text-xs font-extrabold tracking-wider text-amber-800 text-timbul-amber transition-colors duration-300 group-hover:text-amber-600">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                 </div>
 
-                <h3 className="mb-3 text-base font-bold text-gray-900 transition-colors duration-300 group-hover:text-amber-700">
+                <h3 className="mb-3 text-base font-extrabold text-neutral-900 text-timbul-dark transition-colors duration-300 group-hover:text-amber-800">
                   {benefit.title}
                 </h3>
 
-                <p className="text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700 z-10">
+                <p className="text-sm font-medium leading-relaxed text-neutral-700 text-timbul-dark transition-colors duration-300 group-hover:text-neutral-900 z-10">
                   {benefit.description}
                 </p>
 

@@ -39,7 +39,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
             </div>
 
             <div className="mt-3">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-gray-800">
+              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-neutral-900 text-timbul-dark">
                 {distributionSection.legendTitle}
               </h3>
 
@@ -47,7 +47,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
                 {cities.map((city) => (
                   <div key={city.name} className="flex items-center gap-1.5">
                     <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`} />
-                    <span className="text-[9px] font-bold uppercase tracking-wide text-gray-700 sm:text-[10px] lg:text-[11px]">
+                    <span className="text-[9px] font-extrabold uppercase tracking-wide text-neutral-800 text-timbul-dark sm:text-[10px] lg:text-[11px]">
                       {city.name}
                     </span>
                   </div>
@@ -58,17 +58,17 @@ export function Distribution({ distributionSection }: DistributionProps) {
 
           <Reveal className="w-full" delay={150}>
             <div className="max-w-xl lg:ml-auto">
-              <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-amber-700">
+              <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.28em] text-amber-800 text-timbul-amber">
                 {distributionSection.eyebrow}
               </p>
 
-              <h2 className="text-3xl font-black leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-black leading-tight tracking-tight text-neutral-900 text-timbul-heading sm:text-4xl lg:text-5xl">
                 {beforeHighlight}
-                <span className="text-amber-600">{highlightedWord}</span>
+                <span className="text-amber-700 text-timbul-amber">{highlightedWord}</span>
                 {afterHighlight}
               </h2>
 
-              <p className="mt-5 text-base leading-8 text-gray-600 sm:text-lg">
+              <p className="mt-5 text-base font-semibold leading-8 text-neutral-800 text-timbul-dark sm:text-lg">
                 {distributionSection.description}
               </p>
 

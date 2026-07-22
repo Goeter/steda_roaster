@@ -58,17 +58,17 @@ export function Product({ productPageSection, productSection, products }: Produc
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6">
         <Reveal className="mb-14 w-full text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
+          <p className="mb-3 text-sm font-extrabold uppercase tracking-[0.25em] text-amber-800 text-timbul-amber">
             {productSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-black text-neutral-900 sm:text-4xl">
+          <h2 className="text-3xl font-black text-neutral-900 text-timbul-heading sm:text-4xl">
             {productSection.heading}
           </h2>
 
           <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-amber-600 to-orange-500" />
 
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-neutral-600">
+          <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-7 text-neutral-800 text-timbul-dark">
             {productSection.description}
           </p>
         </Reveal>
@@ -88,7 +88,7 @@ export function Product({ productPageSection, productSection, products }: Produc
                   aria-label={`${productPageSection.detailAriaLabelPrefix} ${product.name}`}
                   className="group block h-full"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-amber-900/10 bg-white/95 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="relative h-52 w-full overflow-hidden sm:h-56">
                       <Image
                         src={product.image}
@@ -99,22 +99,22 @@ export function Product({ productPageSection, productSection, products }: Produc
                       />
 
                       {product.tag === productPageSection.bestSellerLabel && (
-                        <span className="absolute left-4 top-4 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                        <span className="absolute left-4 top-4 rounded-full bg-orange-600 px-3 py-1 text-xs font-bold text-white shadow-md">
                           {productPageSection.bestSellerLabel}
                         </span>
                       )}
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      <span className="w-fit rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
+                      <span className="w-fit rounded-full bg-orange-100/90 px-3 py-1 text-xs font-bold text-orange-800">
                         {product.category}
                       </span>
 
-                      <h3 className="mt-3 text-lg font-bold text-neutral-900">
+                      <h3 className="mt-3 text-lg font-extrabold text-neutral-900 text-timbul-dark">
                         {product.name}
                       </h3>
 
-                      <p className="mt-2 text-sm leading-6 text-neutral-600">
+                      <p className="mt-2 text-sm font-medium leading-6 text-neutral-700 text-timbul-dark">
                         {product.description}
                       </p>
 

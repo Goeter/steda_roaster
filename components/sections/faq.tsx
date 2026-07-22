@@ -29,37 +29,37 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
           {/* Left Column: Heading and Support Callout */}
           <div className="lg:col-span-5 space-y-6">
             <Reveal>
-              <span className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#8b6914] sm:text-sm">
+              <span className="mb-2 block text-xs font-extrabold uppercase tracking-[0.2em] text-amber-800 text-timbul-amber sm:text-sm">
                 Pertanyaan Umum
               </span>
-              <h2 className="text-3xl font-black tracking-tight text-[#3e2723] sm:text-4xl leading-tight">
+              <h2 className="text-3xl font-black tracking-tight text-neutral-900 text-timbul-heading sm:text-4xl leading-tight">
                 {faqHomeSection.heading}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#5d4037]">
+              <p className="mt-4 text-base font-semibold leading-relaxed text-neutral-800 text-timbul-dark">
                 {faqHomeSection.description}
               </p>
             </Reveal>
 
             {/* Custom WhatsApp Help Card */}
             <Reveal delay={100}>
-              <div className="relative overflow-hidden rounded-2xl border border-amber-600/15 bg-white/80 p-6 shadow-md shadow-amber-900/5 backdrop-blur-sm">
+              <div className="relative overflow-hidden rounded-2xl border border-amber-800/15 bg-white/90 p-6 shadow-md shadow-amber-950/5 backdrop-blur-md">
                 <div className="absolute -right-3 -top-3 h-16 w-16 opacity-[0.05] pointer-events-none">
                   <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="30" cy="30" r="18" stroke="#8b6914" strokeWidth="1" />
                     <circle cx="30" cy="30" r="8" stroke="#8b6914" strokeWidth="1" />
                   </svg>
                 </div>
-                <h4 className="text-base font-bold text-[#3e2723] mb-2">
+                <h4 className="text-base font-extrabold text-neutral-900 text-timbul-dark mb-2">
                   Belum Menemukan Jawaban?
                 </h4>
-                <p className="text-sm leading-relaxed text-[#5d4037] mb-5">
+                <p className="text-sm font-medium leading-relaxed text-neutral-700 text-timbul-dark mb-5">
                   Hubungi tim layanan pelanggan kami untuk konsultasi gratis mengenai spesifikasi mesin roaster kopi Steda.
                 </p>
                 <a
                   href="https://wa.me/628123456789"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1c130e] hover:bg-[#2b1b12] px-5 py-2.5 text-xs font-semibold text-white shadow-md transition-all hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1c130e] hover:bg-[#2b1b12] px-5 py-2.5 text-xs font-bold text-white shadow-md transition-all hover:scale-105"
                 >
                   <span>Chat CS via WhatsApp</span>
                   <span>→</span>
@@ -74,18 +74,18 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
               {homeFaqs.map((faq, index) => (
                 <div
                   key={faq.id}
-                  className="overflow-hidden rounded-xl border border-[#d7ccc8] bg-white shadow-sm transition-all duration-300 hover:border-amber-600/20"
+                  className="overflow-hidden rounded-xl border border-amber-800/15 bg-white/95 shadow-sm transition-all duration-300 hover:border-amber-600/30"
                 >
                   <button
                     onClick={() => toggleAccordion(index)}
                     className="flex w-full items-center justify-between px-6 py-4 transition hover:bg-[#faf9f6]"
                   >
-                    <h3 className="text-left font-semibold text-[#3e2723] text-sm sm:text-base">
+                    <h3 className="text-left font-bold text-neutral-900 text-timbul-dark text-sm sm:text-base">
                       {faq.question}
                     </h3>
                     <ChevronDown
                       size={18}
-                      className={`text-[#6f4e37] transition-transform duration-300 ${
+                      className={`text-amber-800 transition-transform duration-300 ${
                         openIndex === index ? 'rotate-180' : ''
                       }`}
                     />
@@ -96,8 +96,8 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
                       openIndex === index ? 'max-h-96' : 'max-h-0'
                     }`}
                   >
-                    <div className="border-t border-[#d7ccc8] bg-[#faf8f5] px-6 py-4 text-[#5d4037]">
-                      <p className="text-sm leading-relaxed">
+                    <div className="border-t border-amber-800/15 bg-[#faf8f5] px-6 py-4 text-neutral-800">
+                      <p className="text-sm font-medium leading-relaxed text-timbul-dark">
                         {faq.answer}
                       </p>
                     </div>

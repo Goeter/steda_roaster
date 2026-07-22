@@ -91,36 +91,36 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.32em] text-amber-800 sm:text-sm">
+          <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.32em] text-amber-800 text-timbul-amber sm:text-sm">
             {testimoniesSection.eyebrow}
           </p>
 
-          <h2 className="text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-tight text-neutral-900 text-timbul-heading sm:text-4xl">
             {testimoniesSection.heading}
           </h2>
 
-          <p className="mx-auto mt-2 max-w-xl text-sm font-medium leading-6 text-neutral-700 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm font-semibold leading-6 text-neutral-800 text-timbul-dark sm:text-base">
             {testimoniesSection.description}
           </p>
         </div>
 
         <div className="relative mx-auto mt-2 flex h-[390px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-4 sm:h-[400px] sm:overflow-visible">
           {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/15 bg-white/90 shadow-xl shadow-amber-950/5 backdrop-blur-md w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
-            <span className="text-3xl font-black text-amber-800">4.9★</span>
-            <span className="text-[10px] font-bold text-neutral-900 mt-1 uppercase tracking-wider">Rating Roaster</span>
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/20 bg-white/95 shadow-xl shadow-amber-950/10 backdrop-blur-md w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
+            <span className="text-3xl font-black text-amber-800 text-timbul-amber">4.9★</span>
+            <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Rating Roaster</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
-            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-600">
+            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
               Ditinjau oleh 500+ Roaster Kopi Nusantara
             </p>
           </div>
 
           {/* Floating Trust Badge - Right */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/15 bg-white/90 shadow-xl shadow-amber-950/5 backdrop-blur-md w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
-            <span className="text-3xl font-black text-amber-800">100%</span>
-            <span className="text-[10px] font-bold text-neutral-900 mt-1 uppercase tracking-wider">Garansi Mesin</span>
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl border border-amber-800/20 bg-white/95 shadow-xl shadow-amber-950/10 backdrop-blur-md w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300 hover:border-amber-700/40 hover:bg-white">
+            <span className="text-3xl font-black text-amber-800 text-timbul-amber">100%</span>
+            <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Garansi Mesin</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
-            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-600">
+            <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
               Dukungan Teknis & Suku Cadang Terjamin
             </p>
           </div>
@@ -128,7 +128,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-800/20 bg-white text-neutral-800 shadow-md backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-700 hover:text-white hover:border-amber-700 sm:left-4"
+            className="absolute left-1 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-amber-800/20 bg-white text-neutral-900 shadow-md backdrop-blur transition duration-300 hover:-translate-x-0.5 hover:bg-amber-700 hover:text-white hover:border-amber-700 sm:left-4"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
@@ -151,8 +151,8 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                     'will-change-transform',
                     'hover:border-amber-600/30 hover:bg-white',
                     isCenter
-                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-700/20 bg-white/95 p-6 opacity-100 shadow-xl shadow-amber-950/10 sm:w-[420px] sm:p-7'
-                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-amber-800/15 bg-white/80 p-5 opacity-60 shadow-md shadow-amber-950/5 hover:scale-[0.87] hover:opacity-85 sm:w-[280px]',
+                      ? 'z-20 w-[min(74vw,420px)] -translate-x-1/2 -translate-y-1/2 scale-100 border-amber-700/25 bg-white/95 p-6 opacity-100 shadow-2xl shadow-amber-950/15 sm:w-[420px] sm:p-7'
+                      : 'z-10 w-[min(54vw,280px)] -translate-y-1/2 scale-[0.84] border-amber-800/20 bg-white/90 p-5 opacity-70 shadow-md shadow-amber-950/5 hover:scale-[0.87] hover:opacity-90 sm:w-[280px]',
                     position === 'left' && '-translate-x-[96%] sm:-translate-x-[122%]',
                     position === 'right' && '-translate-x-[4%] sm:translate-x-[22%]',
                     position === 'center' && 'translate-x-[-50%]',
@@ -163,7 +163,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                       <div
                         className={[
                           'flex shrink-0 items-center justify-center rounded-2xl',
-                          'bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-800 border border-amber-300/40 shadow-inner',
+                          'bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-800 border border-amber-300/50 shadow-inner',
                           isCenter ? 'h-12 w-12' : 'h-10 w-10',
                         ].join(' ')}
                       >
@@ -175,10 +175,10 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
                     <p
                       className={[
-                        'font-medium leading-relaxed text-neutral-800',
+                        'font-semibold leading-relaxed text-neutral-900 text-timbul-dark',
                         isCenter
                           ? 'line-clamp-6 text-base leading-8 sm:text-lg'
-                          : 'line-clamp-4 text-xs leading-6 sm:text-sm text-neutral-700',
+                          : 'line-clamp-4 text-xs leading-6 sm:text-sm text-neutral-800',
                       ].join(' ')}
                     >
                       “{item.text}”
@@ -192,14 +192,14 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
                     >
                       <h3
                         className={[
-                          'font-bold text-neutral-900',
+                          'font-extrabold text-neutral-900 text-timbul-dark',
                           isCenter ? 'text-base sm:text-lg' : 'text-sm',
                         ].join(' ')}
                       >
                         {item.name}
                       </h3>
 
-                      <p className="mt-1 line-clamp-1 text-xs font-medium text-neutral-500 sm:text-sm">
+                      <p className="mt-1 line-clamp-1 text-xs font-semibold text-neutral-600 sm:text-sm">
                         {item.position}
                       </p>
                     </div>
