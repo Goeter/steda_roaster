@@ -54,22 +54,6 @@ function CountUpNumber({
   );
 }
 
-// 100% Precise pixel coordinates matching pin heads on gambar_peta.webp (1954 x 805 px)
-const CITY_PIN_COORDS: Record<string, { left: string; top: string }> = {
-  Aceh: { left: '3.94%', top: '8.59%' },
-  Jabodetabek: { left: '27.88%', top: '69.50%' },
-  Solo: { left: '35.00%', top: '74.04%' },
-  Surabaya: { left: '39.04%', top: '74.79%' },
-  Madura: { left: '40.40%', top: '75.04%' },
-  Malang: { left: '39.17%', top: '80.12%' },
-  Bondowoso: { left: '42.15%', top: '78.15%' },
-  Bali: { left: '44.79%', top: '79.81%' },
-  'Kalimantan Tengah': { left: '41.84%', top: '48.03%' },
-  'Kalimantan Timur': { left: '48.96%', top: '34.46%' },
-  NTT: { left: '57.94%', top: '80.67%' },
-  Jayapura: { left: '97.46%', top: '48.57%' },
-};
-
 type DistributionProps = {
   distributionSection: DistributionSection;
 };
@@ -79,7 +63,6 @@ export function Distribution({ distributionSection }: DistributionProps) {
   const [beforeHighlight, afterHighlight] = heading.split(highlightedWord);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCity, setActiveCity] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,11 +91,8 @@ export function Distribution({ distributionSection }: DistributionProps) {
       <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal className="w-full">
-            {/* Map Frame matching exact 1954:805 image aspect ratio */}
-            <div
-              className="relative w-full overflow-hidden rounded-2xl border border-amber-800/10 bg-white/40 p-1 shadow-lg backdrop-blur-xs"
-              style={{ aspectRatio: '1954 / 805' }}
-            >
+            {/* Map Frame fitting original image aspect ratio cleanly */}
+            <div className="relative aspect-[16/7.8] w-full overflow-hidden rounded-2xl border border-amber-800/10 bg-white/40 p-1 shadow-lg backdrop-blur-xs">
               <div className="relative h-full w-full overflow-hidden rounded-xl">
                 <Image
                   src={distributionSection.map.src}
@@ -122,82 +102,24 @@ export function Distribution({ distributionSection }: DistributionProps) {
                   className="object-contain object-center"
                   priority
                 />
-
-                {/* Animated Pulsing Rings overlaying exact pin heads in the image */}
-                {cities.map((city, idx) => {
-                  const coords = CITY_PIN_COORDS[city.name] || {
-                    left: `${15 + ((idx * 6) % 75)}%`,
-                    top: `${40 + ((idx * 8) % 35)}%`,
-                  };
-                  const isActive = activeCity === city.name;
-
-                  return (
-                    <div
-                      key={city.name}
-                      style={{ left: coords.left, top: coords.top }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group"
-                      onMouseEnter={() => setActiveCity(city.name)}
-                      onMouseLeave={() => setActiveCity(null)}
-                    >
-                      {/* Pulsing Outer Ping Ring */}
-                      <span
-                        className={`absolute -inset-1.5 rounded-full animate-ping opacity-75 ${city.color}`}
-                      />
-                      {/* Core Glow Dot */}
-                      <span
-                        className={`relative block h-3.5 w-3.5 rounded-full border-2 border-white shadow-md transition-transform duration-300 ${
-                          city.color
-                        } ${isActive ? 'scale-150 ring-4 ring-amber-500/60' : 'group-hover:scale-125'}`}
-                      />
-
-                      {/* City Name Tag Label */}
-                      <div
-                        className={`absolute bottom-full left-1/2 mb-1 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[9px] font-extrabold shadow-md backdrop-blur-xs transition-all duration-300 pointer-events-none z-30 ${
-                          isActive
-                            ? 'scale-110 bg-amber-800 text-white shadow-amber-800/40 ring-2 ring-amber-400 opacity-100'
-                            : 'bg-neutral-900/85 text-white opacity-95 group-hover:opacity-100'
-                        }`}
-                      >
-                        <span className="flex items-center gap-1">
-                          <span className={`h-1.5 w-1.5 rounded-full ${city.color}`} />
-                          {city.name}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
             </div>
 
-            {/* City Legend (Rendering ALL 12 cities from CMS neatly) */}
-            <div className="mt-5 rounded-2xl border border-amber-800/10 bg-white/60 p-4 shadow-sm backdrop-blur-xs">
-              <h3 className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-neutral-900 text-timbul-dark">
+            {/* City Legend (Rendering ALL cities from CMS) */}
+            <div className="mt-4">
+              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-neutral-900 text-timbul-dark">
                 {distributionSection.legendTitle}
               </h3>
 
-              <div className="grid grid-cols-3 gap-x-3 gap-y-2.5 sm:grid-cols-4 lg:grid-cols-4">
-                {cities.map((city) => {
-                  const isActive = activeCity === city.name;
-                  return (
-                    <div
-                      key={city.name}
-                      onMouseEnter={() => setActiveCity(city.name)}
-                      onMouseLeave={() => setActiveCity(null)}
-                      className={`flex items-center gap-2 cursor-pointer rounded-xl px-2 py-1.5 transition-all duration-200 ${
-                        isActive
-                          ? 'bg-amber-200/80 scale-105 shadow-sm border border-amber-400/50'
-                          : 'hover:bg-amber-100/40'
-                      }`}
-                    >
-                      <span
-                        className={`h-3 w-3 shrink-0 rounded-full border border-white/80 shadow-xs ${city.color}`}
-                      />
-                      <span className="text-[10px] font-extrabold uppercase tracking-wide text-neutral-900 text-timbul-dark sm:text-xs">
-                        {city.name}
-                      </span>
-                    </div>
-                  );
-                })}
+              <div className="grid grid-cols-3 gap-x-3 gap-y-2 sm:grid-cols-4 lg:grid-cols-4">
+                {cities.map((city) => (
+                  <div key={city.name} className="flex items-center gap-1.5">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`} />
+                    <span className="text-[9px] font-extrabold uppercase tracking-wide text-neutral-800 text-timbul-dark sm:text-[10px] lg:text-[11px]">
+                      {city.name}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
