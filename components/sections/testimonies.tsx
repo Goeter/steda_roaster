@@ -1,8 +1,42 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import type { TestimoniesSection, Testimony } from '@/lib/cms-types';
+
+function CountUpNumber({ value, decimals = 0, prefix = '', suffix = '', isVisible }: { value: number; decimals?: number; prefix?: string; suffix?: string; isVisible: boolean }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number | null = null;
+    const duration = 2000;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const currentValue = easeOutExpo * value;
+
+      setDisplayValue(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible, value]);
+
+  return (
+    <span>
+      {prefix}
+      {displayValue.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
 
 type TestimoniesProps = {
   testimoniesSection: TestimoniesSection;
@@ -12,6 +46,26 @@ type TestimoniesProps = {
 export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProps) {
   const [index, setIndex] = useState(0);
   const [isHover, setIsHover] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const total = testimonies.length;
 
@@ -72,6 +126,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
 
   return (
     <section
+      ref={sectionRef}
       id="testimonies"
       className="relative overflow-hidden bg-transparent py-24 text-neutral-900"
       onMouseEnter={() => setIsHover(true)}
@@ -104,17 +159,21 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
         <div className="relative mx-auto mt-2 flex h-[390px] max-w-[920px] items-center justify-center overflow-hidden sm:mt-4 sm:h-[400px] sm:overflow-visible">
           {/* Floating Trust Badge - Left */}
           <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
-            <span className="text-3xl font-black text-amber-800 text-timbul-amber">4.9★</span>
+            <span className="text-3xl font-black text-amber-800 text-timbul-amber">
+              <CountUpNumber value={4.9} decimals={1} suffix="★" isVisible={isVisible} />
+            </span>
             <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Rating Roaster</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
             <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
-              Ditinjau oleh 500+ Roaster Kopi Nusantara
+              Ditinjau oleh <CountUpNumber value={500} suffix="+" isVisible={isVisible} /> Roaster Kopi Nusantara
             </p>
           </div>
 
           {/* Floating Trust Badge - Right */}
           <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute right-0 top-1/2 translate-x-[calc(100%+3.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
-            <span className="text-3xl font-black text-amber-800 text-timbul-amber">100%</span>
+            <span className="text-3xl font-black text-amber-800 text-timbul-amber">
+              <CountUpNumber value={100} suffix="%" isVisible={isVisible} />
+            </span>
             <span className="text-[10px] font-extrabold text-neutral-900 text-timbul-dark mt-1 uppercase tracking-wider">Garansi Mesin</span>
             <div className="h-px w-8 bg-amber-800/20 my-2" />
             <p className="text-[11px] font-medium leading-relaxed text-center text-neutral-700 text-timbul-dark">
