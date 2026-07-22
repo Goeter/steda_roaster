@@ -54,7 +54,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
         <AboutUs aboutSection={aboutSection} showCta={false} />
 
         {/* Vision & Mission Section */}
-        <section className="relative overflow-hidden bg-transparent py-24 border-t border-amber-800/5">
+        <section className="relative overflow-hidden bg-transparent py-24">
 
 
           <div className="relative z-10 mx-auto max-w-7xl px-6">
@@ -121,7 +121,6 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
         <Reveal as="section" className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-20 text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_25%,rgba(245,158,11,0.28),transparent_30%),radial-gradient(circle_at_85%_75%,rgba(120,53,15,0.45),transparent_35%)]" />
           <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(135deg,#ffffff_1px,transparent_1px),linear-gradient(45deg,#ffffff_1px,transparent_1px)] bg-[length:30px_30px]" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
           <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">

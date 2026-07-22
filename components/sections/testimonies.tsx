@@ -73,7 +73,7 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
   return (
     <section
       id="testimonies"
-      className="relative overflow-hidden bg-transparent py-24 text-neutral-900 border-y border-amber-900/10"
+      className="relative overflow-hidden bg-transparent py-24 text-neutral-900"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >

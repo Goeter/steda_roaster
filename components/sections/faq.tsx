@@ -123,11 +123,6 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
         </div>
       </div>
 
-      {/* Clean bottom border — natural contrast with footer */}
-      <div className="absolute inset-x-0 bottom-0 z-10">
-        <div className="h-px bg-gradient-to-r from-transparent via-[#d7ccc8]/40 to-transparent" />
-        <div className="h-px bg-gradient-to-r from-transparent via-[#6f4e37]/20 to-transparent" />
-      </div>
     </section>
   );
 }

@@ -20,10 +20,6 @@ export function Distribution({ distributionSection }: DistributionProps) {
       <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-amber-200/15 blur-[100px]" />
       <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-yellow-200/10 blur-[90px]" />
 
-      {/* Vertical lines */}
-      <div className="absolute left-10 top-16 hidden h-20 w-px bg-gradient-to-b from-transparent via-amber-700/10 to-transparent lg:block" />
-      <div className="absolute bottom-16 right-10 hidden h-20 w-px bg-gradient-to-b from-transparent via-amber-700/10 to-transparent lg:block" />
-
       <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal className="w-full">

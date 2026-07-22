@@ -142,8 +142,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           <div className="absolute inset-0 bg-[radial-gradient(rgba(101,67,33,0.07)_1px,transparent_1px)] bg-[size:28px_28px] [mask-image:linear-gradient(to_bottom,black,transparent_55%)]" />
 
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
-
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#ede8de]/80 to-transparent" />
         </div>
 

@@ -193,7 +193,6 @@ export function ProductsPageContent({ productPageSection, productSection, produc
         <Reveal as="section" delay={150} className="relative overflow-hidden bg-gradient-to-r from-[#2b1b12] via-[#4a2b19] to-[#2b1b12] py-8 text-white sm:py-12">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_25%,rgba(245,158,11,0.28),transparent_30%),radial-gradient(circle_at_85%_75%,rgba(120,53,15,0.45),transparent_35%)]" />
           <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(135deg,#ffffff_1px,transparent_1px),linear-gradient(45deg,#ffffff_1px,transparent_1px)] bg-[length:30px_30px]" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
           <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
             <div className="flex flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">

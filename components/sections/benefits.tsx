@@ -20,10 +20,6 @@ export function Benefits({ benefitsSection }: BenefitsProps) {
       <div className="absolute -left-10 top-1/4 h-72 w-72 rounded-full bg-amber-200/20 blur-[100px]" />
       <div className="absolute -right-10 bottom-1/4 h-64 w-64 rounded-full bg-yellow-200/15 blur-[90px]" />
 
-      {/* Vertical lines */}
-      <div className="absolute left-10 top-16 hidden h-20 w-px bg-gradient-to-b from-transparent via-amber-700/10 to-transparent lg:block" />
-      <div className="absolute bottom-16 right-10 hidden h-20 w-px bg-gradient-to-b from-transparent via-amber-700/10 to-transparent lg:block" />
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Image + Heading */}
         <div className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">

@@ -43,18 +43,6 @@ export function Product({ productPageSection, productSection, products }: Produc
       {/* Glow Ambient */}
       <div className="absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-amber-500/5 blur-[120px]" />
       <div className="absolute -right-16 bottom-1/4 h-64 w-64 rounded-full bg-orange-400/5 blur-[100px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-800/10 to-transparent" />
-
-      {/* Top ornament */}
-      <div className="absolute left-1/2 top-6 z-10 -translate-x-1/2">
-        <div className="flex items-center gap-2">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-700/20" />
-          <div className="h-1.5 w-1.5 rotate-45 bg-amber-700/15" />
-          <div className="h-2 w-2 rotate-45 border border-amber-700/20" />
-          <div className="h-1.5 w-1.5 rotate-45 bg-amber-700/15" />
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-700/20" />
-        </div>
-      </div>
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6">
         <Reveal className="mb-14 w-full text-center">
