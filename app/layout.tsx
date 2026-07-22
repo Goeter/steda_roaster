@@ -3,7 +3,6 @@ import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { AntiInspect } from '@/components/anti-inspect';
-import { BatikGutters } from '@/components/batik-gutters';
 import { getLayoutContent } from '@/lib/cms';
 import { getSiteUrl } from '@/lib/seo';
 import './globals.css';
@@ -126,7 +125,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang={siteMetadata.language} className="scroll-smooth">
       <body className="bg-[#FAF6F0] text-neutral-900 antialiased relative min-h-screen">
-        <BatikGutters />
         <script
           type="application/ld+json"
           suppressHydrationWarning
