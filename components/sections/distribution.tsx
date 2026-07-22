@@ -103,17 +103,19 @@ export function Distribution({ distributionSection }: DistributionProps) {
               />
             </div>
 
-            {/* City Legend (Direct clean list without any card wrapper) */}
-            <div className="mt-3">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-[0.18em] text-neutral-900 text-timbul-dark">
+            {/* City Legend (Rendering ALL 12 cities clearly with full text visibility) */}
+            <div className="mt-4">
+              <h3 className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-neutral-900 text-timbul-dark sm:text-sm">
                 {distributionSection.legendTitle}
               </h3>
 
-              <div className="grid grid-cols-3 gap-x-3 gap-y-2 sm:grid-cols-4 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-3 md:grid-cols-4">
                 {cities.map((city) => (
-                  <div key={city.name} className="flex items-center gap-1.5">
-                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${city.color}`} />
-                    <span className="text-[9px] font-extrabold uppercase tracking-wide text-neutral-800 text-timbul-dark sm:text-[10px] lg:text-[11px]">
+                  <div key={city.name} className="flex items-center gap-2">
+                    <span
+                      className={`h-3 w-3 shrink-0 rounded-full border border-white/60 shadow-xs ${city.color}`}
+                    />
+                    <span className="text-[10px] font-extrabold uppercase tracking-wide text-neutral-900 text-timbul-dark sm:text-xs">
                       {city.name}
                     </span>
                   </div>

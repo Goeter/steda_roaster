@@ -133,10 +133,10 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
           </p>
         </div>
 
-        {/* Testimonials Slider Container (Pure Fixed-Width Horizontal Slide) */}
-        <div className="relative mx-auto mt-8 flex max-w-[620px] items-center justify-center px-4 sm:px-12">
+        {/* Testimonials 3-Card Linear Slide Viewport (Showing Previous, Active, Next with fixed width & stable text) */}
+        <div className="relative mx-auto mt-6 h-[400px] w-full max-w-[960px] overflow-hidden sm:mt-8 sm:h-[420px]">
           {/* Floating Trust Badge - Left */}
-          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+2.5rem)] -translate-y-1/2 select-none pointer-events-none transition-all duration-300">
+          <div className="hidden xl:flex flex-col items-center justify-center p-5 rounded-2xl card-timbul w-44 absolute left-0 top-1/2 -translate-x-[calc(100%+3rem)] -translate-y-1/2 select-none pointer-events-none z-30 transition-all duration-300">
             <span className="text-3xl font-black text-amber-800 text-timbul-amber">
               <CountUpNumber value={4.9} decimals={1} suffix="★" isVisible={isVisible} />
             </span>
@@ -149,61 +149,70 @@ export function Testimonies({ testimoniesSection, testimonies }: TestimoniesProp
             </p>
           </div>
 
-          {/* Navigation Chevron - Left (positioned right next to the card) */}
+          {/* Navigation Chevron - Left */}
           <button
             type="button"
             onClick={() => paginate(-1)}
-            className="absolute left-0 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-lg transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110 sm:-left-2"
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-40 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-xl transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.previousAriaLabel}
           >
             <ChevronLeft size={20} />
           </button>
 
-          {/* Pure Fixed-Width Horizontal Slide Track Viewport */}
-          <div className="w-full overflow-hidden rounded-3xl py-2">
+          {/* Horizontal Track Viewport */}
+          <div className="relative h-full w-full overflow-hidden flex items-center [--step:316px] sm:[--step:424px]">
             <div
-              className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+              className="flex gap-4 sm:gap-6 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
               style={{
-                transform: `translateX(-${index * 100}%)`,
+                transform: `translateX(calc(50% - ${(index + 0.5)} * var(--step)))`,
               }}
             >
-              {testimonies.map((item) => (
-                <div
-                  key={item.id}
-                  className="w-full shrink-0 px-1"
-                >
-                  <div className="mx-auto w-full rounded-3xl card-timbul-active p-6 text-left shadow-xl sm:p-8">
-                    <div className="mb-5 flex items-center gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-800 border border-amber-300/50 shadow-inner">
-                        <Quote className="h-6 w-6" />
+              {testimonies.map((item, i) => {
+                const isActive = i === index;
+
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => setIndex(i)}
+                    className={`w-[300px] sm:w-[400px] shrink-0 cursor-pointer select-none rounded-[1.75rem] p-6 sm:p-8 text-left transition-all duration-700 ${
+                      isActive
+                        ? 'card-timbul-active opacity-100 shadow-2xl ring-1 ring-amber-500/30'
+                        : 'card-timbul opacity-40 hover:opacity-75 shadow-md'
+                    }`}
+                  >
+                    <div className="relative">
+                      <div className="mb-4 flex items-center gap-3 sm:mb-5">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-800 border border-amber-300/50 shadow-inner">
+                          <Quote className="h-5.5 w-5.5" />
+                        </div>
+                        <div className="h-px flex-1 bg-gradient-to-r from-amber-600/30 to-transparent" />
                       </div>
-                      <div className="h-px flex-1 bg-gradient-to-r from-amber-600/30 to-transparent" />
-                    </div>
 
-                    {/* Fixed stable text */}
-                    <p className="line-clamp-6 text-base font-semibold leading-7 text-neutral-900 text-timbul-dark sm:text-lg sm:leading-8">
-                      “{item.text}”
-                    </p>
-
-                    <div className="mt-6 border-t border-amber-800/15 pt-5">
-                      <h3 className="text-base font-extrabold text-neutral-900 text-timbul-dark sm:text-lg">
-                        {item.name}
-                      </h3>
-                      <p className="mt-1 text-xs font-semibold text-neutral-600 sm:text-sm">
-                        {item.position}
+                      {/* 100% Fixed, Stable Typography across all cards */}
+                      <p className="line-clamp-6 text-base font-semibold leading-7 text-neutral-900 text-timbul-dark sm:text-lg sm:leading-8">
+                        “{item.text}”
                       </p>
+
+                      <div className="mt-6 border-t border-amber-800/15 pt-5">
+                        <h3 className="text-base font-extrabold text-neutral-900 text-timbul-dark sm:text-lg">
+                          {item.name}
+                        </h3>
+                        <p className="mt-1 line-clamp-1 text-xs font-semibold text-neutral-600 sm:text-sm">
+                          {item.position}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
-          {/* Navigation Chevron - Right (positioned right next to the card) */}
+          {/* Navigation Chevron - Right */}
           <button
             type="button"
             onClick={() => paginate(1)}
-            className="absolute right-0 z-30 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-lg transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110 sm:-right-2"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 flex h-11 w-11 items-center justify-center rounded-full card-timbul text-neutral-900 shadow-xl transition duration-300 hover:bg-amber-700 hover:text-white hover:scale-110"
             aria-label={testimoniesSection.nextAriaLabel}
           >
             <ChevronRight size={20} />
