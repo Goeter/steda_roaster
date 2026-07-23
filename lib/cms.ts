@@ -490,12 +490,19 @@ function normalizeCmsPayload(value: unknown) {
 }
 
 /**
- * Keeps the UI stable when an older CMS response is missing a newly added field.
- * Arrays from the CMS are authoritative, including intentionally empty arrays.
+ * Keeps the UI stable when an older/empty CMS response is missing fields or returning empty data.
+ * Falls back to local cms-data.ts content whenever CMS data is empty, null, or missing.
  */
 function mergeWithFallback<T>(fallback: T, data: unknown): T {
+  if (data === undefined || data === null) {
+    return fallback;
+  }
+
   if (Array.isArray(fallback)) {
-    return Array.isArray(data) ? (data as T) : fallback;
+    if (Array.isArray(data)) {
+      return (data.length > 0 ? data : fallback) as T;
+    }
+    return fallback;
   }
 
   if (isRecord(fallback)) {
@@ -511,7 +518,14 @@ function mergeWithFallback<T>(fallback: T, data: unknown): T {
     ) as T;
   }
 
-  return data === undefined || data === null ? fallback : (data as T);
+  if (typeof fallback === 'string' && fallback.trim().length > 0) {
+    if (typeof data === 'string' && data.trim() === '') {
+      return fallback;
+    }
+    return (data as T) ?? fallback;
+  }
+
+  return (data as T) ?? fallback;
 }
 
 const warnedCmsMessages = new Set<string>();
@@ -615,7 +629,7 @@ async function fetchFromCms<T>(
       unwrapCmsPayload(await response.json()),
     );
 
-    if (!payload) {
+    if (!payload || (isRecord(payload) && Object.keys(payload).length === 0)) {
       return applyGlobalTextOverrides(fallback);
     }
 
