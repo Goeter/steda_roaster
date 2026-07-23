@@ -16,12 +16,6 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
 
 
 
-      {/* Decorative Traditional Border Accents */}
-      <div className="absolute left-4 top-4 h-24 w-24 border-l border-t border-amber-800/10" />
-      <div className="absolute right-4 top-4 h-24 w-24 border-r border-t border-amber-800/10" />
-      <div className="absolute left-4 bottom-4 h-24 w-24 border-l border-b border-amber-800/10" />
-      <div className="absolute right-4 bottom-4 h-24 w-24 border-r border-b border-amber-800/10" />
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12">
           
