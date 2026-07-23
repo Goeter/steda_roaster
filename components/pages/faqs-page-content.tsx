@@ -7,6 +7,8 @@ import { Reveal } from '@/components/reveal';
 import type { FAQCategory, FAQItem, FAQPageSection, SiteSettings } from '@/lib/cms-types';
 import { getWhatsappHref } from '@/lib/site';
 
+import { cmsFallbackContent } from '@/lib/cms-data';
+
 const iconMap = {
   coffee: Coffee,
   settings: Settings,
@@ -23,11 +25,15 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const safeFaqCategories = Array.isArray(faqCategories) && faqCategories.length > 0
+    ? faqCategories
+    : cmsFallbackContent.faqs.faqCategories;
+
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const activeFaqCategory = faqCategories[activeCategory] ?? faqCategories[0];
+  const activeFaqCategory = safeFaqCategories[activeCategory] ?? safeFaqCategories[0];
   const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
@@ -43,7 +49,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
         </Reveal>
 
         <Reveal delay={100} className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {faqCategories.map((category, index) => {
+          {safeFaqCategories.map((category, index) => {
             const Icon = iconMap[category.icon] ?? Coffee;
 
             return (

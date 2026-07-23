@@ -11,11 +11,19 @@ type AboutUsProps = {
 };
 
 export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
+  const rawDesc = aboutSection?.description as unknown;
+  const descriptionParagraphs: string[] =
+    Array.isArray(rawDesc) && rawDesc.length > 0
+      ? (rawDesc as string[])
+      : typeof rawDesc === 'string' && rawDesc.trim().length > 0
+      ? rawDesc.split('\n').filter(Boolean)
+      : [
+          'Sudah lebih dari 6 tahun, kami terus melakukan inovasi dan bekerja sama dengan para ahli roaster kopi terbaik di industri ini.',
+          'Baik usaha besar maupun kecil, kami tahu persis apa yang Anda butuhkan dan mengutamakan keinginan Anda.',
+        ];
+
   return (
     <section id="about" className="relative overflow-hidden bg-transparent py-24 text-gray-800">
-
-
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12">
           
@@ -56,7 +64,7 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
               </div>
 
               <div className="space-y-4 text-base font-semibold leading-relaxed text-neutral-800 text-timbul-dark">
-                {aboutSection.description.map((paragraph, index) => (
+                {descriptionParagraphs.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>

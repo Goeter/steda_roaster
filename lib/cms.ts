@@ -455,15 +455,36 @@ function normalizeFaqItems(value: unknown) {
   });
 }
 
+function normalizeAboutSection(value: unknown) {
+  if (!isRecord(value)) return value;
+
+  let description: string[] = [];
+  if (Array.isArray(value.description)) {
+    description = value.description.map(readString).filter(Boolean);
+  } else if (typeof value.description === 'string' && value.description.trim()) {
+    description = value.description.split('\n').map((s) => s.trim()).filter(Boolean);
+  }
+
+  if (description.length === 0) {
+    description = [...cmsFallbackContent.home.aboutSection.description];
+  }
+
+  return {
+    ...value,
+    description,
+  };
+}
+
 function normalizeCmsPayload(value: unknown) {
   if (!isRecord(value)) return value;
 
-  return {
+  const normalized = {
     ...value,
     ...(value.siteSettings !== undefined
       ? { siteSettings: normalizeSiteSettings(value.siteSettings) }
       : {}),
     ...(value.heroSection !== undefined ? { heroSection: normalizeHeroSection(value.heroSection) } : {}),
+    ...(value.aboutSection !== undefined ? { aboutSection: normalizeAboutSection(value.aboutSection) } : {}),
     ...(value.productPageSection !== undefined
       ? { productPageSection: normalizeProductPageSection(value.productPageSection) }
       : {}),
@@ -487,6 +508,8 @@ function normalizeCmsPayload(value: unknown) {
       ? { faqs: normalizeFaqItems(value.faqs) }
       : {}),
   };
+
+  return normalized;
 }
 
 /**

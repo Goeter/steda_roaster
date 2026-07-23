@@ -13,7 +13,36 @@ type FAQProps = {
 
 export function FAQ({ faqHomeSection, faqs }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const homeFaqs = faqs.slice(0, faqHomeSection.previewLimit);
+
+  const fallbackFaqs: FAQItem[] = [
+    {
+      id: 1,
+      question: 'Apa itu mesin roasting kopi Steda?',
+      answer:
+        'Mesin roasting kopi Steda adalah peralatan premium yang dirancang untuk memanggang biji kopi mentah dengan presisi tinggi guna menghasilkan aroma dan cita rasa terbaik.',
+    },
+    {
+      id: 2,
+      question: 'Siapa yang cocok menggunakan mesin Steda?',
+      answer:
+        'Mesin ini cocok untuk home roaster, kafe, roastery profesional, hingga industri kopi skala menengah dan besar.',
+    },
+    {
+      id: 3,
+      question: 'Apa keunggulan utama mesin roasting Steda?',
+      answer:
+        'Keunggulan utamanya meliputi kontrol suhu presisi, desain modern, efisiensi energi, serta daya tahan tinggi.',
+    },
+    {
+      id: 4,
+      question: 'Berapa kapasitas mesin roasting Steda?',
+      answer:
+        'Kapasitas mesin tersedia mulai dari 200 gram hingga 20 kilogram untuk memenuhi kebutuhan skala kecil hingga industri.',
+    },
+  ];
+
+  const safeFaqs = Array.isArray(faqs) && faqs.length > 0 ? faqs : fallbackFaqs;
+  const homeFaqs = safeFaqs.slice(0, faqHomeSection?.previewLimit || 4);
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
