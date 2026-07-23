@@ -31,17 +31,38 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+import { cmsFallbackContent } from '@/lib/cms-data';
+
 export default async function FAQsPage() {
   const [{ faqCategories, faqPageSection }, { siteSettings, siteMetadata }] = await Promise.all([
     getFAQsContent(),
     getLayoutContent(),
   ]);
 
+  const safeFaqCategories = (
+    Array.isArray(faqCategories) && faqCategories.length > 0
+      ? faqCategories
+      : cmsFallbackContent.faqs.faqCategories
+  ).map((cat, idx) => {
+    const fallbackCat =
+      cmsFallbackContent.faqs.faqCategories[idx] ??
+      cmsFallbackContent.faqs.faqCategories[0];
+    return {
+      ...cat,
+      title: cat.title || fallbackCat.title,
+      icon: cat.icon || fallbackCat.icon,
+      faqs:
+        Array.isArray(cat.faqs) && cat.faqs.length > 0
+          ? cat.faqs
+          : fallbackCat.faqs,
+    };
+  });
+
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqCategories.flatMap((category) =>
-      category.faqs.map((faq) => ({
+    mainEntity: safeFaqCategories.flatMap((category) =>
+      (category.faqs || []).map((faq) => ({
         '@type': 'Question',
         name: faq.question,
         acceptedAnswer: { '@type': 'Answer', text: faq.answer },
@@ -60,7 +81,7 @@ export default async function FAQsPage() {
     <>
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <FAQsPageContent faqCategories={faqCategories} faqPageSection={faqPageSection} siteSettings={siteSettings} />
+      <FAQsPageContent faqCategories={safeFaqCategories} faqPageSection={faqPageSection} siteSettings={siteSettings} />
     </>
   );
 }

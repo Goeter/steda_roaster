@@ -25,15 +25,33 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const safeFaqCategories = Array.isArray(faqCategories) && faqCategories.length > 0
-    ? faqCategories
-    : cmsFallbackContent.faqs.faqCategories;
+  const safeFaqCategories = (
+    Array.isArray(faqCategories) && faqCategories.length > 0
+      ? faqCategories
+      : cmsFallbackContent.faqs.faqCategories
+  ).map((cat, idx) => {
+    const fallbackCat =
+      cmsFallbackContent.faqs.faqCategories[idx] ??
+      cmsFallbackContent.faqs.faqCategories[0];
+    return {
+      ...cat,
+      title: cat.title || fallbackCat.title,
+      icon: cat.icon || fallbackCat.icon,
+      faqs:
+        Array.isArray(cat.faqs) && cat.faqs.length > 0
+          ? cat.faqs
+          : fallbackCat.faqs,
+    };
+  });
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   const activeFaqCategory = safeFaqCategories[activeCategory] ?? safeFaqCategories[0];
+  const activeFaqs = Array.isArray(activeFaqCategory?.faqs) && activeFaqCategory.faqs.length > 0
+    ? activeFaqCategory.faqs
+    : (cmsFallbackContent.faqs.faqCategories[activeCategory] ?? cmsFallbackContent.faqs.faqCategories[0]).faqs;
   const whatsappHref = getWhatsappHref(siteSettings);
 
   return (
@@ -73,7 +91,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
         </Reveal>
 
         <Reveal delay={150} className="space-y-4">
-          {activeFaqCategory?.faqs.map((faq: FAQItem, index: number) => (
+          {activeFaqs.map((faq: FAQItem, index: number) => (
             <div
               key={faq.id}
               className="overflow-hidden rounded-xl card-timbul"
