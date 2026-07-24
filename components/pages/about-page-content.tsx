@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckCircle, Eye, Target } from 'lucide-react';
+import { CheckCircle, Gem, Goal } from 'lucide-react';
 import { Reveal } from '@/components/reveal';
 import { AboutUs } from '@/components/sections/about-us';
 import { Benefits } from '@/components/sections/benefits';
@@ -74,7 +74,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
               <Reveal className="relative rounded-3xl border border-amber-800/10 bg-white/70 p-10 shadow-lg backdrop-blur-sm transition duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:shadow-xl" delay={100}>
                 <div className="mb-6 flex items-center gap-4">
                   <div className="rounded-2xl bg-amber-700 p-4 text-white shadow-md">
-                    <Eye size={28} />
+                    <Gem size={28} />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900">
                     {aboutPageSection.visionMission.visionTitle}
@@ -90,7 +90,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
               <Reveal className="relative rounded-3xl border border-amber-800/10 bg-white/70 p-10 shadow-lg backdrop-blur-sm transition duration-400 hover:-translate-y-1 hover:border-amber-600/20 hover:shadow-xl" delay={150}>
                 <div className="mb-6 flex items-center gap-4">
                   <div className="rounded-2xl bg-amber-700 p-4 text-white shadow-md">
-                    <Target size={28} strokeWidth={2} />
+                    <Goal size={28} />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900">
                     {aboutPageSection.visionMission.missionTitle}
