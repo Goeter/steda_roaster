@@ -124,7 +124,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={siteMetadata.language} className="scroll-smooth">
-      <body className="bg-[#FAF6F0] text-neutral-900 antialiased relative min-h-screen">
+      <body className="bg-[#faebd7] text-neutral-900 antialiased relative min-h-screen">
         <script
           type="application/ld+json"
           suppressHydrationWarning

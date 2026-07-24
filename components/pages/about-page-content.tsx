@@ -40,7 +40,7 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
 
 
 
-          <Reveal className="relative z-10 max-w-3xl px-6 rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl">
+          <Reveal className="relative z-10 max-w-3xl px-6 text-center">
             <h1 className="text-4xl font-black leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] md:text-5xl lg:text-6xl">
               {aboutPageSection.hero.heading}
             </h1>

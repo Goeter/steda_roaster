@@ -78,7 +78,7 @@ export function ProductsPageContent({ productPageSection, productSection, produc
 
           <div className="absolute inset-0 bg-black/25" />
 
-          <Reveal className="relative z-10 max-w-3xl px-6 rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl text-white">
+          <Reveal className="relative z-10 max-w-3xl px-6 text-center text-white">
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
               {productPageSection.hero.eyebrow}
             </p>

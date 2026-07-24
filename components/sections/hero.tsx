@@ -104,7 +104,7 @@ export function Hero({ heroSection }: HeroProps) {
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-black/10" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="animate-hero-content max-w-2xl text-left rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl">
+        <div className="animate-hero-content max-w-2xl text-left">
           <p className="mb-4 inline-flex rounded-full border border-amber-300/60 bg-black/40 px-4 py-2 text-sm font-bold text-amber-200 backdrop-blur-md shadow-md">
             {heroSection.eyebrow}
           </p>

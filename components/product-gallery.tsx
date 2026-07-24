@@ -43,7 +43,7 @@ export function ProductGallery({ images, productName, labels }: ProductGalleryPr
 
   return (
     <div className="w-full space-y-4">
-      <div className="group relative overflow-hidden rounded-[24px] bg-[#f7f5f0]">
+      <div className="group relative overflow-hidden rounded-[24px] bg-[#faebd7]">
         <div className="relative aspect-square w-full">
           <Image
             src={selectedImage}
@@ -90,7 +90,7 @@ export function ProductGallery({ images, productName, labels }: ProductGalleryPr
                   type="button"
                   onClick={() => setSelectedImage(image)}
                   aria-label={`${labels.thumbnailAriaLabelPrefix} ${index + 1}: ${productName}`}
-                  className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-[#f7f5f0] transition sm:h-24 sm:w-24 ${
+                  className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-[#faebd7] transition sm:h-24 sm:w-24 ${
                     isActive
                       ? 'border-amber-700 ring-2 ring-amber-700/20'
                       : 'border-neutral-200 hover:border-amber-500'
