@@ -8,7 +8,8 @@ import type { SiteSettings } from '@/lib/cms-types';
 import { NAVIGATION_ITEMS } from '@/lib/navigation';
 
 type NavbarProps = {
-  siteSettings: Pick<SiteSettings, 'siteName'>;
+  // [MODIFIED] Added 'tagline' to pick so the Navbar can receive dynamic CMS tagline
+  siteSettings: Pick<SiteSettings, 'siteName' | 'tagline'>;
 };
 
 export function Navbar({ siteSettings }: NavbarProps) {
@@ -16,6 +17,12 @@ export function Navbar({ siteSettings }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const menuItems = NAVIGATION_ITEMS;
+  
+  // [MODIFIED] Split siteName dynamically so the first word can be colored yellow, and the rest white.
+  // Originally this was hardcoded to "STEDA" and "ROASTER".
+  const siteNameParts = siteSettings.siteName ? siteSettings.siteName.split(' ') : ['STEDA', 'ROASTER'];
+  const firstWord = siteNameParts[0] || 'STEDA';
+  const restWords = siteNameParts.slice(1).join(' ');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,11 +62,13 @@ export function Navbar({ siteSettings }: NavbarProps) {
           <Link href="/" className="group flex-shrink-0">
             <div className="flex flex-col leading-tight">
               <span className="text-base font-extrabold tracking-widest sm:text-lg">
-                <span className="text-yellow-400">STEDA</span>
-                <span className="ml-1.5 text-white">ROASTER</span>
+                {/* [MODIFIED] Split logic: first word is yellow, rest words are white */}
+                <span className="text-yellow-400">{firstWord}</span>
+                {restWords && <span className="ml-1.5 text-white">{restWords}</span>}
               </span>
+              {/* [MODIFIED] Using dynamic tagline from CMS instead of hardcoded "SPECIALIST ROASTERY MACHINES" */}
               <span className="text-[9px] font-medium tracking-[0.2em] text-white/70 sm:text-[10px]">
-                SPECIALIST ROASTERY MACHINES
+                {siteSettings.tagline || 'SPECIALIST ROASTERY MACHINES'}
               </span>
             </div>
           </Link>
