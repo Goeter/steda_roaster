@@ -142,7 +142,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
         <Reveal delay={300} className="mt-6 text-center">
           <Link
             href={faqPageSection.backHref}
-            className="inline-block rounded-full bg-[#3e2723] px-8 py-3 font-semibold text-white shadow-md transition hover:bg-[#2f1b16]"
+            className="inline-block rounded-full bg-[#6f4e37] px-8 py-3 font-semibold text-white shadow-md transition hover:bg-[#5d4037]"
           >
             {faqPageSection.backLabel}
           </Link>

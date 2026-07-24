@@ -37,8 +37,8 @@ export function Navbar({ siteSettings }: NavbarProps) {
     <nav
       className={`fixed left-0 top-0 z-[999] w-full transition-all duration-500 ${
         scrolled
-          ? 'bg-[#2b1b12]/95 py-1 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl border-b border-amber-500/20'
-          : 'bg-[#2b1b12] py-1.5'
+          ? 'bg-[#6f4e37]/95 py-1 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-xl border-b border-amber-500/20'
+          : 'bg-[#6f4e37] py-1.5'
       }`}
     >
       {/* Bottom accent line */}
@@ -125,7 +125,7 @@ export function Navbar({ siteSettings }: NavbarProps) {
             isOpen ? 'mt-4 max-h-[420px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="space-y-1 rounded-2xl border border-amber-500/20 bg-[#2b1b12]/95 p-3 shadow-2xl shadow-black/20 backdrop-blur-2xl">
+          <div className="space-y-1 rounded-2xl border border-amber-500/20 bg-[#6f4e37]/95 p-3 shadow-2xl shadow-black/20 backdrop-blur-2xl">
             {menuItems.map((item, index) => {
               const isActive = pathname === item.href;
 
