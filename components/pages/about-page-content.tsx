@@ -36,15 +36,15 @@ export function AboutPageContent({ aboutPageSection, aboutSection, benefitsSecti
             className="object-cover object-center"
           />
 
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/25" />
 
 
 
-          <Reveal className="relative z-10 max-w-3xl px-4">
-            <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+          <Reveal className="relative z-10 max-w-3xl px-6 rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl">
+            <h1 className="text-4xl font-black leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] md:text-5xl lg:text-6xl">
               {aboutPageSection.hero.heading}
             </h1>
-            <p className="mt-4 text-lg text-gray-200 md:text-xl">
+            <p className="mt-4 text-lg font-semibold text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] md:text-xl">
               {aboutPageSection.hero.description}
             </p>
           </Reveal>

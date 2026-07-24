@@ -76,18 +76,18 @@ export function ProductsPageContent({ productPageSection, productSection, produc
             className="object-cover"
           />
 
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/25" />
 
-          <Reveal className="relative z-10 max-w-3xl px-6 text-white">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-200">
+          <Reveal className="relative z-10 max-w-3xl px-6 rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl text-white">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
               {productPageSection.hero.eyebrow}
             </p>
 
-            <h1 className="text-4xl font-bold md:text-5xl">
+            <h1 className="text-4xl font-black text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] md:text-5xl">
               {productPageSection.hero.heading}
             </h1>
 
-            <p className="mt-4 text-lg text-white/85">
+            <p className="mt-4 text-lg font-semibold text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               {productPageSection.hero.description}
             </p>
           </Reveal>

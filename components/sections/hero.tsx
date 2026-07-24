@@ -101,20 +101,19 @@ export function Hero({ heroSection }: HeroProps) {
         />
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-black/10" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="animate-hero-content max-w-2xl text-left">
-          <p className="mb-4 inline-flex rounded-full border border-amber-300/50 bg-black/30 px-4 py-2 text-sm font-bold text-amber-200 backdrop-blur-md text-timbul-white shadow-md">
+        <div className="animate-hero-content max-w-2xl text-left rounded-3xl bg-black/35 p-6 sm:p-8 backdrop-blur-md border border-white/15 shadow-2xl">
+          <p className="mb-4 inline-flex rounded-full border border-amber-300/60 bg-black/40 px-4 py-2 text-sm font-bold text-amber-200 backdrop-blur-md shadow-md">
             {heroSection.eyebrow}
           </p>
 
-          <h1 className="text-balance text-4xl font-black leading-tight text-white text-timbul-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-4xl font-black leading-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] sm:text-5xl lg:text-6xl">
             {heroSection.heading}
           </h1>
 
-          <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-white text-timbul-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] sm:text-lg">
+          <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] sm:text-lg">
             {heroSection.description}
           </p>
 
