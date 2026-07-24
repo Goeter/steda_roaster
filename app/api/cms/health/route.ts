@@ -1,3 +1,4 @@
+import { timingSafeEqual } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import {
   CMS_DEFAULT_ENDPOINTS,
@@ -46,8 +47,39 @@ function unwrap(value: unknown) {
   return isRecord(value) && 'data' in value ? value.data : value;
 }
 
-export async function GET() {
+function secretsMatch(expected: string, supplied: string) {
+  const expectedBuffer = Buffer.from(expected);
+  const suppliedBuffer = Buffer.from(supplied);
+
+  if (expectedBuffer.length !== suppliedBuffer.length) return false;
+  return timingSafeEqual(expectedBuffer, suppliedBuffer);
+}
+
+export async function GET(request: Request) {
   const config = getCmsRuntimeConfig();
+
+  // --- Auth gate: require the same secret used by the revalidate endpoint ---
+  const { revalidateSecret } = config;
+
+  if (!revalidateSecret) {
+    return NextResponse.json(
+      { message: 'CMS_REVALIDATE_SECRET is not configured.' },
+      { status: 500, headers: { 'Cache-Control': 'no-store' } },
+    );
+  }
+
+  const suppliedSecret =
+    request.headers.get('x-cms-revalidate-secret') ||
+    request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ||
+    '';
+
+  if (!suppliedSecret || !secretsMatch(revalidateSecret, suppliedSecret)) {
+    return NextResponse.json(
+      { message: 'Unauthorized.' },
+      { status: 401, headers: { 'Cache-Control': 'no-store' } },
+    );
+  }
+  // --- End auth gate ---
 
   if (!config.apiUrl) {
     return NextResponse.json(

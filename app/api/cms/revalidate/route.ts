@@ -10,6 +10,52 @@ import {
 const ALLOWED_TAGS = new Set<string>(Object.values(CMS_TAGS));
 const MAX_REVALIDATE_BODY_BYTES = 16_384;
 
+// ---------------------------------------------------------------------------
+// Rate Limiting — sliding-window per IP
+// ---------------------------------------------------------------------------
+const RATE_LIMIT_WINDOW_MS = 60_000; // 60 seconds
+const RATE_LIMIT_MAX_REQUESTS = 10; // max 10 requests per window
+
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+function getRateLimitedResponse() {
+  return NextResponse.json(
+    { message: 'Too many requests. Try again later.' },
+    {
+      status: 429,
+      headers: {
+        'Retry-After': '60',
+        'Cache-Control': 'no-store',
+      },
+    },
+  );
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+
+  // Cleanup stale entries when the map grows beyond a safe threshold
+  if (rateLimitStore.size > 1_000) {
+    for (const [key, entry] of rateLimitStore) {
+      if (entry.resetAt <= now) rateLimitStore.delete(key);
+    }
+  }
+
+  const entry = rateLimitStore.get(ip);
+
+  if (!entry || entry.resetAt <= now) {
+    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX_REQUESTS;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
 type RevalidateBody = {
   secret?: string;
   tags?: string[];
@@ -55,7 +101,30 @@ async function readBody(request: Request): Promise<RevalidateBody | null> {
   }
 }
 
+function getClientIp(request: Request): string {
+  // Vercel / Cloudflare / standard proxy headers
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+
+  const realIp = request.headers.get('x-real-ip');
+  if (realIp) return realIp.trim();
+
+  return 'unknown';
+}
+
+// ---------------------------------------------------------------------------
+// Route handler
+// ---------------------------------------------------------------------------
+
 export async function POST(request: Request) {
+  // 1. Rate limit — checked BEFORE secret validation to save compute
+  const clientIp = getClientIp(request);
+  if (isRateLimited(clientIp)) {
+    console.warn(`[cms:revalidate] Rate limited IP: ${clientIp}`);
+    return getRateLimitedResponse();
+  }
+
+  // 2. Secret validation
   const { revalidateSecret } = getCmsRuntimeConfig();
 
   if (!revalidateSecret) {
@@ -81,6 +150,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Invalid revalidation secret.' }, { status: 401 });
   }
 
+  // 3. Validate tags & paths
   const tags = body.tags?.length ? Array.from(new Set(body.tags)) : [CMS_TAGS.all];
   const paths = body.paths?.length ? Array.from(new Set(body.paths)) : [];
 
@@ -96,8 +166,13 @@ export async function POST(request: Request) {
     }
   }
 
+  // 4. Execute revalidation
   tags.forEach((tag) => revalidateTag(tag, { expire: 0 }));
   paths.forEach((path) => revalidatePath(path));
+
+  console.log(
+    `[cms:revalidate] Admin-triggered revalidation: tags=[${tags.join(',')}], paths=[${paths.join(',')}], ip=${clientIp}`,
+  );
 
   return NextResponse.json({
     revalidated: true,
