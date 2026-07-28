@@ -129,21 +129,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      <main className="relative min-h-screen overflow-hidden bg-[#faebd7] pt-24 pb-20 animate-page-enter">
-        {/* Background */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,#faebd7_0%,#f5e3cc_30%,#ebd7c0_60%,#faebd7_100%)]" />
-
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_15%_0%,rgba(217,165,80,0.16),transparent_60%),radial-gradient(ellipse_50%_40%_at_90%_10%,rgba(160,100,40,0.10),transparent_55%),radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(180,140,80,0.08),transparent_60%)]" />
-
-          <div className="absolute -left-24 top-10 h-[560px] w-[560px] rounded-full bg-amber-300/20 blur-[140px]" />
-          <div className="absolute -right-20 top-32 h-[420px] w-[420px] rounded-full bg-orange-200/20 blur-[120px]" />
-          <div className="absolute bottom-0 left-1/2 h-[320px] w-[700px] -translate-x-1/2 rounded-full bg-yellow-200/25 blur-[100px]" />
-
-          <div className="absolute inset-0 bg-[radial-gradient(rgba(101,67,33,0.07)_1px,transparent_1px)] bg-[size:28px_28px] [mask-image:linear-gradient(to_bottom,black,transparent_55%)]" />
-
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#faebd7]/80 to-transparent" />
-        </div>
+      <main className="relative min-h-screen overflow-hidden bg-transparent pt-24 pb-20 animate-page-enter">
 
         <article className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Header */}

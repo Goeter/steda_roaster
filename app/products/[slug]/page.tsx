@@ -178,7 +178,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <main className="min-h-screen overflow-hidden bg-[#faebd7] pt-20 animate-page-enter">
+      <main className="min-h-screen overflow-hidden bg-transparent pt-20 animate-page-enter">
         <ProductActions title={product.name} labels={productDetailSection} />
 
         <section className="relative mx-auto max-w-[1400px] px-4 py-10 sm:px-6 lg:px-10 lg:py-16">
