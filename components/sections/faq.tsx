@@ -88,7 +88,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
                   href="https://wa.me/628123456789"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#6f4e37] hover:bg-[#5d4037] px-5 py-2.5 text-xs font-bold text-white shadow-md transition-all hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#835c43] hover:bg-[#6f4e37] px-5 py-2.5 text-xs font-bold text-white shadow-md transition-all hover:scale-105"
                 >
                   <span>Chat CS via WhatsApp</span>
                   <span>→</span>
@@ -139,7 +139,7 @@ export function FAQ({ faqHomeSection, faqs }: FAQProps) {
             <Reveal delay={200} className="pt-2">
               <Link
                 href={faqHomeSection.ctaHref}
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#6f4e37] px-6 py-3 font-semibold text-white transition-all duration-300 ease-out hover:scale-105 hover:bg-[#5d4037] hover:shadow-xl"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#835c43] px-6 py-3 font-semibold text-white transition-all duration-300 ease-out hover:scale-105 hover:bg-[#6f4e37] hover:shadow-lg"
               >
                 <span className="relative z-10">{faqHomeSection.ctaLabel}</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">

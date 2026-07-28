@@ -140,7 +140,7 @@ export function Product({ productPageSection, productSection, products }: Produc
         <Reveal className="mt-10" delay={200}>
           <Button
             asChild
-            className="group rounded-full bg-[#6f4e37] px-8 py-6 text-base font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#5d4037] hover:shadow-xl"
+            className="group rounded-full bg-[#835c43] px-8 py-6 text-base font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#6f4e37] hover:shadow-lg"
           >
             <Link href={productSection.ctaHref}>
               {productSection.ctaLabel}

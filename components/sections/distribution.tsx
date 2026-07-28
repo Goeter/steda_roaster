@@ -198,7 +198,7 @@ export function Distribution({ distributionSection }: DistributionProps) {
               <div className="mt-7">
                 <Button
                   asChild
-                  className="group h-12 rounded-full bg-[#6f4e37] px-7 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#5d4037] hover:shadow-lg"
+                  className="group h-12 rounded-full bg-[#835c43] px-7 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#6f4e37] hover:shadow-lg"
                 >
                   <Link href={distributionSection.ctaHref}>
                     {distributionSection.ctaLabel}

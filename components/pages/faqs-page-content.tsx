@@ -79,7 +79,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
                 }}
                 className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-extrabold transition-all duration-300 ${
                   activeCategory === index
-                    ? 'bg-[#6f4e37] hover:bg-[#5d4037] text-white shadow-lg border border-amber-500/30'
+                    ? 'bg-[#835c43] hover:bg-[#6f4e37] text-white shadow-lg border border-amber-500/30'
                     : 'card-timbul text-neutral-800 hover:bg-white'
                 }`}
               >
@@ -132,7 +132,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[#6f4e37] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[#5d4037]"
+            className="inline-flex items-center gap-2 rounded-full bg-[#835c43] px-6 py-3 font-semibold text-white shadow-md transition hover:bg-[#6f4e37]"
           >
             <MessageCircle size={18} />
             {faqPageSection.contactCtaLabel}
@@ -142,7 +142,7 @@ export function FAQsPageContent({ faqCategories, faqPageSection, siteSettings }:
         <Reveal delay={300} className="mt-6 text-center">
           <Link
             href={faqPageSection.backHref}
-            className="inline-block rounded-full bg-[#6f4e37] px-8 py-3 font-semibold text-white shadow-md transition hover:bg-[#5d4037]"
+            className="inline-block rounded-full bg-[#835c43] px-8 py-3 font-semibold text-white shadow-md transition hover:bg-[#6f4e37]"
           >
             {faqPageSection.backLabel}
           </Link>
