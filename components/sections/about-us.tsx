@@ -73,7 +73,7 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
                 <div className="pt-2">
                   <Button
                     asChild
-                    className="rounded-full bg-amber-700 px-8 py-6 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-xl"
+                    className="rounded-full bg-[#6f4e37] px-8 py-6 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#5d4037] hover:shadow-xl"
                   >
                     {aboutSection.ctaHref.startsWith('http') ? (
                       <a
