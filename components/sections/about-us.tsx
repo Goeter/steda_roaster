@@ -54,7 +54,7 @@ export function AboutUs({ aboutSection, showCta = true }: AboutUsProps) {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-600" />
-                  <span className="text-xs font-extrabold uppercase tracking-[0.3em] text-amber-800 text-timbul-amber">Who We Are</span>
+                  <span className="text-xs font-extrabold uppercase tracking-[0.3em] text-amber-800 text-timbul-amber">{aboutSection.heading}</span>
                   <div className="h-px flex-1 bg-gradient-to-r from-amber-600/30 to-transparent" />
                 </div>
                 <h2 className="text-3xl font-black leading-tight text-neutral-900 text-timbul-heading sm:text-4xl">

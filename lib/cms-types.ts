@@ -295,6 +295,8 @@ export type FooterSection = {
 
 export type SiteSettings = {
   siteName: string;
+  // [ADDED] Custom tagline from CMS Site Settings to override hardcoded "SPECIALIST ROASTERY MACHINES"
+  tagline?: string;
   description: string;
   phoneNumber: string;
   whatsappNumber: string;

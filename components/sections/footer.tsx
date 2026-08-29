@@ -23,6 +23,11 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
   const phoneLabel = formatPhoneNumber(siteSettings.phoneNumber);
   const whatsappHref = getWhatsappHref(siteSettings);
 
+  // [MODIFIED] Split siteName dynamically so the first word can be colored yellow, and the rest white.
+  const siteNameParts = siteSettings.siteName ? siteSettings.siteName.split(' ') : ['STEDA', 'ROASTER'];
+  const firstWord = siteNameParts[0] || 'STEDA';
+  const restWords = siteNameParts.slice(1).join(' ');
+
   return (
     <footer id="contact" className="bg-[#6f4e37]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -30,16 +35,19 @@ export function Footer({ footerSection, siteSettings }: FooterProps) {
           <div className="space-y-4">
             <div className="flex flex-col leading-tight">
               <span className="text-lg font-extrabold tracking-widest">
-                <span className="text-amber-400">STEDA</span>
-                <span className="ml-1.5 text-white">ROASTER</span>
+                {/* [MODIFIED] Split logic: first word is amber, rest words are white */}
+                <span className="text-amber-400">{firstWord}</span>
+                {restWords && <span className="ml-1.5 text-white">{restWords}</span>}
               </span>
+              {/* [MODIFIED] Using dynamic tagline from CMS instead of hardcoded "SPECIALIST ROASTERY MACHINES" */}
               <span className="text-[10px] font-medium tracking-[0.2em] text-white/70">
-                SPECIALIST ROASTERY MACHINES
+                {siteSettings.tagline || 'SPECIALIST ROASTERY MACHINES'}
               </span>
             </div>
             <p className="text-sm text-white/70">{footerSection.description}</p>
             <p className="text-xs text-white/50">
-              © {currentYear} {siteSettings.siteName}. {footerSection.copyright}
+            {/* [MODIFIED] Added regex replace to strip duplicated copyright prefix if CMS already includes it */}
+              © {currentYear} {siteSettings.siteName}. {footerSection.copyright?.replace(/^©\s*\d{4}\s*Steda\s*Roaster\.?\s*/i, '')}
             </p>
           </div>
 
